@@ -112,8 +112,20 @@ const vite = spawn("npm", ["run", "dev", "--", "--host", "127.0.0.1", "--port", 
   stdio: ["ignore", "pipe", "pipe"]
 });
 let viteLog = "";
-vite.stdout.on("data", (chunk) => { viteLog += chunk.toString(); });
-vite.stderr.on("data", (chunk) => { viteLog += chunk.toString(); });
+vite.stdout.on("data", (chunk) => {
+  const text = chunk.toString();
+  viteLog += text;
+  if (text.includes("[NEE export audit]") || text.includes("VITE v")) {
+    process.stdout.write(text);
+  }
+});
+vite.stderr.on("data", (chunk) => {
+  const text = chunk.toString();
+  viteLog += text;
+  if (text.includes("[NEE export audit]") || text.includes("warning") || text.includes("error")) {
+    process.stdout.write(text);
+  }
+});
 
 let browser;
 try {
@@ -135,6 +147,14 @@ try {
     if (text.includes("[M1 renderer] finished")) {
       rendererFinished = true;
       rendererFinishMessage = text;
+      process.stdout.write(text + "\n");
+    }
+    const frameMatch = text.match(/^\\[M1 renderer\\] frame (\\d+)$/);
+    if (frameMatch) {
+      const frame = Number(frameMatch[1]);
+      if (frame === 0 || frame % 96 === 0 || frame === EXPECTED_FRAMES - 1) {
+        process.stdout.write(`[M1 CI progress] renderer frame ${frame}/${EXPECTED_FRAMES - 1}\\n`);
+      }
     }
     if (
       message.type() === "error" ||
@@ -276,13 +296,24 @@ try {
   }
 
   // Engine completion, not a remounted button attribute, is authoritative.
-  const deadline = Date.now() + RENDER_TIMEOUT_MS;
+  const renderStartedAt = Date.now();
+  const deadline = renderStartedAt + RENDER_TIMEOUT_MS;
   let finalFrames = null;
+  let lastReportedFrameCount = 0;
   while (Date.now() < deadline && !rendererFinished) {
     finalFrames = await findFrameDirectory(OUTPUT_ROOT);
+    const frameCount = finalFrames?.pngs.length ?? 0;
+    if (frameCount >= lastReportedFrameCount + 96 || (frameCount === EXPECTED_FRAMES && frameCount !== lastReportedFrameCount)) {
+      lastReportedFrameCount = frameCount;
+      const elapsedSeconds = Math.round((Date.now() - renderStartedAt) / 1000);
+      process.stdout.write(`[M1 CI progress] PNG files ${frameCount}/${EXPECTED_FRAMES}; elapsed ${elapsedSeconds}s\\n`);
+    }
     await sleep(1000);
   }
   finalFrames = await findFrameDirectory(OUTPUT_ROOT);
+  process.stdout.write(
+    `[M1 CI result] rendererFinished=${rendererFinished}; PNG files=${finalFrames?.pngs.length ?? 0}/${EXPECTED_FRAMES}; elapsed=${Math.round((Date.now() - renderStartedAt) / 1000)}s\\n`
+  );
 
   if (!rendererFinished || !finalFrames || finalFrames.pngs.length !== EXPECTED_FRAMES) {
     const status = await renderButton.evaluate((button) => ({
