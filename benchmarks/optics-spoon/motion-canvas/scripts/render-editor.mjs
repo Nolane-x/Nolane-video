@@ -92,15 +92,18 @@ try {
 
   await page.goto(URL, {waitUntil: "domcontentloaded", timeout: 120000});
   const settingsTab = page.locator("#rendering-tab");
+  const settingsPane = page.locator("#settings-pane");
   await settingsTab.waitFor({state: "visible", timeout: 120000});
   const renderButton = page.locator("#render");
 
-  // Motion Canvas defaults to the Video Settings panel being open. Its tab is
-  // a toggle, so clicking it unconditionally closes the very panel we need.
-  if (await renderButton.count() === 0) {
+  // Motion Canvas defaults to Video Settings. The tab toggles the panel,
+  // therefore inspect the actual pane instead of clicking based on a transient
+  // button count while the editor is still mounting.
+  if (!(await settingsPane.isVisible().catch(() => false))) {
     await settingsTab.click();
   }
   try {
+    await settingsPane.waitFor({state: "visible", timeout: 45000});
     await renderButton.waitFor({state: "visible", timeout: 45000});
   } catch {
     const debug = {
