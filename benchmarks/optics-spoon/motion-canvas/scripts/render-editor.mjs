@@ -139,12 +139,23 @@ try {
         .first();
       await renderingHeader.waitFor({state: "visible", timeout: 15000});
       const toggle = renderingHeader.locator("button").first();
-      const isExpanded = await toggle.evaluate((element) =>
+      const isExpanded = () => toggle.evaluate((element) =>
         element.className.split(" ").some((name) => name.includes("_open_"))
       );
-      if (!isExpanded) {
-        await renderingHeader.click();
+
+      // Some headless Preact mounts can show the initial expanded arrow while
+      // the AnimatedCollapse child tree has not mounted. A real close/open
+      // cycle re-runs the component's visibility lifecycle deterministically.
+      if (await isExpanded()) {
+        await toggle.click({force: true});
+        await page.waitForFunction(() =>
+          !document.querySelector("#settings-pane ._title_1npk1_6 button")?.className.includes("_open_")
+        );
       }
+      await toggle.click({force: true});
+      await page.waitForFunction(() =>
+        document.querySelector("#settings-pane ._title_1npk1_6 button._open_hvw7c_297") !== null
+      );
     }
     await renderButton.waitFor({state: "visible", timeout: 45000});
   } catch {
