@@ -23,8 +23,8 @@ Read in this order before exploring or editing:
 5. docs/REFERENCE_ENGINE_STUDY.md
 6. docs/ANIMATION_CRAFT_STANDARDS.md
 7. docs/ROADMAP.md
-7. docs/STATE.md
-8. docs/AI_HANDOFF.md
+8. docs/STATE.md
+9. docs/AI_HANDOFF.md
 
 After reading, inspect the actual current branch, HEAD commit, repository tree, latest commit, and uncommitted changes available in the workspace. A previous handoff is a starting map, not proof that the repository has not changed.
 
