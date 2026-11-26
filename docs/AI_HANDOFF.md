@@ -91,16 +91,11 @@ Keep Manim in its specialist math/diagram role unless evidence says otherwise.
 
 ### Motion Canvas 3.17.2
 
-Build/typecheck and editor launch work, but full render is not passing:
-- run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773): 96/1,728 PNGs;
-- run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915): 74/1,728 PNGs;
-- run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545): all six checkpoints complete at frame 1,728 / 72 seconds / 24 fps, no page errors, but only 91 PNGs were found.
+Motion Canvas renderer completion is now confirmed. Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) reports `RendererResult.Success`, `lastFrame: 1728`, and 1,729 unique PNG exports (frames 0–1,728). The earlier partial counts came from the automation prematurely inferring completion from the UI's `data-rendering` attribute; the script now waits for `renderer.onFinished`.
 
-No complete Motion Canvas MP4 exists yet. The scene timeline is verified; do not keep editing its waits based on the partial PNG count. The remaining problem is likely the actual render range, WebSocket export event path, file writes or how the output directory is enumerated.
+The remaining off-by-one was the inclusive 72-second range endpoint. Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets `project.meta` range end to `71.95833333333333` seconds, so 24 fps produces exactly frames 0–1,727 (1,728 images) while the MP4 remains 72.000 seconds.
 
-The new diagnostic commit adds a Vite `motion-canvas:export` event counter/`__m1-export-audit` endpoint, Playwright inspection of range inputs and localStorage, file count/extension/path summaries, and an `always()` artifact upload for the output/debug directory.
-
-**Immediate task:** inspect the run associated with commit `aca94f7c224d222ba862fa9330f7894e22e7c534`. Compare the range end value, WebSocket `received` and `uniqueFrames`, and output files. Fix the proven issue; retain the exact 1,728-frame acceptance gate.
+No Motion Canvas MP4 has passed the exact-count/ffprobe gate yet. **Immediate task:** inspect run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148). Require exactly 1,728 sequential PNGs, then H.264 1920×1080, 24 fps and 72 seconds. Review the contact sheet and moving sequence before scoring. Audio has not been added.
 
 ## Important implementation findings
 
@@ -109,7 +104,7 @@ The new diagnostic commit adds a Vite `motion-canvas:export` event counter/`__m1
 - Do not add Motion Canvas's optional FFmpeg exporter; its package declares GPLv3. Use independent FFmpeg after PNG sequence creation.
 - Motion Canvas editor UI stores expandable state by project name. The Vite entry is `src/project.ts`, so storage namespace is `project-*`.
 - Headless UI uses `prefers-reduced-motion: reduce` to choose its immediate `ReducedCollapse`. This changes editor UI mounting only, not authored scene motion.
-- Project meta pins 1920×1080, 24 fps, `range: [0,72]`, sRGB and the core image-sequence exporter.
+- Project meta pins 1920×1080, 24 fps, sRGB and the core image-sequence exporter. Its `range` end is the final included frame timestamp `71.95833333333333` s so the render interval contains exactly 1,728 samples.
 - Remotion's two-tier license needs a separate product-adoption review before redistribution/commercial embedding.
 - H2 in `Nolane-x/video` has not been copied. Audit provenance/license before reuse.
 
@@ -127,8 +122,8 @@ Motion Canvas job:
 - `npm install --no-audit --no-fund`
 - `npx playwright install --with-deps chromium`
 - `npm run build`
-- `npm run render` — launches Vite/editor, uses the official editor's Render button, counts sequential six-digit PNGs, then FFmpeg encodes MP4 and makes a contact sheet.
-- Required acceptance is exactly 1,728 frames; do not lower this threshold.
+- `npm run render` — launches Vite/editor, uses the official editor's Render button, waits for `renderer.onFinished` (not a UI data attribute), checks the sequential six-digit PNGs, then FFmpeg encodes MP4/contact sheet.
+- Required acceptance is exactly 1,728 frames (000000–001727); do not lower the threshold.
 
 Manim job:
 - Python 3.12, ffmpeg, Cairo/Pango.
