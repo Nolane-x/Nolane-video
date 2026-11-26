@@ -92,13 +92,13 @@ Verified:
 - Current exporter uses Motion Canvas core's image-sequence exporter plus independent FFmpeg; GPLv3 FFmpeg exporter is not included.
 
 Not verified:
-- Full render does not pass. Run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) stopped at 96/1,728 PNGs. Run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915) stopped at 74/1,728 PNGs.
+- Full render does not pass. Runs [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) and [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915) found 96 and 74 PNGs respectively. Run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) confirms all six scene checkpoints complete at frame 1,728 / 72 seconds / 24 fps, with no browser page errors; its output directory still contained only 91 PNGs. The scene generator is therefore not the cause.
 - No Motion Canvas MP4 is accepted as complete.
 
 Diagnostic changes in branch HEAD:
-- The scene logs `scene-start` and `S01–S06-complete` playback frame/time/fps checkpoints.
-- The Playwright script captures browser console errors/warnings and includes them when frame count is short.
-- Run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) is associated with this diagnostic code. Inspect its fresh job logs before further timing changes.
+- A Vite audit plugin counts `motion-canvas:export` messages and exposes `/__m1-export-audit`.
+- Playwright captures renderer range inputs, localStorage, output file counts/extensions, browser console and Vite log; workflow uploads diagnostics even on render failure.
+- Audit workflow associated with commit `aca94f7c224d222ba862fa9330f7894e22e7c534` is the next evidence source.
 
 ## 6. Test and workflow facts
 
@@ -117,7 +117,7 @@ Diagnostic changes in branch HEAD:
 
 ## 8. What remains open
 
-- Diagnose and fix Motion Canvas's early scene termination.
+- Diagnose Motion Canvas range/export/file-writing pipeline; do not change the already verified 72-second scene timeline without evidence.
 - Rerun current validator tests after latest changes and before merging.
 - Inspect latest Remotion/Manim artifacts and complete shot-by-shot visual review.
 - Add real approved voice, captions and synchronized SFX before claiming audio QA.
@@ -127,4 +127,4 @@ Diagnostic changes in branch HEAD:
 
 ## 9. Next concrete task
 
-Inspect run `45836821545` for the new `[M1 Motion Canvas]` shot checkpoints and browser-console errors. Identify why the scene ends before 1,728 frames, fix the cause rather than padding a static tail, and rerun the image-sequence render and ffprobe gate.
+Inspect the audit run for commit `aca94f7c224d222ba862fa9330f7894e22e7c534`. Compare UI range inputs, WebSocket export count/unique frames and the actual file tree. Fix the proven issue, keep the strict 1,728-frame gate, then rerun and inspect the complete MP4/contact sheet.
