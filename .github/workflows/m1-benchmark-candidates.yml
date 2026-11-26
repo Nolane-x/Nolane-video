@@ -67,9 +67,9 @@ jobs:
           retention-days: 30
 
   motion-canvas:
-    name: Motion Canvas 3.17.2 — 2D project build
+    name: Motion Canvas 3.17.2 — full film image-sequence render
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: benchmarks/optics-spoon/motion-canvas
@@ -78,15 +78,39 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
       - name: Install pinned dependencies
         run: npm install --no-audit --no-fund
+      - name: Install headless Chromium
+        run: npx playwright install --with-deps chromium
       - name: Build and type-check editor project
         run: npm run build
-      - name: Upload Motion Canvas build
+      - name: Render 1,728 frames through the official editor
+        run: npm run render
+      - name: Probe and verify Motion Canvas MP4
+        run: |
+          ffprobe -v error -show_streams -show_format -of json out/optics-spoon.mp4 > out/ffprobe.json
+          cat out/ffprobe.json
+          python - <<'PY'
+          import json
+          data = json.load(open("out/ffprobe.json", encoding="utf-8"))
+          video = next(stream for stream in data["streams"] if stream["codec_type"] == "video")
+          assert video["width"] == 1920 and video["height"] == 1080, video
+          assert video["r_frame_rate"] == "24/1", video
+          assert abs(float(data["format"]["duration"]) - 72.0) < 0.1, data["format"]
+          print("Motion Canvas technical gate: 1920x1080, 24 fps, 72 seconds")
+          PY
+      - name: Upload Motion Canvas candidate
         uses: actions/upload-artifact@v4
         with:
-          name: m1-motion-canvas-build
-          path: benchmarks/optics-spoon/motion-canvas/dist/
+          name: m1-motion-canvas-candidate
+          path: |
+            benchmarks/optics-spoon/motion-canvas/out/optics-spoon.mp4
+            benchmarks/optics-spoon/motion-canvas/out/render-report.json
+            benchmarks/optics-spoon/motion-canvas/out/ffprobe.json
           if-no-files-found: error
           retention-days: 30
 
