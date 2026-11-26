@@ -18,7 +18,9 @@ from manim import (
     Write,
     Arrow,
 )
+import json
 import math
+from pathlib import Path
 import numpy as np
 
 
@@ -26,9 +28,11 @@ class RefractionSegment(Scene):
     """S04-S05: correct water-to-air refraction and apparent image position."""
 
     def construct(self):
-        n_water = 1.333
-        n_air = 1.0003
-        theta_water_deg = 40.0
+        geometry_path = Path(__file__).resolve().parents[1] / "shared" / "diagram.json"
+        geometry = json.loads(geometry_path.read_text(encoding="utf-8"))
+        n_water = geometry["water_refractive_index"]
+        n_air = geometry["air_refractive_index"]
+        theta_water_deg = geometry["incident_angle_from_normal_deg"]
         theta_air_deg = math.degrees(
             math.asin((n_water / n_air) * math.sin(math.radians(theta_water_deg)))
         )
@@ -45,12 +49,17 @@ class RefractionSegment(Scene):
         air_label = Text("KHÔNG KHÍ", font_size=30, color=WHITE).move_to([-5.0, 2.7, 0])
 
         point = np.array([0.0, boundary_y, 0])
-        theta_w = math.radians(theta_water_deg)
-        theta_a = math.radians(theta_air_deg)
 
-        true_point = np.array([-3.2, boundary_y - 3.2 / math.tan(theta_w), 0])
-        apparent_point = np.array([-3.2, boundary_y - 3.2 / math.tan(theta_a), 0])
-        eye = np.array([3.2, boundary_y + 3.2 / math.tan(theta_a), 0])
+        def to_manim(point_px):
+            return np.array([
+                (point_px["x"] - geometry["interface"]["x"]) / 100,
+                boundary_y + (geometry["interface"]["y"] - point_px["y"]) / 100,
+                0,
+            ])
+
+        true_point = to_manim(geometry["incident_point"])
+        apparent_point = to_manim(geometry["apparent_point"])
+        eye = to_manim(geometry["observer_point"])
 
         normal = DashedLine(
             point + np.array([0, -3.0, 0]),
