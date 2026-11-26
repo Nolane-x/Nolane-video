@@ -89,7 +89,7 @@ export default makeScene2D(function* (view) {
       <Txt ref={face} text="?" position={[635, -205]} fontSize={76} fill={C.brass} fontFamily="Arial" opacity={0} />
       <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
 
-      <Rect ref={diagramWater} size={[1920, 600]} position={[0, 240]} fill={C.water} opacity={0} />
+      <Rect ref={diagramWater} size={[1920, 635]} position={[0, -222.5]} fill={C.water} opacity={0} />
       <Line ref={interfaceLine} points={[[-960, 540 - diagramGeometry.interface.y], [960, 540 - diagramGeometry.interface.y]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
       <Line ref={normal} points={[toStage(diagramGeometry.normal.from), toStage(diagramGeometry.normal.to)]} stroke={C.ivory} lineWidth={4} opacity={0} />
       <Line ref={incident} points={[toStage(diagramGeometry.incident_point), toStage(diagramGeometry.interface)]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
