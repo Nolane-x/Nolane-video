@@ -1,0 +1,38 @@
+name: Validate M1 optics benchmark
+
+on:
+  push:
+    branches:
+      - main
+      - m1/optics-benchmark
+    paths:
+      - "benchmarks/optics-spoon/shared/**"
+      - "tools/validate_benchmark.py"
+      - "tests/test_benchmark.py"
+      - ".github/workflows/validate-m1-benchmark.yml"
+  pull_request:
+    paths:
+      - "benchmarks/optics-spoon/shared/**"
+      - "tools/validate_benchmark.py"
+      - "tests/test_benchmark.py"
+      - ".github/workflows/validate-m1-benchmark.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run contract tests
+        run: python -m unittest discover -s tests -v
+      - name: Run benchmark validator
+        run: python tools/validate_benchmark.py
