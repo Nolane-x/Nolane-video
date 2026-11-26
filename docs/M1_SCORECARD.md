@@ -52,7 +52,7 @@ The 68-second Remotion and 5-second Manim numbers are single-run GitHub Actions 
 ## Current CI references
 
 - Full candidate run with Remotion/Manim successes and Motion Canvas still rendering: [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169).
-- Latest queued candidate run including the Manim palette/font update and Motion Canvas render-progress logging: [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131). Pending runs 45850249595, 45851338555 and 45853159646 were superseded before execution.
+- Latest queued candidate run including the Manim palette/font update and Motion Canvas export-audit polling: [45853726714](https://github.com/Nolane-x/Nolane-video/actions/runs/45853726714). It streams frame/file progress to Actions logs and avoids rescanning the whole PNG directory on every wait-loop iteration. Pending runs 45850249595, 45851338555, 45853159646 and 45853225131 were superseded before execution.
 - Frame-range validator: [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249).
 - Frame-range regression tests: [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293).
 
