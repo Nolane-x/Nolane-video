@@ -125,9 +125,17 @@ try {
   const page = await browser.newPage({viewport: {width: 1600, height: 1000}});
   const pageErrors = [];
   const browserConsole = [];
+  let rendererStarted = false;
+  let rendererFinished = false;
+  let rendererFinishMessage = null;
   page.on("pageerror", (error) => pageErrors.push(error.message));
   page.on("console", (message) => {
     const text = message.text();
+    if (text.includes("[M1 renderer] state Working")) rendererStarted = true;
+    if (text.includes("[M1 renderer] finished")) {
+      rendererFinished = true;
+      rendererFinishMessage = text;
+    }
     if (
       message.type() === "error" ||
       message.type() === "warning" ||
@@ -252,8 +260,7 @@ try {
   const startDeadline = Date.now() + 30000;
   let started = false;
   while (Date.now() < startDeadline) {
-    const rendering = await page.locator("#render").getAttribute("data-rendering").catch(() => null);
-    if (rendering === "true") {
+    if (rendererStarted) {
       started = true;
       break;
     }
@@ -265,61 +272,59 @@ try {
     await sleep(250);
   }
   if (!started) {
-    throw new Error("Motion Canvas did not enter its rendering state. Recent Vite output:\n" + viteLog.slice(-5000));
+    throw new Error("Motion Canvas renderer did not enter Working state. Recent Vite output:\n" + viteLog.slice(-5000));
   }
 
+  // Engine completion, not a remounted button attribute, is authoritative.
   const deadline = Date.now() + RENDER_TIMEOUT_MS;
   let finalFrames = null;
-  while (Date.now() < deadline) {
+  while (Date.now() < deadline && !rendererFinished) {
     finalFrames = await findFrameDirectory(OUTPUT_ROOT);
-    const rendering = await page.locator("#render").getAttribute("data-rendering").catch(() => null);
-    if (rendering !== "true" && finalFrames?.pngs.length === EXPECTED_FRAMES) break;
-    if (rendering !== "true" && finalFrames && finalFrames.pngs.length !== EXPECTED_FRAMES) {
-      await sleep(1500);
-      const secondCheck = await findFrameDirectory(OUTPUT_ROOT);
-      if (secondCheck?.pngs.length !== EXPECTED_FRAMES) {
-        const status = await renderButton.evaluate((button) => ({
-          text: button.innerText,
-          disabled: button.disabled,
-          dataRendering: button.getAttribute("data-rendering"),
-          className: button.className
-        })).catch(() => null);
-        const body = await page.locator("body").innerText().catch(() => "");
-        const inputs = await page.locator("#settings-pane input, #settings-pane select").evaluateAll((items) =>
-          items.map((item) => ({
-            tag: item.tagName,
-            type: item.getAttribute("type"),
-            value: item.value,
-            ariaLabel: item.getAttribute("aria-label"),
-            name: item.getAttribute("name"),
-            title: item.getAttribute("title"),
-            outerHTML: item.outerHTML.slice(0, 500)
-          }))
-        ).catch(() => []);
-        const localStorage = await page.evaluate(() =>
-          Object.fromEntries(Object.keys(window.localStorage).map((key) => [key, window.localStorage.getItem(key)]))
-        ).catch(() => ({}));
-        const exportAudit = await fetch(URL + "/__m1-export-audit").then(response => response.json()).catch(error => ({error: String(error)}));
-        const fileSummary = await summarizeFiles(OUTPUT_ROOT);
-        const debug = {
-          status, body, inputs, localStorage, exportAudit, fileSummary,
-          pageErrors, browserConsole, viteLog: viteLog.slice(-10000)
-        };
-        await fs.writeFile(path.join(DELIVERY_DIR, "short-render-debug.json"), JSON.stringify(debug, null, 2) + "\\n");
-        await page.screenshot({path: path.join(DELIVERY_DIR, "short-render-editor.png"), fullPage: true}).catch(() => {});
-        throw new Error(
-          `Motion Canvas finished with ${secondCheck?.pngs.length ?? 0}/${EXPECTED_FRAMES} PNG frames.\\n` +
-          JSON.stringify(debug, null, 2)
-        );
-      }
-      finalFrames = secondCheck;
-      break;
-    }
     await sleep(1000);
   }
+  finalFrames = await findFrameDirectory(OUTPUT_ROOT);
 
-  if (!finalFrames || finalFrames.pngs.length !== EXPECTED_FRAMES) {
-    throw new Error(`Timed out waiting for ${EXPECTED_FRAMES} frames; found ${finalFrames?.pngs.length ?? 0}.\n${viteLog.slice(-5000)}`);
+  if (!rendererFinished || !finalFrames || finalFrames.pngs.length !== EXPECTED_FRAMES) {
+    const status = await renderButton.evaluate((button) => ({
+      text: button.innerText,
+      disabled: button.disabled,
+      dataRendering: button.getAttribute("data-rendering"),
+      className: button.className
+    })).catch(() => null);
+    const body = await page.locator("body").innerText().catch(() => "");
+    const inputs = await page.locator("#settings-pane input, #settings-pane select").evaluateAll((items) =>
+      items.map((item) => ({
+        tag: item.tagName,
+        type: item.getAttribute("type"),
+        value: item.value,
+        ariaLabel: item.getAttribute("aria-label"),
+        name: item.getAttribute("name"),
+        title: item.getAttribute("title"),
+        outerHTML: item.outerHTML.slice(0, 500)
+      }))
+    ).catch(() => []);
+    const localStorage = await page.evaluate(() =>
+      Object.fromEntries(Object.keys(window.localStorage).map((key) => [key, window.localStorage.getItem(key)]))
+    ).catch(() => ({}));
+    const exportAudit = await fetch(URL + "/__m1-export-audit").then(response => response.json()).catch(error => ({error: String(error)}));
+    const fileSummary = await summarizeFiles(OUTPUT_ROOT);
+    const debug = {
+      status, body, inputs, localStorage, exportAudit, fileSummary,
+      rendererStarted, rendererFinished, rendererFinishMessage,
+      pageErrors, browserConsole, viteLog: viteLog.slice(-10000)
+    };
+    await fs.writeFile(path.join(DELIVERY_DIR, "short-render-debug.json"), JSON.stringify(debug, null, 2) + "\n");
+    await page.screenshot({path: path.join(DELIVERY_DIR, "short-render-editor.png"), fullPage: true}).catch(() => {});
+    if (!rendererFinished) {
+      throw new Error(
+        `Motion Canvas did not emit renderer.onFinished. Exported ${finalFrames?.pngs.length ?? 0}/${EXPECTED_FRAMES} PNG frames.\n` +
+        JSON.stringify(debug, null, 2)
+      );
+    }
+    throw new Error(
+      `Motion Canvas renderer finished with ${finalFrames?.pngs.length ?? 0}/${EXPECTED_FRAMES} PNG frames.\n` +
+      JSON.stringify(debug, null, 2)
+    );
   }
   if (pageErrors.length) {
     throw new Error("Browser runtime errors:\n" + pageErrors.join("\n"));
