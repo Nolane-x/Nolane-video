@@ -4,7 +4,7 @@
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main` (unchanged by this benchmark branch)  
 **Working branch:** `m1/optics-benchmark`  
-**Verified branch HEAD before this state update:** `4d024b0a6c90fb18ea9bbf25372a0af261a13226`  
+**Verified branch HEAD before this state update:** `a5257d0dd9007a2a2ba86df7818d6a397247f946`  
 **Current phase:** M1 — comparable benchmark and architecture decision (in progress).  
 **Architecture decision:** OPEN; no master runtime selected.
 
@@ -80,7 +80,7 @@ Verified in run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/r
 
 Artifact digest: `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`.
 
-Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` aligns the segment to the NEE palette, DejaVu Sans and a persistent water region. The latest candidate rerender is queued in [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555); prior pending run 45850249595 was superseded before it started. Manim remains a specialist diagram adapter, not a full-film candidate.
+Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` aligns the segment to the NEE palette, DejaVu Sans and a persistent water region. The latest candidate rerender is queued in [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131); it includes Manim palette/font fixes and Motion Canvas export-progress logging. Earlier pending runs 45850249595, 45851338555 and 45853159646 were superseded before execution. Manim remains a specialist diagram adapter, not a full-film candidate.
 
 ### Motion Canvas 3.17.2 — full-film candidate
 
@@ -111,7 +111,7 @@ Still pending:
 - `.github/workflows/validate-m1-benchmark.yml` exists.
 - Latest successful validator: [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249), commit `d15705bdec39cc48cd7a802378adf8eb3fdcb6c3`.
 - Latest successful unit/regression tests: [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293), commit `aba51bb249528a03448196326c255fcec334d797`. Tests assert that a 72.0-second inclusive endpoint would create an extra frame.
-- `.github/workflows/m1-benchmark-candidates.yml` runs Remotion, Motion Canvas and Manim independently. Candidate run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) passed Remotion and Manim but still has Motion Canvas rendering. Candidate rerender with Manim style change is pending in [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555).
+- `.github/workflows/m1-benchmark-candidates.yml` runs Remotion, Motion Canvas and Manim independently. Candidate run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) passed Remotion and Manim but still has Motion Canvas rendering. Candidate rerender with Manim style change and Motion Canvas progress logging is pending in [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131).
 - A workflow's overall result can be failure while individual engine jobs succeed; report each job separately.
 - All preview renders currently omit a real audio track.
 
@@ -125,7 +125,7 @@ Still pending:
 ## 9. What remains open
 
 - Finish Motion Canvas exact 1,728-frame render and ffprobe in run `45842364169`; next candidate validation is queued in `45851338555`.
-- Review the Manim palette/font render in latest candidate run [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555) when it starts and finishes.
+- Review the Manim palette/font render in latest candidate run [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131) when it starts and finishes.
 - Inspect full-speed 24 fps movement/action/contact across the full 72-second film. Initial 4 fps/2 fps scans already flag Nia's limited acting and long static diagram holds; the next art pass should choreograph these intentionally.
 - Add real approved voice, synchronized transcript captions, SFX and music before claiming audio QA; do not synthesize or assume audio without an approved source.
 - Complete H2 provenance/license audit.
@@ -134,4 +134,4 @@ Still pending:
 
 ## 10. Next concrete task
 
-First inspect run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 sequential PNGs (000000–001727), then H.264 1920×1080 / 24 fps / 72.000 s ffprobe and artifact upload. Then inspect candidate rerender [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555), review the new Manim palette/font contact sheet, and update the visual report. Keep real audio and full-speed playback review marked incomplete.
+First inspect run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 sequential PNGs (000000–001727), then H.264 1920×1080 / 24 fps / 72.000 s ffprobe and artifact upload. Then inspect candidate rerender [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131), review the new Manim palette/font contact sheet, and update the visual report. Keep real audio and full-speed playback review marked incomplete.
