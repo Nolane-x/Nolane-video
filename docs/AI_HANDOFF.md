@@ -4,7 +4,7 @@
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main`  
 **Working branch:** `m1/optics-benchmark`  
-**Verified HEAD before this handoff update:** `914c9b35c88d65b8c7c5a3cb2c5c6172954d4151`  
+**Verified HEAD before this handoff update:** `55fd2d62badf94bdc0d3af2ff0150fd0912c51a8`  
 **Current milestone:** M1 — comparable benchmark and architecture decision, still in progress.  
 **Do not merge or select a master renderer yet.**
 
@@ -23,6 +23,7 @@ Read in this order:
 10. `docs/M1_BENCHMARK_PLAN.md`
 11. `benchmarks/optics-spoon/reports/ENGINE-CANDIDATE-STATUS.md`
 12. `benchmarks/optics-spoon/reports/VISUAL-QA.md`
+13. `docs/M1_SCORECARD.md`
 
 Then fetch the live `m1/optics-benchmark` HEAD and inspect the latest Actions runs. The handoff is a snapshot, not a substitute for live verification.
 
@@ -99,6 +100,10 @@ Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets `project.meta` range end 
 Run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) was cancelled before its Motion Canvas render completed. Current run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) has Remotion and Manim jobs successful; Motion Canvas setup/build passed but its render step is still running. No MP4/ffprobe has been accepted yet.
 
 The shared validator now checks Motion Canvas's `ceil(seconds × fps)` inclusive-end conversion. Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and regression-test run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) both passed. A new candidate rerun [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595) is pending with the Manim palette/font update.
+
+## Scorecard status
+
+`docs/M1_SCORECARD.md` is an evidence ledger, not a ranking. It records the Remotion and Manim outputs, the current Motion Canvas blocker, observed one-run CI render-step durations, role differences and open quality gates. Do not assign a numeric score or choose a master runtime until Motion Canvas's exact output and comparable visual/audio evidence are available.
 
 ## Important implementation findings
 
