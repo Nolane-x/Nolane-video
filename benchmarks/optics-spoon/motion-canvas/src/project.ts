@@ -43,5 +43,5 @@ const rendererAudit = makePlugin({
 
 export default makeProject({
   scenes: [spoon],
-  plugins: [rendererAudit]
+  plugins: [rendererAudit()]
 });
