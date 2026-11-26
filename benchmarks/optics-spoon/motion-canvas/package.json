@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "tsc --noEmit && vite build"
+    "build": "tsc --noEmit && vite build",
+    "render": "node scripts/render-editor.mjs"
   },
   "dependencies": {
     "@motion-canvas/2d": "3.17.2",
@@ -14,7 +15,8 @@
     "@motion-canvas/vite-plugin": "3.17.2",
     "@preact/preset-vite": "2.9.0",
     "preact": "10.19.2",
-    "vite": "5.4.19"
+    "vite": "5.4.19",
+    "playwright": "1.56.0"
   },
   "devDependencies": {
     "@types/node": "22.10.5",
