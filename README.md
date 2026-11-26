@@ -75,8 +75,8 @@ Read these files in order:
 4. [docs/REFERENCE_ENGINE_STUDY.md](docs/REFERENCE_ENGINE_STUDY.md)
 5. [docs/ANIMATION_CRAFT_STANDARDS.md](docs/ANIMATION_CRAFT_STANDARDS.md) — staging, acting, prop contact, timing and review gates
 6. [docs/ROADMAP.md](docs/ROADMAP.md)
-6. [docs/STATE.md](docs/STATE.md)
-7. [docs/AI_HANDOFF.md](docs/AI_HANDOFF.md)
+7. [docs/STATE.md](docs/STATE.md)
+8. [docs/AI_HANDOFF.md](docs/AI_HANDOFF.md)
 
 Then inspect the current Git branch, HEAD, repository tree, recent commits, and the relevant upstream/fork source before changing anything.
 
