@@ -82,7 +82,7 @@ class RefractionSegment(Scene):
         apparent_dot = Dot(apparent_point, radius=0.10, color="#8ED2B0")
         eye_dot = Dot(eye, radius=0.12, color=WHITE)
 
-        normal_label = Text("PHÁP TUYẾN", font_size=22, color=WHITE).move_to([1.05, 0.95, 0])
+        normal_label = Text("PHÁP TUYẾN", font_size=22, color=WHITE).move_to([1.45, 1.85, 0])
         water_angle = Text("40°", font_size=30, color=GOLD).move_to([-1.5, -0.7, 0])
         air_angle = Text("58,9°", font_size=30, color=GOLD).move_to([1.0, 1.55, 0])
         true_label = Text("Vị trí thật", font_size=25, color="#E47D68").move_to([-1.65, -3.55, 0])
