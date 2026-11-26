@@ -128,7 +128,12 @@ try {
   page.on("pageerror", (error) => pageErrors.push(error.message));
   page.on("console", (message) => {
     const text = message.text();
-    if (message.type() === "error" || message.type() === "warning" || text.includes("[M1 Motion Canvas]")) {
+    if (
+      message.type() === "error" ||
+      message.type() === "warning" ||
+      text.includes("[M1 Motion Canvas]") ||
+      text.includes("[M1 renderer]")
+    ) {
       browserConsole.push({type: message.type(), text});
     }
   });
