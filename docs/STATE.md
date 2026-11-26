@@ -104,7 +104,7 @@ Still pending:
 
 - Remotion artifact from [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169), digest `sha256:f829285a43711aed3a869bae9d93ede74d37c9561125a510ad2101e673d20b14`; contact sheet and selected 1080p frames 1056/1248 reviewed. “NƯỚC” label is clear of the caption.
 - Manim artifact from [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169), digest `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`; scientific geometry reviewed; style correction is pending in [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595).
-- These are prototype-level checks, not final artistic approval. Full findings: `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+- These are prototype-level checks, not final artistic approval. Full findings: `benchmarks/optics-spoon/reports/VISUAL-QA.md`. An evidence-ledger scorecard (no ranking yet) is in `docs/M1_SCORECARD.md`.
 
 ## 7. Test and workflow facts
 
@@ -129,7 +129,7 @@ Still pending:
 - Inspect continuous movement/action/contact across the full 72-second film, not only contact sheets.
 - Add real approved voice, synchronized transcript captions, SFX and music before claiming audio QA; do not synthesize or assume audio without an approved source.
 - Complete H2 provenance/license audit.
-- Build a metric-backed candidate scorecard and formal architecture decision.
+- Complete the evidence-ledger scorecard after the pending Motion Canvas/Manim runs, then write a formal architecture decision using comparable evidence.
 - Do not begin broad M2/M3 engine implementation until M1 is accepted.
 
 ## 10. Next concrete task
