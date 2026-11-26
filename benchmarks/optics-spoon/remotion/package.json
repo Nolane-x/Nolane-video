@@ -1,0 +1,21 @@
+{
+  "name": "nee-optics-spoon-remotion",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "render": "remotion render src/index.ts optics-spoon out/optics-spoon.mp4 --codec=h264 --concurrency=2"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.547",
+    "remotion": "4.0.547",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}
