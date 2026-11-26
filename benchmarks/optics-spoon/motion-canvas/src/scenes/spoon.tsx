@@ -8,7 +8,8 @@ import {
 import {
   all,
   createRef,
-  waitFor
+  waitFor,
+  usePlayback
 } from "@motion-canvas/core";
 import diagramGeometry from "../../../shared/diagram.json";
 
@@ -30,6 +31,13 @@ const C = {
 };
 
 export default makeScene2D(function* (view) {
+  const playback = usePlayback();
+  const checkpoint = (name: string) => console.log("[M1 Motion Canvas]", name, {
+    frame: playback.frame,
+    time_seconds: playback.time,
+    fps: playback.fps
+  });
+  checkpoint("scene-start");
   view.fill(C.ink);
 
   const kitchenWall = createRef<Rect>();
@@ -130,6 +138,7 @@ export default makeScene2D(function* (view) {
   );
   yield* view.scale([1.025, 1.025], 1.4);
   yield* waitFor(6.1);
+  checkpoint("S01-complete");
 
   // S02 — 10 seconds: lift and reveal the physically straight spoon.
   yield* all(
@@ -140,6 +149,7 @@ export default makeScene2D(function* (view) {
     head().position([505, -125], 0.4)
   );
   yield* waitFor(9.4);
+  checkpoint("S02-complete");
 
   // S03 — 10 seconds: move from the everyday scene into the invisible optical path.
   yield* all(
@@ -168,6 +178,7 @@ export default makeScene2D(function* (view) {
     view.scale([1, 1], 0.8)
   );
   yield* waitFor(9.2);
+  checkpoint("S03-complete");
 
   // S04 — 16 seconds: show the normal and Snell relationship.
   yield* all(
@@ -178,6 +189,7 @@ export default makeScene2D(function* (view) {
     formula().opacity(1, 0.9)
   );
   yield* waitFor(15.1);
+  checkpoint("S04-complete");
 
   // S05 — 17 seconds: construct the apparent image by extending the outgoing ray backward.
   yield* all(
@@ -188,6 +200,7 @@ export default makeScene2D(function* (view) {
     apparentLabel().opacity(1, 0.6)
   );
   yield* waitFor(16.2);
+  checkpoint("S05-complete");
 
   // S06 — 11 seconds: return to the intact spoon and resolve the misconception.
   yield* all(
@@ -226,4 +239,5 @@ export default makeScene2D(function* (view) {
     kitchenCaption().opacity(1, 0.8)
   );
   yield* waitFor(10.2);
+  checkpoint("S06-complete");
 });
