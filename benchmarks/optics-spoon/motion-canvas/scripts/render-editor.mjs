@@ -99,7 +99,7 @@ try {
   // Tabs are toggles. Check the actual active class after the editor has
   // mounted; an early element count can race with the persisted panel state.
   const tabIsActive = await settingsTab.evaluate((element) =>
-    element.className.split(/\\s+/).some((name) => name.includes("_active_"))
+    element.className.split(" ").some((name) => name.includes("_active_"))
   );
   if (!tabIsActive) {
     await settingsTab.click();
