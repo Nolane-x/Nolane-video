@@ -93,11 +93,14 @@ Keep Manim in its specialist math/diagram role unless evidence says otherwise.
 
 Build/typecheck and editor launch work, but full render is not passing:
 - run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773): 96/1,728 PNGs;
-- run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915): 74/1,728 PNGs.
+- run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915): 74/1,728 PNGs;
+- run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545): all six checkpoints complete at frame 1,728 / 72 seconds / 24 fps, no page errors, but only 91 PNGs were found.
 
-No complete Motion Canvas MP4 exists yet. Recent scene code adds `[M1 Motion Canvas]` checkpoints at scene start and after each S01–S06 wait, each recording frame, time and fps. The Playwright script captures browser console errors/warnings and includes them in a short-render exception.
+No complete Motion Canvas MP4 exists yet. The scene timeline is verified; do not keep editing its waits based on the partial PNG count. The remaining problem is likely the actual render range, WebSocket export event path, file writes or how the output directory is enumerated.
 
-**Immediate task:** inspect run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) for its Motion Canvas job logs. Determine which checkpoint is last and whether a runtime warning/error explains the scene ending early. Fix the cause, not by adding a long static wait or relaxing the 1,728-frame check.
+The new diagnostic commit adds a Vite `motion-canvas:export` event counter/`__m1-export-audit` endpoint, Playwright inspection of range inputs and localStorage, file count/extension/path summaries, and an `always()` artifact upload for the output/debug directory.
+
+**Immediate task:** inspect the run associated with commit `aca94f7c224d222ba862fa9330f7894e22e7c534`. Compare the range end value, WebSocket `received` and `uniqueFrames`, and output files. Fix the proven issue; retain the exact 1,728-frame acceptance gate.
 
 ## Important implementation findings
 
