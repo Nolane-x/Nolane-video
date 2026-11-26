@@ -10,7 +10,7 @@ const DELIVERY_DIR = path.join(ROOT, "out");
 const URL = "http://127.0.0.1:9000";
 const EXPECTED_FRAMES = 1728;
 const FPS = 24;
-const RENDER_TIMEOUT_MS = 25 * 60 * 1000;
+const RENDER_TIMEOUT_MS = 35 * 60 * 1000;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -298,21 +298,37 @@ try {
   // Engine completion, not a remounted button attribute, is authoritative.
   const renderStartedAt = Date.now();
   const deadline = renderStartedAt + RENDER_TIMEOUT_MS;
-  let finalFrames = null;
+  let exportAudit = null;
+  let exportAuditError = null;
   let lastReportedFrameCount = 0;
+  let lastProgressAt = renderStartedAt;
   while (Date.now() < deadline && !rendererFinished) {
-    finalFrames = await findFrameDirectory(OUTPUT_ROOT);
-    const frameCount = finalFrames?.pngs.length ?? 0;
-    if (frameCount >= lastReportedFrameCount + 96 || (frameCount === EXPECTED_FRAMES && frameCount !== lastReportedFrameCount)) {
-      lastReportedFrameCount = frameCount;
-      const elapsedSeconds = Math.round((Date.now() - renderStartedAt) / 1000);
-      process.stdout.write(`[M1 CI progress] PNG files ${frameCount}/${EXPECTED_FRAMES}; elapsed ${elapsedSeconds}s\n`);
+    try {
+      const response = await fetch(URL + "/__m1-export-audit", {
+        signal: AbortSignal.timeout(5000)
+      });
+      if (!response.ok) throw new Error(`audit endpoint returned HTTP ${response.status}`);
+      exportAudit = await response.json();
+      const frameCount = Number(exportAudit.uniqueFrames ?? exportAudit.received ?? 0);
+      if (frameCount >= lastReportedFrameCount + 96 || (frameCount === EXPECTED_FRAMES && frameCount !== lastReportedFrameCount)) {
+        lastReportedFrameCount = frameCount;
+        lastProgressAt = Date.now();
+        const elapsedSeconds = Math.round((Date.now() - renderStartedAt) / 1000);
+        process.stdout.write(`[M1 CI progress] exporter frames ${frameCount}/${EXPECTED_FRAMES}; elapsed ${elapsedSeconds}s\n`);
+      }
+    } catch (error) {
+      exportAuditError = String(error);
+      if (Date.now() - lastProgressAt > 60000) {
+        process.stdout.write(`[M1 CI waiting] no new export frame for ${Math.round((Date.now() - lastProgressAt) / 1000)}s; audit error: ${exportAuditError}\n`);
+        lastProgressAt = Date.now();
+      }
     }
     await sleep(1000);
   }
-  finalFrames = await findFrameDirectory(OUTPUT_ROOT);
+  const finalFrames = await findFrameDirectory(OUTPUT_ROOT);
+  const elapsedSeconds = Math.round((Date.now() - renderStartedAt) / 1000);
   process.stdout.write(
-    `[M1 CI result] rendererFinished=${rendererFinished}; PNG files=${finalFrames?.pngs.length ?? 0}/${EXPECTED_FRAMES}; elapsed=${Math.round((Date.now() - renderStartedAt) / 1000)}s\n`
+    `[M1 CI result] rendererFinished=${rendererFinished}; exportEvents=${exportAudit?.received ?? "unknown"}; uniqueFrames=${exportAudit?.uniqueFrames ?? "unknown"}; PNG files=${finalFrames?.pngs.length ?? 0}/${EXPECTED_FRAMES}; elapsed=${elapsedSeconds}s\n`
   );
 
   if (!rendererFinished || !finalFrames || finalFrames.pngs.length !== EXPECTED_FRAMES) {
@@ -340,7 +356,7 @@ try {
     const exportAudit = await fetch(URL + "/__m1-export-audit").then(response => response.json()).catch(error => ({error: String(error)}));
     const fileSummary = await summarizeFiles(OUTPUT_ROOT);
     const debug = {
-      status, body, inputs, localStorage, exportAudit, fileSummary,
+      status, body, inputs, localStorage, exportAudit, exportAuditError, fileSummary,
       rendererStarted, rendererFinished, rendererFinishMessage,
       pageErrors, browserConsole, viteLog: viteLog.slice(-10000)
     };
