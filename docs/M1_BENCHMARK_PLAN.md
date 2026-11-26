@@ -68,7 +68,7 @@
 - [x] Implement S04–S05 with shared ray geometry, normal, refracted ray, angles, Snell law and apparent image.
 - [x] Use the Manim text/vector fallback rather than requiring LaTeX.
 - [x] Render a 1920×1080, 24 fps specialist segment and inspect the scientific geometry/contact sheet.
-- [ ] Re-render and visually approve the shared palette/font correction in latest queued candidate run `45851338555` (the earlier pending run `45849998362` was superseded before execution).
+- [ ] Re-render and visually approve the shared palette/font correction in latest queued candidate run `45853225131`; this run also adds renderer/export progress logs. Earlier pending runs `45849998362`, `45850249595`, `45851338555` and `45853159646` were superseded before execution.
 
 ### Task 5 — Quality and comparison
 - [x] Validate the Snell example, shared ray geometry and storyboard frame schedule in code.
