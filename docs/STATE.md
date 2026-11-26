@@ -100,7 +100,13 @@ Still pending:
 - Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets the final included sample timestamp to `71.95833333333333` s (frame 1,727 at 24 fps). Run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) is validating the exact 1,728-frame output and ffprobe gate.
 - No Motion Canvas MP4 has yet passed the exact-count/metadata acceptance gate.
 
-## 6. Test and workflow facts
+## 6. Visual QA recorded
+
+- Remotion full-film artifact from run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148), digest `sha256:0d893c6b19418e04fe31618766e0fbcc7d8712edfb42af4bd7852dbeabf032cc`; contact sheet and selected full-resolution frames inspected. A bottom caption overlaps the “NƯỚC” label; source fix commit `e5e0259ca2c517858511dcaf11a70edb40f640ea` is queued for re-render in [45842086637](https://github.com/Nolane-x/Nolane-video/actions/runs/45842086637).
+- Manim scientific-segment artifact from run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148), digest `sha256:796002c68e32f584eb381a8753b14c01ba17b72c106593f7f729837bfb87d7c1`; its 1080p contact sheet was reviewed and its ray/normal/apparent-point layout fits the frame.
+- These are prototype-level checks, not final artistic approval. Full findings: `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+
+## 7. Test and workflow facts
 
 - `.github/workflows/validate-m1-benchmark.yml` exists.
 - Latest recorded successful validator run: [45831094427](https://github.com/Nolane-x/Nolane-video/actions/runs/45831094427), commit `191d6f6b4e63f63edcbaed76fac1bc9bb1d2c07a`.
@@ -108,14 +114,14 @@ Still pending:
 - A workflow's overall result can be failure while individual engine jobs succeed; report each job separately.
 - All preview renders currently omit a real audio track.
 
-## 7. Licensing and integration constraints
+## 8. Licensing and integration constraints
 
 - Motion Canvas packages inspected are MIT-licensed; its optional FFmpeg exporter declares GPLv3 and remains excluded.
 - Manim Community Edition is MIT-licensed; the user's fork is pinned by commit.
 - Remotion's two-tier licensing model remains a product-adoption constraint; evaluation use does not decide redistribution/commercial embedding rights.
 - H2 has not been copied; complete its provenance/license audit before considering reuse.
 
-## 8. What remains open
+## 9. What remains open
 
 - Verify the half-open frame-range fix in run `45840831148`; if it passes, review the MP4/contact sheet and record the visual findings. Do not change the scene timeline.
 - Rerun current validator tests after latest changes and before merging.
@@ -125,6 +131,6 @@ Still pending:
 - Score candidates with evidence; write the architecture decision.
 - Do not begin broad M2/M3 engine implementation until M1 is accepted.
 
-## 9. Next concrete task
+## 10. Next concrete task
 
-Inspect run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148). Exact acceptance: 1,728 sequential PNGs from frame 0 through 1,727, then H.264 1920×1080 24 fps 72.000 s ffprobe and artifact upload. Review the contact sheet/continuous motion; only then update candidate scoring. Audio remains absent.
+Monitor run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) for exactly 1,728 Motion Canvas frames and ffprobe. Then inspect the queued Remotion safe-area rerender [45842086637](https://github.com/Nolane-x/Nolane-video/actions/runs/45842086637) and update its visual review. Continuous-motion review, real audio and the candidate scorecard/ADR remain open.
