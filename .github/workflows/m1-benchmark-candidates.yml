@@ -56,6 +56,8 @@ jobs:
           assert abs(float(data["format"]["duration"]) - 72.0) < 0.1, data["format"]
           print("Remotion technical gate: 1920x1080, 24 fps, 72 seconds")
           PY
+      - name: Create Remotion contact sheet
+        run: ffmpeg -y -i out/optics-spoon.mp4 -vf "fps=1/6,scale=480:-1,tile=4x3" -frames:v 1 out/contact-sheet.jpg
       - name: Upload Remotion candidate
         uses: actions/upload-artifact@v4
         with:
@@ -63,6 +65,7 @@ jobs:
           path: |
             benchmarks/optics-spoon/remotion/out/optics-spoon.mp4
             benchmarks/optics-spoon/remotion/out/ffprobe.json
+            benchmarks/optics-spoon/remotion/out/contact-sheet.jpg
           if-no-files-found: error
           retention-days: 30
 
@@ -111,6 +114,7 @@ jobs:
             benchmarks/optics-spoon/motion-canvas/out/optics-spoon.mp4
             benchmarks/optics-spoon/motion-canvas/out/render-report.json
             benchmarks/optics-spoon/motion-canvas/out/ffprobe.json
+            benchmarks/optics-spoon/motion-canvas/out/contact-sheet.jpg
           if-no-files-found: error
           retention-days: 30
 
@@ -144,6 +148,7 @@ jobs:
           cat out/ffprobe.json
           DURATION="$(cat out/duration.txt)"
           awk -v d="$DURATION" 'BEGIN { if (d < 5 || d > 30) exit 1; }'
+          ffmpeg -y -i "$VIDEO" -vf "fps=1,scale=480:-1,tile=4x3" -frames:v 1 out/contact-sheet.jpg
       - name: Upload Manim segment
         uses: actions/upload-artifact@v4
         with:
