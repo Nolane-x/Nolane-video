@@ -54,27 +54,34 @@
 - [ ] Verify 1,728-frame half-open range and 72-second MP4 output in run 45840831148; review the final contact sheet.
 
 ### Task 3 — Remotion full-film candidate
-- [ ] Pin Remotion packages to 4.0.547 and compatible React packages.
-- [ ] Implement each shot as a reusable scene component.
-- [ ] Use useCurrentFrame and frame-based transitions; no wall-clock animation.
-- [ ] Implement the same character action and ray geometry.
-- [ ] Render a low-resolution preview and full 1080p candidate through CLI.
-- [ ] Record timings, CLI output, ffprobe metadata and SHA-256.
+- [x] Pin Remotion packages to 4.0.547 and compatible React packages.
+- [ ] Refactor each shot into independently reusable scene components. The current benchmark composition is a single deterministic implementation; this modularity step is deferred until after M1 backend selection.
+- [x] Use `useCurrentFrame` and frame-based transitions; no wall-clock animation.
+- [x] Implement the six story beats, the straight-spoon action and shared Snell/ray geometry.
+- [x] Render the full 1080p candidate through CLI and pass ffprobe: 1920×1080, 24 fps, 72.000 s, 1,728 frames.
+- [x] Record artifact digest, metadata and visual review in `reports/VISUAL-QA.md`.
+- [ ] Run a separate low-resolution iteration preview and measure edit/render iteration time.
 
 ### Task 4 — Manim scientific-segment candidate
-- [ ] Pin the Manim Community Edition fork by exact commit and isolated Python requirements.
-- [ ] Implement S04–S05 with a shared ray geometry, normal, refracted ray, angles, Snell law and apparent image.
-- [ ] Avoid MathTex unless LaTeX is available; use a tested text/vector fallback otherwise.
-- [ ] Render low-quality and full-resolution previews and inspect the actual frames.
+- [x] Pin the Manim Community Edition fork by exact commit and isolated Python requirements.
+- [x] Implement S04–S05 with shared ray geometry, normal, refracted ray, angles, Snell law and apparent image.
+- [x] Use the Manim text/vector fallback rather than requiring LaTeX.
+- [x] Render a 1920×1080, 24 fps specialist segment and inspect the scientific geometry/contact sheet.
+- [ ] Re-render and visually approve the shared palette/font correction in run `45849998362`.
 
 ### Task 5 — Quality and comparison
-- [ ] Validate all math and labels.
-- [ ] Make contact sheets for every candidate.
-- [ ] Inspect continuous motion and action/contact states.
-- [ ] Check Vietnamese diacritics, caption size and safe areas.
-- [ ] Record output metadata, render time, authoring effort and reproducibility.
+- [x] Validate the Snell example, shared ray geometry and storyboard frame schedule in code.
+- [ ] Make and review contact sheets for every full-film candidate (Remotion reviewed; Manim palette revision pending; Motion Canvas output pending).
+- [ ] Inspect continuous motion and action/contact states across the complete 72-second film.
+- [x] Check Remotion Vietnamese labels, caption safe area and selected 1080p diagram frames; Manim font/palette QA is still pending.
+- [ ] Record all candidate output metadata, render time, authoring effort and reproducibility in one comparable table.
 - [ ] Score candidates only after evidence exists.
 - [ ] Write a formal architecture decision and update the roadmap.
+
+### Task 6 — Renderer time/range regression guard
+- [x] Validate Motion Canvas's inclusive `ceil(seconds × fps)` endpoint mapping against the 1,728-frame half-open storyboard.
+- [x] Add a regression test proving that an endpoint of exactly 72.0 s would incorrectly map to frame 1,728.
+- [x] Pass validator CI [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and unit-test CI [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293).
 
 ## Required acceptance
 
