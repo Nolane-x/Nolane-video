@@ -59,7 +59,7 @@ Every shot must change information, action, viewpoint, scale, or emotional state
 
 ## 4. Shot timeline
 
-The canonical, frame-accurate storyboard is benchmarks/optics-spoon/shared/storyboard.json. All ranges are half-open [start_frame, end_frame).
+The canonical, frame-accurate storyboard is benchmarks/optics-spoon/shared/storyboard.json. All ranges are half-open [start_frame, end_frame). At 24 fps, 1,728 output samples are frames 0–1,727, with timestamps 0 through 71.9583333333 seconds. The 72.0-second mark is the exclusive end boundary, not an additional frame. Renderers with inclusive time-range controls must target the timestamp of the final included frame.
 
 | Shot | Frames | Time | Function | Visual requirement |
 |---|---:|---:|---|---|
