@@ -108,7 +108,7 @@ const Diagram: React.FC<{frame: number}> = ({frame}) => {
       <text x="145" y="170" fill={C.ivory} fontSize="48" fontFamily="Arial" letterSpacing="4">KHÔNG KHÍ</text>
       <text x="145" y="970" fill={C.ivory} fontSize="48" fontFamily="Arial" letterSpacing="4">NƯỚC</text>
       <path d={rayPath(normal.from, normal.to)} stroke="#E7E7E1" strokeWidth="5" strokeDasharray="14 14" opacity=".75" />
-      <text x="865" y="235" fill={C.muted} fontSize="36" fontFamily="Arial">Pháp tuyến</text>
+      <text x="870" y="220" fill={C.muted} fontSize="34" fontFamily="Arial">Pháp tuyến</text>
       <path d={rayPath(incident_point, interfacePoint)} stroke={C.ray} strokeWidth="13" strokeLinecap="round" />
       <path d={rayPath(interfacePoint, observer_point)} stroke={C.ray} strokeWidth="13" strokeLinecap="round" />
       <path d={rayPath(interfacePoint, apparent_point)} stroke={C.ivory} strokeWidth="8" strokeDasharray="20 18" opacity={apparent} />
@@ -119,8 +119,8 @@ const Diagram: React.FC<{frame: number}> = ({frame}) => {
       <text x={incident_point.x - 155} y={incident_point.y + 68} fill={C.coral} fontSize="34" fontFamily="Arial" opacity={apparent}>Vị trí thật</text>
       <text x={apparent_point.x - 210} y={apparent_point.y - 30} fill={C.mint} fontSize="34" fontFamily="Arial" opacity={apparent}>Vị trí biểu kiến</text>
       <text x="590" y="580" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={math}>{diagramGeometry.incident_angle_from_normal_deg}°</text>
-      <text x="990" y="360" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={math}>{(Math.atan2(observer_point.x-interfacePoint.x, interfacePoint.y-observer_point.y)*180/Math.PI).toFixed(1).replace(".", ",")}°</text>
-      <text x="1170" y="170" fill={C.ivory} fontSize="34" fontFamily="Arial" opacity={math}>Mắt người quan sát</text>
+      <text x="965" y="305" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={math}>{(Math.atan2(observer_point.x-interfacePoint.x, interfacePoint.y-observer_point.y)*180/Math.PI).toFixed(1).replace(".", ",")}°</text>
+      <text x="1510" y="160" fill={C.ivory} fontSize="32" fontFamily="Arial" opacity={math}>Mắt</text>
       <g opacity={math}>
         <rect x="1040" y="710" width="720" height="170" rx="24" fill="#203746" stroke="#64818C" strokeWidth="3" />
         <text x="1400" y="780" fill={C.ivory} fontSize="48" textAnchor="middle" fontFamily="Arial">n₁ sin θ₁ = n₂ sin θ₂</text>
