@@ -1,0 +1,113 @@
+name: M1 benchmark candidates
+
+on:
+  push:
+    branches:
+      - m1/optics-benchmark
+    paths:
+      - "benchmarks/optics-spoon/**"
+      - ".github/workflows/m1-benchmark-candidates.yml"
+  pull_request:
+    paths:
+      - "benchmarks/optics-spoon/**"
+      - ".github/workflows/m1-benchmark-candidates.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m1-candidate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  remotion:
+    name: Remotion 4.0.547 — full film
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: benchmarks/optics-spoon/remotion
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned dependencies
+        run: npm install --no-audit --no-fund
+      - name: Type-check
+        run: npm run typecheck
+      - name: Render 72-second benchmark
+        run: npm run render
+      - name: Probe MP4
+        run: |
+          ffprobe -v error -show_streams -show_format -of json out/optics-spoon.mp4 > out/ffprobe.json
+          cat out/ffprobe.json
+      - name: Upload Remotion candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: m1-remotion-candidate
+          path: |
+            benchmarks/optics-spoon/remotion/out/optics-spoon.mp4
+            benchmarks/optics-spoon/remotion/out/ffprobe.json
+          if-no-files-found: error
+          retention-days: 30
+
+  motion-canvas:
+    name: Motion Canvas 3.17.2 — 2D project build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: benchmarks/optics-spoon/motion-canvas
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pinned dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build and type-check editor project
+        run: npm run build
+      - name: Upload Motion Canvas build
+        uses: actions/upload-artifact@v4
+        with:
+          name: m1-motion-canvas-build
+          path: benchmarks/optics-spoon/motion-canvas/dist/
+          if-no-files-found: error
+          retention-days: 30
+
+  manim:
+    name: Manim CE 0.22.1 — scientific segment
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: benchmarks/optics-spoon/manim
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install system rendering dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev pkg-config
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned Manim fork
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+      - name: Render scientific segment preview
+        run: manim -ql --media_dir out refraction_segment.py RefractionSegment
+      - name: Probe Manim output
+        run: |
+          find out -type f -name '*.mp4' -print
+          VIDEO="$(find out -type f -name '*.mp4' | head -n 1)"
+          test -n "$VIDEO"
+          ffprobe -v error -show_streams -show_format -of json "$VIDEO" > out/ffprobe.json
+          cat out/ffprobe.json
+      - name: Upload Manim segment
+        uses: actions/upload-artifact@v4
+        with:
+          name: m1-manim-refraction-segment
+          path: benchmarks/optics-spoon/manim/out/
+          if-no-files-found: error
+          retention-days: 30
