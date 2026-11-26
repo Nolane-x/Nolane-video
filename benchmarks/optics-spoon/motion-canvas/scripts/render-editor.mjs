@@ -126,7 +126,13 @@ try {
         .filter({hasText: /^Rendering$/})
         .first();
       await renderingHeader.waitFor({state: "visible", timeout: 15000});
-      await renderingHeader.click();
+      const toggle = renderingHeader.locator("button").first();
+      const isExpanded = await toggle.evaluate((element) =>
+        element.className.split(" ").some((name) => name.includes("_open_"))
+      );
+      if (!isExpanded) {
+        await renderingHeader.click();
+      }
     }
     await renderButton.waitFor({state: "visible", timeout: 45000});
   } catch {
