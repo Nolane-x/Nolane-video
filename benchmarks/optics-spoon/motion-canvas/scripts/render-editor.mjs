@@ -120,6 +120,14 @@ try {
   }
   try {
     await settingsPane.waitFor({state: "visible", timeout: 45000});
+    if (await renderButton.count() === 0) {
+      const renderingHeader = settingsPane
+        .locator("div[class*='title']")
+        .filter({hasText: /^Rendering$/})
+        .first();
+      await renderingHeader.waitFor({state: "visible", timeout: 15000});
+      await renderingHeader.click();
+    }
     await renderButton.waitFor({state: "visible", timeout: 45000});
   } catch {
     const debug = {
