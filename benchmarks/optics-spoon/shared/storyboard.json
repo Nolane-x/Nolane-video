@@ -1,0 +1,206 @@
+{
+  "schema_version": "nee.benchmark.v1",
+  "project": {
+    "id": "the-spoon-that-bends",
+    "title": "The Spoon That Bends",
+    "title_vi": "Vì sao chiếc thìa trông như bị gãy trong nước?",
+    "subject": "Refraction and apparent position at a plane water-air interface",
+    "language": "vi-VN",
+    "audience": "secondary-school learner",
+    "width": 1920,
+    "height": 1080,
+    "fps": { "numerator": 24, "denominator": 1 },
+    "duration_frames": 1728,
+    "duration_seconds": 72,
+    "color_space": "sRGB",
+    "seed": 240519,
+    "style_bible": "shared/ART-DIRECTION.md",
+    "script": "shared/script.vi.md",
+    "research": "shared/RESEARCH.md"
+  },
+  "learning_objective": "Explain that a straight spoon partially submerged in water appears displaced because light from its submerged part refracts as it exits water into air, and the eye traces the refracted ray backward to an apparent image closer to the surface.",
+  "misconception": "The spoon is physically bent by water.",
+  "claims": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5"
+  ],
+  "characters": [
+    {
+      "id": "nia",
+      "name": "Nia",
+      "role": "curious observer",
+      "design": "Original stylized educational-film character; see shared/ART-DIRECTION.md",
+      "continuity": "One design, outfit, palette, body proportions and handedness for all shots"
+    }
+  ],
+  "locations": [
+    { "id": "kitchen-table", "description": "Quiet kitchen corner at dusk, warm practical lamp, deep blue-green shadows" },
+    { "id": "water-cutaway", "description": "Stylized scientific cutaway of the water-air boundary" }
+  ],
+  "shots": [
+    {
+      "id": "S01",
+      "start_frame": 0,
+      "end_frame": 192,
+      "duration_frames": 192,
+      "purpose": "Create curiosity with a visible contradiction",
+      "shot_size": "macro close-up",
+      "camera": {
+        "start": "side-on spoon and glass at waterline",
+        "end": "slight push-in to apparent kink",
+        "motivation": "force attention onto the misalignment at the water surface"
+      },
+      "action": [
+        "Spoon enters the glass",
+        "Submerged segment appears offset at the waterline",
+        "Nia's hand pauses"
+      ],
+      "visual_state": "Real object remains straight; perceived submerged section is offset due to refraction",
+      "narration": "N01",
+      "on_screen_text": null,
+      "audio_cues": ["A01"],
+      "transition_out": "match move toward the spoon"
+    },
+    {
+      "id": "S02",
+      "start_frame": 192,
+      "end_frame": 432,
+      "duration_frames": 240,
+      "purpose": "Disprove the physical-bending explanation",
+      "shot_size": "medium close-up",
+      "camera": {
+        "start": "three-quarter view of Nia and glass",
+        "end": "hold on straight spoon outside water",
+        "motivation": "show the object's unchanged physical shape"
+      },
+      "action": [
+        "Nia lifts the spoon",
+        "Turns it gently to inspect",
+        "Dips it again and leans closer"
+      ],
+      "acting": "anticipation before lift; hand/prop contact maintained; reaction after seeing the straight spoon",
+      "narration": "N02",
+      "on_screen_text": null,
+      "audio_cues": ["A02"],
+      "transition_out": "camera follows the spoon tip to the waterline"
+    },
+    {
+      "id": "S03",
+      "start_frame": 432,
+      "end_frame": 672,
+      "duration_frames": 240,
+      "purpose": "Reveal that the path of light, not the spoon, is the cause",
+      "shot_size": "macro-to-diagram cutaway",
+      "camera": {
+        "start": "macro surface reflection",
+        "end": "orthographic cross-section of the boundary",
+        "motivation": "move from the everyday scene to the invisible optical process"
+      },
+      "action": [
+        "Water-air interface resolves into a clean horizontal plane",
+        "A ray travels from the submerged spoon point to the interface",
+        "The outgoing ray travels toward the observer"
+      ],
+      "narration": "N03",
+      "on_screen_text": null,
+      "audio_cues": ["A03"],
+      "transition_out": "hold the interface as the explanatory diagram"
+    },
+    {
+      "id": "S04",
+      "start_frame": 672,
+      "end_frame": 1056,
+      "duration_frames": 384,
+      "purpose": "Teach the direction of refraction and the law that governs it",
+      "shot_size": "clean scientific diagram",
+      "camera": {
+        "start": "full interface and ray path",
+        "end": "slight push toward normal and angle labels",
+        "motivation": "make angle measurement and bending direction unmistakable"
+      },
+      "action": [
+        "Show water below and air above the boundary",
+        "Draw the normal perpendicular to the interface",
+        "Reveal the incident ray in water at 40 degrees to the normal",
+        "Reveal the refracted ray in air at approximately 58.9 degrees to the normal",
+        "Reveal the labels and Snell's law after the geometry is established"
+      ],
+      "narration": "N04",
+      "on_screen_text": [
+        "n_nước sin(theta_nước) = n_không khí sin(theta_không khí)",
+        "n_nước ≈ 1.333",
+        "n_không khí ≈ 1.0003"
+      ],
+      "audio_cues": ["A04"],
+      "transition_out": "retain ray and add the backward extension"
+    },
+    {
+      "id": "S05",
+      "start_frame": 1056,
+      "end_frame": 1464,
+      "duration_frames": 408,
+      "purpose": "Explain why the submerged segment appears closer to the surface",
+      "shot_size": "diagram with spatial depth",
+      "camera": {
+        "start": "full ray diagram",
+        "end": "frame both actual and apparent points",
+        "motivation": "compare true position and virtual image without losing the ray geometry"
+      },
+      "action": [
+        "Continue the refracted ray toward the observer",
+        "Draw a dashed backward extension into the water",
+        "Place the apparent image point above the actual submerged point",
+        "Label both points and briefly hold for comprehension"
+      ],
+      "narration": "N05",
+      "on_screen_text": [
+        "Vị trí biểu kiến",
+        "Vị trí thật"
+      ],
+      "audio_cues": ["A05"],
+      "transition_out": "match the diagram ray to the real spoon"
+    },
+    {
+      "id": "S06",
+      "start_frame": 1464,
+      "end_frame": 1728,
+      "duration_frames": 264,
+      "purpose": "Resolve the opening contradiction",
+      "shot_size": "medium close-up to final insert",
+      "camera": {
+        "start": "return to the kitchen table",
+        "end": "calm final close-up of the intact spoon",
+        "motivation": "connect the invisible diagram to the everyday observation"
+      },
+      "action": [
+        "Nia looks from the ray diagram back to the glass",
+        "Lifts the spoon and confirms it is straight",
+        "A gentle match cut resolves the apparent kink"
+      ],
+      "acting": "confusion settles into recognition; restrained, not comedic overacting",
+      "narration": "N06",
+      "on_screen_text": null,
+      "audio_cues": ["A06"],
+      "transition_out": "fade to quiet end frame"
+    }
+  ],
+  "narration_spans": [
+    { "id": "N01", "shot_id": "S01", "text": "Nhìn này. Chiếc thìa trông như bị gãy ngay tại mặt nước.", "timing_status": "estimated; real audio alignment pending" },
+    { "id": "N02", "shot_id": "S02", "text": "Nhưng khi kéo nó ra, chiếc thìa vẫn thẳng. Nước không hề bẻ cong kim loại. Vậy điều gì đã thay đổi?", "timing_status": "estimated; real audio alignment pending" },
+    { "id": "N03", "shot_id": "S03", "text": "Ánh sáng từ phần thìa chìm dưới nước phải đi qua ranh giới giữa nước và không khí trước khi tới mắt chúng ta.", "timing_status": "estimated; real audio alignment pending" },
+    { "id": "N04", "shot_id": "S04", "text": "Khi đi từ nước sang không khí, ánh sáng đổi hướng và lệch ra xa pháp tuyến. Đó là hiện tượng khúc xạ. Góc tới và góc khúc xạ tuân theo định luật Snell.", "timing_status": "estimated; real audio alignment pending" },
+    { "id": "N05", "shot_id": "S05", "text": "Mắt không biết tia sáng đã đổi hướng. Nó kéo dài tia sáng ngược lại theo một đường thẳng, nên phần thìa chìm dường như nằm cao hơn vị trí thật. Vì vậy, hai phần của chiếc thìa có vẻ không còn thẳng hàng.", "timing_status": "estimated; real audio alignment pending" },
+    { "id": "N06", "shot_id": "S06", "text": "Chiếc thìa chưa từng bị gãy. Chính ánh sáng đã đổi hướng trên đường đi tới mắt chúng ta.", "timing_status": "estimated; real audio alignment pending" }
+  ],
+  "audio_cues": [
+    { "id": "A01", "kind": "foley", "description": "soft spoon-to-glass touch", "timing_status": "estimated" },
+    { "id": "A02", "kind": "foley", "description": "light metallic lift; small intentional pause", "timing_status": "estimated" },
+    { "id": "A03", "kind": "transition", "description": "subtle airy transition into optical cutaway", "timing_status": "estimated" },
+    { "id": "A04", "kind": "foley", "description": "single soft tick as normal and angle labels appear", "timing_status": "estimated" },
+    { "id": "A05", "kind": "foley", "description": "soft tonal pop as apparent image point appears", "timing_status": "estimated" },
+    { "id": "A06", "kind": "music", "description": "quiet resolved ending with 0.5 second visual hold", "timing_status": "estimated" }
+  ]
+}
