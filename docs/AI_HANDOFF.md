@@ -24,6 +24,7 @@ Read in this order:
 11. `benchmarks/optics-spoon/reports/ENGINE-CANDIDATE-STATUS.md`
 12. `benchmarks/optics-spoon/reports/VISUAL-QA.md`
 13. `docs/M1_SCORECARD.md`
+13. `docs/M1_SCORECARD.md`
 
 Then fetch the live `m1/optics-benchmark` HEAD and inspect the latest Actions runs. The handoff is a snapshot, not a substitute for live verification.
 
