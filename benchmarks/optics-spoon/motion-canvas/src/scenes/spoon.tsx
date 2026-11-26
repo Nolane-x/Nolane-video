@@ -134,7 +134,7 @@ export default makeScene2D(function* (view) {
     face().text("!", 0.3),
     head().position([505, -125], 0.4)
   );
-  yield* waitFor(9.0);
+  yield* waitFor(9.4);
 
   // S03 — 10 seconds: move from the everyday scene into the invisible optical path.
   yield* all(
