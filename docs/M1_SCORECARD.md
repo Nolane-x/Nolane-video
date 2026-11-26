@@ -1,7 +1,8 @@
 # M1 Candidate Scorecard — The Spoon That Bends
 
 **Snapshot:** 2026-11-26  
-**Status:** evidence ledger; no numeric ranking and no master renderer selected.
+**Status:** evidence ledger; no numeric ranking and no master renderer selected.  
+**Craft review standard:** [`ANIMATION_CRAFT_STANDARDS.md`](ANIMATION_CRAFT_STANDARDS.md).
 
 ## Benchmark contract
 
