@@ -7,6 +7,9 @@ from manim import (
     GrowArrow,
     Line,
     Rectangle,
+    RIGHT,
+    UP,
+    DOWN,
     Scene,
     Text,
     VGroup,
@@ -135,11 +138,11 @@ class RefractionSegment(Scene):
         ).move_to([-4.25, -1.65, 0])
         eye_label = Text(
             "Mắt", font=FONT, font_size=25, color=IVORY
-        ).next_to(eye_dot, Arrow(RIGHT=[1, 0, 0]).get_unit_vector(), buff=0.15)
+        ).next_to(eye_dot, RIGHT, buff=0.15)
 
         title = Text(
             "ÁNH SÁNG KHÚC XẠ", font=FONT, font_size=38, color=IVORY
-        ).to_edge([0, 1, 0])
+        ).to_edge(UP)
         formula = Text(
             "n₁ sin θ₁ = n₂ sin θ₂",
             font=FONT,
@@ -151,7 +154,7 @@ class RefractionSegment(Scene):
             font=FONT,
             font_size=22,
             color=SECONDARY,
-        ).next_to(formula, [0, -1, 0], buff=0.22)
+        ).next_to(formula, DOWN, buff=0.22)
 
         self.play(Write(title), FadeIn(water_label), FadeIn(air_label), run_time=1.4)
         self.play(
