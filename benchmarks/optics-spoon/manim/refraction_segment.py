@@ -52,8 +52,8 @@ class RefractionSegment(Scene):
 
         def to_manim(point_px):
             return np.array([
-                (point_px["x"] - geometry["interface"]["x"]) / 100,
-                boundary_y + (geometry["interface"]["y"] - point_px["y"]) / 100,
+                (point_px["x"] - geometry["interface"]["x"]) / 120,
+                boundary_y + (geometry["interface"]["y"] - point_px["y"]) / 120,
                 0,
             ])
 
