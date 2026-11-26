@@ -159,9 +159,9 @@ export default makeScene2D(function* (view) {
     eyePoint().opacity(1, 0.8),
     airLabel().opacity(1, 0.8),
     waterLabel().opacity(1, 0.8),
-    diagramCaption().opacity(1, 0.8)
+    diagramCaption().opacity(1, 0.8),
+    view.scale([1, 1], 0.8)
   );
-  yield* view.scale([1, 1], 0.8);
   yield* waitFor(9.2);
 
   // S04 — 16 seconds: show the normal and Snell relationship.
