@@ -22,12 +22,15 @@
 | Visual review | Contact sheet and selected 1080p frames reviewed; caption safe-area fix verified | Pending complete MP4/contact sheet | Scientific geometry reviewed; palette/font revision pending |
 | Story coverage | Six-shot narrative present | Six-shot scene implementation exists; output not yet reviewed | Not applicable; no character-led story |
 | Scientific geometry | Pass in reviewed ray diagram | Shared canonical geometry; visual review pending | Pass in reviewed ray diagram |
-| Character acting | Simple vector blockout; insufficient for final quality | Candidate not yet scored | Not applicable |
+| Character acting | Simple vector blockout; insufficient for final quality; 4 fps scan across opening 18 s shows very little Nia pose/gesture change | Candidate not yet scored | Not applicable |
 | Audio | No VO/SFX/music; no transcript sync | No audio acceptance yet | No audio acceptance yet |
 | Operational status | Stable deterministic render and ffprobe proof | Editor automation, renderer event and range validation now instrumented | Pinned fork installs and renders specialist segment |
 | License note | Two-tier licensing; recheck product/commercial use rights | MIT core; optional FFmpeg exporter GPLv3 and excluded | Manim Community Edition MIT |
 
 ### Render-time caveat
+
+The Remotion temporal scan sampled the opening at 4 fps and the diagram section at 2 fps; this is a sampling-based review, not a substitute for watching the full video at 24 fps. It is sufficient to flag long holds and missing pose changes, but not to approve final motion quality.
+
 
 The 68-second Remotion and 5-second Manim numbers are single-run GitHub Actions step durations, not controlled performance benchmarks. They were executed in separate jobs and represent different output scopes. Do not compare them as if both generated the same 72-second film. A fair full-film render-time comparison requires a completed Motion Canvas render and repeated runs on comparable runner classes.
 
@@ -37,9 +40,10 @@ The 68-second Remotion and 5-second Manim numbers are single-run GitHub Actions 
 |---|---|---|
 | Story and learning objective | PARTIAL PASS | Remotion storyboard present; check complete continuous motion and comprehension |
 | Scientific correctness | PASS for reviewed geometry | Shared Snell/geometry validator passed; preserve diagram.json as source of truth |
+| Diagram choreography | NEEDS WORK | 2 fps sample of the explanatory section shows prolonged near-static ray layouts; stage interface → normal → incident/refracted ray → angle measurement → backward extension → apparent image as distinct, readable transformations |
 | Deterministic frame output | PARTIAL | Remotion 1,728 frames pass; Manim segment pass; Motion Canvas exact output pending |
 | Visual readability | PARTIAL PASS | Remotion caption-safe-area fix verified; Manim palette/font rerender pending; Motion Canvas pending |
-| Acting, prop contact, continuity | NOT APPROVED | Improve Nia grip, anticipation, hand/spoon coupling and follow-through |
+| Acting, prop contact, continuity | NOT APPROVED | 4 fps opening scan shows weak Nia pose/gesture progression; improve anticipation, grip/contact, hand/spoon coupling, reaction and follow-through; review at full speed |
 | Audio/narration/captions | NOT TESTED | Add approved real VO, transcript alignment, SFX and music before audio acceptance |
 | Technical export | PARTIAL PASS | Remotion/Manim metadata pass; Motion Canvas MP4/ffprobe pending |
 | Reproducibility and revision cost | PARTIAL | Pinned deps and CI exist; measure iteration/edit time across candidates |
