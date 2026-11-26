@@ -1,6 +1,6 @@
 # Roadmap
 
-**Current phase:** Foundation and reference evaluation  
+**Current phase:** M1 — comparable benchmark and architecture decision (in progress)  
 **Date:** 2026-11-26
 
 The roadmap is deliberately milestone-based. Do not skip evaluation and benchmark work to create a large codebase before the core approach is proven.
@@ -23,7 +23,7 @@ Acceptance:
 - no engine integration is claimed before testing;
 - STATE and AI_HANDOFF reflect reality.
 
-Status: documentation foundation being established.
+**Status: COMPLETE.** Foundation documents and scope lock exist.
 
 ## M1 — Comparable benchmark and architecture decision
 
@@ -63,6 +63,8 @@ Acceptance:
 - limitations and missing capabilities are explicit;
 - a written architecture decision names the first backend and which tools remain adapters;
 - no engine-wide dependency choice is made solely on familiarity or number of features.
+
+**Status: IN PROGRESS.** Shared script, storyboard, art direction, scientific claim ledger and canonical diagram are implemented. Remotion has a verified full-length technical render; Manim has a reviewed scientific-segment render. Motion Canvas builds and opens its official editor but currently exits its image-sequence render early (74/1,728 or 96/1,728 frames in separate runs). No scorecard or architecture decision is approved yet.
 
 ## M2 — Film IR and deterministic time foundation
 
@@ -142,7 +144,7 @@ Acceptance:
 
 Only after a benchmark film is approved, prioritize depth:
 - higher-quality rigging and deformation;
-- reusable acting and interaction libraries;
+- expressive acting and interaction libraries;
 - more diagram and visualization primitives;
 - sophisticated 2.5D stage/camera;
 - GPU acceleration and caching;
@@ -158,4 +160,4 @@ Only after a benchmark film is approved, prioritize depth:
 - Do not create empty scaffolding for future packages before a vertical slice needs them.
 - Do not add new video genres or unrelated editor features.
 - A new framework candidate must solve a demonstrated gap.
-- The next milestone is M1. Do not begin M2/M3 engine implementation until the benchmark comparison and architecture decision make the interfaces clear.
+- Do not begin M2/M3 engine-wide implementation until the M1 benchmark comparison and architecture decision make the interfaces clear.
