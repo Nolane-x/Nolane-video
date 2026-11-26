@@ -98,11 +98,25 @@ try {
 
   // Tabs are toggles. Check the actual active class after the editor has
   // mounted; an early element count can race with the persisted panel state.
-  const tabIsActive = await settingsTab.evaluate((element) =>
+  const isTabActive = () => settingsTab.evaluate((element) =>
     element.className.split(" ").some((name) => name.includes("_active_"))
   );
-  if (!tabIsActive) {
-    await settingsTab.click();
+  if (!(await isTabActive())) {
+    await settingsTab.click({force: true});
+    try {
+      await page.waitForFunction(
+        () => document.getElementById("rendering-tab")?.className.includes("_active_"),
+        {timeout: 12000}
+      );
+    } catch {
+      await settingsTab.evaluate((element) =>
+        element.dispatchEvent(new MouseEvent("click", {bubbles: true, cancelable: true}))
+      );
+      await page.waitForFunction(
+        () => document.getElementById("rendering-tab")?.className.includes("_active_"),
+        {timeout: 12000}
+      );
+    }
   }
   try {
     await settingsPane.waitFor({state: "visible", timeout: 45000});
