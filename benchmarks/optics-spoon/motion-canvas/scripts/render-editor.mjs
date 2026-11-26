@@ -159,6 +159,24 @@ try {
           className: item.className
         }))
       ),
+      localStorage: await page.evaluate(() =>
+        Object.fromEntries(Object.keys(localStorage).map((key) => [key, localStorage.getItem(key)]))
+      ),
+      settingsPaneHTML: await settingsPane.evaluate((pane) => ({
+        html: pane.innerHTML.slice(0, 16000),
+        groups: [...pane.querySelectorAll("div[class*='title']")].map((title) => {
+          const root = title.parentElement;
+          const collapse = root?.children[1];
+          return {
+            title: title.textContent.trim(),
+            titleClass: title.className,
+            toggleClass: title.querySelector("button")?.className ?? null,
+            collapseHTML: collapse?.outerHTML.slice(0, 3500) ?? null,
+            collapseHeight: collapse ? getComputedStyle(collapse).height : null,
+            collapseDataset: collapse?.dataset ?? null
+          };
+        })
+      })),
       pageErrors,
       viteLog: viteLog.slice(-8000)
     };
