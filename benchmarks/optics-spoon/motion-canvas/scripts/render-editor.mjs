@@ -68,6 +68,42 @@ async function run(command, args, options = {}) {
   });
 }
 
+async function summarizeFiles(root) {
+  const files = [];
+  async function visit(directory) {
+    let entries;
+    try {
+      entries = await fs.readdir(directory, {withFileTypes: true});
+    } catch {
+      return;
+    }
+    for (const entry of entries) {
+      const fullPath = path.join(directory, entry.name);
+      if (entry.isDirectory()) {
+        await visit(fullPath);
+      } else {
+        const stat = await fs.stat(fullPath);
+        files.push({
+          path: path.relative(root, fullPath),
+          bytes: stat.size,
+          extension: path.extname(entry.name).toLowerCase()
+        });
+      }
+    }
+  }
+  await visit(root);
+  const byExtension = {};
+  for (const file of files) {
+    byExtension[file.extension || "<none>"] = (byExtension[file.extension || "<none>"] || 0) + 1;
+  }
+  return {
+    total: files.length,
+    byExtension,
+    samples: files.slice(0, 40)
+  };
+}
+
+
 await fs.mkdir(DELIVERY_DIR, {recursive: true});
 await fs.rm(OUTPUT_ROOT, {recursive: true, force: true});
 
@@ -244,9 +280,31 @@ try {
           className: button.className
         })).catch(() => null);
         const body = await page.locator("body").innerText().catch(() => "");
+        const inputs = await page.locator("#settings-pane input, #settings-pane select").evaluateAll((items) =>
+          items.map((item) => ({
+            tag: item.tagName,
+            type: item.getAttribute("type"),
+            value: item.value,
+            ariaLabel: item.getAttribute("aria-label"),
+            name: item.getAttribute("name"),
+            title: item.getAttribute("title"),
+            outerHTML: item.outerHTML.slice(0, 500)
+          }))
+        ).catch(() => []);
+        const localStorage = await page.evaluate(() =>
+          Object.fromEntries(Object.keys(window.localStorage).map((key) => [key, window.localStorage.getItem(key)]))
+        ).catch(() => ({}));
+        const exportAudit = await fetch(URL + "/__m1-export-audit").then(response => response.json()).catch(error => ({error: String(error)}));
+        const fileSummary = await summarizeFiles(OUTPUT_ROOT);
+        const debug = {
+          status, body, inputs, localStorage, exportAudit, fileSummary,
+          pageErrors, browserConsole, viteLog: viteLog.slice(-10000)
+        };
+        await fs.writeFile(path.join(DELIVERY_DIR, "short-render-debug.json"), JSON.stringify(debug, null, 2) + "\\n");
+        await page.screenshot({path: path.join(DELIVERY_DIR, "short-render-editor.png"), fullPage: true}).catch(() => {});
         throw new Error(
           `Motion Canvas finished with ${secondCheck?.pngs.length ?? 0}/${EXPECTED_FRAMES} PNG frames.\\n` +
-          JSON.stringify({status, pageErrors, browserConsole, body}, null, 2)
+          JSON.stringify(debug, null, 2)
         );
       }
       finalFrames = secondCheck;
