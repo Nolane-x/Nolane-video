@@ -13,7 +13,7 @@ M1 has a shared creative/scientific brief and executable candidates for Remotion
 |---|---|---|
 | Remotion 4.0.547 | TypeScript check; 1,728-frame H.264 render; ffprobe confirms 1920×1080, 24 fps, 72.000 s; contact sheet reviewed | Technical render PASS; visual review remains in progress; no narration/SFX audio supplied |
 | Manim Community Edition fork | Pinned fork install; 1920×1080, 24 fps scientific segment render; ffprobe and contact sheet/frame review | Scientific segment PASS; it is not a full-film candidate |
-| Motion Canvas 3.17.2 | Dependency install; editor build/typecheck; headless Chromium opens the editor and invokes the official core image-sequence renderer | Build PASS; full render FAIL: latest instrumented-scene run detected only 74/1,728 PNG frames; earlier run detected 96/1,728 |
+| Motion Canvas 3.17.2 | Dependency install; editor build/typecheck; headless Chromium opens the editor and invokes the official core image-sequence renderer | Build PASS; the scene generator reaches frame 1,728 at 72 s / 24 fps, but only 91 PNG files were found in the output directory; export/range/write path remains unresolved |
 
 A workflow can be marked failed overall while its individual jobs succeed. In run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773), Remotion and Manim jobs succeeded; the Motion Canvas job failed. Do not describe the whole run as a clean pass.
 
@@ -56,8 +56,8 @@ The canonical ray starts in water at 40° from the normal, crosses the horizonta
 - The official editor project builds and typechecks. It uses Motion Canvas core's MIT image-sequence exporter and independent FFmpeg assembly.
 - The optional Motion Canvas FFmpeg exporter declares GPLv3 and is deliberately not included.
 - Headless editor automation reached the official Render control. Reduced-motion preference is applied to the editor UI only to avoid animated panel mount races; it does not change film animation.
-- Render evidence: run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) completed the render command but found 96/1,728 PNGs. A later run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915) found 74/1,728 PNGs. No Motion Canvas MP4 is accepted as a completed benchmark output.
-- Current diagnostic source adds per-shot playback frame/time/fps checkpoints and captures browser console warnings/errors. Diagnostic run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) is associated with commit `71691374f96b137f24fb8711609e338034a08d84`; inspect its job logs before changing the scene timeline again.
+- Render evidence: run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) found 96/1,728 PNGs; run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915) found 74/1,728. Crucial correction: run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) logs show all six checkpoints completed, ending at frame 1,728, 72.0 seconds and 24 fps, with no browser page errors. Therefore the scene generator itself is not ending early. Only 91 PNGs were found, so investigate renderer range, WebSocket export reception, file writes and output-directory discovery. No Motion Canvas MP4 is accepted as a completed benchmark output.
+- A later diagnostic Vite plugin counts `motion-canvas:export` events and exposes `/__m1-export-audit`; the Playwright script captures actual Video Settings inputs, localStorage, file extensions/counts, browser console, and audit totals. The workflow has an `always()` diagnostics artifact upload. Inspect the run associated with commit `aca94f7c224d222ba862fa9330f7894e22e7c534` before changing scene timing.
 
 ## Licensing and reuse constraints
 
@@ -77,4 +77,4 @@ The canonical ray starts in water at 40° from the normal, crosses the horizonta
 
 ## Immediate next action
 
-Inspect the newest Motion Canvas diagnostic run (`45836821545`) and use its `[M1 Motion Canvas]` checkpoints plus browser-console output to identify the exact point where the generator stops. Fix the cause, rerun the full 1,728-frame export, then inspect its contact sheet and moving sequence. Do not pad the timeline with a static wait or mark partial output as a successful render.
+Inspect the Motion Canvas audit run associated with commit `aca94f7c224d222ba862fa9330f7894e22e7c534`. Compare the renderer's actual range inputs, WebSocket `received/uniqueFrames/minFrame/maxFrame`, file counts/extensions and output paths. Fix the export bottleneck or range mismatch, preserve the 1,728-frame gate, then produce and review a complete MP4/contact sheet. Do not pad the timeline or mark partial output as success.
