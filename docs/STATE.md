@@ -80,7 +80,7 @@ Verified in run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/r
 
 Artifact digest: `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`.
 
-Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` aligns the segment to the NEE palette, DejaVu Sans and a persistent water region. Its validation render is queued in [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595). Manim remains a specialist diagram adapter, not a full-film candidate.
+Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` aligns the segment to the NEE palette, DejaVu Sans and a persistent water region. The latest candidate rerender is queued in [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555); prior pending run 45850249595 was superseded before it started. Manim remains a specialist diagram adapter, not a full-film candidate.
 
 ### Motion Canvas 3.17.2 — full-film candidate
 
@@ -111,7 +111,7 @@ Still pending:
 - `.github/workflows/validate-m1-benchmark.yml` exists.
 - Latest successful validator: [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249), commit `d15705bdec39cc48cd7a802378adf8eb3fdcb6c3`.
 - Latest successful unit/regression tests: [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293), commit `aba51bb249528a03448196326c255fcec334d797`. Tests assert that a 72.0-second inclusive endpoint would create an extra frame.
-- `.github/workflows/m1-benchmark-candidates.yml` runs Remotion, Motion Canvas and Manim independently. Candidate run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) passed Remotion and Manim but still has Motion Canvas rendering. Candidate rerender with Manim style change is pending in [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595).
+- `.github/workflows/m1-benchmark-candidates.yml` runs Remotion, Motion Canvas and Manim independently. Candidate run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) passed Remotion and Manim but still has Motion Canvas rendering. Candidate rerender with Manim style change is pending in [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555).
 - A workflow's overall result can be failure while individual engine jobs succeed; report each job separately.
 - All preview renders currently omit a real audio track.
 
@@ -124,7 +124,7 @@ Still pending:
 
 ## 9. What remains open
 
-- Finish Motion Canvas exact 1,728-frame render and ffprobe in run `45842364169`; next candidate validation is queued in `45850249595`.
+- Finish Motion Canvas exact 1,728-frame render and ffprobe in run `45842364169`; next candidate validation is queued in `45851338555`.
 - Review the new Manim palette/font render when it finishes.
 - Inspect continuous movement/action/contact across the full 72-second film, not only contact sheets.
 - Add real approved voice, synchronized transcript captions, SFX and music before claiming audio QA; do not synthesize or assume audio without an approved source.
