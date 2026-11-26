@@ -1,70 +1,130 @@
 # Project State
 
-**Snapshot date:** 2026-11-26  
+**Snapshot date:** 2026-11-26 21:15 +07:00  
 **Repository:** https://github.com/Nolane-x/Nolane-video  
-**Default branch:** main  
-**Current phase:** M0 — product foundation and scope lock  
-**Last verified source commit before this state document:** 99a705ab09648012855710da5455da8e458ad2ed
+**Default branch:** `main` (unchanged by this benchmark branch)  
+**Working branch:** `m1/optics-benchmark`  
+**Verified branch HEAD before this state update:** `71691374f96b137f24fb8711609e338034a08d84`  
+**Current phase:** M1 — comparable benchmark and architecture decision (in progress).  
+**Architecture decision:** OPEN; no master runtime selected.
 
-## 1. Verified repository facts
+## 1. Project identity and scope
 
-- This repository was created on 2026-11-26 and was empty at the start of this project session.
-- The first project README was committed as 5a64523916b9c83d90c5d46a5e9cda7969637ac0.
-- The dedicated engine repository is separate from Nolane-x/video.
-- The user's Remotion fork is Nolane-x/remotion, forked from remotion-dev/remotion.
-- The user's Manim fork is Nolane-x/manim, forked from ManimCommunity/manim.
-- The prior production workspace is Nolane-x/video and contains a separate Remotion project plus an H2 2D prototype. It is not the new engine repository.
-- Motion Canvas was inspected as a public MIT-licensed candidate for code-first 2D explanatory animation and narration synchronization.
-- Rive runtime was identified as an optional character/prop runtime candidate (MIT).
-- Synfig was identified as an animation/rigging reference with GPL-3.0 integration implications.
+Nolane Explainer Engine (NEE) is a specialist, code-first production system for story-driven, narration-led 2D/2.5D educational explainer films, especially mathematics, physics, chemistry, engineering and technology. It is not a universal video generator or general-purpose editor.
 
-## 2. Documents established
+Long-form ambition remains approximately 8–20 minutes, 16:9. The 60–120-second benchmark is an engineering proof, not a reduction in product ambition.
 
-- README.md — project identity and entry point.
-- AGENTS.md — scope lock, source/licensing rules, engineering rules and mandatory handoff.
-- docs/PRODUCT_NORTH_STAR.md — mission, target quality, in/out of scope and success criteria.
-- docs/ENGINE_ARCHITECTURE.md — Film IR, runtime layers, renderer adapter policy, AI production roles and QA gates.
-- docs/REFERENCE_ENGINE_STUDY.md — Median, Alan Becker, Remotion, Manim, Motion Canvas, existing H2, Rive and Synfig research.
-- docs/ROADMAP.md — M0–M6 with measurable acceptance gates.
+## 2. Foundation completed
 
-## 3. Strategic decisions established
+The M0 foundation documents exist:
+- `README.md`
+- `AGENTS.md`
+- `docs/PRODUCT_NORTH_STAR.md`
+- `docs/ENGINE_ARCHITECTURE.md`
+- `docs/REFERENCE_ENGINE_STUDY.md`
+- `docs/ROADMAP.md`
+- `docs/STATE.md`
+- `docs/AI_HANDOFF.md`
 
-1. Product category is narrow: story-driven, narration-led 2D/2.5D educational explainers, primarily math, science, engineering and technology.
-2. Long-term film target is approximately 8–20 minutes, primarily 16:9.
-3. Short benchmark target is 60–120 seconds and is an engineering proof, not a reduction of product ambition.
-4. Film IR is proposed as the renderer-independent source of truth.
-5. Remotion, Manim, Motion Canvas and the existing H2 prototype are references or benchmark candidates; none is yet selected as the sole engine.
-6. No entire framework should be imported by default.
-7. Every future work session must update this file and docs/AI_HANDOFF.md before ending.
+The renderer-independent Film IR remains the proposed source of truth. Candidate frameworks remain adapters/references until M1 evidence supports a decision.
 
-## 4. Work actually performed
+## 3. Verified repository roles and source constraints
 
-- Inspected GitHub metadata and repository trees for the new repo, existing production repo, Remotion fork and Manim fork.
-- Inspected representative Remotion Composition, Sequence, TimelineContext and render-flow source.
-- Inspected representative Manim Scene, Animation and Mobject source.
-- Inspected Motion Canvas GeneratorScene, Thread, sequence flow, 2D Scene and Camera source.
-- Inspected parts of the H2 prototype in Nolane-x/video, including core timing/interpolation/seeded-random functions, actor rig pose definitions and browser/FFmpeg renderer.
-- Researched public Median and Alan Becker workflow materials. Median's private repository was not accessed.
-- Created the foundation documents listed above.
+- New engine: `Nolane-x/Nolane-video`.
+- User Remotion fork: `Nolane-x/remotion`; upstream: `remotion-dev/remotion`.
+- User Manim fork: `Nolane-x/manim`; upstream: `ManimCommunity/manim`.
+- Prior workspace: `Nolane-x/video`; H2 prototype has not been copied because source provenance/reuse rights still need audit.
+- Motion Canvas candidate: `motion-canvas/motion-canvas`.
 
-## 5. Not yet done
+Do not confuse `Nolane-video` with `Nolane-x/video`. Do not edit the user's Remotion or Manim forks as part of this task.
 
-- No engine runtime code has been written.
-- No third-party package has been installed or vendored.
-- No source has been copied from Remotion, Manim, Motion Canvas, H2, Rive or Synfig.
-- No benchmark scene has been implemented or rendered.
-- No tests, typechecks, builds, render jobs or media QA have been run.
-- No renderer has been selected.
-- No claim is made that this engine can currently create a finished film.
+## 4. M1 benchmark created
 
-## 6. Next milestone
+Canonical film:
+- Title: **The Spoon That Bends** / **Vì sao chiếc thìa trông như bị gãy trong nước?**
+- Duration: 72 seconds, 1,728 frames.
+- Format: 1920×1080, 24 fps, 16:9, sRGB.
+- Six shots: hook, contradiction, optical reveal, refraction, apparent image, resolution.
+- Vietnamese script and on-screen copy; audio cues are planned but no real voice/SFX/music audio is supplied yet.
 
-**M1 — comparable benchmark and architecture decision.**
+Shared assets:
+- `benchmarks/optics-spoon/shared/script.vi.md`
+- `benchmarks/optics-spoon/shared/storyboard.json`
+- `benchmarks/optics-spoon/shared/ART-DIRECTION.md`
+- `benchmarks/optics-spoon/shared/RESEARCH.md`
+- `benchmarks/optics-spoon/shared/diagram.json`
+- `docs/M1_BENCHMARK_SPEC.md`
+- `docs/M1_BENCHMARK_PLAN.md`
 
-Implement one small, consistent 60–120 second educational scene in candidate systems and assess them using the same story, narration, assets and output settings. Compare Motion Canvas, Remotion, and the existing H2 prototype after a provenance/license audit; use Manim for the mathematically meaningful segment. Document results and choose the initial runtime only after actual preview/render and visual review.
+The canonical water-to-air geometry is checked by code: 40° in water, approximately 58.935° in air, both from the normal; the apparent point lies on the backward extension of the refracted ray.
 
-## 7. Last-known GitHub source state
+## 5. Candidate implementation and evidence
 
-- Foundation README commit: 5a64523916b9c83d90c5d46a5e9cda7969637ac0
-- Product/architecture/roadmap documentation existed on main through: 99a705ab09648012855710da5455da8e458ad2ed
-- The AI handoff document is being established in the same foundation session. Always inspect the live main HEAD before continuing.
+### Remotion 4.0.547 — full-film candidate
+
+Verified in run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773):
+- TypeScript typecheck passed.
+- Full render passed.
+- ffprobe passed: H.264, 1920×1080, 24/1 fps, 72.000 seconds, 1,728 frames.
+- Contact sheet reviewed.
+
+Artifact digest: `sha256:d952ac40773e0e67f504afaebe74aa6a3c7dd327833ec9d7d8865261e4b5f1f7`.
+
+The output is a silent/audio-incomplete vector prototype, not a finished film. Visual quality and acting remain below the product target; review safe areas and captions again at full resolution.
+
+### Manim CE user fork — scientific segment only
+
+Verified in run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773):
+- Installed pinned fork commit `18320e2f0feaf142b2c3a377068ddb44c82fb2a1`.
+- Rendered S04–S05 at 1920×1080, 24 fps, 11.625 seconds.
+- ffprobe and visual contact-sheet/final-frame review passed.
+
+Artifact digest: `sha256:360165a33ae89e101b0aa055fdba88a99926ed943fed3f31f71b09bdfa4d4bbc`.
+
+Manim is being evaluated as a math/diagram adapter, not as a full-film engine.
+
+### Motion Canvas 3.17.2 — full-film candidate
+
+Verified:
+- Pinned dependencies install.
+- Vite/editor build and TypeScript check pass.
+- Headless Chromium opens the official editor and invokes its core image-sequence renderer.
+- Current exporter uses Motion Canvas core's image-sequence exporter plus independent FFmpeg; GPLv3 FFmpeg exporter is not included.
+
+Not verified:
+- Full render does not pass. Run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) stopped at 96/1,728 PNGs. Run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915) stopped at 74/1,728 PNGs.
+- No Motion Canvas MP4 is accepted as complete.
+
+Diagnostic changes in branch HEAD:
+- The scene logs `scene-start` and `S01–S06-complete` playback frame/time/fps checkpoints.
+- The Playwright script captures browser console errors/warnings and includes them when frame count is short.
+- Run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) is associated with this diagnostic code. Inspect its fresh job logs before further timing changes.
+
+## 6. Test and workflow facts
+
+- `.github/workflows/validate-m1-benchmark.yml` exists.
+- Latest recorded successful validator run: [45831094427](https://github.com/Nolane-x/Nolane-video/actions/runs/45831094427), commit `191d6f6b4e63f63edcbaed76fac1bc9bb1d2c07a`.
+- `.github/workflows/m1-benchmark-candidates.yml` runs Remotion, Motion Canvas and Manim independently.
+- A workflow's overall result can be failure while individual engine jobs succeed; report each job separately.
+- All preview renders currently omit a real audio track.
+
+## 7. Licensing and integration constraints
+
+- Motion Canvas packages inspected are MIT-licensed; its optional FFmpeg exporter declares GPLv3 and remains excluded.
+- Manim Community Edition is MIT-licensed; the user's fork is pinned by commit.
+- Remotion's two-tier licensing model remains a product-adoption constraint; evaluation use does not decide redistribution/commercial embedding rights.
+- H2 has not been copied; complete its provenance/license audit before considering reuse.
+
+## 8. What remains open
+
+- Diagnose and fix Motion Canvas's early scene termination.
+- Rerun current validator tests after latest changes and before merging.
+- Inspect latest Remotion/Manim artifacts and complete shot-by-shot visual review.
+- Add real approved voice, captions and synchronized SFX before claiming audio QA.
+- Complete H2 provenance/license audit.
+- Score candidates with evidence; write the architecture decision.
+- Do not begin broad M2/M3 engine implementation until M1 is accepted.
+
+## 9. Next concrete task
+
+Inspect run `45836821545` for the new `[M1 Motion Canvas]` shot checkpoints and browser-console errors. Identify why the scene ends before 1,728 frames, fix the cause rather than padding a static tail, and rerun the image-sequence render and ffprobe gate.
