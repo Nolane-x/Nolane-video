@@ -10,6 +10,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK = ROOT / "benchmarks" / "optics-spoon" / "shared"
+MOTION_CANVAS_META = ROOT / "benchmarks" / "optics-spoon" / "motion-canvas" / "src" / "project.meta"
 
 
 def refracted_angle_degrees(n_incident: float, n_transmitted: float, theta_incident_degrees: float) -> float:
@@ -94,6 +95,53 @@ def validate_diagram(diagram: dict[str, Any]) -> list[str]:
     return errors
 
 
+def load_motion_canvas_meta(path: Path = MOTION_CANVAS_META) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def validate_motion_canvas_range(
+    storyboard: dict[str, Any],
+    project_meta: dict[str, Any],
+) -> list[str]:
+    """Validate Motion Canvas's inclusive renderer endpoint against N half-open samples.
+
+    Motion Canvas converts seconds to frames with ceil(seconds * fps). The
+    renderer's range endpoint is therefore the last included frame timestamp,
+    not the exclusive duration boundary.
+    """
+    errors: list[str] = []
+    try:
+        project = storyboard["project"]
+        fps_data = project["fps"]
+        fps = float(fps_data["numerator"]) / float(fps_data["denominator"])
+        duration_frames = int(project["duration_frames"])
+        render_range = project_meta["shared"]["range"]
+        if len(render_range) != 2:
+            return ["Motion Canvas shared.range must contain a start and end time."]
+
+        start_seconds, end_seconds = (float(value) for value in render_range)
+        if not math.isfinite(start_seconds) or not math.isfinite(end_seconds):
+            return ["Motion Canvas render range values must be finite."]
+        start_frame = math.ceil(start_seconds * fps)
+        last_included_frame = math.ceil(end_seconds * fps)
+        expected_last_frame = duration_frames - 1
+
+        if start_frame != 0:
+            errors.append(
+                f"Motion Canvas must start at frame 0, but shared.range maps to frame {start_frame}."
+            )
+        if last_included_frame != expected_last_frame:
+            errors.append(
+                "Motion Canvas inclusive end maps to frame "
+                f"{last_included_frame}; expected final included frame {expected_last_frame} "
+                f"for exactly {duration_frames} output frames."
+            )
+    except (KeyError, TypeError, ValueError, ZeroDivisionError) as exc:
+        errors.append(f"Invalid Motion Canvas render range metadata: {exc}")
+
+    return errors
+
+
 def validate_storyboard(storyboard: dict[str, Any], research_text: str) -> list[str]:
     errors: list[str] = []
     project = storyboard.get("project", {})
@@ -151,6 +199,7 @@ def validate_storyboard(storyboard: dict[str, Any], research_text: str) -> list[
 
     diagram_errors = validate_diagram(load_diagram())
     errors.extend(diagram_errors)
+    errors.extend(validate_motion_canvas_range(storyboard, load_motion_canvas_meta()))
 
     shot_map = {shot.get("id"): shot for shot in shots}
     if "S04" not in shot_map or "S05" not in shot_map:
