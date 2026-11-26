@@ -26,6 +26,7 @@
 
 - docs/M1_BENCHMARK_SPEC.md — benchmark requirements and acceptance.
 - docs/M1_BENCHMARK_PLAN.md — this task plan.
+- docs/ANIMATION_CRAFT_STANDARDS.md — animation craft and visual QA requirements.
 - benchmarks/optics-spoon/shared/script.vi.md — narration.
 - benchmarks/optics-spoon/shared/storyboard.json — canonical timing and shot IDs.
 - benchmarks/optics-spoon/shared/ART-DIRECTION.md — visual system.
