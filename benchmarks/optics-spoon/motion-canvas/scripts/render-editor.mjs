@@ -90,6 +90,17 @@ try {
   const pageErrors = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
 
+  // The editor persists expandable-panel and process selection state per
+  // project. Seed a known, reproducible first-render state before the app
+  // mounts, rather than relying on a stale/default localStorage snapshot.
+  await page.addInitScript(() => {
+    const projectName = "spoon";
+    for (const title of ["General", "Preview", "Rendering"]) {
+      localStorage.setItem(`${projectName}-expandable-${title}`, "true");
+    }
+    localStorage.setItem(`${projectName}-main-action`, "0");
+  });
+
   await page.goto(URL, {waitUntil: "domcontentloaded", timeout: 120000});
   const settingsTab = page.locator("#rendering-tab");
   const settingsPane = page.locator("#settings-pane");
