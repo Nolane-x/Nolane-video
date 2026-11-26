@@ -91,14 +91,14 @@ Verified:
 - Headless Chromium opens the official editor and invokes its core image-sequence renderer.
 - Current exporter uses Motion Canvas core's image-sequence exporter plus independent FFmpeg; GPLv3 FFmpeg exporter is not included.
 
-Not verified:
-- Full render does not pass. Runs [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) and [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915) found 96 and 74 PNGs respectively. Run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) confirms all six scene checkpoints complete at frame 1,728 / 72 seconds / 24 fps, with no browser page errors; its output directory still contained only 91 PNGs. The scene generator is therefore not the cause.
-- No Motion Canvas MP4 is accepted as complete.
+Verified:
+- Motion Canvas 3.17.2 installs, builds and typechecks; headless Chromium opens the official editor and invokes its core image-sequence exporter.
+- The project renderer now has a valid audit plugin. Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) logs `RendererResult.Success`, `lastFrame: 1728`, and a return to `RendererState.Initial`.
 
-Diagnostic changes in branch HEAD:
-- A Vite audit plugin counts `motion-canvas:export` messages and exposes `/__m1-export-audit`.
-- Playwright captures renderer range inputs, localStorage, output file counts/extensions, browser console and Vite log; workflow uploads diagnostics even on render failure.
-- Audit workflow associated with commit `aca94f7c224d222ba862fa9330f7894e22e7c534` is the next evidence source.
+Still pending:
+- That run exported 1,729 unique PNGs (frames 0–1,728), because the range endpoint at exactly 72 seconds is inclusive. The renderer therefore works; the remaining issue is one extra boundary sample, not a premature stop or file loss.
+- Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets the final included sample timestamp to `71.95833333333333` s (frame 1,727 at 24 fps). Run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) is validating the exact 1,728-frame output and ffprobe gate.
+- No Motion Canvas MP4 has yet passed the exact-count/metadata acceptance gate.
 
 ## 6. Test and workflow facts
 
@@ -117,7 +117,7 @@ Diagnostic changes in branch HEAD:
 
 ## 8. What remains open
 
-- Diagnose Motion Canvas range/export/file-writing pipeline; do not change the already verified 72-second scene timeline without evidence.
+- Verify the half-open frame-range fix in run `45840831148`; if it passes, review the MP4/contact sheet and record the visual findings. Do not change the scene timeline.
 - Rerun current validator tests after latest changes and before merging.
 - Inspect latest Remotion/Manim artifacts and complete shot-by-shot visual review.
 - Add real approved voice, captions and synchronized SFX before claiming audio QA.
@@ -127,4 +127,4 @@ Diagnostic changes in branch HEAD:
 
 ## 9. Next concrete task
 
-Inspect the audit run for commit `aca94f7c224d222ba862fa9330f7894e22e7c534`. Compare UI range inputs, WebSocket export count/unique frames and the actual file tree. Fix the proven issue, keep the strict 1,728-frame gate, then rerun and inspect the complete MP4/contact sheet.
+Inspect run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148). Exact acceptance: 1,728 sequential PNGs from frame 0 through 1,727, then H.264 1920×1080 24 fps 72.000 s ffprobe and artifact upload. Review the contact sheet/continuous motion; only then update candidate scoring. Audio remains absent.
