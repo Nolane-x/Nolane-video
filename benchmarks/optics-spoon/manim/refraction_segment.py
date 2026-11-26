@@ -5,6 +5,7 @@ from manim import (
     Dot,
     FadeIn,
     GOLD,
+    LEFT,
     RIGHT,
     UP,
     DOWN,
@@ -40,7 +41,7 @@ class RefractionSegment(Scene):
             stroke_width=5,
         )
         water_region = VGroup()
-        water_label = Text("NƯỚC", font_size=30, color=BLUE_D).move_to([-5.1, -2.8, 0])
+        water_label = Text("NƯỚC", font_size=30, color=BLUE_D).move_to([-5.2, -2.45, 0])
         air_label = Text("KHÔNG KHÍ", font_size=30, color=WHITE).move_to([-5.0, 2.7, 0])
 
         point = np.array([0.0, boundary_y, 0])
@@ -72,20 +73,24 @@ class RefractionSegment(Scene):
         apparent_dot = Dot(apparent_point, radius=0.10, color="#8ED2B0")
         eye_dot = Dot(eye, radius=0.12, color=WHITE)
 
-        normal_label = Text("PHÁP TUYẾN", font_size=24, color=WHITE).next_to(normal, RIGHT, buff=0.15)
+        normal_label = Text("PHÁP TUYẾN", font_size=22, color=WHITE).move_to([1.05, 0.95, 0])
         water_angle = Text("40°", font_size=30, color=GOLD).move_to([-1.5, -0.7, 0])
         air_angle = Text("58,9°", font_size=30, color=GOLD).move_to([1.0, 1.55, 0])
-        true_label = Text("Vị trí thật", font_size=25, color="#E47D68").next_to(true_dot, DOWN, buff=0.15)
-        apparent_label = Text("Vị trí biểu kiến", font_size=25, color="#8ED2B0").next_to(apparent_dot, UP, buff=0.15)
+        true_label = Text("Vị trí thật", font_size=25, color="#E47D68").move_to([-1.65, -3.55, 0])
+        apparent_label = Text("Vị trí biểu kiến", font_size=25, color="#8ED2B0").move_to([-1.55, -1.45, 0])
         eye_label = Text("Mắt", font_size=25, color=WHITE).next_to(eye_dot, RIGHT, buff=0.15)
 
         title = Text("ÁNH SÁNG KHÚC XẠ", font_size=38, color=WHITE).to_edge(UP)
         formula = Text(
-            "n_nước sin(theta_nước) = n_không_khí sin(theta_không_khí)",
-            font_size=24,
+            "n₁ sin θ₁ = n₂ sin θ₂",
+            font_size=34,
             color=WHITE,
-        ).to_edge(DOWN, buff=0.48)
-        indices = Text("n_nước ≈ 1,333     n_không_khí ≈ 1,0003", font_size=22, color="#A9B6BE").next_to(formula, UP, buff=0.22)
+        ).move_to([3.55, -2.75, 0])
+        indices = Text(
+            "nước: 1,333   |   không khí: 1,0003",
+            font_size=22,
+            color="#A9B6BE",
+        ).next_to(formula, DOWN, buff=0.22)
 
         self.play(Write(title), FadeIn(water_label), FadeIn(air_label), run_time=1.4)
         self.play(Create(interface), Create(normal), FadeIn(normal_label), run_time=1.2)
