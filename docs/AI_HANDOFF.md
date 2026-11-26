@@ -1,10 +1,10 @@
 # AI Session Handoff
 
-**Updated:** 2026-11-26 21:15 +07:00  
+**Updated:** 2026-11-26  
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main`  
 **Working branch:** `m1/optics-benchmark`  
-**Verified HEAD before this handoff update:** `71691374f96b137f24fb8711609e338034a08d84`  
+**Verified HEAD before this handoff update:** `914c9b35c88d65b8c7c5a3cb2c5c6172954d4151`  
 **Current milestone:** M1 — comparable benchmark and architecture decision, still in progress.  
 **Do not merge or select a master renderer yet.**
 
@@ -67,36 +67,38 @@ Candidates:
 
 ### Remotion 4.0.547
 
-Run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) has a successful Remotion job. It typechecked, rendered and passed ffprobe:
+Successful full-film run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169):
 - H.264;
 - 1920×1080;
 - 24 fps;
 - 72.000 seconds;
-- 1,728 frames.
+- exactly 1,728 frames.
 
-Artifact digest: `sha256:d952ac40773e0e67f504afaebe74aa6a3c7dd327833ec9d7d8865261e4b5f1f7`.
+Artifact digest: `sha256:f829285a43711aed3a869bae9d93ede74d37c9561125a510ad2101e673d20b14`.
 
-Contact sheet has been reviewed. The six shots are present, but the output is a vector prototype and has no narration/SFX/music audio. Continue visual polish and do not claim final-film quality.
+The contact sheet and 1080p frames 1056/1248 were reviewed. The “NƯỚC” label is now outside the caption safe area. Remaining limitation: the character and props are vector blockouts; no real Vietnamese VO, synchronized transcript captions, SFX or music is present. Review does not constitute final artistic approval. Full findings are in `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
 
 ### Manim CE fork
 
-Run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) has a successful Manim job:
+Successful scientific-segment run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169):
 - fork `Nolane-x/manim` pinned at `18320e2f0feaf142b2c3a377068ddb44c82fb2a1`;
 - S04–S05 only;
 - 1920×1080, 24 fps, 11.625 seconds;
-- ffprobe and contact-sheet/final-frame review passed.
+- ffprobe passed.
 
-Artifact digest: `sha256:360165a33ae89e101b0aa055fdba88a99926ed943fed3f31f71b09bdfa4d4bbc`.
+Artifact digest: `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`.
 
-Keep Manim in its specialist math/diagram role unless evidence says otherwise.
+The diagram geometry passed review, but the original style had a black background, serif text and empty-looking opening. Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` changes it to the shared palette, DejaVu Sans and a persistent water region. The rerender is in latest pending candidate run [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595). Manim remains a specialist scientific-visualization adapter, not a full-film candidate.
 
 ### Motion Canvas 3.17.2
 
-Motion Canvas renderer completion is now confirmed. Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) reports `RendererResult.Success`, `lastFrame: 1728`, and 1,729 unique PNG exports (frames 0–1,728). The earlier partial counts came from the automation prematurely inferring completion from the UI's `data-rendering` attribute; the script now waits for `renderer.onFinished`.
+Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) proves the renderer can complete with `RendererResult.Success`, `lastFrame: 1728`; the exporter emitted 1,729 frames (0–1,728) because the time endpoint is inclusive. Earlier short renders were caused by Playwright inferring completion from the UI's `data-rendering` attribute. The script now waits for the actual engine `renderer.onFinished` event.
 
-The remaining off-by-one was the inclusive 72-second range endpoint. Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets `project.meta` range end to `71.95833333333333` seconds, so 24 fps produces exactly frames 0–1,727 (1,728 images) while the MP4 remains 72.000 seconds.
+Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets `project.meta` range end to `71.95833333333333` seconds, the final included timestamp for frame 1,727 at 24 fps. The 72-second output still requires exactly 1,728 samples (000000–001727).
 
-No Motion Canvas MP4 has passed the exact-count/ffprobe gate yet. **Immediate task:** inspect run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148). Require exactly 1,728 sequential PNGs, then H.264 1920×1080, 24 fps and 72 seconds. Remotion and Manim visual-review findings are in `benchmarks/optics-spoon/reports/VISUAL-QA.md`; inspect the Remotion safe-area fix from commit `e5e0259ca2c517858511dcaf11a70edb40f640ea` in queued rerender [45842086637](https://github.com/Nolane-x/Nolane-video/actions/runs/45842086637). Audio has not been added.
+Run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) was cancelled before its Motion Canvas render completed. Current run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) has Remotion and Manim jobs successful; Motion Canvas setup/build passed but its render step is still running. No MP4/ffprobe has been accepted yet.
+
+The shared validator now checks Motion Canvas's `ceil(seconds × fps)` inclusive-end conversion. Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and regression-test run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) both passed. A new candidate rerun [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595) is pending with the Manim palette/font update.
 
 ## Important implementation findings
 
@@ -135,16 +137,26 @@ Manim job:
 Validator:
 - `python -m unittest discover -s tests -v`
 - `python tools/validate_benchmark.py`
-- Latest recorded successful validation workflow run: [45831094427](https://github.com/Nolane-x/Nolane-video/actions/runs/45831094427), commit `191d6f6b4e63f63edcbaed76fac1bc9bb1d2c07a`. Rerun current validator before merging.
+- Latest successful validator: [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249), commit `d15705bdec39cc48cd7a802378adf8eb3fdcb6c3`.
+- Latest successful unit/regression tests: [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293), commit `aba51bb249528a03448196326c255fcec334d797`. Regression coverage proves that a 72.0-second inclusive endpoint would add frame 1,728.
 
 ## Still incomplete
 
-- Full Motion Canvas render and visual review.
-- Current full Remotion visual review after the most recent label adjustment.
-- Audio: no real Vietnamese voice, caption alignment, SFX or music mix.
+- Motion Canvas exact 1,728-frame render, MP4/ffprobe, contact sheet and continuous-motion review.
+- Manim palette/font rerender and visual approval in run `45850249595`.
+- Continuous-motion and action/contact review across the complete film; current checks are contact sheets and selected still frames.
+- Audio: no real Vietnamese voice, synchronized transcript captions, SFX or music.
 - H2 provenance/license audit.
-- Comparable scorecard and formal architecture decision.
+- Metric-backed candidate scorecard and formal architecture decision.
 - No broad Film IR/runtime build before M1 acceptance.
+
+## Immediate next actions
+
+1. Inspect [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 PNGs numbered 000000–001727; then verify H.264, 1920×1080, 24 fps, 72.000 seconds and artifact upload.
+2. Inspect latest pending candidate run [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595); confirm Manim palette/font render and review its contact sheet.
+3. Update `VISUAL-QA.md`, `ENGINE-CANDIDATE-STATUS.md`, `STATE.md` and this handoff with fresh results. Then perform continuous-motion review and create the scorecard/architecture decision.
+
+Keep audio incomplete until a real approved VO/SFX/music source is provided and synchronized. Do not choose a master runtime from incomplete evidence.
 
 ## End-of-session rule
 
