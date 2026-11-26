@@ -1,0 +1,1 @@
+manim @ git+https://github.com/Nolane-x/manim.git@18320e2f0feaf142b2c3a377068ddb44c82fb2a1
