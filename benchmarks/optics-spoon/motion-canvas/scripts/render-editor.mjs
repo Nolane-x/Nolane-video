@@ -96,10 +96,12 @@ try {
   await settingsTab.waitFor({state: "visible", timeout: 120000});
   const renderButton = page.locator("#render");
 
-  // Motion Canvas defaults to Video Settings. The tab toggles the panel,
-  // therefore inspect the actual pane instead of clicking based on a transient
-  // button count while the editor is still mounting.
-  if (!(await settingsPane.isVisible().catch(() => false))) {
+  // Tabs are toggles. Check the actual active class after the editor has
+  // mounted; an early element count can race with the persisted panel state.
+  const tabIsActive = await settingsTab.evaluate((element) =>
+    element.className.split(/\\s+/).some((name) => name.includes("_active_"))
+  );
+  if (!tabIsActive) {
     await settingsTab.click();
   }
   try {
