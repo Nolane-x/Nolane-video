@@ -1,10 +1,14 @@
+import copy
 import unittest
 
 from tools.validate_benchmark import (
+    BENCHMARK,
+    angle_from_normal_degrees,
+    load_diagram,
     load_storyboard,
     refracted_angle_degrees,
+    validate_diagram,
     validate_storyboard,
-    BENCHMARK,
 )
 
 
@@ -12,6 +16,7 @@ class BenchmarkContractTests(unittest.TestCase):
     def setUp(self):
         self.storyboard = load_storyboard()
         self.research = (BENCHMARK / "RESEARCH.md").read_text(encoding="utf-8")
+        self.diagram = load_diagram()
 
     def test_storyboard_is_valid(self):
         self.assertEqual(validate_storyboard(self.storyboard, self.research), [])
@@ -30,7 +35,7 @@ class BenchmarkContractTests(unittest.TestCase):
 
     def test_snell_example_bends_away_from_normal(self):
         theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
-        self.assertAlmostEqual(theta_air, 58.93, delta=0.1)
+        self.assertAlmostEqual(theta_air, 58.9346, delta=0.001)
         self.assertGreater(theta_air, 40.0)
 
     def test_total_internal_reflection_is_reported(self):
@@ -40,6 +45,28 @@ class BenchmarkContractTests(unittest.TestCase):
     def test_invalid_angles_are_rejected(self):
         with self.assertRaises(ValueError):
             refracted_angle_degrees(1.333, 1.0003, 90.0)
+
+    def test_shared_ray_geometry_matches_snell_law(self):
+        self.assertEqual(validate_diagram(self.diagram), [])
+
+    def test_outgoing_and_backward_rays_are_collinear(self):
+        interface = self.diagram["interface"]
+        observer = self.diagram["observer_point"]
+        apparent = self.diagram["apparent_point"]
+        out_angle = angle_from_normal_degrees(
+            observer["x"] - interface["x"],
+            interface["y"] - observer["y"],
+        )
+        back_angle = angle_from_normal_degrees(
+            interface["x"] - apparent["x"],
+            apparent["y"] - interface["y"],
+        )
+        self.assertAlmostEqual(out_angle, back_angle, delta=0.001)
+
+    def test_incorrect_apparent_point_geometry_is_rejected(self):
+        broken = copy.deepcopy(self.diagram)
+        broken["apparent_point"]["y"] = 745
+        self.assertTrue(validate_diagram(broken))
 
 
 if __name__ == "__main__":
