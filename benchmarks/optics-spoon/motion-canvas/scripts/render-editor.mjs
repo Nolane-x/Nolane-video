@@ -162,6 +162,13 @@ try {
     "-movflags", "+faststart",
     videoPath
   ]);
+  await run("ffmpeg", [
+    "-y",
+    "-i", videoPath,
+    "-vf", "fps=1/6,scale=480:-1,tile=4x3",
+    "-frames:v", "1",
+    path.join(DELIVERY_DIR, "contact-sheet.jpg")
+  ]);
 
   await fs.writeFile(
     path.join(DELIVERY_DIR, "render-report.json"),
