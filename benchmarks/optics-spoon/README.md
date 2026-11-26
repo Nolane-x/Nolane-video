@@ -29,4 +29,4 @@ This is the canonical 72-second NEE benchmark film used to compare educational-a
 
 ## Status
 
-Preproduction assets only. Candidate renders, audio integration and comparative QA remain pending until backed by fresh workflow evidence.
+M1 candidate renders are in progress. Remotion has a verified silent 72-second technical render; Manim has a reviewed scientific segment. Motion Canvas now completes its renderer loop but needed a half-open range correction to avoid one extra boundary frame; run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) is validating 1,728 frames and the MP4 metadata. No real narration/SFX/music audio has been added, and M1 has no selected master backend yet.
