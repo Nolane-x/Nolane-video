@@ -18,15 +18,13 @@ Read in this order:
 5. `docs/REFERENCE_ENGINE_STUDY.md`
 6. `docs/ANIMATION_CRAFT_STANDARDS.md`
 7. `docs/ROADMAP.md`
-7. `docs/STATE.md`
-8. `docs/AI_HANDOFF.md`
-9. `docs/M1_BENCHMARK_SPEC.md`
-10. `docs/M1_BENCHMARK_PLAN.md`
-11. `benchmarks/optics-spoon/reports/ENGINE-CANDIDATE-STATUS.md`
-12. `benchmarks/optics-spoon/reports/VISUAL-QA.md`
-13. `docs/M1_SCORECARD.md`
-14. `docs/ANIMATION_CRAFT_STANDARDS.md`
-13. `docs/M1_SCORECARD.md`
+8. `docs/STATE.md`
+9. `docs/AI_HANDOFF.md`
+10. `docs/M1_BENCHMARK_SPEC.md`
+11. `docs/M1_BENCHMARK_PLAN.md`
+12. `benchmarks/optics-spoon/reports/ENGINE-CANDIDATE-STATUS.md`
+13. `benchmarks/optics-spoon/reports/VISUAL-QA.md`
+14. `docs/M1_SCORECARD.md`
 
 Then fetch the live `m1/optics-benchmark` HEAD and inspect the latest Actions runs. The handoff is a snapshot, not a substitute for live verification.
 
