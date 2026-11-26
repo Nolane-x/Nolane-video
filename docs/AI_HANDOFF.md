@@ -4,7 +4,7 @@
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main`  
 **Working branch:** `m1/optics-benchmark`  
-**Verified HEAD before this handoff update:** `1b40a4d43d019db065c20627d32e93852ee083d4`  
+**Verified HEAD before this handoff update:** `77cbe88ca8bcf4c04af5d46d6c2515803f7c93fc`  
 **Current milestone:** M1 — comparable benchmark and architecture decision, still in progress.  
 **Do not merge or select a master renderer yet.**
 
@@ -90,17 +90,17 @@ Successful scientific-segment run [45842364169](https://github.com/Nolane-x/Nola
 
 Artifact digest: `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`.
 
-The diagram geometry passed review, but the original style had a black background, serif text and empty-looking opening. Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` changes it to the shared palette, DejaVu Sans and a persistent water region. The rerender is in latest pending candidate run [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131). Earlier pending runs 45850249595, 45851338555 and 45853159646 were superseded before starting. Manim remains a specialist scientific-visualization adapter, not a full-film candidate.
+The diagram geometry passed review, but the original style had a black background, serif text and empty-looking opening. Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` changes it to the shared palette, DejaVu Sans and a persistent water region. The rerender is in latest pending candidate run [45853726714](https://github.com/Nolane-x/Nolane-video/actions/runs/45853726714). Earlier pending runs 45850249595, 45851338555, 45853159646 and 45853225131 were superseded before starting. Manim remains a specialist scientific-visualization adapter, not a full-film candidate.
 
 ### Motion Canvas 3.17.2
 
-Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) proves the renderer can complete with `RendererResult.Success`, `lastFrame: 1728`; the exporter emitted 1,729 frames (0–1,728) because the time endpoint is inclusive. Earlier short renders were caused by Playwright inferring completion from the UI's `data-rendering` attribute. The script now waits for the actual engine `renderer.onFinished` event.
+Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) proves the renderer can complete with `RendererResult.Success`, `lastFrame: 1728`; the exporter emitted 1,729 frames (0–1,728) because the time endpoint is inclusive. Earlier short renders were caused by Playwright inferring completion from the UI's `data-rendering` attribute. The script now waits for the actual engine `renderer.onFinished` event. Its new export loop reads the Vite audit endpoint once per second instead of recursively rescanning the PNG directory, then performs one final file-tree check. Render timeout is 35 minutes within a 45-minute job, leaving time for encoding, ffprobe and artifact upload.
 
 Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets `project.meta` range end to `71.95833333333333` seconds, the final included timestamp for frame 1,727 at 24 fps. The 72-second output still requires exactly 1,728 samples (000000–001727).
 
 Run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) was cancelled before its Motion Canvas render completed. Current run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) has Remotion and Manim jobs successful; Motion Canvas setup/build passed but its render step is still running. No MP4/ffprobe has been accepted yet.
 
-The shared validator now checks Motion Canvas's `ceil(seconds × fps)` inclusive-end conversion. Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and regression-test run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) both passed. A new candidate rerun [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131) is pending with the Manim palette/font update and Motion Canvas progress instrumentation.
+The shared validator now checks Motion Canvas's `ceil(seconds × fps)` inclusive-end conversion. Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and regression-test run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) both passed. A new candidate rerun [45853726714](https://github.com/Nolane-x/Nolane-video/actions/runs/45853726714) is pending with the Manim palette/font update and Motion Canvas export-audit polling.
 
 ## Scorecard status
 
@@ -149,7 +149,7 @@ Validator:
 ## Still incomplete
 
 - Motion Canvas exact 1,728-frame render, MP4/ffprobe, contact sheet and continuous-motion review.
-- Manim palette/font rerender and visual approval in run `45853225131`.
+- Manim palette/font rerender and visual approval in run `45853726714`.
 - Full-speed 24 fps movement/action/contact review across the complete film. Sampled 4 fps/2 fps scans already flag Nia's limited acting and long static diagram holds.
 - Audio: no real Vietnamese voice, synchronized transcript captions, SFX or music.
 - H2 provenance/license audit.
@@ -159,7 +159,7 @@ Validator:
 ## Immediate next actions
 
 1. Inspect [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 PNGs numbered 000000–001727; then verify H.264, 1920×1080, 24 fps, 72.000 seconds and artifact upload. On failure, retrieve `m1-motion-canvas-diagnostics` and inspect `short-render-debug.json`, `exportAudit`, browser console and Vite output.
-2. Inspect latest pending candidate run [45853225131](https://github.com/Nolane-x/Nolane-video/actions/runs/45853225131); use `[M1 CI progress]` and `[NEE export audit]` logs to measure Motion Canvas throughput, confirm Manim palette/font render and review its contact sheet.
+2. Inspect latest pending candidate run [45853726714](https://github.com/Nolane-x/Nolane-video/actions/runs/45853726714); use `[M1 CI progress]`, `[NEE export audit]` and PNG file counts to measure Motion Canvas throughput, confirm Manim palette/font render and review its contact sheet.
 3. Update `VISUAL-QA.md`, `ENGINE-CANDIDATE-STATUS.md`, `STATE.md` and this handoff with fresh results. Then perform full-speed playback review, improve Nia's acting and diagram choreography, and only after comparable evidence complete the scorecard/architecture decision.
 
 Keep audio incomplete until a real approved VO/SFX/music source is provided and synchronized. Do not choose a master runtime from incomplete evidence.
