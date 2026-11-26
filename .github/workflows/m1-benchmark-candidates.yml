@@ -106,8 +106,20 @@ jobs:
           assert abs(float(data["format"]["duration"]) - 72.0) < 0.1, data["format"]
           print("Motion Canvas technical gate: 1920x1080, 24 fps, 72 seconds")
           PY
+      - name: Upload Motion Canvas diagnostics even on render failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m1-motion-canvas-diagnostics
+          path: |
+            benchmarks/optics-spoon/motion-canvas/output/
+            benchmarks/optics-spoon/motion-canvas/out/
+            benchmarks/optics-spoon/motion-canvas/short-render-debug.json
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Upload Motion Canvas candidate
         uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: m1-motion-canvas-candidate
           path: |
