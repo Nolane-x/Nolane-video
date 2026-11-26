@@ -1,147 +1,152 @@
 # AI Session Handoff
 
-**Updated:** 2026-11-26  
+**Updated:** 2026-11-26 21:15 +07:00  
 **Repository:** https://github.com/Nolane-x/Nolane-video  
-**Current branch:** main  
-**Verified HEAD before this handoff update:** f10fa327aaaaa80aa8cf16246ff2eb2309d4f716  
-**Current milestone:** M0 complete as a documentation foundation; M1 is next.
+**Default branch:** `main`  
+**Working branch:** `m1/optics-benchmark`  
+**Verified HEAD before this handoff update:** `71691374f96b137f24fb8711609e338034a08d84`  
+**Current milestone:** M1 — comparable benchmark and architecture decision, still in progress.  
+**Do not merge or select a master renderer yet.**
 
 ## Read first
 
-A new AI session must read the following documents in this order:
+Read in this order:
+1. `README.md`
+2. `AGENTS.md`
+3. `docs/PRODUCT_NORTH_STAR.md`
+4. `docs/ENGINE_ARCHITECTURE.md`
+5. `docs/REFERENCE_ENGINE_STUDY.md`
+6. `docs/ROADMAP.md`
+7. `docs/STATE.md`
+8. `docs/AI_HANDOFF.md`
+9. `docs/M1_BENCHMARK_SPEC.md`
+10. `docs/M1_BENCHMARK_PLAN.md`
+11. `benchmarks/optics-spoon/reports/ENGINE-CANDIDATE-STATUS.md`
 
-1. README.md
-2. AGENTS.md
-3. docs/PRODUCT_NORTH_STAR.md
-4. docs/ENGINE_ARCHITECTURE.md
-5. docs/REFERENCE_ENGINE_STUDY.md
-6. docs/ROADMAP.md
-7. docs/STATE.md
-8. docs/AI_HANDOFF.md
+Then fetch the live `m1/optics-benchmark` HEAD and inspect the latest Actions runs. The handoff is a snapshot, not a substitute for live verification.
 
-Then fetch the live GitHub main HEAD and inspect the tree and changed files. Do not assume this handoff is newer than the repository.
+## Product identity — do not change
 
-## Project identity — do not change
+NEE is a specialist code-first system for story-driven, narration-led 2D/2.5D educational explainer films. Target domains are mathematics, physics, chemistry, engineering and technology. Long-form target is roughly 8–20 minutes, primarily 16:9.
 
-Nolane Explainer Engine (working name NEE) is a specialist code-first engine for **story-driven, narration-led 2D/2.5D educational explainer films**.
+This is not a universal video generator or general editor. Do not broaden into vlogs, podcasts, ads, UGC, music videos, gaming, sports or arbitrary live-action workflows.
 
-Target subjects:
-- mathematics;
-- physics;
-- chemistry;
-- engineering;
-- technology;
-- other topics where accurate visual explanation is the central challenge.
-
-Long-form target: approximately 8–20 minutes, primarily 16:9.
-
-The ambition is the highest practical quality in this narrow category: Median-level clarity of explanation, strong character acting and cause-and-effect craft informed by Alan Becker's public work, mathematically accurate diagrams informed by Manim, and reliable frame-based authoring/rendering informed by Remotion and Motion Canvas.
-
-This is NOT a universal video generator or a general-purpose editor. Do not add vlog, podcast, ad, UGC, music-video, gaming, sports, or arbitrary live-action workflows as product goals. Read PRODUCT_NORTH_STAR before proposing any new feature.
-
-## Architecture principles already established
+## Architecture principles
 
 - Build a specialist film compiler, not a prompt wrapper.
 - A typed, versioned, renderer-independent Film IR is the proposed source of truth.
-- AI agents author research, story, script, style bible, storyboard, scene/acting cues and QA records.
-- Deterministic runtime components validate and execute these artifacts.
-- Render backends are replaceable adapters; avoid several competing master timelines.
-- The system needs native semantic educational objects plus real acting, pose, gesture, gaze, anticipation, contact, follow-through, recovery and sound-synchronized choreography.
-- Time must be frame-accurate (integer frames and rational FPS); audio alignment must use the actual audio and sample-aware timing.
-- A successful render is not proof of artistic approval. Review moving scenes and audio.
+- AI agents may author research, story, script, style bible, storyboard, acting cues and QA records; deterministic runtime validates and executes them.
+- Renderers are replaceable adapters. Avoid multiple competing master timelines.
+- Native semantic educational objects and readable acting are required: poses, gesture, gaze, anticipation, contact, follow-through and recovery.
+- Use integer frames and rational FPS. Align real audio using sample-aware timing.
+- A successful render does not equal artistic approval; inspect moving scenes and audio.
+- Do not adopt a framework just because it is familiar or has many features.
 
-## Important repositories and their roles
+## Current branch contents
 
-- New engine: https://github.com/Nolane-x/Nolane-video
-- User Remotion fork: https://github.com/Nolane-x/remotion
-- Remotion upstream: https://github.com/remotion-dev/remotion
-- User Manim fork: https://github.com/Nolane-x/manim
-- Manim upstream: https://github.com/ManimCommunity/manim
-- Prior production workspace: https://github.com/Nolane-x/video
-- Motion Canvas candidate: https://github.com/motion-canvas/motion-canvas
-- Rive runtime candidate: https://github.com/rive-app/rive-runtime
-- Synfig reference: https://github.com/synfig/synfig
+Shared benchmark:
+- `benchmarks/optics-spoon/shared/script.vi.md`
+- `benchmarks/optics-spoon/shared/storyboard.json`
+- `benchmarks/optics-spoon/shared/ART-DIRECTION.md`
+- `benchmarks/optics-spoon/shared/RESEARCH.md`
+- `benchmarks/optics-spoon/shared/diagram.json`
 
-Do not confuse the new engine repo with the prior production workspace. Do not modify the Remotion or Manim forks while working in Nolane-video unless the user explicitly asks.
+Validation:
+- `tools/validate_benchmark.py`
+- `tests/test_benchmark.py`
+- `.github/workflows/validate-m1-benchmark.yml`
 
-## Key source findings
+Candidates:
+- `benchmarks/optics-spoon/remotion/` — full film.
+- `benchmarks/optics-spoon/motion-canvas/` — full-film editor/image-sequence candidate.
+- `benchmarks/optics-spoon/manim/` — S04–S05 scientific segment.
+- `.github/workflows/m1-benchmark-candidates.yml` — separate jobs for each candidate.
 
-### Remotion fork
-Composition, Sequence, TimelineContext and render-flow code provide strong examples for timeline composition, nested sequences, frame state, media synchronization, rendering progress and pipeline reliability.
+## Evidence already verified
 
-The inspected Remotion license is a two-tier license. Its free license is not permission to sell or sublicense a derivative of Remotion. Verify current license terms before any redistribution or commercial productization. Do not assume that the user having a fork removes upstream license obligations.
+### Remotion 4.0.547
 
-### Manim fork
-Manim has structured mathematical objects, explicit Animation instances, transformations, groups, updaters, geometry, graphing, Cairo and OpenGL rendering. Use it as a math/visualization reference and possible adapter, not the sole long-form film model. The inspected upstream license is MIT.
+Run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) has a successful Remotion job. It typechecked, rendered and passed ffprobe:
+- H.264;
+- 1920×1080;
+- 24 fps;
+- 72.000 seconds;
+- 1,728 frames.
 
-### Motion Canvas
-The public Motion Canvas repo is MIT-licensed and specifically targets informative vector animation synchronized with voice-over. Its generators, concurrent threads, reactive signals, 2D scene graph, camera and live editor make it a serious candidate for the specialist 2D runtime.
+Artifact digest: `sha256:d952ac40773e0e67f504afaebe74aa6a3c7dd327833ec9d7d8865261e4b5f1f7`.
 
-### Existing H2 prototype
-Nolane-x/video contains a small H2 2D engine with time/interpolation/seeded randomness, a pose-based character rig and Playwright/Chromium + FFmpeg rendering. It may contain useful ideas or code, but first audit exact source provenance, manifest, license and dependency constraints. Do not copy files into this repo without that review.
+Contact sheet has been reviewed. The six shots are present, but the output is a vector prototype and has no narration/SFX/music audio. Continue visual polish and do not claim final-film quality.
 
-### Median and Alan Becker
-Median's public join-us page says its source repository contains animation code, scripts, voice recordings, SFX and music, but access is paid/private. No private Median code was accessed.
+### Manim CE fork
 
-Alan Becker's public behind-the-scenes content and current production credits are references for story-first planning, action clarity, storyboard/animatic, performance, background, audio, editing and specialized production roles. Do not copy characters, footage, scripts, music, source projects or distinctive protected artwork.
+Run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773) has a successful Manim job:
+- fork `Nolane-x/manim` pinned at `18320e2f0feaf142b2c3a377068ddb44c82fb2a1`;
+- S04–S05 only;
+- 1920×1080, 24 fps, 11.625 seconds;
+- ffprobe and contact-sheet/final-frame review passed.
 
-## Exact next task — M1 benchmark, not a full engine build
+Artifact digest: `sha256:360165a33ae89e101b0aa055fdba88a99926ed943fed3f31f71b09bdfa4d4bbc`.
 
-First, produce a benchmark specification and a small educational idea suitable for 60–120 seconds. It must be simple enough to render in multiple engines but rich enough to test the target category.
+Keep Manim in its specialist math/diagram role unless evidence says otherwise.
 
-Required content:
-- one question or misconception that creates curiosity;
-- one concise narrative arc with a clear ending;
-- one recurring character or consistent visual subject that performs a meaningful action;
-- one mathematically/scientifically meaningful transformation;
-- one camera move with a clear reason;
-- narration with at least one deliberate pause;
-- captions and at least one action-synchronized sound cue;
-- a consistent miniature style bible.
+### Motion Canvas 3.17.2
 
-Then implement equivalent versions for:
-1. Motion Canvas;
-2. Remotion;
-3. existing H2 engine only after source/license review;
-4. Manim for the math/diagram shot or segment.
+Build/typecheck and editor launch work, but full render is not passing:
+- run [45835419773](https://github.com/Nolane-x/Nolane-video/actions/runs/45835419773): 96/1,728 PNGs;
+- run [45836812915](https://github.com/Nolane-x/Nolane-video/actions/runs/45836812915): 74/1,728 PNGs.
 
-Keep the source story, narration, assets and output settings the same across candidates. Do not make every engine implement all features if the capability is not relevant to that engine; document the adapter boundary.
+No complete Motion Canvas MP4 exists yet. Recent scene code adds `[M1 Motion Canvas]` checkpoints at scene start and after each S01–S06 wait, each recording frame, time and fps. The Playwright script captures browser console errors/warnings and includes them in a short-render exception.
 
-Collect:
-- exact commands and dependency versions;
-- authoring time and difficulty;
-- successful preview/render evidence;
-- per-shot contact sheets and representative moving-frame checks;
-- math/factual validation;
-- timing, captions and audio synchronization;
-- render time and incremental-render behavior;
-- code and asset provenance;
-- license assessment.
+**Immediate task:** inspect run [45836821545](https://github.com/Nolane-x/Nolane-video/actions/runs/45836821545) for its Motion Canvas job logs. Determine which checkpoint is last and whether a runtime warning/error explains the scene ending early. Fix the cause, not by adding a long static wait or relaxing the 1,728-frame check.
 
-Write the comparison and a formal architecture decision in docs before starting major runtime implementation. Choose one master 2D runtime/timeline, retain other systems as adapters or references where justified, and explain why. Do not choose simply because a framework is familiar.
+## Important implementation findings
 
-## Before any implementation
+- Motion Canvas 3.17.2 public packages are MIT-licensed.
+- Its core image-sequence exporter is the intended exporter for this benchmark.
+- Do not add Motion Canvas's optional FFmpeg exporter; its package declares GPLv3. Use independent FFmpeg after PNG sequence creation.
+- Motion Canvas editor UI stores expandable state by project name. The Vite entry is `src/project.ts`, so storage namespace is `project-*`.
+- Headless UI uses `prefers-reduced-motion: reduce` to choose its immediate `ReducedCollapse`. This changes editor UI mounting only, not authored scene motion.
+- Project meta pins 1920×1080, 24 fps, `range: [0,72]`, sRGB and the core image-sequence exporter.
+- Remotion's two-tier license needs a separate product-adoption review before redistribution/commercial embedding.
+- H2 in `Nolane-x/video` has not been copied. Audit provenance/license before reuse.
 
-- Re-read the relevant design and roadmap.
-- Create a small plan for the benchmark.
-- Use tests for any implemented behavior.
-- Keep scope restricted to the M1 benchmark.
-- Do not add large packages, frameworks, agent swarms or speculative folders.
-- Do not build a general editor or AI video API aggregator.
+## Exact workflows / commands
 
-## Required end-of-session handoff
+Remotion job:
+- Node 22.
+- `npm install --no-audit --no-fund`
+- `npm run typecheck`
+- `npm run render`
+- ffprobe checks width, height, 24 fps and 72-second duration.
 
-At the end of every future session, update both:
-- docs/STATE.md
-- docs/AI_HANDOFF.md
+Motion Canvas job:
+- Ubuntu 24.04, Node 22, FFmpeg and Playwright Chromium.
+- `npm install --no-audit --no-fund`
+- `npx playwright install --with-deps chromium`
+- `npm run build`
+- `npm run render` — launches Vite/editor, uses the official editor's Render button, counts sequential six-digit PNGs, then FFmpeg encodes MP4 and makes a contact sheet.
+- Required acceptance is exactly 1,728 frames; do not lower this threshold.
 
-Include:
-- live branch and commit;
-- changes made;
-- exact tests/builds/render commands actually run;
-- artifacts and checksums, if any;
-- technical QA versus visual/audio review status;
-- unresolved blockers;
-- the next single concrete task.
+Manim job:
+- Python 3.12, ffmpeg, Cairo/Pango.
+- `pip install -r requirements.txt`
+- `manim -qh -r 1920,1080 --fps 24 --media_dir out refraction_segment.py RefractionSegment`
+- ffprobe and contact-sheet validation.
 
-Never say a test, build, render, or review passed unless its fresh command/log/evidence verifies it.
+Validator:
+- `python -m unittest discover -s tests -v`
+- `python tools/validate_benchmark.py`
+- Latest recorded successful validation workflow run: [45831094427](https://github.com/Nolane-x/Nolane-video/actions/runs/45831094427), commit `191d6f6b4e63f63edcbaed76fac1bc9bb1d2c07a`. Rerun current validator before merging.
+
+## Still incomplete
+
+- Full Motion Canvas render and visual review.
+- Current full Remotion visual review after the most recent label adjustment.
+- Audio: no real Vietnamese voice, caption alignment, SFX or music mix.
+- H2 provenance/license audit.
+- Comparable scorecard and formal architecture decision.
+- No broad Film IR/runtime build before M1 acceptance.
+
+## End-of-session rule
+
+Before ending a session, update both `docs/STATE.md` and `docs/AI_HANDOFF.md` with the live branch/commit, exact evidence, unverified items, blocker and one next task. Never mark a build, render, test or review as passed without fresh logs/artifacts.
