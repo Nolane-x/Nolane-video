@@ -22,6 +22,7 @@ Read in this order:
 9. `docs/M1_BENCHMARK_SPEC.md`
 10. `docs/M1_BENCHMARK_PLAN.md`
 11. `benchmarks/optics-spoon/reports/ENGINE-CANDIDATE-STATUS.md`
+12. `benchmarks/optics-spoon/reports/VISUAL-QA.md`
 
 Then fetch the live `m1/optics-benchmark` HEAD and inspect the latest Actions runs. The handoff is a snapshot, not a substitute for live verification.
 
@@ -95,7 +96,7 @@ Motion Canvas renderer completion is now confirmed. Run [45840319216](https://gi
 
 The remaining off-by-one was the inclusive 72-second range endpoint. Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets `project.meta` range end to `71.95833333333333` seconds, so 24 fps produces exactly frames 0–1,727 (1,728 images) while the MP4 remains 72.000 seconds.
 
-No Motion Canvas MP4 has passed the exact-count/ffprobe gate yet. **Immediate task:** inspect run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148). Require exactly 1,728 sequential PNGs, then H.264 1920×1080, 24 fps and 72 seconds. Review the contact sheet and moving sequence before scoring. Audio has not been added.
+No Motion Canvas MP4 has passed the exact-count/ffprobe gate yet. **Immediate task:** inspect run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148). Require exactly 1,728 sequential PNGs, then H.264 1920×1080, 24 fps and 72 seconds. Remotion and Manim visual-review findings are in `benchmarks/optics-spoon/reports/VISUAL-QA.md`; inspect the Remotion safe-area fix from commit `e5e0259ca2c517858511dcaf11a70edb40f640ea` in queued rerender [45842086637](https://github.com/Nolane-x/Nolane-video/actions/runs/45842086637). Audio has not been added.
 
 ## Important implementation findings
 
