@@ -96,14 +96,17 @@ jobs:
       - name: Install pinned Manim fork
         run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
       - name: Render scientific segment preview
-        run: manim -ql --media_dir out refraction_segment.py RefractionSegment
+        run: manim -qh -r 1920,1080 --fps 24 --media_dir out refraction_segment.py RefractionSegment
       - name: Probe Manim output
         run: |
-          find out -type f -name '*.mp4' -print
-          VIDEO="$(find out -type f -name '*.mp4' | head -n 1)"
+          find out -type f -name 'RefractionSegment.mp4' -not -path '*/partial_movie_files/*' -print
+          VIDEO="$(find out -type f -name 'RefractionSegment.mp4' -not -path '*/partial_movie_files/*' -print -quit)"
           test -n "$VIDEO"
           ffprobe -v error -show_streams -show_format -of json "$VIDEO" > out/ffprobe.json
+          ffprobe -v error -show_entries format=duration -of csv=p=0 "$VIDEO" > out/duration.txt
           cat out/ffprobe.json
+          DURATION="$(cat out/duration.txt)"
+          awk -v d="$DURATION" 'BEGIN { if (d < 5 || d > 30) exit 1; }'
       - name: Upload Manim segment
         uses: actions/upload-artifact@v4
         with:
