@@ -38,8 +38,9 @@ const Nia: React.FC<{frame: number}> = ({frame}) => {
     <g transform={"translate(1370 0) rotate(" + tilt + " 0 470)"}>
       <ellipse cx="0" cy="890" rx="185" ry="28" fill="#07121A" opacity=".5" />
       <path d="M-120 565 Q-158 680 -130 865 L-35 865 L-25 690 L35 690 L58 865 L154 865 Q160 675 105 565Z" fill="#203746" stroke="#0A151D" strokeWidth="12" />
-      <path d="M-115 590 Q-225 665 -310 570" fill="none" stroke="#203746" strokeWidth="58" strokeLinecap="round" />
-      <path d="M-115 590 Q-225 665 -310 570" fill="none" stroke="#F4EDE0" strokeWidth="15" strokeLinecap="round" />
+      <path d="M-115 590 Q-280 520 -470 420 Q-625 320 -740 230" fill="none" stroke="#203746" strokeWidth="64" strokeLinecap="round" />
+      <path d="M-122 583 Q-285 510 -476 414 Q-630 315 -740 230" fill="none" stroke="#D9B89B" strokeWidth="27" strokeLinecap="round" />
+      <path d="M-744 230 Q-772 211 -758 190 M-748 235 Q-733 258 -710 246" fill="none" stroke="#D9B89B" strokeWidth="17" strokeLinecap="round" />
       <path d={"M100 590 Q185 640 215 " + (590 + handY)} fill="none" stroke="#203746" strokeWidth="58" strokeLinecap="round" />
       <path d={"M100 590 Q185 640 215 " + (590 + handY)} fill="none" stroke="#F4EDE0" strokeWidth="15" strokeLinecap="round" />
       <path d="M-65 875 L-155 935 M85 875 L165 935" stroke="#101B26" strokeWidth="46" strokeLinecap="round" />
@@ -81,9 +82,10 @@ const Kitchen: React.FC<{frame: number}> = ({frame}) => {
         <ellipse cx="850" cy="708" rx="35" ry="62" transform="rotate(-22 850 708)" fill="#B7C3C5" stroke="#E7E3D9" strokeWidth="9" />
         <path d="M605 220 L690 480" stroke="#FFFFFF" strokeWidth="4" opacity=".65" />
       </g>
-      <g opacity={straightOpacity} transform={"translate(0 " + (1 - lift) * -110 + ")"}>
-        <path d="M615 230 L800 770" stroke="#E7E3D9" strokeWidth="22" strokeLinecap="round" />
-        <ellipse cx="817" cy="804" rx="35" ry="62" transform="rotate(-19 817 804)" fill="#B7C3C5" stroke="#E7E3D9" strokeWidth="9" />
+      <g opacity={straightOpacity}>
+        <path d="M615 230 L1010 230" stroke="#E7E3D9" strokeWidth="22" strokeLinecap="round" />
+        <path d="M630 224 L990 224" stroke="#FFFFFF" strokeWidth="4" opacity=".7" />
+        <ellipse cx="1042" cy="230" rx="55" ry="29" fill="#B7C3C5" stroke="#E7E3D9" strokeWidth="9" />
       </g>
       <Nia frame={frame} />
     </g>
@@ -116,8 +118,8 @@ const Diagram: React.FC<{frame: number}> = ({frame}) => {
       <text x="1170" y="170" fill={C.ivory} fontSize="34" fontFamily="Arial" opacity={math}>Mắt người quan sát</text>
       <g opacity={math}>
         <rect x="1040" y="710" width="720" height="170" rx="24" fill="#203746" stroke="#64818C" strokeWidth="3" />
-        <text x="1400" y="780" fill={C.ivory} fontSize="43" textAnchor="middle" fontFamily="Arial">nₙᵤớc sin θₙᵤớc = nₖₕôₙg khí sin θₖₕôₙg khí</text>
-        <text x="1400" y="835" fill={C.muted} fontSize="30" textAnchor="middle" fontFamily="Arial">nₙᵤớc ≈ 1,333  ·  nₖₕôₙg khí ≈ 1,0003</text>
+        <text x="1400" y="780" fill={C.ivory} fontSize="48" textAnchor="middle" fontFamily="Arial">n₁ sin θ₁ = n₂ sin θ₂</text>
+        <text x="1400" y="835" fill={C.muted} fontSize="29" textAnchor="middle" fontFamily="Arial">nước: 1,333  ·  không khí: 1,0003</text>
       </g>
     </g>
   );
