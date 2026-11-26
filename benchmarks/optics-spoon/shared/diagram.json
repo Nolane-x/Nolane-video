@@ -1,0 +1,43 @@
+{
+  "schema_version": "nee.diagram.refraction.v1",
+  "units": "pixel",
+  "coordinate_origin": "top-left",
+  "interface": {
+    "x": 830,
+    "y": 445
+  },
+  "water_refractive_index": 1.333,
+  "air_refractive_index": 1.0003,
+  "incident_angle_from_normal_deg": 40,
+  "incident_point": {
+    "x": 505,
+    "y": 832.3199176
+  },
+  "observer_point": {
+    "x": 1480,
+    "y": 53.4301948
+  },
+  "apparent_point": {
+    "x": 580,
+    "y": 595.6037712
+  },
+  "normal": {
+    "from": {
+      "x": 830,
+      "y": 170
+    },
+    "to": {
+      "x": 830,
+      "y": 850
+    }
+  },
+  "source_ray": "incident_point -> interface",
+  "physical_outgoing_ray": "interface -> observer_point",
+  "virtual_back_extension": "interface -> apparent_point",
+  "semantic_colors": {
+    "physical_ray": "#FFD36A",
+    "normal": "#E7E7E1",
+    "true_position": "#E47D68",
+    "apparent_position": "#8ED2B0"
+  }
+}
