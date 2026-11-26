@@ -10,7 +10,12 @@ import {
   createRef,
   waitFor
 } from "@motion-canvas/core";
+import diagramGeometry from "../../../shared/diagram.json";
 
+const toStage = (point: {x: number; y: number}): [number, number] => [
+  point.x - 960,
+  540 - point.y
+];
 const C = {
   ink: "#101B26",
   slate: "#203746",
@@ -85,22 +90,22 @@ export default makeScene2D(function* (view) {
       <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
 
       <Rect ref={diagramWater} size={[1920, 600]} position={[0, 240]} fill={C.water} opacity={0} />
-      <Line ref={interfaceLine} points={[[-960, -60], [960, -60]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
-      <Line ref={normal} points={[[0, -430], [0, 490]]} stroke={C.ivory} lineWidth={4} opacity={0} />
-      <Line ref={incident} points={[[-330, 435], [0, -60]]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
-      <Line ref={refracted} points={[[0, -60], [520, -375]]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
-      <Line ref={backward} points={[[0, -60], [-330, 260]]} stroke={C.ivory} lineWidth={6} opacity={0} />
-      <Circle ref={truePoint} size={38} position={[-330, 435]} fill={C.coral} opacity={0} />
-      <Circle ref={apparentPoint} size={38} position={[-330, 260]} fill={C.mint} opacity={0} />
-      <Circle ref={eyePoint} size={42} position={[520, -375]} fill={C.ivory} opacity={0} />
-      <Txt ref={airLabel} text="KHÔNG KHÍ" position={[-650, -340]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={waterLabel} text="NƯỚC" position={[-650, 390]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={normalLabel} text="Pháp tuyến" position={[170, -390]} fontSize={34} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={angleWater} text="40°" position={[-175, 85]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
-      <Txt ref={angleAir} text="58,9°" position={[165, -180]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
-      <Txt ref={formula} text="n_nước sin θ_nước = n_không_khí sin θ_không_khí" position={[0, 435]} fontSize={34} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={trueLabel} text="Vị trí thật" position={[-500, 490]} fontSize={34} fill={C.coral} fontFamily="Arial" opacity={0} />
-      <Txt ref={apparentLabel} text="Vị trí biểu kiến" position={[-500, 225]} fontSize={34} fill={C.mint} fontFamily="Arial" opacity={0} />
+      <Line ref={interfaceLine} points={[[-960, 540 - diagramGeometry.interface.y], [960, 540 - diagramGeometry.interface.y]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
+      <Line ref={normal} points={[toStage(diagramGeometry.normal.from), toStage(diagramGeometry.normal.to)]} stroke={C.ivory} lineWidth={4} opacity={0} />
+      <Line ref={incident} points={[toStage(diagramGeometry.incident_point), toStage(diagramGeometry.interface)]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
+      <Line ref={refracted} points={[toStage(diagramGeometry.interface), toStage(diagramGeometry.observer_point)]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
+      <Line ref={backward} points={[toStage(diagramGeometry.interface), toStage(diagramGeometry.apparent_point)]} stroke={C.ivory} lineWidth={6} opacity={0} />
+      <Circle ref={truePoint} size={38} position={toStage(diagramGeometry.incident_point)} fill={C.coral} opacity={0} />
+      <Circle ref={apparentPoint} size={38} position={toStage(diagramGeometry.apparent_point)} fill={C.mint} opacity={0} />
+      <Circle ref={eyePoint} size={42} position={toStage(diagramGeometry.observer_point)} fill={C.ivory} opacity={0} />
+      <Txt ref={airLabel} text="KHÔNG KHÍ" position={[-650, 300]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      <Txt ref={waterLabel} text="NƯỚC" position={[-650, -320]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      <Txt ref={normalLabel} text="Pháp tuyến" position={[40, 300]} fontSize={34} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      <Txt ref={angleWater} text="40°" position={[-250, -80]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
+      <Txt ref={angleAir} text="58,9°" position={[45, 180]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
+      <Txt ref={formula} text="n₁ sin θ₁ = n₂ sin θ₂" position={[300, -430]} fontSize={38} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      <Txt ref={trueLabel} text="Vị trí thật" position={[-600, -390]} fontSize={34} fill={C.coral} fontFamily="Arial" opacity={0} />
+      <Txt ref={apparentLabel} text="Vị trí biểu kiến" position={[-600, -160]} fontSize={34} fill={C.mint} fontFamily="Arial" opacity={0} />
       <Txt ref={diagramCaption} text="Ánh sáng đổi hướng khi đi từ nước sang không khí" position={[0, -500]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
     </>
   );
