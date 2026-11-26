@@ -106,7 +106,7 @@ const Diagram: React.FC<{frame: number}> = ({frame}) => {
       <rect x="0" y="445" width="1920" height="635" fill="#4EA6B5" opacity=".20" />
       <path d={"M0 " + boundary.y + " H1920"} stroke="#9AD8D7" strokeWidth="8" />
       <text x="145" y="170" fill={C.ivory} fontSize="48" fontFamily="Arial" letterSpacing="4">KHÔNG KHÍ</text>
-      <text x="145" y="970" fill={C.ivory} fontSize="48" fontFamily="Arial" letterSpacing="4">NƯỚC</text>
+      <text x="145" y="820" fill={C.ivory} fontSize="48" fontFamily="Arial" letterSpacing="4">NƯỚC</text>
       <path d={rayPath(normal.from, normal.to)} stroke="#E7E7E1" strokeWidth="5" strokeDasharray="14 14" opacity=".75" />
       <text x="870" y="220" fill={C.muted} fontSize="34" fontFamily="Arial">Pháp tuyến</text>
       <path d={rayPath(incident_point, interfacePoint)} stroke={C.ray} strokeWidth="13" strokeLinecap="round" />
