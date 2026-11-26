@@ -35,7 +35,8 @@ export default makeScene2D(function* (view) {
   const checkpoint = (name: string) => console.log("[M1 Motion Canvas]", name, {
     frame: playback.frame,
     time_seconds: playback.time,
-    fps: playback.fps
+    fps: playback.fps,
+    speed: playback.speed
   });
   checkpoint("scene-start");
   view.fill(C.ink);
