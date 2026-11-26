@@ -64,7 +64,7 @@ Acceptance:
 - a written architecture decision names the first backend and which tools remain adapters;
 - no engine-wide dependency choice is made solely on familiarity or number of features.
 
-**Status: IN PROGRESS.** Shared script, storyboard, art direction, scientific claim ledger and canonical diagram are implemented. Remotion has a verified full-length technical render; Manim has a reviewed scientific-segment render. Motion Canvas builds and opens its official editor but currently exits its image-sequence render early (74/1,728 or 96/1,728 frames in separate runs). No scorecard or architecture decision is approved yet.
+**Status: IN PROGRESS.** Shared script, storyboard, art direction, scientific claim ledger and canonical diagram are implemented. Remotion has a verified 72-second/1,728-frame technical render and visual safe-area review. Manim has a verified scientific segment; a palette/font-aligned rerender is pending. Motion Canvas now has a valid renderer completion signal and the inclusive range is guarded by regression tests, but the exact 1,728-frame/72-second MP4 is still rendering in run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). No scorecard or architecture decision is approved yet.
 
 ## M2 — Film IR and deterministic time foundation
 
