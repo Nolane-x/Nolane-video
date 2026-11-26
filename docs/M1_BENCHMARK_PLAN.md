@@ -39,18 +39,19 @@
 ## Tasks
 
 ### Task 1 — Freeze the shared creative contract
-- [ ] Validate storyboard JSON syntax and exact frame totals.
-- [ ] Check narration spans and shot frame ranges cover the intended 72 seconds without gaps or overlaps.
-- [ ] Independently verify the Snell calculation and angle convention.
-- [ ] Create a machine-readable test for storyboard totals and claim IDs.
+- [x] Validate storyboard JSON syntax and exact frame totals.
+- [x] Check narration spans and shot frame ranges cover the intended 72 seconds without gaps or overlaps.
+- [x] Independently verify the Snell calculation and angle convention.
+- [x] Create a machine-readable test for storyboard totals and claim IDs.
 
 ### Task 2 — Motion Canvas full-film candidate
-- [ ] Pin compatible Motion Canvas packages to 3.17.2 and a compatible Vite version.
-- [ ] Create an original character/prop/stage scene using generator choreography and signals.
-- [ ] Implement S01–S06 using the shared frame schedule.
-- [ ] Build the project with type checking.
-- [ ] Prove preview and determine a reproducible render/export route.
-- [ ] Record the GPLv3 status of the optional FFmpeg exporter; do not add it without approval.
+- [x] Pin compatible Motion Canvas packages to 3.17.2 and a compatible Vite version.
+- [x] Create an original character/prop/stage scene using generator choreography and signals.
+- [x] Implement S01–S06 using the shared frame schedule.
+- [x] Build the project with type checking.
+- [x] Prove preview and determine a reproducible render/export route through the official editor and core image-sequence exporter.
+- [x] Record the GPLv3 status of the optional FFmpeg exporter; do not add it without approval.
+- [ ] Verify 1,728-frame half-open range and 72-second MP4 output in run 45840831148; review the final contact sheet.
 
 ### Task 3 — Remotion full-film candidate
 - [ ] Pin Remotion packages to 4.0.547 and compatible React packages.
