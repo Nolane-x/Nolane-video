@@ -4,7 +4,7 @@
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main` (unchanged by this benchmark branch)  
 **Working branch:** `m1/optics-benchmark`  
-**Verified branch HEAD before this state update:** `914c9b35c88d65b8c7c5a3cb2c5c6172954d4151`  
+**Verified branch HEAD before this state update:** `3c2810c28d0fa7078acb739680b858406a401108`  
 **Current phase:** M1 — comparable benchmark and architecture decision (in progress).  
 **Architecture decision:** OPEN; no master runtime selected.
 
@@ -103,8 +103,8 @@ Still pending:
 ## 6. Visual QA recorded
 
 - Remotion artifact from [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169), digest `sha256:f829285a43711aed3a869bae9d93ede74d37c9561125a510ad2101e673d20b14`; contact sheet and selected 1080p frames 1056/1248 reviewed. “NƯỚC” label is clear of the caption.
-- Manim artifact from [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169), digest `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`; scientific geometry reviewed; style correction is pending in [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595).
-- These are prototype-level checks, not final artistic approval. Full findings: `benchmarks/optics-spoon/reports/VISUAL-QA.md`. An evidence-ledger scorecard (no ranking yet) is in `docs/M1_SCORECARD.md`.
+- Manim artifact from [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169), digest `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`; scientific geometry reviewed; palette/font correction is in the latest pending candidate run [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555).
+- These are prototype-level checks, not final artistic approval. Full findings: `benchmarks/optics-spoon/reports/VISUAL-QA.md`. Evidence-ledger comparison (no ranking yet): `docs/M1_SCORECARD.md`. Animation/staging/performance review standard: `docs/ANIMATION_CRAFT_STANDARDS.md`.
 
 ## 7. Test and workflow facts
 
@@ -125,7 +125,7 @@ Still pending:
 ## 9. What remains open
 
 - Finish Motion Canvas exact 1,728-frame render and ffprobe in run `45842364169`; next candidate validation is queued in `45851338555`.
-- Review the new Manim palette/font render when it finishes.
+- Review the Manim palette/font render in latest candidate run [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555) when it starts and finishes.
 - Inspect continuous movement/action/contact across the full 72-second film, not only contact sheets.
 - Add real approved voice, synchronized transcript captions, SFX and music before claiming audio QA; do not synthesize or assume audio without an approved source.
 - Complete H2 provenance/license audit.
@@ -134,4 +134,4 @@ Still pending:
 
 ## 10. Next concrete task
 
-First inspect run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 sequential PNGs (000000–001727), then H.264 1920×1080 / 24 fps / 72.000 s ffprobe and artifact upload. Then inspect candidate rerender [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595), review the new Manim palette/font contact sheet, and update `VISUAL-QA.md`. Keep audio and continuous-motion review marked incomplete.
+First inspect run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 sequential PNGs (000000–001727), then H.264 1920×1080 / 24 fps / 72.000 s ffprobe and artifact upload. Then inspect candidate rerender [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555), review the new Manim palette/font contact sheet, and update `VISUAL-QA.md`. Keep audio and continuous-motion review marked incomplete.
