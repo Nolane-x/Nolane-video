@@ -29,4 +29,10 @@ This is the canonical 72-second NEE benchmark film used to compare educational-a
 
 ## Status
 
-M1 candidate renders are in progress. Remotion has a verified silent 72-second technical render; Manim has a reviewed scientific segment. Motion Canvas now completes its renderer loop but needed a half-open range correction to avoid one extra boundary frame; run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) is validating 1,728 frames and the MP4 metadata. No real narration/SFX/music audio has been added, and M1 has no selected master backend yet.
+**M1 is still in candidate comparison; no master renderer has been selected.**
+
+- Remotion: verified 1920×1080, 24 fps, 72.000 s, 1,728-frame silent MP4 in [run 45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Its visual review confirms the “NƯỚC” label is clear of the caption safe area.
+- Manim: verified S04–S05 scientific segment, 1920×1080, 24 fps, 11.625 s in the same run. A source update now aligns its palette/font with this style guide; its rerender is in the latest queued candidate workflow.
+- Motion Canvas: dependencies, editor build and typecheck pass. Its renderer previously completed but exported one inclusive boundary frame too many; `project.meta` now targets the final included frame timestamp. The exact 1,728-frame MP4/ffprobe gate is still pending in [run 45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169).
+
+The frame-range validator and 11 unit/regression tests pass in [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293). No real narration/SFX/music audio has been added. See [the visual QA report](reports/VISUAL-QA.md), [candidate status](reports/ENGINE-CANDIDATE-STATUS.md) and [the evidence scorecard](../../docs/M1_SCORECARD.md).
