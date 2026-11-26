@@ -4,7 +4,7 @@
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main`  
 **Working branch:** `m1/optics-benchmark`  
-**Verified HEAD before this handoff update:** `55fd2d62badf94bdc0d3af2ff0150fd0912c51a8`  
+**Verified HEAD before this handoff update:** `4248810b00fdcc4e16f0e68b22c0bca68df38b1a`  
 **Current milestone:** M1 — comparable benchmark and architecture decision, still in progress.  
 **Do not merge or select a master renderer yet.**
 
@@ -78,7 +78,7 @@ Successful full-film run [45842364169](https://github.com/Nolane-x/Nolane-video/
 
 Artifact digest: `sha256:f829285a43711aed3a869bae9d93ede74d37c9561125a510ad2101e673d20b14`.
 
-The contact sheet and 1080p frames 1056/1248 were reviewed. The “NƯỚC” label is now outside the caption safe area. Remaining limitation: the character and props are vector blockouts; no real Vietnamese VO, synchronized transcript captions, SFX or music is present. Review does not constitute final artistic approval. Full findings are in `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+The contact sheet and 1080p frames 1056/1248 were reviewed. The “NƯỚC” label is now outside the caption safe area. A further temporal scan sampled the opening at 4 fps and diagram section at 2 fps: Nia has little pose/gesture variation and the diagram has long holds on near-static ray layouts while labels change. This is a sampled-frame finding, not full-speed playback approval. Remaining limitation: the character and props are vector blockouts; no real Vietnamese VO, synchronized transcript captions, SFX or music is present. Full findings are in `benchmarks/optics-spoon/reports/VISUAL-QA.md` and `docs/M1_SCORECARD.md`.
 
 ### Manim CE fork
 
@@ -150,7 +150,7 @@ Validator:
 
 - Motion Canvas exact 1,728-frame render, MP4/ffprobe, contact sheet and continuous-motion review.
 - Manim palette/font rerender and visual approval in run `45851338555`.
-- Continuous-motion and action/contact review across the complete film; current checks are contact sheets and selected still frames.
+- Full-speed 24 fps movement/action/contact review across the complete film. Sampled 4 fps/2 fps scans already flag Nia's limited acting and long static diagram holds.
 - Audio: no real Vietnamese voice, synchronized transcript captions, SFX or music.
 - H2 provenance/license audit.
 - Metric-backed candidate scorecard and formal architecture decision.
@@ -160,7 +160,7 @@ Validator:
 
 1. Inspect [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 PNGs numbered 000000–001727; then verify H.264, 1920×1080, 24 fps, 72.000 seconds and artifact upload.
 2. Inspect latest pending candidate run [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555); confirm Manim palette/font render and review its contact sheet.
-3. Update `VISUAL-QA.md`, `ENGINE-CANDIDATE-STATUS.md`, `STATE.md` and this handoff with fresh results. Then perform continuous-motion review and create the scorecard/architecture decision.
+3. Update `VISUAL-QA.md`, `ENGINE-CANDIDATE-STATUS.md`, `STATE.md` and this handoff with fresh results. Then perform full-speed playback review, improve Nia's acting and diagram choreography, and only after comparable evidence complete the scorecard/architecture decision.
 
 Keep audio incomplete until a real approved VO/SFX/music source is provided and synchronized. Do not choose a master runtime from incomplete evidence.
 
