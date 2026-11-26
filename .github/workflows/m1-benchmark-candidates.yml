@@ -71,7 +71,7 @@ jobs:
 
   motion-canvas:
     name: Motion Canvas 3.17.2 — full film image-sequence render
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     defaults:
       run:
