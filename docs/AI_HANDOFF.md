@@ -90,7 +90,7 @@ Successful scientific-segment run [45842364169](https://github.com/Nolane-x/Nola
 
 Artifact digest: `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`.
 
-The diagram geometry passed review, but the original style had a black background, serif text and empty-looking opening. Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` changes it to the shared palette, DejaVu Sans and a persistent water region. The rerender is in latest pending candidate run [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595). Manim remains a specialist scientific-visualization adapter, not a full-film candidate.
+The diagram geometry passed review, but the original style had a black background, serif text and empty-looking opening. Source commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` changes it to the shared palette, DejaVu Sans and a persistent water region. The rerender is in latest pending candidate run [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555). Earlier pending run 45850249595 was superseded before starting. Manim remains a specialist scientific-visualization adapter, not a full-film candidate.
 
 ### Motion Canvas 3.17.2
 
@@ -100,7 +100,7 @@ Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets `project.meta` range end 
 
 Run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) was cancelled before its Motion Canvas render completed. Current run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) has Remotion and Manim jobs successful; Motion Canvas setup/build passed but its render step is still running. No MP4/ffprobe has been accepted yet.
 
-The shared validator now checks Motion Canvas's `ceil(seconds × fps)` inclusive-end conversion. Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and regression-test run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) both passed. A new candidate rerun [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595) is pending with the Manim palette/font update.
+The shared validator now checks Motion Canvas's `ceil(seconds × fps)` inclusive-end conversion. Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and regression-test run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) both passed. A new candidate rerun [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555) is pending with the Manim palette/font update.
 
 ## Scorecard status
 
@@ -149,7 +149,7 @@ Validator:
 ## Still incomplete
 
 - Motion Canvas exact 1,728-frame render, MP4/ffprobe, contact sheet and continuous-motion review.
-- Manim palette/font rerender and visual approval in run `45850249595`.
+- Manim palette/font rerender and visual approval in run `45851338555`.
 - Continuous-motion and action/contact review across the complete film; current checks are contact sheets and selected still frames.
 - Audio: no real Vietnamese voice, synchronized transcript captions, SFX or music.
 - H2 provenance/license audit.
@@ -159,7 +159,7 @@ Validator:
 ## Immediate next actions
 
 1. Inspect [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). Require exactly 1,728 PNGs numbered 000000–001727; then verify H.264, 1920×1080, 24 fps, 72.000 seconds and artifact upload.
-2. Inspect latest pending candidate run [45850249595](https://github.com/Nolane-x/Nolane-video/actions/runs/45850249595); confirm Manim palette/font render and review its contact sheet.
+2. Inspect latest pending candidate run [45851338555](https://github.com/Nolane-x/Nolane-video/actions/runs/45851338555); confirm Manim palette/font render and review its contact sheet.
 3. Update `VISUAL-QA.md`, `ENGINE-CANDIDATE-STATUS.md`, `STATE.md` and this handoff with fresh results. Then perform continuous-motion review and create the scorecard/architecture decision.
 
 Keep audio incomplete until a real approved VO/SFX/music source is provided and synchronized. Do not choose a master runtime from incomplete evidence.
