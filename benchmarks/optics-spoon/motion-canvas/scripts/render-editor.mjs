@@ -149,11 +149,11 @@ try {
       rendererFinishMessage = text;
       process.stdout.write(text + "\n");
     }
-    const frameMatch = text.match(/^\\[M1 renderer\\] frame (\\d+)$/);
+    const frameMatch = text.match(/^\[M1 renderer\] frame (\d+)$/);
     if (frameMatch) {
       const frame = Number(frameMatch[1]);
       if (frame === 0 || frame % 96 === 0 || frame === EXPECTED_FRAMES - 1) {
-        process.stdout.write(`[M1 CI progress] renderer frame ${frame}/${EXPECTED_FRAMES - 1}\\n`);
+        process.stdout.write(`[M1 CI progress] renderer frame ${frame}/${EXPECTED_FRAMES - 1}\n`);
       }
     }
     if (
@@ -306,13 +306,13 @@ try {
     if (frameCount >= lastReportedFrameCount + 96 || (frameCount === EXPECTED_FRAMES && frameCount !== lastReportedFrameCount)) {
       lastReportedFrameCount = frameCount;
       const elapsedSeconds = Math.round((Date.now() - renderStartedAt) / 1000);
-      process.stdout.write(`[M1 CI progress] PNG files ${frameCount}/${EXPECTED_FRAMES}; elapsed ${elapsedSeconds}s\\n`);
+      process.stdout.write(`[M1 CI progress] PNG files ${frameCount}/${EXPECTED_FRAMES}; elapsed ${elapsedSeconds}s\n`);
     }
     await sleep(1000);
   }
   finalFrames = await findFrameDirectory(OUTPUT_ROOT);
   process.stdout.write(
-    `[M1 CI result] rendererFinished=${rendererFinished}; PNG files=${finalFrames?.pngs.length ?? 0}/${EXPECTED_FRAMES}; elapsed=${Math.round((Date.now() - renderStartedAt) / 1000)}s\\n`
+    `[M1 CI result] rendererFinished=${rendererFinished}; PNG files=${finalFrames?.pngs.length ?? 0}/${EXPECTED_FRAMES}; elapsed=${Math.round((Date.now() - renderStartedAt) / 1000)}s\n`
   );
 
   if (!rendererFinished || !finalFrames || finalFrames.pngs.length !== EXPECTED_FRAMES) {
