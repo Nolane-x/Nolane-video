@@ -2,7 +2,7 @@
   "version": 1,
   "shared": {
     "background": "#101B26",
-    "range": [0, 72],
+    "range": [0, 71.95833333333333],
     "size": {"x": 1920, "y": 1080},
     "audioOffset": 0
   },
