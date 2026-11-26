@@ -101,6 +101,9 @@ try {
     }
     localStorage.setItem(`${projectName}-main-action`, "0");
   });
+  // The editor only: choose ReducedCollapse so panel content mounts immediately
+  // in headless CI. This does not alter frame-based animation in the film.
+  await page.emulateMedia({reducedMotion: "reduce"});
 
   await page.goto(URL, {waitUntil: "domcontentloaded", timeout: 120000});
   const settingsTab = page.locator("#rendering-tab");
