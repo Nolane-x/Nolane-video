@@ -40,8 +40,8 @@ const Nia: React.FC<{frame: number}> = ({frame}) => {
       <path d="M-120 565 Q-158 680 -130 865 L-35 865 L-25 690 L35 690 L58 865 L154 865 Q160 675 105 565Z" fill="#203746" stroke="#0A151D" strokeWidth="12" />
       <path d="M-115 590 Q-225 665 -310 570" fill="none" stroke="#203746" strokeWidth="58" strokeLinecap="round" />
       <path d="M-115 590 Q-225 665 -310 570" fill="none" stroke="#F4EDE0" strokeWidth="15" strokeLinecap="round" />
-      <path d="M100 590 Q185 640 215 " + (590 + handY) + " " fill="none" stroke="#203746" strokeWidth="58" strokeLinecap="round" />
-      <path d="M100 590 Q185 640 215 " + (590 + handY) + " " fill="none" stroke="#F4EDE0" strokeWidth="15" strokeLinecap="round" />
+      <path d={"M100 590 Q185 640 215 " + (590 + handY)} fill="none" stroke="#203746" strokeWidth="58" strokeLinecap="round" />
+      <path d={"M100 590 Q185 640 215 " + (590 + handY)} fill="none" stroke="#F4EDE0" strokeWidth="15" strokeLinecap="round" />
       <path d="M-65 875 L-155 935 M85 875 L165 935" stroke="#101B26" strokeWidth="46" strokeLinecap="round" />
       <ellipse cx="0" cy="410" rx="145" ry="165" fill="#D9B89B" stroke="#101B26" strokeWidth="12" />
       <path d="M-145 405 Q-150 230 -8 226 Q145 240 145 390 Q85 330 40 320 Q-25 370 -145 405Z" fill="#172631" />
