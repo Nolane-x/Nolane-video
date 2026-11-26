@@ -93,6 +93,8 @@ A short proof is a way to validate the engine, not a change to the long-form amb
 6. **Audio is part of the scene.** Voice timing, pauses, SFX, ambience, and music must be planned with the action.
 7. **Code is the editable source of truth.** Important scenes and timeline decisions must be inspectable, versioned, deterministic, and revisable.
 8. **AI is a production department, not the filmmaker.** It proposes and implements; humans approve research, creative direction, and release quality.
+
+The actionable staging, performance, contact, timing, camera, typography and review gates are specified in [`ANIMATION_CRAFT_STANDARDS.md`](ANIMATION_CRAFT_STANDARDS.md).
 9. **Quality is measured at the rendered frame and moving shot.** Tests and successful exports are necessary but not sufficient.
 10. **Reuse craft, not protected expression.** Learn principles and public architecture; create original work.
 
