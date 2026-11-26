@@ -73,7 +73,8 @@ Read these files in order:
 2. [docs/PRODUCT_NORTH_STAR.md](docs/PRODUCT_NORTH_STAR.md)
 3. [docs/ENGINE_ARCHITECTURE.md](docs/ENGINE_ARCHITECTURE.md)
 4. [docs/REFERENCE_ENGINE_STUDY.md](docs/REFERENCE_ENGINE_STUDY.md)
-5. [docs/ROADMAP.md](docs/ROADMAP.md)
+5. [docs/ANIMATION_CRAFT_STANDARDS.md](docs/ANIMATION_CRAFT_STANDARDS.md) — staging, acting, prop contact, timing and review gates
+6. [docs/ROADMAP.md](docs/ROADMAP.md)
 6. [docs/STATE.md](docs/STATE.md)
 7. [docs/AI_HANDOFF.md](docs/AI_HANDOFF.md)
 
@@ -83,6 +84,6 @@ Then inspect the current Git branch, HEAD, repository tree, recent commits, and 
 
 ## Current status
 
-> **Foundation phase — 2026-11-26.** This repository was created empty. The first commit establishes the product boundary, north star, architecture principles, reference-engine study, roadmap, and mandatory AI handoff. No production engine code or rendered film is claimed yet.
+> **M1 benchmark phase — 2026-11-26.** The product foundation and scope lock are complete. A shared 72-second educational film is implemented in Remotion, Motion Canvas and Manim's specialist diagram scene. Remotion and Manim have technical renders; Motion Canvas's exact 1,728-frame output is still under validation. No master renderer is selected, and no real audio track is claimed.
 
 The first implementation milestone is not a large code dump. It is a small, complete benchmark film that proves the chosen runtime can turn one approved educational idea into an editable, narratively coherent, mathematically correct, well-acted, voice-synchronized short film.
