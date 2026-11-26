@@ -88,7 +88,14 @@ try {
   });
   const page = await browser.newPage({viewport: {width: 1600, height: 1000}});
   const pageErrors = [];
+  const browserConsole = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));
+  page.on("console", (message) => {
+    const text = message.text();
+    if (message.type() === "error" || message.type() === "warning" || text.includes("[M1 Motion Canvas]")) {
+      browserConsole.push({type: message.type(), text});
+    }
+  });
 
   // The editor persists expandable-panel and process selection state per
   // project. Seed a known, reproducible first-render state before the app
@@ -230,7 +237,17 @@ try {
       await sleep(1500);
       const secondCheck = await findFrameDirectory(OUTPUT_ROOT);
       if (secondCheck?.pngs.length !== EXPECTED_FRAMES) {
-        throw new Error(`Motion Canvas finished with ${secondCheck?.pngs.length ?? 0}/${EXPECTED_FRAMES} PNG frames.`);
+        const status = await renderButton.evaluate((button) => ({
+          text: button.innerText,
+          disabled: button.disabled,
+          dataRendering: button.getAttribute("data-rendering"),
+          className: button.className
+        })).catch(() => null);
+        const body = await page.locator("body").innerText().catch(() => "");
+        throw new Error(
+          `Motion Canvas finished with ${secondCheck?.pngs.length ?? 0}/${EXPECTED_FRAMES} PNG frames.\\n` +
+          JSON.stringify({status, pageErrors, browserConsole, body}, null, 2)
+        );
       }
       finalFrames = secondCheck;
       break;
