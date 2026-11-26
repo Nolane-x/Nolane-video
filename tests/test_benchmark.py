@@ -1,13 +1,16 @@
 import copy
+import math
 import unittest
 
 from tools.validate_benchmark import (
     BENCHMARK,
     angle_from_normal_degrees,
     load_diagram,
+    load_motion_canvas_meta,
     load_storyboard,
     refracted_angle_degrees,
     validate_diagram,
+    validate_motion_canvas_range,
     validate_storyboard,
 )
 
@@ -32,6 +35,20 @@ class BenchmarkContractTests(unittest.TestCase):
         for previous, current in zip(shots, shots[1:]):
             self.assertEqual(previous["end_frame"], current["start_frame"])
         self.assertEqual(shots[-1]["end_frame"], 1728)
+
+    def test_motion_canvas_range_maps_to_exact_output_frames(self):
+        meta = load_motion_canvas_meta()
+        self.assertEqual(validate_motion_canvas_range(self.storyboard, meta), [])
+        fps = self.storyboard["project"]["fps"]["numerator"]
+        end_frame = math.ceil(meta["shared"]["range"][1] * fps)
+        self.assertEqual(end_frame, 1727)
+
+    def test_motion_canvas_exclusive_duration_boundary_adds_an_extra_frame(self):
+        meta = copy.deepcopy(load_motion_canvas_meta())
+        meta["shared"]["range"][1] = 72.0
+        errors = validate_motion_canvas_range(self.storyboard, meta)
+        self.assertTrue(errors)
+        self.assertIn("maps to frame 1728", errors[0])
 
     def test_snell_example_bends_away_from_normal(self):
         theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
