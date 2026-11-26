@@ -94,7 +94,8 @@ try {
   // project. Seed a known, reproducible first-render state before the app
   // mounts, rather than relying on a stale/default localStorage snapshot.
   await page.addInitScript(() => {
-    const projectName = "spoon";
+    // The Vite project entry is src/project.ts, so Motion Canvas names it "project".
+    const projectName = "project";
     for (const title of ["General", "Preview", "Rendering"]) {
       localStorage.setItem(`${projectName}-expandable-${title}`, "true");
     }
