@@ -91,10 +91,37 @@ try {
   page.on("pageerror", (error) => pageErrors.push(error.message));
 
   await page.goto(URL, {waitUntil: "domcontentloaded", timeout: 120000});
-  await page.locator("#rendering-tab").waitFor({state: "visible", timeout: 120000});
-  await page.locator("#rendering-tab").click();
+  const settingsTab = page.locator("#rendering-tab");
+  await settingsTab.waitFor({state: "visible", timeout: 120000});
   const renderButton = page.locator("#render");
-  await renderButton.waitFor({state: "visible", timeout: 120000});
+
+  // Motion Canvas defaults to the Video Settings panel being open. Its tab is
+  // a toggle, so clicking it unconditionally closes the very panel we need.
+  if (await renderButton.count() === 0) {
+    await settingsTab.click();
+  }
+  try {
+    await renderButton.waitFor({state: "visible", timeout: 45000});
+  } catch {
+    const debug = {
+      url: page.url(),
+      title: await page.title(),
+      body: (await page.locator("body").innerText().catch(() => "")).slice(0, 12000),
+      buttons: await page.locator("button").evaluateAll((items) =>
+        items.map((item) => ({
+          id: item.id,
+          text: item.innerText,
+          disabled: item.disabled,
+          className: item.className
+        }))
+      ),
+      pageErrors,
+      viteLog: viteLog.slice(-8000)
+    };
+    await page.screenshot({path: path.join(DELIVERY_DIR, "editor-debug.png"), fullPage: true}).catch(() => {});
+    await fs.writeFile(path.join(DELIVERY_DIR, "editor-debug.json"), JSON.stringify(debug, null, 2));
+    throw new Error("Motion Canvas Render button not visible. " + JSON.stringify(debug, null, 2));
+  }
   await renderButton.click();
 
   const startDeadline = Date.now() + 30000;
