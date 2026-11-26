@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, useCurrentFrame} from "remotion";
+import diagramGeometry from "../../shared/diagram.json";
 
 const C = {
   ink: "#101B26",
@@ -95,26 +96,30 @@ const Kitchen: React.FC<{frame: number}> = ({frame}) => {
 const Diagram: React.FC<{frame: number}> = ({frame}) => {
   const math = windowOpacity(frame, 672, 1464);
   const apparent = windowOpacity(frame, 1056, 1464);
+  const {interface: boundary, incident_point, observer_point, apparent_point, normal} = diagramGeometry;
+  const rayPath = (a: {x: number; y: number}, b: {x: number; y: number}) =>
+    "M" + a.x + " " + a.y + " L" + b.x + " " + b.y;
+  const interfacePoint = {x: boundary.x, y: boundary.y};
   return (
     <g>
       <rect width="1920" height="1080" fill="#101B26" />
       <rect x="0" y="445" width="1920" height="635" fill="#4EA6B5" opacity=".20" />
-      <path d="M0 445 H1920" stroke="#9AD8D7" strokeWidth="8" />
+      <path d={"M0 " + boundary.y + " H1920"} stroke="#9AD8D7" strokeWidth="8" />
       <text x="145" y="170" fill={C.ivory} fontSize="48" fontFamily="Arial" letterSpacing="4">KHÔNG KHÍ</text>
       <text x="145" y="970" fill={C.ivory} fontSize="48" fontFamily="Arial" letterSpacing="4">NƯỚC</text>
-      <path d="M830 170 V850" stroke="#E7E7E1" strokeWidth="5" strokeDasharray="14 14" opacity=".75" />
+      <path d={rayPath(normal.from, normal.to)} stroke="#E7E7E1" strokeWidth="5" strokeDasharray="14 14" opacity=".75" />
       <text x="865" y="235" fill={C.muted} fontSize="36" fontFamily="Arial">Pháp tuyến</text>
-      <path d="M505 835 L830 445" stroke={C.ray} strokeWidth="13" strokeLinecap="round" />
-      <path d="M830 445 L1480 72" stroke={C.ray} strokeWidth="13" strokeLinecap="round" />
-      <path d="M830 445 L580 745" stroke={C.ivory} strokeWidth="8" strokeDasharray="20 18" opacity={apparent} />
-      <circle cx="505" cy="835" r="19" fill={C.coral} opacity={math} />
-      <circle cx="580" cy="745" r="19" fill={C.mint} opacity={apparent} />
-      <circle cx="1480" cy="72" r="24" fill={C.ivory} opacity=".95" />
-      <path d="M1450 106 L1480 72 L1510 106" stroke={C.ivory} strokeWidth="8" fill="none" opacity=".85" />
-      <text x="350" y="900" fill={C.coral} fontSize="34" fontFamily="Arial" opacity={apparent}>Vị trí thật</text>
-      <text x="370" y="690" fill={C.mint} fontSize="34" fontFamily="Arial" opacity={apparent}>Vị trí biểu kiến</text>
-      <text x="590" y="580" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={math}>40°</text>
-      <text x="990" y="360" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={math}>58,9°</text>
+      <path d={rayPath(incident_point, interfacePoint)} stroke={C.ray} strokeWidth="13" strokeLinecap="round" />
+      <path d={rayPath(interfacePoint, observer_point)} stroke={C.ray} strokeWidth="13" strokeLinecap="round" />
+      <path d={rayPath(interfacePoint, apparent_point)} stroke={C.ivory} strokeWidth="8" strokeDasharray="20 18" opacity={apparent} />
+      <circle cx={incident_point.x} cy={incident_point.y} r="19" fill={C.coral} opacity={math} />
+      <circle cx={apparent_point.x} cy={apparent_point.y} r="19" fill={C.mint} opacity={apparent} />
+      <circle cx={observer_point.x} cy={observer_point.y} r="24" fill={C.ivory} opacity=".95" />
+      <path d={"M" + (observer_point.x - 30) + " " + (observer_point.y + 34) + " L" + observer_point.x + " " + observer_point.y + " L" + (observer_point.x + 30) + " " + (observer_point.y + 34)} stroke={C.ivory} strokeWidth="8" fill="none" opacity=".85" />
+      <text x={incident_point.x - 155} y={incident_point.y + 68} fill={C.coral} fontSize="34" fontFamily="Arial" opacity={apparent}>Vị trí thật</text>
+      <text x={apparent_point.x - 210} y={apparent_point.y - 30} fill={C.mint} fontSize="34" fontFamily="Arial" opacity={apparent}>Vị trí biểu kiến</text>
+      <text x="590" y="580" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={math}>{diagramGeometry.incident_angle_from_normal_deg}°</text>
+      <text x="990" y="360" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={math}>{(Math.atan2(observer_point.x-interfacePoint.x, interfacePoint.y-observer_point.y)*180/Math.PI).toFixed(1).replace(".", ",")}°</text>
       <text x="1170" y="170" fill={C.ivory} fontSize="34" fontFamily="Arial" opacity={math}>Mắt người quan sát</text>
       <g opacity={math}>
         <rect x="1040" y="710" width="720" height="170" rx="24" fill="#203746" stroke="#64818C" strokeWidth="3" />
