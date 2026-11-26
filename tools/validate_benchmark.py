@@ -24,8 +24,74 @@ def refracted_angle_degrees(n_incident: float, n_transmitted: float, theta_incid
     return math.degrees(math.asin(sine_out))
 
 
+def angle_from_normal_degrees(dx: float, dy: float) -> float:
+    """Return acute angle from the vertical normal, in screen coordinates."""
+    if math.isclose(dx, 0.0) and math.isclose(dy, 0.0):
+        raise ValueError("A ray vector cannot have zero length.")
+    return math.degrees(math.atan2(abs(dx), abs(dy)))
+
+
 def load_storyboard(path: Path = BENCHMARK / "storyboard.json") -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_diagram(path: Path = BENCHMARK / "diagram.json") -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def validate_diagram(diagram: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    try:
+        interface = diagram["interface"]
+        true_point = diagram["incident_point"]
+        observer = diagram["observer_point"]
+        apparent = diagram["apparent_point"]
+        n_water = float(diagram["water_refractive_index"])
+        n_air = float(diagram["air_refractive_index"])
+        theta_water = float(diagram["incident_angle_from_normal_deg"])
+
+        for name, point in (
+            ("interface", interface),
+            ("incident_point", true_point),
+            ("observer_point", observer),
+            ("apparent_point", apparent),
+        ):
+            if not all(math.isfinite(float(point[key])) for key in ("x", "y")):
+                errors.append(f"{name} coordinates must be finite numbers.")
+
+        if not true_point["y"] > interface["y"]:
+            errors.append("The true submerged point must be below the water-air interface.")
+        if not observer["y"] < interface["y"]:
+            errors.append("The observer must be in the air region above the interface.")
+        if not interface["y"] < apparent["y"] < true_point["y"]:
+            errors.append("The apparent point must lie in water, closer to the interface than the true point.")
+
+        dx_in = interface["x"] - true_point["x"]
+        dy_in = interface["y"] - true_point["y"]
+        dx_out = observer["x"] - interface["x"]
+        dy_out = interface["y"] - observer["y"]
+        dx_back = interface["x"] - apparent["x"]
+        dy_back = apparent["y"] - interface["y"]
+
+        measured_in = angle_from_normal_degrees(dx_in, dy_in)
+        measured_out = angle_from_normal_degrees(dx_out, dy_out)
+        measured_back = angle_from_normal_degrees(dx_back, dy_back)
+        expected_out = refracted_angle_degrees(n_water, n_air, theta_water)
+
+        if abs(measured_in - theta_water) > 0.15:
+            errors.append(f"Incident ray geometry is {measured_in:.3f}°, expected {theta_water:.3f}° from the normal.")
+        if abs(measured_out - expected_out) > 0.15:
+            errors.append(f"Outgoing ray geometry is {measured_out:.3f}°, Snell's law requires {expected_out:.3f}°.")
+        if abs(measured_back - expected_out) > 0.15:
+            errors.append(f"Backward extension geometry is {measured_back:.3f}°, it must lie on the outgoing ray line ({expected_out:.3f}°).")
+        if not observer["x"] > interface["x"]:
+            errors.append("The benchmark observer must be on the positive-x side of the interface.")
+        if not true_point["x"] < interface["x"]:
+            errors.append("The submerged source must be on the negative-x side of the interface.")
+    except (KeyError, TypeError, ValueError, ZeroDivisionError) as exc:
+        errors.append(f"Invalid canonical refraction diagram: {exc}")
+
+    return errors
 
 
 def validate_storyboard(storyboard: dict[str, Any], research_text: str) -> list[str]:
@@ -83,12 +149,8 @@ def validate_storyboard(storyboard: dict[str, Any], research_text: str) -> list[
         if f"### {claim} " not in research_text:
             errors.append(f"Claim {claim} has no matching claim-ledger section.")
 
-    # Independent numerical check for the benchmark's example ray.
-    theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
-    if not 58.8 <= theta_air <= 59.1:
-        errors.append(f"Snell calculation drifted: expected about 58.9°, got {theta_air:.4f}°.")
-    if not 1.333 > 1.0003:
-        errors.append("The water-to-air ray must travel from higher to lower refractive index.")
+    diagram_errors = validate_diagram(load_diagram())
+    errors.extend(diagram_errors)
 
     shot_map = {shot.get("id"): shot for shot in shots}
     if "S04" not in shot_map or "S05" not in shot_map:
@@ -105,6 +167,7 @@ def validate_storyboard(storyboard: dict[str, Any], research_text: str) -> list[
 def main() -> int:
     storyboard = load_storyboard()
     research = (BENCHMARK / "RESEARCH.md").read_text(encoding="utf-8")
+    diagram = load_diagram()
     errors = validate_storyboard(storyboard, research)
     if errors:
         print("BENCHMARK VALIDATION FAILED")
@@ -112,12 +175,17 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
+    theta_air = refracted_angle_degrees(
+        diagram["water_refractive_index"],
+        diagram["air_refractive_index"],
+        diagram["incident_angle_from_normal_deg"],
+    )
     print("BENCHMARK VALIDATION PASSED")
     print(f"shots={len(storyboard['shots'])}")
     print(f"duration_frames={storyboard['project']['duration_frames']}")
     print(f"fps={storyboard['project']['fps']['numerator']}/{storyboard['project']['fps']['denominator']}")
-    print(f"snell_example=40.0deg_water_to_{theta_air:.2f}deg_air")
+    print(f"snell_example={diagram['incident_angle_from_normal_deg']:.1f}deg_water_to_{theta_air:.3f}deg_air")
+    print("canonical_ray_geometry=consistent")
     return 0
 
 
