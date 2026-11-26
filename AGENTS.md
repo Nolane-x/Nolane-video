@@ -21,7 +21,8 @@ Read in this order before exploring or editing:
 3. docs/PRODUCT_NORTH_STAR.md
 4. docs/ENGINE_ARCHITECTURE.md
 5. docs/REFERENCE_ENGINE_STUDY.md
-6. docs/ROADMAP.md
+6. docs/ANIMATION_CRAFT_STANDARDS.md
+7. docs/ROADMAP.md
 7. docs/STATE.md
 8. docs/AI_HANDOFF.md
 
