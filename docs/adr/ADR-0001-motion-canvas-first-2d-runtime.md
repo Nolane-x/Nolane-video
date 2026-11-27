@@ -52,6 +52,10 @@ This decision is provisional and deliberately narrow:
 - The user's fork is pinned at `6951a4f4f72fa0e397ea91586aef1386bf2585bb`. Its `LICENSE.md` is a two-tier source-available license (blob SHA `b0ad889f2b3eaee020de507ca6e98f1f1b664c9d)), not MIT. The Free License permits eligible individuals and small companies (up to three employees) to create videos/images, including commercial output, and modify the software for their own use; it prohibits selling, renting, licensing, relicensing or sublicensing a derivative of Remotion. Organisations outside the Free License eligibility require a Company License. This does not ban ordinary use by an eligible individual, but NEE's intended distribution/automation model must be checked before embedding, redistributing or selling a Remotion-derived product.
 - No legal conclusion is made here about the user's future entity or distribution model. Obtain a current license review or written clarification before commercial product adoption.
 
+## Implementation evidence added after the decision
+
+The first reusable scientific diagram vertical slice now exists at `benchmarks/optics-spoon/motion-canvas/src/diagrams/refraction.tsx`. It reads the canonical shared diagram geometry, keeps coordinate conversion inside the adapter component, returns semantic refs for orchestration, and uses a dashed backward construction for the virtual image ray. Candidate run [#94](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) passed all three engine jobs after this extraction; contract CI [#13](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed 17 tests. This strengthens the adapter boundary but does not change the Film IR or imply final creative acceptance.
+
 ## Alternatives considered
 
 ### Remotion as the first runtime
