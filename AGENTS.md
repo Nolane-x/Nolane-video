@@ -78,7 +78,11 @@ For every benchmark film, preserve the script, research sources, Film IR, scene 
 
 Do not overwrite a known-good final render before a replacement passes the appropriate gates.
 
-## 7. Engineering rules
+## 7. Animation craft is a production requirement
+
+Read and apply `docs/ANIMATION_CRAFT_STANDARDS.md` whenever designing, implementing or reviewing shots. Build/render success is not creative approval. Review staging, character intent, anticipation, action, reaction, follow-through, prop contact, continuity, motivated camera movement, readable educational diagrams and caption-safe areas. Every important interaction must have explicit anticipation/contact/peak/settle review frames. Do not substitute generic motion or decorative transitions for acting and explanation.
+
+## 8. Engineering rules
 
 - Design interfaces and tests before building large subsystems.
 - Use integer frame indices and explicit frame-rate metadata for timeline-critical operations. Avoid accumulated floating-point time drift.
@@ -88,7 +92,7 @@ Do not overwrite a known-good final render before a replacement passes the appro
 - Prefer small vertical slices over speculative large code dumps.
 - Keep the core independent from any one LLM provider. AI writes and revises typed project artifacts; the deterministic engine executes them.
 
-## 8. Required handoff after every working session
+## 9. Required handoff after every working session
 
 Before ending any session that changes or investigates the project:
 
@@ -100,7 +104,7 @@ Before ending any session that changes or investigates the project:
 
 A session without a refreshed handoff is incomplete.
 
-## 9. Session closing checklist
+## 10. Session closing checklist
 
 - [ ] Product boundary preserved.
 - [ ] Current repository state inspected.
