@@ -91,11 +91,20 @@
 
 ### Task 7 — Creative acceptance and M1 closure
 - [ ] Watch the full 72-second Remotion and Motion Canvas films at 24 fps; record shot/frame-specific findings.
-- [ ] Close cross-engine storyboard parity before comparative creative scoring: implement the full S02 anticipation/lift/inspect-turn/re-dip/lean arc and the causal S04 reveal in Remotion; add deterministic frame-level parity tests for Remotion.
+- [x] Close the source-level cross-engine storyboard parity gap: Remotion S02 now has deterministic anticipation/lift/inspect-turn/re-dip/lean motion; the S03–S05 optical reveal is staged; TypeScript runtime parity checks execute before render. Candidate [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421) passed and contract [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347) passed 26 tests. Continuous full-speed creative comparison remains open.
 - [ ] Improve Nia's gaze, anticipation, hand/grip, spoon lift/re-dip, reaction and follow-through to meet `ANIMATION_CRAFT_STANDARDS.md`.
 - [ ] Re-choreograph the diagram as distinct causal stages with purposeful holds; remove unmotivated long static layouts.
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
+
+## Latest Remotion parity and candidate update — 2026-11-27
+
+- Added `remotion/src/benchmark-motion.ts` with deterministic global-frame S02 and diagram schedules. The S02 helper covers the half-open range `[192, 432)`; the spoon/hand lift coupling is asserted across all 240 frames.
+- Added `remotion/scripts/test-parity.mjs`, wired as `npm run test:parity` before Remotion typecheck/render. It validates anticipation, lift, 6° inspection, re-dip, reaction, frame bounds, hand/prop coupling and S03–S05 reveal ordering.
+- Extended `tests/test_benchmark.py` with a repository-level wiring contract; candidate workflow path filters now include that test file.
+- Candidate [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421) passed all three engine jobs; contract [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347) passed 26 tests and benchmark validation. Remotion and Motion Canvas both passed 72s/1,728-frame H.264 1080p/24fps gates; Manim passed its 279-frame specialist segment.
+- Sampled 4-fps S02 outputs and selected native frames show the missing Remotion action beats and staged diagram are present in the rendered video. This is not a complete 24fps playback review.
+- M1 remains open for full-speed creative review, hand/body acting, diagram pacing, mobile typography, approved audio/captions, repeated authoring/revision metrics and H2 provenance/license review.
 
 ## Current implementation note — 2026-11-27
 

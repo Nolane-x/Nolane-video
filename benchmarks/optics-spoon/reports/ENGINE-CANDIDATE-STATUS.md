@@ -1,3 +1,19 @@
+## Latest all-green parity candidate — 2026-11-27 (candidate #137)
+
+This section supersedes older candidate references for the latest technical render set.
+
+- Code/test source commit: `9e639c2df7e80141fda25cdd8f1718070f2b9d99`.
+- Candidate workflow [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421): **Remotion, Motion Canvas and Manim all succeeded**.
+- Contract validation [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347): **26 tests passed** and benchmark validation passed.
+- Remotion: H.264, 1920×1080, yuv420p, nominal and average 24/1 fps, 72.000 s, exactly 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`. Actions artifact id `15203563873`; ZIP digest `sha256:5566755d3a98961fcc61f094a152076eb747ecc1ee6bf7277b12ed88e8b1c136`.
+- Motion Canvas 3.17.2: official editor completed 1,728/1,728 frames; zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. MP4 SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`. Actions artifact id `15203143475`; ZIP digest `sha256:058b10938d2d206bf67dbf34735cd975520caa14c33707eb417c17bf717b95fe`.
+- Manim specialist segment: H.264, 1920×1080, yuv420p, nominal 24 fps, 279 frames, 11.624674 s. Average stream rate `857088/35711` (~24.00067 fps), within the workflow's <0.01 fps tolerance. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Actions artifact id `15202838965`; ZIP digest `sha256:8ba8edce850e3e45aa935a752eb12e02839b8d5e1cdb2aaeb0641f981aeff1e4`.
+- Remotion S02 parity is now implemented in `remotion/src/benchmark-motion.ts`: deterministic anticipation, lift, 6° inspection turn, re-dip and reaction within `[192,432)`. The hand and lifted spoon share the same vertical movement.
+- The Remotion explanation sequence shows interface/physical rays during S03, then normal, measurements and Snell formula during S04, followed by the dashed backward construction and apparent point during S05. `test-parity.mjs` validates the sequence before render.
+- Both full-film MP4s are silent/video-only. Contact sheets, 4-fps S02 samples and selected native frames were reviewed; continuous 24-fps creative review has not yet been completed.
+
+**Acceptance boundary:** candidate #137 closes the known source-level Remotion storyboard parity gap and confirms all technical render gates still pass. M1 remains open for uninterrupted creative review, actor anatomy/acting, diagram pacing, mobile typography, approved audio/captions, iteration-cost measurements and H2 provenance/license audit.
+
 # M1 Candidate Status — The Spoon That Bends
 
 ## Latest integrated set/prop/rotation candidate — 2026-11-27 07:12 UTC

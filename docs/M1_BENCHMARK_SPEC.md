@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Date:** 2026-11-26  
-**Status:** Approved working direction derived from the project north star; benchmark implementation not yet complete.
+**Status:** Technical candidate renders completed and Remotion storyboard parity repaired; M1 creative/audio acceptance remains open.
 
 ## 1. Purpose
 
@@ -150,4 +150,6 @@ A technically successful render is only one gate. The film must also pass scient
 
 ## 10. Current status
 
-This specification and shared preproduction materials define the M1 experiment. They do not claim that any candidate has rendered or passed review. The architecture decision remains open until comparative evidence exists.
+Candidate workflow [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421) passes all three renderer jobs: Remotion and Motion Canvas each render the full 72-second / 1,728-frame film, and Manim renders the 279-frame S04–S05 specialist segment. Contract CI [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347) passes 26 tests and the benchmark validator. Remotion's previously incomplete S02 action and S03–S05 causal diagram reveal are now implemented with deterministic global-frame helpers and a runtime parity test.
+
+This is a technical implementation milestone, not final creative approval. Full-speed 24-fps film review, acting/contact quality, diagram pacing, mobile typography, approved narration/caption/audio synchronization, repeated authoring/revision measurements and H2 provenance/license review remain open. No overall artistic ranking is assigned until those reviews are complete.
