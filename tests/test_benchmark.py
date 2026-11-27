@@ -131,13 +131,30 @@ class BenchmarkContractTests(unittest.TestCase):
             / "nia.tsx"
         )
         actor_source = actor_path.read_text(encoding="utf-8")
-        for part in ("torso", "neck", "headRig", "upperArm", "forearm", "elbow", "mouth"):
+        for part in ("torso", "neck", "headRig", "upperArmOutline", "upperArm", "forearmOutline", "forearm", "shoulderJoint", "elbow", "wristJoint", "mouth"):
             with self.subTest(part=part):
                 self.assertIn(f"const {part} =", actor_source)
         self.assertIn("export const createNiaActor", actor_source)
+        self.assertIn("upperArmOutline,", actor_source)
         self.assertIn("upperArm,", actor_source)
+        self.assertIn("forearmOutline,", actor_source)
         self.assertIn("forearm,", actor_source)
+        self.assertIn("shoulderJoint,", actor_source)
         self.assertIn("elbow", actor_source)
+        self.assertIn("wristJoint,", actor_source)
+        self.assertIn("lineWidth={48}", actor_source)
+        self.assertIn("lineWidth={46}", actor_source)
+        self.assertIn("upperArmOutline().points([shoulder, elbowPoint])", actor_source)
+        self.assertIn("forearmOutline().points([elbowPoint, wrist])", actor_source)
+        self.assertIn("wristJoint().position(wrist)", actor_source)
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks" / "optics-spoon" / "motion-canvas" / "src" / "scenes" / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+        for control in ("upperArmOutline", "forearmOutline", "shoulderJoint", "elbow", "wristJoint"):
+            with self.subTest(control=control):
+                self.assertIn(f"nia.{control}().opacity(", scene_source)
         self.assertIn("mouth,", actor_source)
 
     def test_nia_grip_is_prop_attached_and_has_finger_controls(self):

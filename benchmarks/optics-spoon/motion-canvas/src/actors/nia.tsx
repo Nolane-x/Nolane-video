@@ -77,9 +77,13 @@ export const createNiaActor = () => {
   const eyeRight = createRef<Circle>();
   const mouth = createRef<Line>();
   const expression = createRef<Txt>();
+  const upperArmOutline = createRef<Line>();
   const upperArm = createRef<Line>();
+  const forearmOutline = createRef<Line>();
   const forearm = createRef<Line>();
+  const shoulderJoint = createRef<Circle>();
   const elbow = createRef<Circle>();
+  const wristJoint = createRef<Circle>();
   const restArm = NIA_ARM_POSES.rest;
   let currentShoulder = copyPoint(restArm.shoulder);
   let currentWrist = copyPoint(restArm.wrist);
@@ -149,11 +153,28 @@ export const createNiaActor = () => {
           opacity={0}
         />
       </Node>
+      {/* Dark contour strokes give the two-bone rig a readable silhouette. */}
+      <Line
+        ref={upperArmOutline}
+        points={[[...restArm.shoulder], [...restArm.elbow]]}
+        stroke="#101B26"
+        lineWidth={48}
+        lineCap="round"
+        opacity={0}
+      />
       <Line
         ref={upperArm}
         points={[[...restArm.shoulder], [...restArm.elbow]]}
         stroke="#D9B89B"
-        lineWidth={28}
+        lineWidth={32}
+        lineCap="round"
+        opacity={0}
+      />
+      <Line
+        ref={forearmOutline}
+        points={[[...restArm.elbow], [...restArm.wrist]]}
+        stroke="#101B26"
+        lineWidth={46}
         lineCap="round"
         opacity={0}
       />
@@ -161,17 +182,35 @@ export const createNiaActor = () => {
         ref={forearm}
         points={[[...restArm.elbow], [...restArm.wrist]]}
         stroke="#D9B89B"
-        lineWidth={28}
+        lineWidth={30}
         lineCap="round"
         opacity={0}
       />
       <Circle
+        ref={shoulderJoint}
+        size={50}
+        position={[...restArm.shoulder]}
+        fill="#D9B89B"
+        stroke="#101B26"
+        lineWidth={7}
+        opacity={0}
+      />
+      <Circle
         ref={elbow}
-        size={34}
+        size={42}
         position={[...restArm.elbow]}
         fill="#D9B89B"
         stroke="#101B26"
-        lineWidth={5}
+        lineWidth={7}
+        opacity={0}
+      />
+      <Circle
+        ref={wristJoint}
+        size={34}
+        position={[...restArm.wrist]}
+        fill="#D9B89B"
+        stroke="#101B26"
+        lineWidth={6}
         opacity={0}
       />
     </>
@@ -196,9 +235,13 @@ export const createNiaActor = () => {
         1
       );
 
+      upperArmOutline().points([shoulder, elbowPoint]);
       upperArm().points([shoulder, elbowPoint]);
+      forearmOutline().points([elbowPoint, wrist]);
       forearm().points([elbowPoint, wrist]);
+      shoulderJoint().position(shoulder);
       elbow().position(elbowPoint);
+      wristJoint().position(wrist);
       currentShoulder = shoulder;
       currentWrist = wrist;
     });
@@ -214,9 +257,13 @@ export const createNiaActor = () => {
     eyeRight,
     mouth,
     expression,
+    upperArmOutline,
     upperArm,
+    forearmOutline,
     forearm,
+    shoulderJoint,
     elbow,
+    wristJoint,
     toArmPose
   };
 };
