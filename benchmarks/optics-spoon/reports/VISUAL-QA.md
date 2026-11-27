@@ -1,8 +1,8 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411). All three candidate jobs passed; the Motion Canvas and Remotion contact sheets and selected 1920×1080 frames were inspected.  
-**Review scope:** contact sheets and selected 1920×1080 still frames from run #89, plus geometry frames from run #83. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166). All three candidate jobs passed; Motion Canvas and Remotion artifacts were checked, including a native 1920×1080 Motion Canvas S05 frame at 51 s.  
+**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89 and #94. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
 
 ## Remotion 4.0.547 — full-film candidate
 
@@ -106,3 +106,14 @@ Output: H.264, 1920×1080, yuv420p, 24/1 fps, 279 frames, 11.624674 s.
 - Nia now has a reusable rig in `src/actors/nia.tsx`: torso, neck, head, eyes, mouth, upper arm, forearm and elbow. The S02 prop-hand relationship remains a simple parented coupling; the hand is still a geometric blockout, not articulated fingers or a production grip constraint.
 
 **Still not approved:** the review did not watch both entire films at 24 fps. Character performance and prop physics remain prototype-level; narration, transcript-aligned captions, SFX, music and perceptual audio QA are absent. Camera choreography, small-screen type and the full diagram pacing still need a dedicated review.
+
+
+## Run #94 — reusable refraction diagram and virtual-ray styling
+
+- Candidate workflow: [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166), all three candidate jobs passed.
+- Motion Canvas artifact `m1-motion-canvas-candidate`: digest `sha256:92c3b5d3451520a6e7b7fc8bd6db0f7c51c772335b9692c4cadf24724693cbc8`; MP4 SHA-256 `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`. The renderer exported 1,728 unique sequential PNGs; ffprobe confirms H.264, 1920×1080, 24/1 fps, 72.000 s and 1,728 frames; zero browser errors.
+- The scene now uses `src/diagrams/refraction.tsx` through `createRefractionDiagram(palette)`. The module owns the diagram view, labels, points and canonical coordinate mapping; the scene only controls when its returned refs appear.
+- Frame at 51 s was inspected at native 1920×1080. It shows the water-air interface in the correct orientation; solid yellow incident/outgoing physical rays; a white dashed backward extension; coral true position; mint apparent position. The dashed segment begins exactly at the interface and follows the outgoing ray line backward to the apparent point.
+- Contract workflow [#13](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed 17 tests, including checks for component reuse and `lineDash={[18, 14]}`.
+
+**Still not approved:** this confirms the selected scientific diagram frame and technical render only. Full-speed 24 fps pacing/comprehension review, small-screen readability, the remaining actor contact work and all real audio review remain open.
