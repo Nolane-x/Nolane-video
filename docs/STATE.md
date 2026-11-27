@@ -1,3 +1,27 @@
+## -5. Latest verified state — 2026-11-27 (candidate #126 verified)
+
+This snapshot supersedes older candidate-run, arm-rig and handoff status below.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Main:** `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no changes have been merged to main.
+- **Working branch:** `m1/optics-benchmark`; latest code/test head: `0a0191a59d5aed329d5d750410a12c93669fe45b`. Main remains untouched.
+- **Latest candidate:** [run #126](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151), source commit `0a0191a59d5aed329d5d750410a12c93669fe45b`; Remotion, Motion Canvas and Manim all **success**.
+  - Remotion: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `sha256:82248b0b6958777431b609a629c62486d097f91cf793ab307498b855b06e338e`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+  - Motion Canvas: official editor rendered 1,728/1,728 frames, zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. Artifact digest `sha256:af245b9267272fb4c58601f86db1c6c7e96585e983831a5c923a94a3da3e6109`; MP4 SHA-256 `a1ef3bb538f9e3f822206bfb04561f2cf85ae40748373afa744ad4a17f414862`; contact-sheet SHA-256 `7ee611aadd064660ff47e8ba0fe2372c818c15544bb266f7096cb57553cf1cb8`.
+  - Manim specialist segment: H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `sha256:d486c876a1423da6354c2c695d5f4a2b191b9bad12af474d055b7acbeee57b33`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- **Latest contract validation:** [run #31](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070299) passed **24 tests** and the benchmark validator.
+- **Latest actor/IK implementation:**
+  - `src/actors/arm-ik.ts`: pure law-of-cosines two-bone solver; finite-input validation, min/max reach checks, deterministic bend branch and explicit unreachable-target errors.
+  - `src/actors/nia.tsx`: canonical segment lengths are upper arm 200 px and forearm 615 px. Named rest/lift/inspect wrist targets are used to solve the elbow. `toArmPose()` now runs a callback tween and re-solves the elbow on every rendered frame, instead of interpolating endpoint elbows.
+  - `src/actors/rig-anchors.ts`: single source of truth for rest, −5° lift and +6° inspection wrist contacts.
+  - `src/actors/nia-grip.tsx`: prop-attached palm/thumb plus four individual finger paths and named rest/brace grip poses.
+  - `src/props/spoon.tsx`: spoon and grip share a parent transform; scene layer order keeps the hand in front of the forearm.
+  - `scripts/test-arm-ik.mjs`: executes the actual TypeScript solver after transpilation, checks all three named poses, both elbow branches, unreachable/invalid input guards, and 101 interpolation samples for each of the three S02 transitions.
+- **Render/visual evidence:** native 1920×1080 frames at 8.8 s, 9.8 s, 10.8 s and 11.8 s from run #126 were inspected. Selected frames show the elbow following the wrist, visible prop-attached fingers and contact through lift/inspection/re-dip. This is selected-frame QA, not a full-speed 24 fps watch of every S02 frame.
+- **Architecture:** Motion Canvas 3.17.2 remains provisionally selected as the first 2D/2.5D scene adapter; Film IR remains renderer-independent; Manim remains specialist; Remotion remains full-film baseline pending license/distribution review.
+- **Still incomplete:** full-speed review of both films; believable hand anatomy, thumb opposition and finger wrap; shoulder/torso weight transfer and acting; reaction/follow-through; causal diagram pacing and camera staging; mobile typography; approved Vietnamese VO, speech-aligned captions, SFX/music and audio QA; repeated authoring/preview/render measurements; H2 provenance/license audit.
+- **Next task:** review the complete motion at 24 fps, record frame-accurate defects, then improve hand shape/contact and full-body acting. M1 is **not complete**. Do not begin a broad Film IR/runtime package or claim creative approval until the remaining gates are closed.
+
 ## -4. Latest verified state — 2026-11-27 (candidate #122 verified)
 
 This snapshot supersedes older candidate-run, actor/grip and next-task references below.

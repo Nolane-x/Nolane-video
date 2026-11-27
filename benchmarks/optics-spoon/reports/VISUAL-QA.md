@@ -1,8 +1,18 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [45997725029 (#122)](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.0 s, 10.5 s and 11.5 s were opened for four-finger grip, arm pose and prop continuity, in addition to earlier refraction-diagram review.  
-**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121 and #122. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [46003070151 (#126)](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 8.8 s, 9.8 s, 10.8 s and 11.8 s were opened for per-frame IK tracking, prop contact and layer continuity, in addition to earlier refraction-diagram review.  
+**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121, #122, #125 and #126. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+
+## Follow-up review — candidate #126: per-frame two-bone arm IK
+
+- Candidate workflow: [46003070151](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151); all Remotion, Motion Canvas and Manim jobs passed. Contract validation [#31](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070299) passed 24 tests.
+- Motion Canvas output: H.264, 1920×1080, yuv420p, 24/1 fps, exactly 1,728 frames and 72.000 s; render report records 1,728 expected/rendered frames and zero browser errors.
+- Native 1920×1080 frames at 8.8 s, 9.8 s, 10.8 s and 11.8 s were opened. Across the selected lift/inspection/re-dip beats, the elbow follows the wrist target, the hand remains visible above the forearm and the grip stays over the spoon handle.
+- New module `src/actors/arm-ik.ts` implements the two-bone law-of-cosines solution, finite input validation, minimum/maximum reach guards and deterministic bend branch selection.
+- `NIA_ARM_BONE_LENGTHS` fixes the upper segment at 200 px and forearm at 615 px. Nia's `toArmPose()` runs a callback tween and resolves the elbow every rendered frame; it no longer linearly interpolates precomputed elbow endpoints.
+- `scripts/test-arm-ik.mjs` executes the real TypeScript solver, validates rest/lift/inspect anchors and both elbow branches, rejects unreachable/invalid inputs, and checks 101 samples across each of the three S02 transitions while asserting both segment lengths remain constant.
+- **Remaining visual defects:** the arm and hand are still stylized strokes, not anatomical anatomy. The two-segment arm is extended and lacks shoulder/torso counterbalance; thumb opposition, finger wrap, palm compression, wrist roll and secondary motion still need work. Selected stills do not constitute a full-speed 24 fps watch or proof of every rendered pose's creative quality.
 
 ## Follow-up review — candidate #122: reusable four-finger and arm poses
 

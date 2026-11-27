@@ -114,10 +114,12 @@
 ## Latest implementation slice — 2026-11-27
 
 - Motion Canvas visual systems now live in reusable Nia actor/grip, SpoonProp, KitchenSet and RefractionDiagram modules; `spoon.tsx` primarily orchestrates shot timing and acting.
-- `rig-anchors.ts` defines immutable local/stage anchors and computes wrist contact after prop rotation. S02 uses rest (0°), lift (−5°) and inspection turn (+6°) points; the forearm endpoint is tweened to the matching contact target during the turn.
-- Candidate run [#116](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455) passed all three engine jobs and exact frame/codec gates. Contract validation [#24](https://github.com/Nolane-x/Nolane-video/actions/runs/45956346788) passed 21 tests.
-- Selected native frames at 9.8 s, 10.8 s and 11.8 s show the hand remains attached through lift/turn/re-dip. This is selected-frame prototype QA, not final motion approval.
-- M1 remains open for full-speed review, production-quality hand/acting, diagram choreography, mobile typography, audio approval and repeated authoring/revision measurements.
+- `rig-anchors.ts` defines immutable local/stage anchors and computes wrist contact after prop rotation. S02 uses rest (0°), lift (−5°) and inspection turn (+6°) points.
+- The grip is a prop-attached four-finger/palm/thumb rig with named rest/brace poses. The forearm is rendered behind this hand.
+- Nia's two-bone arm rig uses 200 px / 615 px fixed segment lengths and re-solves the elbow inside the Motion Canvas tween callback on every frame. The scene no longer interpolates precomputed elbow endpoints.
+- Candidate run [#126](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151) passed all three engine jobs and exact frame/codec gates. Contract validation [#31](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070299) passed 24 tests. The candidate job also executes the TypeScript IK runtime tests.
+- Selected native frames at 8.8 s, 9.8 s, 10.8 s and 11.8 s show the elbow following the grip target through lift/turn/re-dip. This is selected-frame prototype QA, not a full-speed creative approval.
+- M1 remains open for full-speed review, production-quality hand/body acting, diagram choreography, mobile typography, audio approval and repeated authoring/revision measurements.
 
 ## Required acceptance
 

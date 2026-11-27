@@ -1,3 +1,52 @@
+## Latest continuation snapshot — 2026-11-27 (candidate #126 verified)
+
+This is the authoritative continuation point. It supersedes older endpoint-only arm tween notes below.
+
+### GitHub state
+
+- Repository: `Nolane-x/Nolane-video` (NEE), not `Nolane-x/video`.
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- Active branch `m1/optics-benchmark`; code/test HEAD: `0a0191a59d5aed329d5d750410a12c93669fe45b`.
+- Candidate [#126](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151): Remotion, Motion Canvas and Manim all succeeded.
+- Contract validator [#31](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070299): 24 tests passed and benchmark validation passed.
+
+### Verified candidate outputs
+
+- **Remotion:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `82248b0b6958777431b609a629c62486d097f91cf793ab307498b855b06e338e`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- **Motion Canvas:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, exactly 1,728 frames, zero browser errors. Artifact digest `af245b9267272fb4c58601f86db1c6c7e96585e983831a5c923a94a3da3e6109`; MP4 SHA-256 `a1ef3bb538f9e3f822206bfb04561f2cf85ae40748373afa744ad4a17f414862`.
+- **Manim:** H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `d486c876a1423da6354c2c695d5f4a2b191b9bad12af474d055b7acbeee57b33`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+
+### New two-bone IK implementation
+
+- `src/actors/arm-ik.ts` exports a deterministic two-bone solver using the law of cosines. It validates finite points, positive segment lengths, signed bend direction and the reachable distance interval. It throws on unreachable targets rather than silently stretching.
+- `src/actors/nia.tsx` defines upper-arm length **200 px** and forearm length **615 px**. Rest/lift/inspect poses keep the canonical shoulder and wrist targets; the elbow is derived by the solver.
+- Crucially, `toArmPose()` now uses the Motion Canvas `tween` callback to solve and update the elbow for every animation frame. It does not tween between three precomputed elbow endpoints.
+- The callback uses the same ease-in-out cubic timing as Motion Canvas property tweens, so the arm's wrist target tracks the spoon movement curve.
+- `scripts/test-arm-ik.mjs` transpiles and executes the actual TypeScript math module. It tests the three canonical anchor poses, segment lengths, both bend branches, non-finite/zero-length/invalid-direction cases, outside-minimum and outside-maximum targets, plus 101 samples for each S02 transition (rest→lift, lift→inspect, inspect→rest).
+- Candidate #126's Motion Canvas build, IK runtime test, 1,728-frame editor render and MP4 probe all passed.
+
+### Selected-frame review
+
+Native 1920×1080 frames at 8.8 s, 9.8 s, 10.8 s and 11.8 s from run #126 were opened. The elbow follows the grip target through the selected lift/turn/re-dip states, the forearm remains behind the prop-attached hand, and the spoon remains connected to the grip. These are selected stills, not a complete 24 fps watch. The hand and body remain stylized vector blockouts, so this is not anatomical or creative approval.
+
+### Exact next work
+
+1. Watch both complete 72-second candidates continuously at 24 fps; log shot ID, frame range, severity, symptom and reproduction in `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+2. Improve hand form and physical contact: thumb opposition, finger wrap around the handle, palm compression, wrist roll and explicit release.
+3. Improve the actor beyond an extended arm: shoulder motion, torso counterbalance, elbow plane, weight shift, head/gaze reaction and settle/follow-through.
+4. Review S04/S05 as a causal educational reveal: interface → normal → incident ray → refracted ray → angles/law → dashed backward extension → apparent point; add motivated holds and camera staging.
+5. Check essential typography and safe areas at reduced/mobile sizes.
+6. Keep audio incomplete until approved Vietnamese VO and SFX/music exist; then align captions to spoken timing and conduct perceptual audio QA.
+7. Measure repeated authoring/preview/render/revision loops on equivalent runners; do not rank from one-off durations.
+8. Finish H2 provenance/license review before reusing material from `Nolane-x/video`.
+9. Only after M1 creative acceptance, begin a typed renderer-independent Film IR slice. Motion Canvas is still an execution adapter, not the IR.
+
+### Honest status
+
+M1 technical renders are green, and Nia now has a four-finger prop grip plus per-frame two-bone arm IK. **M1 remains open** for full-speed creative review, production-level anatomy/acting, diagram pacing, mobile readability, approved audio/captions and provenance/performance evidence. Keep code pass, contract pass, runtime IK pass, render pass, selected-frame review and final creative approval as separate states.
+
+---
+
 ## Latest continuation snapshot — 2026-11-27 (candidate #122 verified)
 
 This is the authoritative continuation point. It supersedes older pre-four-finger and scene-owned arm-coordinate notes below.

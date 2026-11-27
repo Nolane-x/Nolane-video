@@ -1,6 +1,6 @@
 # M1 Candidate Scorecard — The Spoon That Bends
 
-**Snapshot:** 2026-11-27 — latest technical candidate #122 and contract validation #29.  
+**Snapshot:** 2026-11-27 — latest technical candidate #126 and contract validation #31.  
 **Status:** candidate technical comparison complete; creative/audio acceptance still open. No overall numeric score is assigned.  
 **Architecture decision:** Motion Canvas is provisionally selected as the first 2D scene adapter under [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md).
 
@@ -16,14 +16,14 @@
 | Dimension | Remotion 4.0.547 | Motion Canvas 3.17.2 | Manim CE fork |
 |---|---|---|---|
 | Intended role | Full-film baseline / possible adapter | First 2D/2.5D scene runtime (provisional) | Specialist diagram adapter |
-| Latest green candidate run | [45997725029 (#122)](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029) | [45997725029 (#122)](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029) | [45997725029 (#122)](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029) |
-| Latest artifact digest | `sha256:6738609fc2b7601daed9caf972c743cb789d4a1d08bed521c1101992e17a5cec` | `sha256:a2dc668a3c14340ecb79e31ad12d9107c1d0cf90d330623dcf943cfd4f2bc2c8` | `sha256:ded403a68f387ec1de4198133a7a0847de7fb7535adc9a41fa21c1c0d1f68419` |
-| Latest MP4 SHA-256 | `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2` | `c435cb1149b75f0bb8c4d88c2cde08cdaed3e351accb6040089df9634a86d069` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
+| Latest green candidate run | [46003070151 (#126)](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151) | [46003070151 (#126)](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151) | [46003070151 (#126)](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151) |
+| Latest artifact digest | `sha256:82248b0b6958777431b609a629c62486d097f91cf793ab307498b855b06e338e` | `sha256:af245b9267272fb4c58601f86db1c6c7e96585e983831a5c923a94a3da3e6109` | `sha256:d486c876a1423da6354c2c695d5f4a2b191b9bad12af474d055b7acbeee57b33` |
+| Latest MP4 SHA-256 | `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2` | `a1ef3bb538f9e3f822206bfb04561f2cf85ae40748373afa744ad4a17f414862` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
 | Output metadata | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 11.624674 s, 279 frames |
 | Technical result | PASS: typecheck, full render, H.264/24 fps/1,728-frame ffprobe gate and upload | PASS: official editor build, 1,728 unique sequential frames, H.264/24 fps/1,728-frame ffprobe gate, zero browser errors and upload | PASS: pinned fork install, H.264/24 fps/279-frame gate, ffprobe and upload |
-| Visual review | Contact sheet and selected native frames reviewed; “NƯỚC” safe area fixed | Runs #83/#94 verified diagram orientation/dashed virtual ray; run #122 native 1080p frames at 9.0/10.5/11.5 s reviewed for prop-attached four-finger grip, actor arm poses and layer order | Shared palette/font and native-resolution diagram reviewed |
+| Visual review | Contact sheet and selected native frames reviewed; “NƯỚC” safe area fixed | Runs #83/#94 verified diagram orientation/dashed virtual ray; run #126 native 1080p frames at 8.8/9.8/10.8/11.8 s reviewed for four-finger grip, per-frame IK elbow tracking and prop continuity | Shared palette/font and native-resolution diagram reviewed |
 | Scientific geometry | PASS on reviewed diagram | PASS against shared diagram model | PASS on reviewed diagram |
-| Character acting | Not approved: vector blockout, weak hand/prop performance | Reusable Nia rig now owns four finger paths + thumb with named `rest`/`brace` grip poses and `rest`/`lift`/`inspect` arm poses; wrist targets remain rotation-aware. Selected run #122 frames show the hand layered above the forearm and attached to the prop. Still stylized vector blockout, not production-level anatomy or acting | Not applicable to specialist role |
+| Character acting | Not approved: vector blockout, weak hand/prop performance | Reusable four-finger prop grip plus two-bone IK now recalculates elbow position every animation frame; segment lengths are fixed at 200/615 px and wrist targets follow rotated prop anchors. Selected run #126 frames show contact through lift/inspect/re-dip. Still stylized vector blockout, not production anatomy or acting | Not applicable to specialist role |
 | Diagram choreography | Needs work: causality and timing need full-speed review | Reusable refraction diagram extracted; backward extension is now dashed and geometry remains shared. Still needs a causal pacing/hold review at full speed | Legible reveal, but opening is sparse; VO timing not tested |
 | Audio | Silent; no VO, transcript sync, SFX or music | Silent; no VO, transcript sync, SFX or music | No audio |
 | License | Two-tier source-available license; eligible individuals/small companies may create commercial videos, but selling/licensing a Remotion derivative is restricted | MIT core; optional GPLv3 FFmpeg exporter excluded | MIT (Community Edition and pinned fork files) |
@@ -35,10 +35,10 @@
 | Story and learning objective | PARTIAL PASS | Six-shot sequence renders; complete 24 fps comprehension review remains |
 | Scientific correctness | PASS for reviewed geometry | Shared Snell/geometry validator and native-resolution diagrams pass |
 | Deterministic frame output | PASS | Both full-film engines: exactly 1,728 frames; Manim segment: 279 frames |
-| Technical media export | PASS | All three candidate jobs green in run [45997725029 (#122)](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029) |
+| Technical media export | PASS | All three candidate jobs green in run [46003070151 (#126)](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151) |
 | Visual readability | PASS at reviewed native frames; reduced/mobile-size check open | Remotion caption safe area, Motion Canvas angle labels and Manim font/palette fixed |
 | Diagram choreography | NEEDS WORK | Stage interface → normal → physical rays → measured angles → backward extension → apparent point as distinct causal transformations; remove unmotivated static holds |
-| Acting, prop contact and continuity | PARTIAL / NOT APPROVED | Four-finger named grip poses and actor-owned arm poses now exist; selected run #122 frames show visible prop contact and corrected layer order. Still need believable thumb opposition, anatomical palm/wrist, frame-by-frame contact, full 24 fps review, weight transfer, reaction and follow-through |
+| Acting, prop contact and continuity | PARTIAL / NOT APPROVED | Four-finger prop grip and per-frame two-bone IK now preserve segment lengths while wrist targets move. Selected #126 frames show contact through lift/inspect/re-dip. Still need full 24 fps review, thumb opposition, finger wrap/palm compression, wrist roll, shoulder/torso weight transfer, reaction and follow-through |
 | Camera and editing | PARTIAL | Current movement/transitions are basic; use motivated framing and preserve spatial continuity |
 | Audio/narration/captions | NOT TESTED | Add approved real VO, transcript alignment, SFX and music before audio acceptance |
 | Reproducibility and revision cost | PARTIAL | Pinned versions and repeatable CI exist; controlled timing and authoring/revision measurements remain |
