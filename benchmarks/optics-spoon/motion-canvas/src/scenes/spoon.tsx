@@ -190,7 +190,7 @@ export default makeScene2D(function* (view) {
     eyeA().position([-55, 0], 0.35),
     eyeB().position([25, 0], 0.35)
   );
-  yield* waitFor(8.75);
+  yield* waitFor(8.75 - 1 / 24);
   checkpoint("S02-complete");
 
   // S03 — 10 seconds: move from the everyday scene into the invisible optical path.
