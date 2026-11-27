@@ -9,7 +9,7 @@ import {
 } from "./grip-geometry";
 
 const copyPath = (path: FingerPath): GripPoint[] =>
-  path.map(([x, y]): Point => [x, y]);
+  path.map(([x, y]): GripPoint => [x, y]);
 
 /**
  * Nia's prop-attached grip. Mount this view inside the spoon node so the palm
