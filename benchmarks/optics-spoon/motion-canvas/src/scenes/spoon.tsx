@@ -14,6 +14,7 @@ import {
 } from "@motion-canvas/core";
 import diagramGeometry from "../../../shared/diagram.json";
 import storyboard from "../../../shared/storyboard.json";
+import { createNiaActor } from "../actors/nia";
 
 // Convert canonical top-left diagram pixels to centered Motion Canvas coordinates.
 // Keep +Y downward so the water remains below the air-water interface.
@@ -79,13 +80,7 @@ export default makeScene2D(function* (view) {
   const spoonBowl = createRef<Circle>();
   const hand = createRef<Rect>();
   const thumb = createRef<Circle>();
-  const torso = createRef<Rect>();
-  const headRig = createRef<Node>();
-  const head = createRef<Circle>();
-  const arm = createRef<Line>();
-  const eyeA = createRef<Circle>();
-  const eyeB = createRef<Circle>();
-  const face = createRef<Txt>();
+  const nia = createNiaActor();
   const kitchenCaption = createRef<Txt>();
 
   const diagramWater = createRef<Rect>();
@@ -123,15 +118,7 @@ export default makeScene2D(function* (view) {
         <Rect ref={hand} size={[62, 40]} position={[-36, -80]} rotation={-12} radius={16} fill="#D9B89B" stroke={C.ink} lineWidth={6} opacity={0} />
         <Circle ref={thumb} size={28} position={[-8, -66]} fill="#D9B89B" stroke={C.ink} lineWidth={5} opacity={0} />
       </Node>
-      <Rect ref={torso} size={[185, 265]} position={[505, 185]} radius={38} fill={C.slate} stroke={C.ink} lineWidth={10} opacity={0} />
-      <Node ref={headRig} position={[505, -105]}>
-        <Circle ref={head} size={230} position={[0, 0]} fill="#D9B89B" stroke={C.ink} lineWidth={10} opacity={0} />
-        <Circle size={125} position={[0, -85]} fill="#172631" opacity={0} />
-        <Circle ref={eyeA} size={18} position={[-40, 0]} fill={C.ink} opacity={0} />
-        <Circle ref={eyeB} size={18} position={[40, 0]} fill={C.ink} opacity={0} />
-        <Txt ref={face} text="?" position={[130, -100]} fontSize={76} fill={C.brass} fontFamily="Arial" opacity={0} />
-      </Node>
-      <Line ref={arm} points={[[420, 95], [245, 30], [-356, 0]]} stroke="#D9B89B" lineWidth={28} lineCap="round" opacity={0} />
+      {nia.view}
       <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
 
       <Rect ref={diagramWater} size={[1920, 635]} position={[0, 222.5]} fill={C.water} opacity={0} />
@@ -165,43 +152,79 @@ export default makeScene2D(function* (view) {
     spoonTop().opacity(1, 0.5),
     spoonBentBottom().opacity(1, 0.5),
     spoonBowl().opacity(1, 0.5),
-    torso().opacity(1, 0.5),
-    head().opacity(1, 0.5),
-    eyeA().opacity(1, 0.5),
-    eyeB().opacity(1, 0.5),
-    face().opacity(1, 0.5),
+    nia.torso().opacity(1, 0.5),
+    nia.head().opacity(1, 0.5),
+    nia.eyeLeft().opacity(1, 0.5),
+    nia.eyeRight().opacity(1, 0.5),
+    nia.expression().opacity(1, 0.5),
     kitchenCaption().opacity(1, 0.5)
   );
   yield* waitFor(0.45);
   yield* all(
-    arm().opacity(1, 0.35),
+    nia.upperArm().opacity(1, 0.35),
+    nia.forearm().opacity(1, 0.35),
+    nia.elbow().opacity(1, 0.35),
     hand().opacity(1, 0.25),
     thumb().opacity(1, 0.25),
-    eyeA().position([-48, -3], 0.25),
-    eyeB().position([32, -3], 0.25),
-    headRig().rotation(-4, 0.25)
+    nia.eyeLeft().position([-48, -3], 0.25),
+    nia.eyeRight().position([32, -3], 0.25),
+    nia.headRig().rotation(-4, 0.25)
   );
   yield* view.scale([1.025, 1.025], 1.4);
   yield* waitFor(5.3);
   checkpoint("S01-complete");
 
-  // S02 — 10 seconds: expose the straight spoon and lift it as one constrained prop.
+  // S02 — 10 seconds: reveal the straight spoon, inspect it, then re-dip it.
+  // The hand remains parented to the spoon prop, so grip and prop stay coupled.
   yield* all(
     spoonTop().opacity(0, 0.4),
     spoonBentBottom().opacity(0, 0.4),
     spoonStraight().opacity(1, 0.4),
-    face().text("!", 0.3),
-    headRig().position([505, -125], 0.4),
-    headRig().rotation(0, 0.4)
+    nia.expression().text("!", 0.3),
+    nia.headRig().position([505, -125], 0.4),
+    nia.headRig().rotation(0, 0.4)
   );
+  // Anticipation: Nia steadies the wrist before lifting.
+  yield* waitFor(0.25);
   yield* all(
     spoonRig().position([-320, 10], 0.85),
     spoonRig().rotation(-5, 0.85),
-    arm().points([[420, 95], [240, 10], [-360, -70]], 0.85),
-    eyeA().position([-55, 0], 0.35),
-    eyeB().position([25, 0], 0.35)
+    nia.upperArm().points([[420, 95], [240, 10]], 0.85),
+    nia.forearm().points([[240, 10], [-360, -70]], 0.85),
+    nia.elbow().position([240, 10], 0.85),
+    nia.eyeLeft().position([-55, 0], 0.35),
+    nia.eyeRight().position([25, 0], 0.35)
   );
-  yield* waitFor(8.75 - 1 / 24);
+  // Give the viewer time to see that the exposed spoon is physically straight.
+  yield* waitFor(0.8);
+  yield* all(
+    spoonRig().rotation(6, 0.25),
+    nia.headRig().position([505, -118], 0.25),
+    nia.headRig().rotation(3, 0.25)
+  );
+  // Re-dip: the physical prop stays rigid while the underwater portion appears offset.
+  yield* all(
+    spoonStraight().opacity(0, 0.2),
+    spoonTop().opacity(1, 0.2),
+    spoonBentBottom().opacity(1, 0.2)
+  );
+  yield* all(
+    spoonRig().position([-320, 80], 0.85),
+    spoonRig().rotation(0, 0.85),
+    nia.upperArm().points([[420, 95], [245, 30]], 0.85),
+    nia.forearm().points([[245, 30], [-356, 0]], 0.85),
+    nia.elbow().position([245, 30], 0.85),
+    nia.eyeLeft().position([-48, -3], 0.5),
+    nia.eyeRight().position([32, -3], 0.5)
+  );
+  // Nia leans closer after seeing the apparent kink.
+  yield* all(
+    nia.headRig().position([505, -145], 0.6),
+    nia.headRig().rotation(4, 0.6),
+    nia.expression().text("?", 0.4)
+  );
+  // Exact ten-second half-open shot, with Motion Canvas's inclusive endpoint correction.
+  yield* waitFor(10 - 1 / 24 - (0.4 + 0.25 + 0.85 + 0.8 + 0.25 + 0.2 + 0.85 + 0.6));
   checkpoint("S02-complete");
 
   // S03 — 10 seconds: move from the everyday scene into the invisible optical path.
@@ -212,9 +235,11 @@ export default makeScene2D(function* (view) {
     water().opacity(0, 0.8),
     waterline().opacity(0, 0.8),
     spoonRig().opacity(0, 0.8),
-    torso().opacity(0, 0.8),
-    headRig().opacity(0, 0.8),
-    arm().opacity(0, 0.8),
+    nia.torso().opacity(0, 0.8),
+    nia.headRig().opacity(0, 0.8),
+    nia.upperArm().opacity(0, 0.8),
+    nia.forearm().opacity(0, 0.8),
+    nia.elbow().opacity(0, 0.8),
     kitchenCaption().opacity(0, 0.8),
     diagramWater().opacity(0.22, 0.8),
     interfaceLine().opacity(1, 0.8),
@@ -288,19 +313,25 @@ export default makeScene2D(function* (view) {
     spoonRig().opacity(1, 0.8),
     spoonRig().position([-320, 80], 0.8),
     spoonRig().rotation(0, 0.8),
+    spoonTop().opacity(0, 0.8),
+    spoonBentBottom().opacity(0, 0.8),
     spoonStraight().opacity(1, 0.8),
     spoonBowl().opacity(1, 0.8),
-    torso().opacity(1, 0.8),
-    headRig().opacity(1, 0.8),
-    headRig().position([505, -105], 0.8),
-    headRig().rotation(0, 0.8),
-    eyeA().opacity(1, 0.8),
-    eyeB().opacity(1, 0.8),
-    arm().opacity(1, 0.8),
-    arm().points([[420, 95], [245, 30], [-356, 0]], 0.8),
+    nia.torso().opacity(1, 0.8),
+    nia.headRig().opacity(1, 0.8),
+    nia.headRig().position([505, -105], 0.8),
+    nia.headRig().rotation(0, 0.8),
+    nia.eyeLeft().opacity(1, 0.8),
+    nia.eyeRight().opacity(1, 0.8),
+    nia.upperArm().opacity(1, 0.8),
+    nia.upperArm().points([[420, 95], [245, 30]], 0.8),
+    nia.forearm().opacity(1, 0.8),
+    nia.forearm().points([[245, 30], [-356, 0]], 0.8),
+    nia.elbow().opacity(1, 0.8),
+    nia.elbow().position([245, 30], 0.8),
     hand().opacity(1, 0.8),
     thumb().opacity(1, 0.8),
-    face().opacity(1, 0.8),
+    nia.expression().opacity(1, 0.8),
     kitchenCaption().text("Chiếc thìa vẫn nguyên vẹn.", 0.8),
     kitchenCaption().opacity(1, 0.8)
   );
