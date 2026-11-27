@@ -99,7 +99,7 @@ The next comparison must include repeated render timings on equivalent runners, 
 
 **Trade-offs**
 - Motion Canvas editor automation and image-sequence export add browser/CI operational complexity.
-- The current Motion Canvas character implementation is not a rig; NEE must author its own actor and contact systems.
+- A first NEE-owned jointed Nia rig now exists in the benchmark adapter code, but it is still a minimal vertical slice, not a production skeletal system; articulated fingers and robust grip/contact constraints remain to be built.
 - No final-film quality conclusion is made until voice, acting, camera and continuous motion are reviewed.
 
 **This ADR does not mark M1 creative acceptance complete.** It authorizes Motion Canvas as the first implementation adapter while the narrative, acting, audio and quality gates remain active.
