@@ -36,16 +36,16 @@ const anchorDelta: GripPoint = [
 ];
 const gripAlong =
   anchorDelta[0] * axis[0] + anchorDelta[1] * axis[1];
-const gripAcross =
-  anchorDelta[0] * normal[0] + anchorDelta[1] * normal[1];
-
+// Finger and thumb points are measured from the physical handle axis,
+ // not from the slightly offset palm anchor. This keeps the wrap centred on
+ // the shaft while allowing the palm itself to sit naturally behind it.
 const pointOnGripFrame = (along: number, across: number): GripPoint => [
   SPOON_HANDLE_LOCAL_START[0] +
     axis[0] * (gripAlong + along) +
-    normal[0] * (gripAcross + across),
+    normal[0] * across,
   SPOON_HANDLE_LOCAL_START[1] +
     axis[1] * (gripAlong + along) +
-    normal[1] * (gripAcross + across)
+    normal[1] * across
 ];
 
 const wrapFinger = (
