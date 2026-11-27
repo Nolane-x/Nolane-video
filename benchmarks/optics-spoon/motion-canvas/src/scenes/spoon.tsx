@@ -38,7 +38,7 @@ export default makeScene2D(function* (view) {
     const expectedFrame =
       name === "scene-start"
         ? 0
-        : storyboard.shots.find(shot => `${shot.id}-complete` === name)?.end_frame;
+        : storyboard.shots.find(shot => `${shot.id}-complete` === name)?.end_frame - 1;
     const actualFrame = Math.round(playback.frame);
     if (expectedFrame !== undefined && actualFrame !== expectedFrame) {
       throw new Error(
