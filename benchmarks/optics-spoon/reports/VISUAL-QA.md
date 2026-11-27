@@ -4,6 +4,18 @@
 **Latest reviewed candidate run:** [46007922641 (#134)](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.5 s, 10.5 s and 11.5 s were opened for handle-axis-derived finger wrap, opposing thumb, per-frame IK and prop continuity, in addition to earlier refraction-diagram review.  
 **Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133 and #134. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
 
+## Independent cross-engine parity audit — candidate #134
+
+**Evidence inspected in this session:** downloaded the Remotion and Motion Canvas artifacts from candidate workflow [#134](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641), checked both MP4 streams with ffprobe, opened both contact sheets, and sampled S02 (08:00–18:00) at 4 fps. This is sampled visual review, **not** continuous playback at 24 fps.
+
+- Both full-film artifacts are H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s and 1,728 frames. Both files contain only a video stream; no narration, music or SFX track is present. Motion Canvas also reports 1,728/1,728 frames and zero browser errors.
+- **Remotion S02 is not yet storyboard-equivalent.** In `remotion/src/OpticsSpoon.tsx`, `Kitchen` computes one `lift` interpolation from global frame 192 over 110 frames and cross-fades the bent spoon to a horizontal straight spoon. The spoon then remains in that state. `Nia` uses a constant S02 tilt/hand offset; there is no authored inspection turn, second dip, or lean/reaction beat. The 4-fps S02 sample is consistent with that static tail. The canonical storyboard requires lift, gentle inspection turn, re-dip and reaction. This is an **implementation-parity gap**, not evidence of a Remotion runtime limitation.
+- **Remotion S04 is also under-choreographed relative to the shared brief.** Its `Diagram` draws the normal and both physical ray segments without staged timing; angle labels and Snell formula share one broad opacity window. The Motion Canvas scene explicitly sequences normal, incident ray, refracted ray, angles and formula. The Remotion version should reveal those ideas causally before any engine-level comparison.
+- **Test coverage gap:** `tests/test_benchmark.py` validates the canonical storyboard, science geometry, Motion Canvas checkpoints and Motion Canvas S02 beats, but contains no equivalent Remotion S02/S04 frame-parity assertions.
+- **Motion Canvas timing note:** its current S02 authored actions total about 4.2 seconds followed by roughly 5.76 seconds of hold inside the 10-second shot. That may be intentional with narration, but the current silent preview cannot validate its pacing; review again with approved VO or a deliberate visual hold.
+
+**Required parity repair before comparative creative scoring:** make Remotion S02 implement anticipation → lift → inspect/turn → re-dip → lean/reaction, stage S04 in the same causal order as the canonical storyboard, and add deterministic frame-level regression checks. Re-render both candidates and retain the old #134 artifacts for comparison. Keep the full 24-fps continuous review, reduced/mobile typography check, audio and final creative approval open.
+
 ## Follow-up review — candidate #134: handle-axis grip regression pass
 
 - Candidate workflow: [46007922641](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641); Remotion, Motion Canvas and Manim all passed. Repository contract validator [#34](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922552) passed 25 tests.

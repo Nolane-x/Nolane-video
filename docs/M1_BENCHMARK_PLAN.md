@@ -91,6 +91,7 @@
 
 ### Task 7 — Creative acceptance and M1 closure
 - [ ] Watch the full 72-second Remotion and Motion Canvas films at 24 fps; record shot/frame-specific findings.
+- [ ] Close cross-engine storyboard parity before comparative creative scoring: implement the full S02 anticipation/lift/inspect-turn/re-dip/lean arc and the causal S04 reveal in Remotion; add deterministic frame-level parity tests for Remotion.
 - [ ] Improve Nia's gaze, anticipation, hand/grip, spoon lift/re-dip, reaction and follow-through to meet `ANIMATION_CRAFT_STANDARDS.md`.
 - [ ] Re-choreograph the diagram as distinct causal stages with purposeful holds; remove unmotivated long static layouts.
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.

@@ -1,3 +1,43 @@
+## Latest continuation snapshot — 2026-11-27 (candidate #134 + cross-engine parity audit)
+
+This is the current starting point for the next session. It adds a source-level parity finding to the candidate #134 verification; it does not claim M1 is complete.
+
+### GitHub state
+- Repo: `Nolane-x/Nolane-video` (NEE), **not** `Nolane-x/video`.
+- Working branch: `m1/optics-benchmark`. Last verified HEAD before this handoff refresh: `7266aadd424e0ecea6a4c585c99fddb1db5ce352`. Candidate #134 and contract #34 source commit: `0c0118b372b930fc5ad84ff9773918e148a13bbc`.
+- `main` remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge or change it as part of this work.
+- Candidate [#134](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641): all Remotion, Motion Canvas and Manim jobs passed.
+- Contract [#34](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922552): 25 tests plus the benchmark validator passed.
+
+### Verified output and inspection
+- Remotion: H.264 1920×1080, yuv420p, 24/1 fps, 72 s, 1,728 frames; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- Motion Canvas: H.264 1920×1080, yuv420p, 24/1 fps, 72 s, 1,728 frames, zero browser errors; MP4 SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`.
+- Manim specialist segment: H.264 1920×1080, nominal 24 fps, 279 frames, 11.624674 s; keep this as the specialist S04/S05 renderer, not a full-film candidate.
+- Both full-film artifacts are silent: ffprobe found a single video stream. Narration timing remains estimated and no VO/SFX/music/caption synchronization has passed.
+- Contact sheets and 40-frame S02 samples at 4 fps were inspected for both full-film artifacts. This is **not** a full-speed 24-fps watch.
+
+### Important new finding — fix benchmark parity
+- Remotion `src/OpticsSpoon.tsx` only cross-fades from the bent spoon to a horizontal straight spoon using a 110-frame lift interpolation starting at global frame 192. It then holds. There is no distinct S02 inspect/turn, re-dip or lean/reaction sequence.
+- Its `Diagram` renders the normal and both physical ray segments without causal staging; angle labels and the Snell formula share a broad opacity window.
+- Motion Canvas `src/scenes/spoon.tsx` already authors anticipation, lift, +6° inspection, re-dip, lean and sequential S04 reveal.
+- `tests/test_benchmark.py` has Motion Canvas checkpoint/S02 checks but no equivalent Remotion frame-parity coverage. Do **not** interpret the gap as a limit of the Remotion engine; its candidate source is less complete.
+
+### Exact next task
+1. Implement Remotion S02 as anticipation → lift → inspect/turn → re-dip → lean/reaction using deterministic global-frame calculations.
+2. Stage S04 causally: interface → normal → incident ray → refracted ray → angle labels → Snell formula; preserve the dashed backward construction and apparent-point reveal for S05.
+3. Add deterministic tests that assert the Remotion states/transitions at representative frame ranges and guard the shared shot contract.
+4. Trigger candidate workflow and contract CI; compare the new outputs with retained #134 artifacts.
+5. Then complete uninterrupted 24-fps review, native and mobile text review, approved Vietnamese narration/captions/audio QA, and repeated authoring/render-time measurements.
+
+### Guardrails
+- Keep Motion Canvas 3.17.2 as the provisional first 2D adapter, Manim as a specialist diagram adapter, and Remotion as the full-film baseline/reference pending fair parity and licensing review.
+- Keep Film IR renderer-independent. Do not begin a broad M2 runtime implementation before M1 acceptance.
+- Do not copy H2 assets/source from `Nolane-x/video` before provenance/license review.
+- Preserve #134 artifacts; never overwrite a known-good output until the replacement passes.
+- Distinguish code, tests, render, technical media QA, selected-frame review and creative/audio approval.
+
+---
+
 ## Latest continuation snapshot — 2026-11-27 (candidate #134 verified)
 
 This is the authoritative continuation point. It supersedes older candidate #133 and pre-shared-axis grip notes below.

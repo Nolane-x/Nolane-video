@@ -1,3 +1,20 @@
+## -8. Independent session audit — 2026-11-27 (candidate #134 parity review)
+
+This snapshot is newer than the candidate #134 handoff below. It records an additional artifact/source audit; it does not replace the verified CI results.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not `Nolane-x/video`.
+- **Branch:** `m1/optics-benchmark`. Previous HEAD before this documentation update: `7266aadd424e0ecea6a4c585c99fddb1db5ce352`. Candidate #134 and contract #34 were built from source commit `0c0118b372b930fc5ad84ff9773918e148a13bbc`. `main` remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge was made.
+- **CI evidence:** candidate [#134](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641) passed Remotion, Motion Canvas and Manim. Contract [#34](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922552) passed 25 tests and benchmark validation.
+- **Artifact verification performed directly:** downloaded the Remotion and Motion Canvas #134 MP4 artifacts, checked each with ffprobe, and inspected contact sheets plus 4-fps S02 samples (40 frames per candidate across the 10-second shot). Both full films are H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. The Motion Canvas MP4 SHA-256 is `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`; the Remotion MP4 SHA-256 is `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`. Both streams are silent (video only).
+- **New parity finding:** Remotion `OpticsSpoon.tsx` currently cross-fades from the bent spoon to a horizontal straight spoon over 110 frames from frame 192, then holds. It does not implement the storyboard's S02 inspection turn, re-dip or lean/reaction. Remotion's diagram draws the normal and physical rays without the same causal staging; angle labels and formula share one opacity window. In contrast, Motion Canvas `scenes/spoon.tsx` authors explicit lift, inspection rotation, re-dip, lean and sequential diagram reveals.
+- **Coverage gap:** `tests/test_benchmark.py` checks Motion Canvas shot checkpoints/S02 beats and shared science geometry, but has no Remotion-specific storyboard-parity test. Therefore the green #134 run proves each candidate's build/render contract, not equal creative implementation.
+- **Visual scope:** contact sheets and 4-fps samples were inspected. Full uninterrupted 24-fps playback, native/reduced mobile typography approval and creative approval were **not** completed. No audio QA is possible because the artifacts contain no audio stream.
+- **Code changes in this audit:** none. Only the handoff/QA/plan documents are being updated; the known-good #134 render artifacts remain unchanged.
+
+**Next concrete work:** (1) add Remotion's missing S02 action arc and causal S04 reveal; (2) add frame-level parity tests for both shots; (3) run a new candidate workflow and compare against retained #134 artifacts; (4) complete full-speed 24-fps review and the remaining M1 audio/mobile/craft gates. Do not call M1 complete or start a broad Film IR/runtime build until acceptance is met.
+
+---
+
 ## -7. Latest verified state — 2026-11-27 (candidate #134 verified)
 
 This snapshot supersedes older candidate-run, grip, actor and render references below.
