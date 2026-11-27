@@ -104,6 +104,13 @@
 - Candidate run [45951640411](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) passed all three render/ffprobe/upload jobs. Contract CI [45951654984](https://github.com/Nolane-x/Nolane-video/actions/runs/45951654984) passed 16 tests.
 - M1 remains open until both full films receive full-speed review and the missing audio/creative gates are resolved or explicitly scoped out. No general Film IR/runtime package build is authorized by these results alone.
 
+## Latest reusable diagram slice — 2026-11-27
+
+- Extracted `createRefractionDiagram(palette)` to `benchmarks/optics-spoon/motion-canvas/src/diagrams/refraction.tsx`; the component consumes canonical `shared/diagram.json`, owns the interface, normal, physical rays, backward construction, points and labels, and returns refs for scene choreography.
+- The backward extension now uses `lineDash={[18, 14]}` to distinguish the virtual construction from physical rays.
+- Candidate run [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) passed all three engine jobs and the exact frame/codec gates. Contract workflow [45952657476 (#13)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed 17 tests.
+- Selected native-resolution frame review at 51 s confirms the physical/backward ray styling. This does not close full-speed creative review, audio or mobile-size QA.
+
 ## Required acceptance
 
 M1 is not complete until the benchmark outputs are rendered or the limitations of each candidate are demonstrated with fresh logs, the scientific and visual reviews are recorded, and the architecture decision is explicit. A successful typecheck alone does not pass M1.
