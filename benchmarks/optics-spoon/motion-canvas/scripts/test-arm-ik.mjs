@@ -81,6 +81,32 @@ const negativeBend = solveTwoBoneIK(shoulder, cases[0].target, upperLength, fore
 // Confirm bendDirection selects the alternate, equally valid elbow branch.
 assert.notDeepEqual(positiveBend, negativeBend, "bend direction must select a distinct IK branch");
 
+// Simulate the tween callback at 101 samples across all S02 transitions.
+// Every intermediate sample must preserve both segment lengths and remain
+// reachable; this catches the endpoint-only interpolation failure mode.
+const interpolate = (from, to, progress) => [
+  from[0] + (to[0] - from[0]) * progress,
+  from[1] + (to[1] - from[1]) * progress
+];
+const easeInOutCubic = value =>
+  value < 0.5
+    ? 4 * value * value * value
+    : 1 - Math.pow(-2 * value + 2, 3) / 2;
+
+for (const [fromPose, toPose] of [
+  [cases[0], cases[1]],
+  [cases[1], cases[2]],
+  [cases[2], cases[0]]
+]) {
+  for (let sample = 0; sample <= 100; sample += 1) {
+    const progress = easeInOutCubic(sample / 100);
+    const wrist = interpolate(fromPose.target, toPose.target, progress);
+    const solvedElbow = solveTwoBoneIK(shoulder, wrist, upperLength, forearmLength, 1);
+    near(distance(shoulder, solvedElbow), upperLength, 1e-6, "intermediate upper length");
+    near(distance(solvedElbow, wrist), forearmLength, 1e-6, "intermediate forearm length");
+  }
+}
+
 assert.throws(
   () => solveTwoBoneIK(shoulder, [1300, 95], upperLength, forearmLength, 1),
   { name: "RangeError" },

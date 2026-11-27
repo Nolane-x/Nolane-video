@@ -1,5 +1,5 @@
 import { Circle, Line, Node, Rect, Txt } from "@motion-canvas/2d";
-import { all, createRef } from "@motion-canvas/core";
+import { createRef, tween } from "@motion-canvas/core";
 import {
   NIA_LIFT_GRIP_STAGE_POINT,
   NIA_LIFT_TURN_GRIP_STAGE_POINT,
@@ -44,6 +44,22 @@ export const NIA_ARM_POSES: Record<NiaArmPoseName, NiaArmPose> = {
 
 const copyPoint = (point: StagePoint): [number, number] => [point[0], point[1]];
 
+const lerpPoint = (
+  from: StagePoint,
+  to: StagePoint,
+  progress: number
+): [number, number] => [
+  from[0] + (to[0] - from[0]) * progress,
+  from[1] + (to[1] - from[1]) * progress
+];
+
+// Match Motion Canvas's default easeInOutCubic property tween so the grip
+// target and the spoon transform follow the same authored timing curve.
+const easeInOutCubic = (value: number): number =>
+  value < 0.5
+    ? 4 * value * value * value
+    : 1 - Math.pow(-2 * value + 2, 3) / 2;
+
 /**
  * Nia is a reusable, NEE-owned 2D actor rig.
  *
@@ -65,6 +81,8 @@ export const createNiaActor = () => {
   const forearm = createRef<Line>();
   const elbow = createRef<Circle>();
   const restArm = NIA_ARM_POSES.rest;
+  let currentShoulder = copyPoint(restArm.shoulder);
+  let currentWrist = copyPoint(restArm.wrist);
 
   const view = (
     <>
@@ -161,11 +179,29 @@ export const createNiaActor = () => {
 
   const toArmPose = (name: NiaArmPoseName, duration: number) => {
     const pose = NIA_ARM_POSES[name];
-    return all(
-      upperArm().points([copyPoint(pose.shoulder), copyPoint(pose.elbow)], duration),
-      forearm().points([copyPoint(pose.elbow), copyPoint(pose.wrist)], duration),
-      elbow().position(copyPoint(pose.elbow), duration)
-    );
+    const fromShoulder = copyPoint(currentShoulder);
+    const fromWrist = copyPoint(currentWrist);
+
+    // Re-solve the elbow every rendered frame. Interpolating the endpoint
+    // elbows would stretch the bones between named poses.
+    return tween(duration, progress => {
+      const eased = easeInOutCubic(progress);
+      const shoulder = lerpPoint(fromShoulder, pose.shoulder, eased);
+      const wrist = lerpPoint(fromWrist, pose.wrist, eased);
+      const elbowPoint = solveTwoBoneIK(
+        shoulder,
+        wrist,
+        NIA_ARM_BONE_LENGTHS.upper,
+        NIA_ARM_BONE_LENGTHS.forearm,
+        1
+      );
+
+      upperArm().points([shoulder, elbowPoint]);
+      forearm().points([elbowPoint, wrist]);
+      elbow().position(elbowPoint);
+      currentShoulder = shoulder;
+      currentWrist = wrist;
+    });
   };
 
   return {
