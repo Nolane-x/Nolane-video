@@ -230,7 +230,7 @@ export default makeScene2D(function* (view) {
     trueLabel().opacity(1, 0.6),
     apparentLabel().opacity(1, 0.6)
   );
-  yield* waitFor(15.5);
+  yield* waitFor(15.6);
   checkpoint("S05-complete");
 
   // S06 — 11 seconds: return to the intact spoon and resolve the misconception.
