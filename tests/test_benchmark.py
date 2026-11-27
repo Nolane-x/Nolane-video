@@ -95,6 +95,47 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn('text="NƯỚC" position={[-650, 320]}', scene_source)
         self.assertIn('text="KHÔNG KHÍ" position={[-650, -320]}', scene_source)
 
+    def test_nia_actor_is_a_reusable_jointed_rig(self):
+        actor_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "actors"
+            / "nia.tsx"
+        )
+        actor_source = actor_path.read_text(encoding="utf-8")
+        for part in ("torso", "headRig", "upperArm", "forearm", "elbow"):
+            with self.subTest(part=part):
+                self.assertIn(f"const {part} =", actor_source)
+        self.assertIn("export const createNiaActor", actor_source)
+        self.assertIn("upperArm,", actor_source)
+        self.assertIn("forearm,", actor_source)
+        self.assertIn("elbow", actor_source)
+
+    def test_s02_authors_anticipation_lift_inspection_and_redip(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+        for beat in ("Anticipation:", "Re-dip:", "leans closer"):
+            with self.subTest(beat=beat):
+                self.assertIn(beat, scene_source)
+        self.assertIn("nia.upperArm().points", scene_source)
+        self.assertIn("nia.forearm().points", scene_source)
+        self.assertIn("spoonBentBottom().opacity(1, 0.2)", scene_source)
+        self.assertIn(
+            "10 - 1 / 24 - (0.4 + 0.25 + 0.85 + 0.8 + 0.25 + 0.2 + 0.85 + 0.6)",
+            scene_source,
+        )
+
     def test_snell_example_bends_away_from_normal(self):
         theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
         self.assertAlmostEqual(theta_air, 58.9346, delta=0.001)
