@@ -1,4 +1,23 @@
 # Project State
+## -2. Latest verified state — 2026-11-27 06:38 UTC
+
+This note supersedes older candidate-run, branch-head and diagram implementation status elsewhere below.
+
+- Exact repository: `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not `Nolane-x/video`.
+- Default branch `main` remains at `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main has been made.
+- Active branch: `m1/optics-benchmark`; latest documentation HEAD is `962e0fd2898e0958f38ff8e6cf8218b7ae90b464`. The latest diagram code is in `560303cb3738d150cbfb779844bfbc5768805893` and the latest test extension is in `75b28da9463e5b9894a9a21a5b3a282fa8c78b72`.
+- Architecture remains: Motion Canvas 3.17.2 provisionally selected as first 2D/2.5D execution adapter; Film IR remains renderer-independent; Manim remains specialist; Remotion remains baseline/reference pending licensing/distribution review.
+- Latest candidate run [#94](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166), source commit `29b33b50fee8d616bcfcb29ece939fb0a5430b96`: **all three jobs passed**.
+  - Remotion: H.264, 1920×1080, yuv420p, 24/1 nominal+average fps, 72.000 s, exactly 1,728 frames. Artifact digest `sha256:1074b604e55f79fa95a553e732beb2cca40f696d59b5d26f44577439f031a510`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+  - Motion Canvas: renderer success, 1,728 export events, 1,728 unique sequential PNGs, zero browser errors; H.264, 1920×1080, 24/1 nominal+average fps, 72.000 s, exactly 1,728 frames. Artifact digest `sha256:92c3b5d3451520a6e7b7fc8bd6db0f7c51c772335b9692c4cadf24724693cbc8`; MP4 SHA-256 `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`.
+  - Manim: H.264, 1920×1080, 24 fps nominal, 279 frames, 11.624674 s; artifact digest `sha256:faac7840db9a81a8827d9ff255698a89234239f0b55bcf2d607b25c2f132e245`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Its average-rate timestamp variance remains within CI tolerance <0.01 fps.
+- Latest contract workflow [#13](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476), head `75b28da9463e5b9894a9a21a5b3a282fa8c78b72`: **17 tests passed**, including reusable diagram component and dashed virtual-ray styling.
+- Reusable scientific diagram is now in `benchmarks/optics-spoon/motion-canvas/src/diagrams/refraction.tsx` as `createRefractionDiagram(palette)`. It reads canonical `shared/diagram.json`, owns the interface/normal/rays/points/labels and coordinate mapping, and returns refs for the scene to choreograph. The scene no longer duplicates the diagram JSX or transform helpers.
+- The backward extension of the outgoing ray uses `lineDash={[18, 14]}`, visually distinct from the solid physical incident and refracted rays. The run #94 contact sheet and the native 1920×1080 frame at 51 s were inspected: correct air/water orientation; solid yellow physical rays; white dashed backward construction; coral true point; mint apparent point.
+- The reusable Nia actor from the previous vertical slice remains in `src/actors/nia.tsx` (torso, neck, head/eyes/mouth, upper arm, forearm and elbow); S02 has anticipation, lift, inspect/turn, re-dip and lean. Basic hand/prop coupling still needs articulated fingers and robust contact constraints.
+- M1 is **not complete**. Remaining gates: watch both full films at 24 fps and record shot/frame-specific findings; improve Nia's hand/grip/contact, weight transfer, reaction and follow-through; review diagram causal pacing and camera; inspect labels at mobile size; obtain approved Vietnamese VO, synchronized captions, SFX/music and perform perceptual audio QA; measure repeated authoring/preview/render iteration; finish H2 source/license provenance before any reuse.
+- Next step: use run #94 as the new technical baseline. Continue the Nia hand/finger/contact vertical slice and full-speed creative QA. Only after M1 acceptance should the first typed, renderer-independent Film IR slice begin. Do not weaken exact frame or codec checks.
+
 
 ## -1. Latest verified state — 2026-11-27 06:29 UTC
 
