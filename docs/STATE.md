@@ -1,4 +1,29 @@
 # Project State
+## -3. Latest verified state — 2026-11-27 07:12 UTC
+
+This section supersedes older candidate-run, component, actor and next-task status below.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE); do not confuse it with `Nolane-x/video`.
+- **Main:** `19b53bd0bf785a8d58a91031678be717a8ae11d4`; work has not been merged to main.
+- **Working branch:** `m1/optics-benchmark`; latest branch/test HEAD at this snapshot: `1b433b8c9eae6767e6a2d425a93347ba5b5ace73`. Candidate #116 rendered source commit `7daf94a6a0b06b86f2626bb448da6c8027d895b9`; validator #24 covers the current branch/test state.
+- **Latest full candidate:** [run #116](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455), all Remotion, Motion Canvas and Manim jobs **success**.
+  - Remotion: H.264, 1920×1080, yuv420p, 24/1 nominal+average fps, 72.000 s, exactly 1,728 frames. Artifact digest `sha256:b03965a3367b7785e9b4b1d59cd530981304092af7c9c1ea5ad059893a8c07d6`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+  - Motion Canvas: renderer finished; 1,728 export events, 1,728 unique/sequential PNGs, zero browser errors; H.264, 1920×1080, yuv420p, 24/1 nominal+average fps, 72.000 s, exactly 1,728 frames. Artifact digest `sha256:d67eb551a582cd52713f08ae9734d5461140dbac1334a8df11ca3ca012f7e5a9`; MP4 SHA-256 `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`.
+  - Manim specialist segment: H.264, 1920×1080, 24 fps nominal, 279 frames, 11.624674 s. Average rate `857088/35711` (~24.00067), within the CI <0.01 fps tolerance. Artifact digest `sha256:bf396a8825f5c3ccf21af854084e13bad32d24f2707725e175b60c92c275247f`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- **Latest contract validation:** [#24](https://github.com/Nolane-x/Nolane-video/actions/runs/45956346788) passed 21 tests, including rotation-aware wrist/grip geometry, immutable anchor use, kitchen set boundaries, prop-attached grip, dashed virtual-ray construction and browser-renderer diagnostics.
+- **Current reusable Motion Canvas modules:**
+  - `src/actors/nia.tsx`: torso, neck, head/eyes/mouth, upper arm, forearm and elbow.
+  - `src/actors/nia-grip.tsx`: palm, thumb, outlined index/middle finger, attached inside the spoon prop.
+  - `src/actors/rig-anchors.ts`: immutable rest/lift/grip anchors and a shared 2D rotation transform; the wrist endpoint is derived for 0°, −5° and +6°.
+  - `src/props/spoon.tsx`: spoon geometry, bowl and grip inside one prop transform.
+  - `src/sets/kitchen.tsx`: reusable wall/table/glass/water/waterline/caption set.
+  - `src/diagrams/refraction.tsx`: shared geometry-based refraction diagram; dashed virtual back-extension.
+  - `src/scenes/spoon.tsx`: timeline/checkpoint orchestration, not a duplicate owner of all visual geometry.
+- **S02 contact contract:** rest pose contact is (-356, 0); lift pose is calculated from the −5° rotated prop; inspection turn pose is calculated from +6°. The wrist endpoint in the scene follows these shared anchors before the prop re-dips. Selected 1920×1080 frames at 9.8 s, 10.8 s and 11.8 s from run #116 were inspected; the hand remains visually attached through lift/turn/re-dip. This is selected-frame QA, not a full-motion approval.
+- **Architecture:** Motion Canvas 3.17.2 remains provisionally selected as the first 2D/2.5D scene adapter by ADR-0001. Film IR remains renderer-independent; Manim remains specialist; Remotion remains the full-film baseline/reference pending license/deployment review.
+- **Still incomplete:** full-speed 24 fps watch of both full films with shot/frame findings; better finger articulation and hand silhouette/contact; richer weight transfer/reaction/follow-through; causal diagram pacing and camera staging; mobile typography check; approved Vietnamese VO, transcript-aligned captions, SFX/music and perceptual audio QA; repeated authoring/preview/render iteration measurements; H2 provenance/license review.
+- **Next task:** conduct the complete creative review, record frame-accurate defects, then improve acting/contact and diagram pacing based on evidence. Do not claim M1 complete or start a broad Film IR/runtime package until remaining gates are closed. Do not weaken exact-frame, codec or browser-error tests.
+
 ## -2. Latest verified state — 2026-11-27 06:38 UTC
 
 This note supersedes older candidate-run, branch-head and diagram implementation status elsewhere below.
