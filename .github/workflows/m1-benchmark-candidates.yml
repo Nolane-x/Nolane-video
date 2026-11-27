@@ -51,10 +51,12 @@ jobs:
           import json
           data = json.load(open("out/ffprobe.json", encoding="utf-8"))
           video = next(stream for stream in data["streams"] if stream["codec_type"] == "video")
+          assert video["codec_name"] == "h264", video
           assert video["width"] == 1920 and video["height"] == 1080, video
-          assert video["r_frame_rate"] == "24/1", video
+          assert video["r_frame_rate"] == "24/1" and video["avg_frame_rate"] == "24/1", video
+          assert int(video["nb_frames"]) == 1728, video
           assert abs(float(data["format"]["duration"]) - 72.0) < 0.1, data["format"]
-          print("Remotion technical gate: 1920x1080, 24 fps, 72 seconds")
+          print("Remotion technical gate: H.264, 1920x1080, 24 fps, 72 seconds, 1728 frames")
           PY
       - name: Create Remotion contact sheet
         run: ffmpeg -y -i out/optics-spoon.mp4 -vf "fps=1/6,scale=480:-1,tile=4x3" -frames:v 1 out/contact-sheet.jpg
@@ -101,10 +103,12 @@ jobs:
           import json
           data = json.load(open("out/ffprobe.json", encoding="utf-8"))
           video = next(stream for stream in data["streams"] if stream["codec_type"] == "video")
+          assert video["codec_name"] == "h264", video
           assert video["width"] == 1920 and video["height"] == 1080, video
-          assert video["r_frame_rate"] == "24/1", video
+          assert video["r_frame_rate"] == "24/1" and video["avg_frame_rate"] == "24/1", video
+          assert int(video["nb_frames"]) == 1728, video
           assert abs(float(data["format"]["duration"]) - 72.0) < 0.1, data["format"]
-          print("Motion Canvas technical gate: 1920x1080, 24 fps, 72 seconds")
+          print("Motion Canvas technical gate: H.264, 1920x1080, 24 fps, 72 seconds, 1728 frames")
           PY
       - name: Upload Motion Canvas diagnostics even on render failure
         if: always()
@@ -158,6 +162,16 @@ jobs:
           ffprobe -v error -show_streams -show_format -of json "$VIDEO" > out/ffprobe.json
           ffprobe -v error -show_entries format=duration -of csv=p=0 "$VIDEO" > out/duration.txt
           cat out/ffprobe.json
+          python - <<'PY'
+          import json
+          data = json.load(open("out/ffprobe.json", encoding="utf-8"))
+          video = next(stream for stream in data["streams"] if stream["codec_type"] == "video")
+          assert video["codec_name"] == "h264", video
+          assert video["width"] == 1920 and video["height"] == 1080, video
+          assert video["r_frame_rate"] == "24/1" and video["avg_frame_rate"] == "24/1", video
+          assert int(video["nb_frames"]) == 279, video
+          print("Manim technical gate: H.264, 1920x1080, 24 fps, 279 frames")
+          PY
           DURATION="$(cat out/duration.txt)"
           awk -v d="$DURATION" 'BEGIN { if (d < 5 || d > 30) exit 1; }'
           ffmpeg -y -i "$VIDEO" -vf "fps=1,scale=480:-1,tile=4x3" -frames:v 1 out/contact-sheet.jpg
