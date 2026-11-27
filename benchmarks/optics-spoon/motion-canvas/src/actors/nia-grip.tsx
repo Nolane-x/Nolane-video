@@ -8,7 +8,9 @@ import { createRef } from "@motion-canvas/core";
 export const createNiaGrip = () => {
   const palm = createRef<Rect>();
   const thumb = createRef<Circle>();
+  const indexOutline = createRef<Line>();
   const indexFinger = createRef<Line>();
+  const middleOutline = createRef<Line>();
   const middleFinger = createRef<Line>();
 
   const view = (
@@ -25,10 +27,26 @@ export const createNiaGrip = () => {
         opacity={0}
       />
       <Line
+        ref={indexOutline}
+        points={[[-8, -65], [-20, -79], [-36, -94]]}
+        stroke="#101B26"
+        lineWidth={21}
+        lineCap="round"
+        opacity={0}
+      />
+      <Line
         ref={indexFinger}
         points={[[-8, -65], [-20, -79], [-36, -94]]}
         stroke="#D9B89B"
-        lineWidth={15}
+        lineWidth={14}
+        lineCap="round"
+        opacity={0}
+      />
+      <Line
+        ref={middleOutline}
+        points={[[-3, -53], [-17, -68], [-32, -84]]}
+        stroke="#101B26"
+        lineWidth={20}
         lineCap="round"
         opacity={0}
       />
@@ -36,7 +54,7 @@ export const createNiaGrip = () => {
         ref={middleFinger}
         points={[[-3, -53], [-17, -68], [-32, -84]]}
         stroke="#D9B89B"
-        lineWidth={14}
+        lineWidth={13}
         lineCap="round"
         opacity={0}
       />
@@ -52,5 +70,5 @@ export const createNiaGrip = () => {
     </>
   );
 
-  return { view, palm, thumb, indexFinger, middleFinger };
+  return { view, palm, thumb, indexOutline, indexFinger, middleOutline, middleFinger };
 };
