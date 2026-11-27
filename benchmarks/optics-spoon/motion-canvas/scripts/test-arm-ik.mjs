@@ -78,12 +78,18 @@ for (const pose of cases) {
 
 const positiveBend = solveTwoBoneIK(shoulder, cases[0].target, upperLength, forearmLength, 1);
 const negativeBend = solveTwoBoneIK(shoulder, cases[0].target, upperLength, forearmLength, -1);
+// Confirm bendDirection selects the alternate, equally valid elbow branch.
 assert.notDeepEqual(positiveBend, negativeBend, "bend direction must select a distinct IK branch");
 
 assert.throws(
-  () => solveTwoBoneIK(shoulder, [1200, 95], upperLength, forearmLength, 1),
+  () => solveTwoBoneIK(shoulder, [1300, 95], upperLength, forearmLength, 1),
   { name: "RangeError" },
   "unreachable wrist targets must fail instead of stretching the arm"
+);
+assert.throws(
+  () => solveTwoBoneIK(shoulder, [500, 95], upperLength, forearmLength, 1),
+  { name: "RangeError" },
+  "targets inside the minimum reach radius must also fail"
 );
 assert.throws(
   () => solveTwoBoneIK(shoulder, shoulder, upperLength, forearmLength, 1),
