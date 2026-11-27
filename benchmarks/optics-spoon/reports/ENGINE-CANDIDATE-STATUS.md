@@ -1,5 +1,20 @@
 # M1 Candidate Status — The Spoon That Bends
 
+## Latest verified component-render update — 2026-11-27 06:38 UTC
+
+This section supersedes older candidate-run references and is the latest technical snapshot.
+
+- Candidate workflow [#94](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166), source commit `29b33b50fee8d616bcfcb29ece939fb0a5430b96`: **all three jobs passed**.
+- Remotion 4.0.547: H.264, 1920×1080, yuv420p, 24/1 nominal and average FPS, 72.000 s, 1,728 frames. Artifact `m1-remotion-candidate` digest `sha256:1074b604e55f79fa95a553e732beb2cca40f696d59b5d26f44577439f031a510`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- Motion Canvas 3.17.2: editor renderer success, 1,728 export events, 1,728 unique PNGs, 1,728 sequential files; H.264, 1920×1080, yuv420p, 24/1 nominal and average FPS, 72.000 s, 1,728 frames, zero browser errors. Artifact `m1-motion-canvas-candidate` digest `sha256:92c3b5d3451520a6e7b7fc8bd6db0f7c51c772335b9692c4cadf24724693cbc8`; MP4 SHA-256 `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`.
+- Manim CE specialist segment: H.264, 1920×1080, 24 fps nominal, 279 frames, 11.624674 s. Artifact digest `sha256:faac7840db9a81a8827d9ff255698a89234239f0b55bcf2d607b25c2f132e245`; final MP4 SHA-256 remains `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. The known average-rate timestamp tolerance remains <0.01 fps.
+- Contract workflow [#13](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed **17 tests**. New coverage verifies the reusable diagram component and dashed backward ray.
+- New reusable module: `benchmarks/optics-spoon/motion-canvas/src/diagrams/refraction.tsx`, created by `createRefractionDiagram(palette)`. It consumes canonical `shared/diagram.json`, owns all diagram refs/labels/points and coordinate conversion, and returns a view plus the refs the scene animates. The scene no longer duplicates diagram JSX or diagram coordinate transforms.
+- The virtual image back-extension now uses Motion Canvas `lineDash={[18, 14]}`, visually distinguishing a geometric construction from the two solid physical light-ray segments.
+- The run #94 contact sheet and native 1920×1080 frame at 51 s were inspected: water below the interface, air above; incident and outgoing physical rays solid yellow; backward virtual extension white and dashed; true point coral; apparent point mint. MP4 probe and render report were inspected directly.
+
+**Acceptance boundary:** run #94 validates the extracted component, renderer type/build, deterministic 1,728-frame render and technical media. It is still prototype-level, not final creative approval. Full-speed review, Nia hand/finger contact, diagram pacing, mobile typography, audio and human approval remain open.
+
 
 ## Live technical and vertical-slice update — 2026-11-27 06:29 UTC
 
