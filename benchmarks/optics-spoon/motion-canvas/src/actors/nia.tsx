@@ -1,5 +1,6 @@
 import { Circle, Line, Node, Rect, Txt } from "@motion-canvas/2d";
 import { createRef } from "@motion-canvas/core";
+import { NIA_REST_GRIP_STAGE_POINT } from "./rig-anchors";
 
 /**
  * Nia is a reusable, NEE-owned 2D actor rig.
@@ -97,7 +98,7 @@ export const createNiaActor = () => {
       />
       <Line
         ref={forearm}
-        points={[[245, 30], [-356, 0]]}
+        points={[[245, 30], NIA_REST_GRIP_STAGE_POINT]}
         stroke="#D9B89B"
         lineWidth={28}
         lineCap="round"
