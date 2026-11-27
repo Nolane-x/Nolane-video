@@ -24,7 +24,7 @@ export const createSpoonProp = (palette: SpoonPropPalette) => {
   const grip = createNiaGrip();
 
   const view = (
-    <Node ref={rig} position={SPOON_REST_ORIGIN}>
+    <Node ref={rig} position={[...SPOON_REST_ORIGIN]}>
       <Line
         ref={top}
         points={[[-145, -380], [0, 0]]}
