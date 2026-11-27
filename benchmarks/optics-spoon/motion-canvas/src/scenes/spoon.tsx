@@ -15,9 +15,11 @@ import {
 import diagramGeometry from "../../../shared/diagram.json";
 import storyboard from "../../../shared/storyboard.json";
 
+// Convert canonical top-left diagram pixels to centered Motion Canvas coordinates.
+// Keep +Y downward so the water remains below the air-water interface.
 const toStage = (point: {x: number; y: number}): [number, number] => [
   point.x - 960,
-  540 - point.y
+  point.y - 540
 ];
 const C = {
   ink: "#101B26",
@@ -132,7 +134,7 @@ export default makeScene2D(function* (view) {
       <Line ref={arm} points={[[420, 95], [245, 30], [-356, 0]]} stroke="#D9B89B" lineWidth={28} lineCap="round" opacity={0} />
       <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
 
-      <Rect ref={diagramWater} size={[1920, 635]} position={[0, -222.5]} fill={C.water} opacity={0} />
+      <Rect ref={diagramWater} size={[1920, 635]} position={[0, 222.5]} fill={C.water} opacity={0} />
       <Line ref={interfaceLine} points={[[-960, 540 - diagramGeometry.interface.y], [960, 540 - diagramGeometry.interface.y]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
       <Line ref={normal} points={[toStage(diagramGeometry.normal.from), toStage(diagramGeometry.normal.to)]} stroke={C.ivory} lineWidth={4} opacity={0} />
       <Line ref={incident} points={[toStage(diagramGeometry.incident_point), toStage(diagramGeometry.interface)]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
@@ -141,14 +143,14 @@ export default makeScene2D(function* (view) {
       <Circle ref={truePoint} size={38} position={toStage(diagramGeometry.incident_point)} fill={C.coral} opacity={0} />
       <Circle ref={apparentPoint} size={38} position={toStage(diagramGeometry.apparent_point)} fill={C.mint} opacity={0} />
       <Circle ref={eyePoint} size={42} position={toStage(diagramGeometry.observer_point)} fill={C.ivory} opacity={0} />
-      <Txt ref={airLabel} text="KHÔNG KHÍ" position={[-650, 300]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={waterLabel} text="NƯỚC" position={[-650, -320]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={normalLabel} text="Pháp tuyến" position={[-340, 300]} fontSize={34} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={angleWater} text="40°" position={[-275, -210]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
-      <Txt ref={angleAir} text="58,9°" position={[55, 275]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
+      <Txt ref={airLabel} text="KHÔNG KHÍ" position={[-650, -320]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      <Txt ref={waterLabel} text="NƯỚC" position={[-650, 320]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      <Txt ref={normalLabel} text="Pháp tuyến" position={[-340, -300]} fontSize={34} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      <Txt ref={angleWater} text="40°" position={[-275, 210]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
+      <Txt ref={angleAir} text="58,9°" position={[55, -275]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
       <Txt ref={formula} text="n₁ sin θ₁ = n₂ sin θ₂" position={[300, -430]} fontSize={38} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={trueLabel} text="Vị trí thật" position={[-600, -390]} fontSize={34} fill={C.coral} fontFamily="Arial" opacity={0} />
-      <Txt ref={apparentLabel} text="Vị trí biểu kiến" position={[-600, -160]} fontSize={34} fill={C.mint} fontFamily="Arial" opacity={0} />
+      <Txt ref={trueLabel} text="Vị trí thật" position={[-600, 390]} fontSize={34} fill={C.coral} fontFamily="Arial" opacity={0} />
+      <Txt ref={apparentLabel} text="Vị trí biểu kiến" position={[-600, 160]} fontSize={34} fill={C.mint} fontFamily="Arial" opacity={0} />
       <Txt ref={diagramCaption} text="Ánh sáng đổi hướng khi đi từ nước sang không khí" position={[0, -500]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
     </>
   );
