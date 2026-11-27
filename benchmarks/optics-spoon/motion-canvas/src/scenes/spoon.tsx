@@ -11,7 +11,7 @@ import { createRefractionDiagram } from "../diagrams/refraction";
 import { createNiaActor } from "../actors/nia";
 import { createSpoonProp } from "../props/spoon";
 import { createKitchenSet } from "../sets/kitchen";
-import { NIA_LIFT_GRIP_STAGE_POINT, NIA_REST_GRIP_STAGE_POINT, SPOON_LIFT_ORIGIN, SPOON_REST_ORIGIN } from "../actors/rig-anchors";
+import { NIA_LIFT_GRIP_STAGE_POINT, NIA_LIFT_TURN_GRIP_STAGE_POINT, NIA_REST_GRIP_STAGE_POINT, SPOON_LIFT_ORIGIN, SPOON_REST_ORIGIN } from "../actors/rig-anchors";
 
 const C = {
   ink: "#101B26",
@@ -145,6 +145,7 @@ export default makeScene2D(function* (view) {
   yield* waitFor(0.8);
   yield* all(
     spoon.rig().rotation(6, 0.25),
+    nia.forearm().points([[240, 10], [...NIA_LIFT_TURN_GRIP_STAGE_POINT]], 0.25),
     nia.headRig().position([505, -118], 0.25),
     nia.headRig().rotation(3, 0.25)
   );
