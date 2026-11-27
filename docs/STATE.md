@@ -1,5 +1,26 @@
 # Project State
 
+## -1. Latest verified state — 2026-11-27 06:29 UTC
+
+This section supersedes older snapshot dates, branch heads, candidate-run references and next-task statements below.
+
+- **Exact repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` production workspace.
+- **Default branch:** `main`, HEAD `19b53bd0bf785a8d58a91031678be717a8ae11d4`; this session has not merged work into `main`.
+- **Working branch:** `m1/optics-benchmark`; code/QA changes are committed through `304db032c2ba4cefa269e795e2cbda7e06ac8d03`. Documentation refresh commits follow that code/test head.
+- **Architecture:** ADR-0001 provisionally selects Motion Canvas 3.17.2 as the first 2D/2.5D scene adapter. Film IR remains renderer-independent; Manim remains specialist; Remotion remains the full-film baseline/reference pending licensing/deployment review.
+- **Latest complete candidate run:** [#89](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411), source commit `776d219fa02bd5392b7ade94ad348fbe3d74a7dd`; all three jobs passed.
+  - Remotion 4.0.547: H.264, 1920×1080, 24/1 fps, 72.000 s, exactly 1,728 frames; MP4 SHA-256 `1970da35a380c0fd08a8a04e74bc03d050d21bb389ecb0bdd483ab49f232bbda`.
+  - Motion Canvas 3.17.2: official editor rendered exactly 1,728 sequential PNGs (000000–001727), 1,728 export events/unique frames, zero browser errors; H.264, 1920×1080, 24/1 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `0016d083c11a3dc1615c8ae9e8dbc4a58af5a02bbcb5354e66f2b80583965616`.
+  - Manim CE: H.264, 1920×1080, 24 fps nominal, 11.624674 s, exactly 279 frames. `avg_frame_rate=857088/35711` (~24.00067) is within the explicit <0.01 fps tolerance; `r_frame_rate=24/1`.
+- **Latest contract CI:** [#12](https://github.com/Nolane-x/Nolane-video/actions/runs/45951654984) passed 16 tests. Coverage now includes storyboard/frame boundaries, all six runtime checkpoints, water-below-air mapping, interface/ray coordinate consistency, Snell geometry, reusable Nia rig structure, S02 acting beats and continuous apparent-spoon kink.
+- **Geometry correction:** [run #83](https://github.com/Nolane-x/Nolane-video/actions/runs/45950491747) and selected 1080p frames confirm the water region below the interface, air above, and the horizontal interface aligned with rays and points.
+- **First Nia actor vertical slice:** `benchmarks/optics-spoon/motion-canvas/src/actors/nia.tsx` exports a reusable rig with torso, neck, head, eyes, mouth, upper arm, forearm and elbow. S02 in `src/scenes/spoon.tsx` now stages anticipation, lift, inspection/turn, re-dip and a lean toward the waterline. The hand remains parented to the spoon prop for basic grip coupling. The apparent spoon lower segment is offset 14 px under a 22 px stroke, so it reads as one continuous kink.
+- **Visual review:** run #89 contact sheet and selected native 1920×1080 frames at 9.7 s, 11.8 s, 12.2 s and 63.0 s were inspected. The selected frames show the lift/straight spoon, continuous apparent kink, Nia face/neck and final straight-spoon resolution. This is selected-frame QA, not full-film 24 fps approval.
+- **Benchmark:** `The Spoon That Bends`, Vietnamese, 72 s, 1920×1080, 24 fps, 1,728 frames, half-open `[0,1728)`; shared Snell example 40° in water to ~58.9° in air, angles measured from the normal.
+- **Still incomplete:** watch both full films at 24 fps and record shot/frame findings; hand/finger articulation and robust prop grip/contact; stronger acting and camera choreography; causal diagram pacing; reduced/mobile text review; approved real Vietnamese VO, transcript-synchronized captions, SFX/music and perceptual audio QA; repeated authoring/render iteration measurements; H2 provenance/license audit.
+- **Next task:** continue M1 creative acceptance and improve the Nia/diagram vertical slice behind the Motion Canvas adapter. Do not build a broad Film IR/runtime package or claim final creative/audio acceptance until the listed gates are addressed. Do not weaken frame/metadata tests to obtain green CI.
+
+
 
 ## 0. Live verification override — 2026-11-27 05:34 UTC
 
