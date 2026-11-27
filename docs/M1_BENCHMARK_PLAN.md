@@ -4,7 +4,7 @@
 
 **Goal:** produce comparable, evidence-backed implementations of one 72-second educational film so NEE can choose its first 2D runtime based on actual clarity, animation craft, correctness, reproducibility and integration effort.
 
-**Architecture:** one shared script, frame-accurate storyboard, art bible and claim ledger are the canonical creative brief. Remotion and Motion Canvas receive equivalent full-film implementations; Manim receives the scientific ray-diagram segment. The output/reporting layer records each candidate independently. No candidate becomes the master backend before the architecture decision is written.
+**Architecture:** one shared script, frame-accurate storyboard, art bible and claim ledger are the canonical creative brief. Remotion and Motion Canvas receive equivalent full-film implementations; Manim receives the scientific ray-diagram segment. The output/reporting layer records each candidate independently. ADR-0001 provisionally selects Motion Canvas as the first 2D scene adapter; Film IR remains renderer-independent and no universal/master render dependency is implied.
 
 **Tech stack:** TypeScript/React and Remotion 4.0.547; TypeScript and Motion Canvas 3.17.2; Python and the user's Manim CE fork pinned by commit; FFmpeg/ffprobe for media assembly and checks.
 
@@ -27,7 +27,8 @@
 - docs/M1_BENCHMARK_SPEC.md — benchmark requirements and acceptance.
 - docs/M1_BENCHMARK_PLAN.md — this task plan.
 - docs/ANIMATION_CRAFT_STANDARDS.md — animation craft and visual QA requirements.
-- docs/M1_SCORECARD.md — cross-candidate evidence ledger; no premature numeric ranking.
+- docs/M1_SCORECARD.md — evidence-backed cross-candidate comparison.
+- docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md — provisional first 2D scene adapter decision.
 - benchmarks/optics-spoon/shared/script.vi.md — narration.
 - benchmarks/optics-spoon/shared/storyboard.json — canonical timing and shot IDs.
 - benchmarks/optics-spoon/shared/ART-DIRECTION.md — visual system.
@@ -53,7 +54,8 @@
 - [x] Build the project with type checking.
 - [x] Prove preview and determine a reproducible render/export route through the official editor and core image-sequence exporter.
 - [x] Record the GPLv3 status of the optional FFmpeg exporter; do not add it without approval.
-- [ ] Verify 1,728-frame half-open range and 72-second MP4 output in run 45840831148; review the final contact sheet.
+- [x] Verify exactly 1,728 sequential frames and a 72.000-second MP4 in run [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231); ffprobe passed.
+- [x] Review the contact sheet and native 1080p diagram frame; reposition 40°/58.9° labels away from ray lines and re-render in the same passing run.
 
 ### Task 3 — Remotion full-film candidate
 - [x] Pin Remotion packages to 4.0.547 and compatible React packages.
@@ -62,28 +64,37 @@
 - [x] Implement the six story beats, the straight-spoon action and shared Snell/ray geometry.
 - [x] Render the full 1080p candidate through CLI and pass ffprobe: 1920×1080, 24 fps, 72.000 s, 1,728 frames.
 - [x] Record artifact digest, metadata and visual review in `reports/VISUAL-QA.md`.
-- [ ] Run a separate low-resolution iteration preview and measure edit/render iteration time.
+- [ ] Run a separate low-resolution iteration preview and measure edit/render iteration time; record measured authoring/revision effort before any performance ranking.
 
 ### Task 4 — Manim scientific-segment candidate
 - [x] Pin the Manim Community Edition fork by exact commit and isolated Python requirements.
 - [x] Implement S04–S05 with shared ray geometry, normal, refracted ray, angles, Snell law and apparent image.
 - [x] Use the Manim text/vector fallback rather than requiring LaTeX.
 - [x] Render a 1920×1080, 24 fps specialist segment and inspect the scientific geometry/contact sheet.
-- [ ] Re-render and visually approve the shared palette/font correction in latest queued candidate run `45853726714`. This run polls the Vite export-audit endpoint rather than repeatedly rescanning the PNG tree and streams frame progress to Actions logs. Earlier pending runs `45849998362`, `45850249595`, `45851338555`, `45853159646` and `45853225131` were superseded before execution.
+- [x] Re-render and visually approve the shared palette/font correction in run [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231); verify native-resolution Vietnamese labels, formula and ray construction.
 
 ### Task 5 — Quality and comparison
 - [x] Validate the Snell example, shared ray geometry and storyboard frame schedule in code.
-- [ ] Make and review contact sheets for every full-film candidate (Remotion reviewed; Manim palette revision pending; Motion Canvas output pending).
+- [x] Make and review contact sheets for Remotion, Motion Canvas and the Manim specialist segment; selected native 1080p frames were also reviewed.
 - [ ] Inspect continuous motion and action/contact states across the complete 72-second film.
-- [x] Check Remotion Vietnamese labels, caption safe area and selected 1080p diagram frames; Manim font/palette QA is still pending.
-- [ ] Record all candidate output metadata, render time, authoring effort and reproducibility in one comparable table.
-- [ ] Score candidates only after evidence exists.
-- [ ] Write a formal architecture decision and update the roadmap.
+- [x] Check Vietnamese diacritics, Remotion caption safe area, Motion Canvas angle-label spacing and Manim font/palette at selected native 1080p frames.
+- [ ] Check all essential labels at reduced/mobile size across every shot.
+- [x] Record candidate output metadata, codecs, frame counts, durations, artifact digests, MP4 SHA-256 values and CI references in `ENGINE-CANDIDATE-STATUS.md` / `M1_SCORECARD.md`.
+- [ ] Measure repeated render times on equivalent runners and authoring/revision effort; current one-off jobs are not a fair performance ranking.
+- [x] Create an evidence-backed scorecard. Numeric ranking is intentionally withheld because acting, full-speed review, audio and authoring-cost evidence are incomplete.
+- [x] Write provisional [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md) selecting Motion Canvas as the first 2D scene adapter; update the roadmap while keeping creative/audio acceptance open.
 
 ### Task 6 — Renderer time/range regression guard
 - [x] Validate Motion Canvas's inclusive `ceil(seconds × fps)` endpoint mapping against the 1,728-frame half-open storyboard.
 - [x] Add a regression test proving that an endpoint of exactly 72.0 s would incorrectly map to frame 1,728.
 - [x] Pass validator CI [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) and unit-test CI [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293).
+
+### Task 7 — Creative acceptance and M1 closure
+- [ ] Watch the full 72-second Remotion and Motion Canvas films at 24 fps; record shot/frame-specific findings.
+- [ ] Improve Nia's gaze, anticipation, hand/grip, spoon lift/re-dip, reaction and follow-through to meet `ANIMATION_CRAFT_STANDARDS.md`.
+- [ ] Re-choreograph the diagram as distinct causal stages with purposeful holds; remove unmotivated long static layouts.
+- [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
+- [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
 ## Required acceptance
 
