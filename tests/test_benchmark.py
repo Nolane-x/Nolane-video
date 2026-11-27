@@ -89,6 +89,8 @@ class BenchmarkContractTests(unittest.TestCase):
         # uses a centered stage with +Y downward, so this mapping must not flip Y.
         self.assertIn("point.y - 540", scene_source)
         self.assertNotIn("540 - point.y", scene_source)
+        self.assertIn("diagramGeometry.interface.y - 540", scene_source)
+        self.assertNotIn("540 - diagramGeometry.interface.y", scene_source)
         self.assertIn("position={[0, 222.5]}", scene_source)
         self.assertIn('text="NƯỚC" position={[-650, 320]}', scene_source)
         self.assertIn('text="KHÔNG KHÍ" position={[-650, -320]}', scene_source)
