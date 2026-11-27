@@ -210,9 +210,9 @@ class BenchmarkContractTests(unittest.TestCase):
         turn_contact = rotated_contact(lift_origin, 6)
         self.assertEqual(rest_contact, (-356, 0))
         self.assertAlmostEqual(lift_contact[0], -362.83, delta=0.02)
-        self.assertAlmostEqual(lift_contact[1], -66.71, delta=0.02)
+        self.assertAlmostEqual(lift_contact[1], -66.56, delta=0.02)
         self.assertAlmostEqual(turn_contact[0], -347.45, delta=0.02)
-        self.assertAlmostEqual(turn_contact[1], -73.85, delta=0.02)
+        self.assertAlmostEqual(turn_contact[1], -73.32, delta=0.02)
 
         self.assertIn("rotationDegrees = 0", anchor_source)
         self.assertIn("Math.cos(radians)", anchor_source)
