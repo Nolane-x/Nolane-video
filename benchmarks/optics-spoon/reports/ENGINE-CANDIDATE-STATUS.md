@@ -1,80 +1,80 @@
 # M1 Candidate Status — The Spoon That Bends
 
-**Snapshot:** 2026-11-26  
+**Snapshot:** 2026-11-27  
 **Branch:** `m1/optics-benchmark`  
-**Branch HEAD before this report update:** `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5`  
-**Decision status:** OPEN — no master runtime selected.
+**Decision status:** OPEN — candidate evidence is now technically complete; creative/audio review and architecture decision remain open.
 
 ## Executive status
 
-M1 has one shared story, storyboard, art direction and scientific geometry with three executable candidates. The validator checks six-shot continuity, research-claim references, Snell's law, ray collinearity and Motion Canvas's inclusive time-to-frame conversion.
+Run [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530) completed successfully with all three candidate jobs passing. Remotion and Motion Canvas each produced the full silent 72-second film; Manim produced the specialist refraction segment. The shared validator and the frame-range regression tests also pass.
 
-| Candidate | Verified result | Remaining limitation |
-|---|---|---|
-| Remotion 4.0.547 | Full silent H.264 film; 1920×1080, 24 fps, 72.000 s, 1,728 frames. Contact sheet and selected 1080p diagram frames reviewed. | Character is a vector blockout; no real VO/SFX/music or synchronized transcript captions; not final artistic quality. |
-| Manim CE fork | S04–S05 scientific segment; 1920×1080, 24 fps, 11.625 s. Mathematical layout and contact sheet reviewed. | First reviewed style is inconsistent (black background, serif font, sparse opening); corrected palette/font render is pending. Manim remains a specialist adapter, not a full-film candidate. |
-| Motion Canvas 3.17.2 | Editor/dependencies/build/typecheck pass; renderer lifecycle and frame export have been instrumented. Earlier full run returned `RendererResult.Success` at frame 1,728. | Exact 1,728-frame half-open render has not been validated yet. Current CI run is still rendering; no MP4/ffprobe artifact accepted. |
+| Candidate | Technical result | Visual result | Remaining limitation |
+|---|---|---|---|
+| Remotion 4.0.547 | PASS — H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames | Six-shot sequence and science diagram reviewed; water-label caption safe area fixed | Character/prop acting is still a geometric blockout; no real audio |
+| Motion Canvas 3.17.2 | PASS — H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames; full official editor export and ffprobe pass | Six-shot contact sheet/native frames reviewed; angle-label spacing correction pending in run 45944266231 | Character is a static geometric blockout; no believable hand/grip or prop-contact performance; no real audio |
+| Manim CE fork | PASS — S04–S05 specialist segment, H.264, 1920×1080, 24 fps, 11.624674 s / 279 frames | Shared palette/font revision reviewed at native resolution; scientific construction is legible | Only a diagram segment; no character-led full-film role or audio sync |
+
+No numeric ranking is approved and no master renderer is selected yet. A completed render proves export reliability, not final animation quality.
 
 ## Shared benchmark contract
 
 - Film: **The Spoon That Bends / Vì sao chiếc thìa trông như bị gãy trong nước?**
-- 72 seconds, 1920×1080, 24 fps, 1,728 frames.
-- Six stable shots: hook, physical contradiction, optical reveal, refraction, apparent image, resolution.
-- Shared storyboard: `benchmarks/optics-spoon/shared/storyboard.json`.
-- Shared scientific geometry: `benchmarks/optics-spoon/shared/diagram.json`.
-- Shared script, research ledger and style bible live in `benchmarks/optics-spoon/shared/`.
-- `tools/validate_benchmark.py` and `tests/test_benchmark.py` enforce story continuity, scientific geometry and the Motion Canvas range boundary.
+- 72 seconds, 1920×1080, 24 fps, 1,728 output samples with indices 0–1,727.
+- Six shots: hook, physical contradiction, optical reveal, refraction, apparent image, resolution.
+- Canonical storyboard: `benchmarks/optics-spoon/shared/storyboard.json`.
+- Canonical scientific geometry: `benchmarks/optics-spoon/shared/diagram.json`.
+- Script, research ledger and art direction live in `benchmarks/optics-spoon/shared/`.
+- The frame-range contract is half-open `[0, 1728)`. Motion Canvas maps time endpoints with `ceil(seconds × fps)`; its last included timestamp is therefore 71.95833333333333 s.
 
 ## Candidate evidence
 
 ### Remotion 4.0.547 — full-film candidate
 
-- Pinned versions: Remotion/CLI 4.0.547, React 19.2.0, TypeScript 5.9.3.
-- Successful full-film run: [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169).
-- Artifact: `m1-remotion-candidate`, digest `sha256:f829285a43711aed3a869bae9d93ede74d37c9561125a510ad2101e673d20b14`.
-- ffprobe verified H.264, 1920×1080, progressive, 24/1 fps, exactly 72.000 seconds and 1,728 frames.
-- Contact sheet and selected full-resolution frames 1056 and 1248 reviewed. The water/air interface, normal, 40° and 58.9° labels, Snell formula and true/apparent points are legible. The caption-safe-area overlap was corrected by moving the “NƯỚC” label baseline from y=970 to y=820; the current artifact confirms it is no longer covered.
-- Remaining: character acting is a simple vector blockout, with limited anticipation, hand/finger articulation, grip continuity and follow-through. The audio and transcript timing gates are not tested.
-
-### Manim CE fork — specialist scientific segment
-
-- Pinned dependency: `Nolane-x/manim` commit `18320e2f0feaf142b2c3a377068ddb44c82fb2a1`; requirements are isolated to the benchmark.
-- Successful segment in run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169).
-- Artifact: `m1-manim-refraction-segment`, digest `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`.
-- Output: 1920×1080, 24 fps, 11.625 seconds; ray, normal, 40°/58.9° angles, backward extension and apparent point are mathematically consistent.
-- Visual review found the first version's black background, serif default font and sparse opening inconsistent with the shared style bible.
-- Source fix [0a09f2e](https://github.com/Nolane-x/Nolane-video/commit/0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5) applies the shared Deep Ink/Water Slate/Ray Gold palette, DejaVu Sans and a persistent water region from frame zero. Rerender/visual verification is pending in [45849998362](https://github.com/Nolane-x/Nolane-video/actions/runs/45849998362).
-- This is a diagram adapter candidate only; do not compare its 11.625-second scope with full-film candidates as though their roles were equal.
+- Successful job in [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530).
+- Artifact: `m1-remotion-candidate`, digest `sha256:18712527a3c4cb5ec10790c31dd3db296aa418774783588a8a8a98c263ab6903`.
+- Output: H.264, 1920×1080 progressive, 24/1 fps, 72.000 s, 1,728 frames.
+- The “NƯỚC” label safe-area fix from `e5e0259ca2c517858511dcaf11a70edb40f640ea` is present and was reviewed in the full-resolution output.
+- This is a deterministic vector prototype. It does not yet show production-level character acting, articulated fingers/grip, convincing prop weight/contact or a real audio mix.
+- Recheck Remotion's two-tier product license before considering commercial redistribution/embedding.
 
 ### Motion Canvas 3.17.2 — full-film candidate
 
-- Pinned packages: Motion Canvas 3.17.2; Vite 5.4.19; Preact 10.19.2; Playwright 1.56.0; Node 22; Ubuntu 24.04.
-- Official editor build and TypeScript check pass. Rendering uses the core MIT image-sequence exporter, then independent FFmpeg. The optional Motion Canvas FFmpeg exporter declares GPLv3 and is excluded.
-- Earlier partial renders were caused by automation reading the editor button's `data-rendering` attribute and closing Chromium before the engine was finished. The runner now waits for the engine's `renderer.onFinished` event.
-- Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) proved the official renderer can finish with `RendererResult.Success`, `lastFrame: 1728`, and 1,729 PNG exports (frames 0–1,728). The extra frame was the inclusive 72-second boundary.
-- Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` sets the final included sample timestamp to `71.95833333333333` s, frame 1,727 at 24 fps.
-- Exact-count run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) was cancelled while its Motion Canvas job remained in the render step. Current run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) has Remotion and Manim jobs successful; Motion Canvas passed setup/build and was still in its render step as of this snapshot. It has not yet uploaded a candidate MP4.
-- The shared validator now calls Motion Canvas's `ceil(seconds × fps)` endpoint conversion and rejects a metadata range that would generate an extra boundary frame. Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) passed, and regression-test run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) passed.
+- Successful job in [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530).
+- Artifact: `m1-motion-canvas-candidate`, digest `sha256:19c770d1cff47e1a11d7b6ffefacbb457004724542a5f052f5a01343b82c982d`.
+- MP4 SHA-256: `2cda419f879a99a06b17453bc33232ecc43d4c3bedd648d2be77b5ad2ae18acd`.
+- Output: H.264 High profile, 1920×1080, yuv420p, 24/1 fps, 1,728 frames, 72.000 s. The accompanying render report records 1,728/1,728 frames and zero browser errors.
+- Renderer log: `RendererResult.Success`, `lastFrame: 1727`, `exportEvents=1728`, `uniqueFrames=1728`, `PNG files=1728/1728`.
+- The script hang is fixed in commit `ad8fc14a848b02a61d7b76fb916ab4bfb0942e14`: the renderer launches Vite directly in a detached process group and waits for the process group to terminate, rather than killing only an `npm` wrapper and leaving Vite/esbuild orphaned.
+- Visual correction to move 40°/58.9° labels away from ray lines is in commit `3a091f4fe5eec706014aadfb42f17679752ea733`; render confirmation is in [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231), currently in progress at the time of this report.
+- Motion Canvas public packages inspected are MIT-licensed. Its optional FFmpeg exporter is GPLv3 and is not used; independent FFmpeg assembles the MP4 from PNGs.
 
-## Licensing and reuse constraints
+### Manim Community Edition fork — specialist scientific segment
 
-- Motion Canvas public packages inspected are MIT-licensed. Its optional GPLv3 FFmpeg exporter remains excluded.
-- Manim Community Edition is MIT-licensed; the user fork is pinned for reproducibility.
-- Remotion has a two-tier license model; evaluation render evidence does not decide redistribution/commercial embedding rights. Recheck exact terms before product adoption.
-- H2 in `Nolane-x/video` has not been copied. Complete a source-provenance/license audit before any reuse.
+- Successful job in [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530).
+- Pinned fork commit: `18320e2f0feaf142b2c3a377068ddb44c82fb2a1`.
+- Artifact: `m1-manim-refraction-segment`, digest `sha256:d33772298acaabfe6eeb1506758d625e888b267674bdf5155a3789af60859c63`.
+- MP4 SHA-256: `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Output: H.264, 1920×1080, 24/1 fps, 279 frames, 11.624674 s.
+- The revised source uses the shared Deep Ink/Water Slate/Ray Gold palette, DejaVu Sans and a persistent water region. The final native-resolution frame, contact sheet, formula and ray construction have been reviewed.
+- Manim remains a specialist diagram adapter, not a full-film candidate.
 
-## What is not complete
+## Shared validation and regression coverage
 
-- Motion Canvas exact 1,728-frame render, MP4/ffprobe, contact-sheet and continuous-motion review.
-- Manim palette/font rerender and review.
-- Real Vietnamese narration, synchronized transcript captions, SFX and music; no audio QA has been performed.
-- More convincing Nia acting, grip/contact continuity, anticipation and follow-through.
-- Full candidate scorecard and written architecture decision.
-- H2 provenance/license audit.
-- No M2/M3 engine-wide implementation until M1 acceptance and the first runtime/adapter boundaries are decided.
+- Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) passed.
+- Unit/regression run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) passed all 11 tests, including a regression that rejects a 72.0-second Motion Canvas inclusive endpoint because it would add frame 1,728.
+- Candidate run [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530) passed Remotion, Motion Canvas and Manim jobs.
+
+## What remains incomplete
+
+- Inspect run 45944266231 to approve/revise Motion Canvas angle-label safe-area correction.
+- Watch complete moving output for both full-film candidates; the current report covers contact sheets and selected stills, not full continuous-motion creative approval.
+- Upgrade character performance, hand anatomy, grip/contact coupling, anticipation, follow-through and motivated camera work.
+- Add an approved real Vietnamese VO, transcript-aligned captions, SFX and music before audio QA. Current previews are silent.
+- Complete H2 source provenance/license audit before any reuse.
+- Complete the candidate scorecard and architecture decision with explicit quality gates and caveats. Do not infer final superiority from technical render success alone.
 
 ## Immediate next action
 
-1. Inspect run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169); determine whether Motion Canvas produces exactly 1,728 sequential PNGs and passes H.264 1920×1080 / 24 fps / 72.000 s ffprobe.
-2. Inspect run [45849998362](https://github.com/Nolane-x/Nolane-video/actions/runs/45849998362); review the new Manim palette/font contact sheet and verify Python render success.
-3. Record continuous-motion findings and then build the candidate scorecard. Keep audio incompleteness explicit; do not select a master backend before evidence is comparable.
+1. Inspect [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231); review the updated Motion Canvas contact sheet and 1080p frame for angle-label spacing.
+2. Update `VISUAL-QA.md` and `M1_SCORECARD.md` from that artifact.
+3. Perform continuous-motion review and write a provisional renderer/adapter ADR. Keep audio and final acting quality explicitly open.
