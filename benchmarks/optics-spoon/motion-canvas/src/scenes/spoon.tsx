@@ -157,7 +157,7 @@ export default makeScene2D(function* (view) {
     headRig().rotation(-4, 0.25)
   );
   yield* view.scale([1.025, 1.025], 1.4);
-  yield* waitFor(5.45);
+  yield* waitFor(5.3);
   checkpoint("S01-complete");
 
   // S02 — 10 seconds: expose the straight spoon and lift it as one constrained prop.
@@ -176,7 +176,7 @@ export default makeScene2D(function* (view) {
     eyeA().position([-55, 0], 0.35),
     eyeB().position([25, 0], 0.35)
   );
-  yield* waitFor(8.35);
+  yield* waitFor(8.75);
   checkpoint("S02-complete");
 
   // S03 — 10 seconds: move from the everyday scene into the invisible optical path.
@@ -220,7 +220,7 @@ export default makeScene2D(function* (view) {
     angleAir().opacity(1, 0.6)
   );
   yield* formula().opacity(1, 0.8);
-  yield* waitFor(11.1);
+  yield* waitFor(11.6);
   checkpoint("S04-complete");
 
   // S05 — 17 seconds: derive the apparent point from a backward extension.
@@ -230,7 +230,7 @@ export default makeScene2D(function* (view) {
     trueLabel().opacity(1, 0.6),
     apparentLabel().opacity(1, 0.6)
   );
-  yield* waitFor(15.1);
+  yield* waitFor(15.5);
   checkpoint("S05-complete");
 
   // S06 — 11 seconds: return to the intact spoon and resolve the misconception.
