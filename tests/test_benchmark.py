@@ -144,7 +144,7 @@ class BenchmarkContractTests(unittest.TestCase):
         scene_source = (root / "scenes" / "spoon.tsx").read_text(encoding="utf-8")
 
         self.assertIn("export const createNiaGrip", grip_source)
-        for part in ("palm", "thumb", "indexFinger", "middleFinger"):
+        for part in ("palm", "thumb", "indexOutline", "indexFinger", "middleOutline", "middleFinger"):
             with self.subTest(part=part):
                 self.assertIn(f"const {part} =", grip_source)
         spoon_node = scene_source.split('<Node ref={spoonRig}', 1)[1].split("</Node>", 1)[0]
@@ -152,6 +152,8 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("const grip = createNiaGrip()", scene_source)
         self.assertIn("grip.indexFinger().points", scene_source)
         self.assertIn("grip.middleFinger().points", scene_source)
+        self.assertIn("grip.indexOutline().points", scene_source)
+        self.assertIn("grip.middleOutline().points", scene_source)
         self.assertIn("grip.thumb().position", scene_source)
 
     def test_s02_authors_anticipation_lift_inspection_and_redip(self):
