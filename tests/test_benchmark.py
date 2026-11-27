@@ -188,7 +188,7 @@ class BenchmarkContractTests(unittest.TestCase):
 
         def read_point(name):
             match = re.search(
-                rf"{name}: StagePoint = \\[(-?\\d+),\\s*(-?\\d+)\\]",
+                rf"{name}: StagePoint = \[(-?\d+),\s*(-?\d+)\]",
                 anchor_source,
             )
             self.assertIsNotNone(match, f"Missing typed rig anchor: {name}")
