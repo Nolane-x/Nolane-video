@@ -106,13 +106,14 @@ class BenchmarkContractTests(unittest.TestCase):
             / "nia.tsx"
         )
         actor_source = actor_path.read_text(encoding="utf-8")
-        for part in ("torso", "headRig", "upperArm", "forearm", "elbow"):
+        for part in ("torso", "neck", "headRig", "upperArm", "forearm", "elbow", "mouth"):
             with self.subTest(part=part):
                 self.assertIn(f"const {part} =", actor_source)
         self.assertIn("export const createNiaActor", actor_source)
         self.assertIn("upperArm,", actor_source)
         self.assertIn("forearm,", actor_source)
         self.assertIn("elbow", actor_source)
+        self.assertIn("mouth,", actor_source)
 
     def test_s02_authors_anticipation_lift_inspection_and_redip(self):
         scene_path = (
@@ -135,6 +136,22 @@ class BenchmarkContractTests(unittest.TestCase):
             "10 - 1 / 24 - (0.4 + 0.25 + 0.85 + 0.8 + 0.25 + 0.2 + 0.85 + 0.6)",
             scene_source,
         )
+
+    def test_apparent_spoon_kink_is_continuous_at_the_waterline(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+        # The apparent lower segment is offset, but less than the 22px stroke
+        # width so the viewer reads one optically displaced spoon, not two pieces.
+        self.assertIn("points={[[14, 0], [205, 280]]}", scene_source)
+        self.assertNotIn("points={[[70, 0], [205, 280]]}", scene_source)
 
     def test_snell_example_bends_away_from_normal(self):
         theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
