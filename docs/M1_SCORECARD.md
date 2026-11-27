@@ -16,15 +16,15 @@
 | Dimension | Remotion 4.0.547 | Motion Canvas 3.17.2 | Manim CE fork |
 |---|---|---|---|
 | Intended role | Full-film baseline / possible adapter | First 2D/2.5D scene runtime (provisional) | Specialist diagram adapter |
-| Latest green candidate run | [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) | [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) | [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) |
-| Latest artifact digest | `sha256:a703a6af58513e18f7a771f3e00ac17dcc49a31d7d6f12b84910e4b429c26389` | `sha256:4da7c9e84a449dabbb09ac235e14e9819691ecbdb444ca2755d98258c9904a92` | `sha256:9a6fb300a693c886dbea7b4ab9e56444ef7ba67bac6fb4d163864325e0178386` |
-| Latest MP4 SHA-256 | `1970da35a380c0fd08a8a04e74bc03d050d21bb389ecb0bdd483ab49f232bbda` | `0016d083c11a3dc1615c8ae9e8dbc4a58af5a02bbcb5354e66f2b80583965616` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
+| Latest green candidate run | [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) | [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) | [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) |
+| Latest artifact digest | `sha256:1074b604e55f79fa95a553e732beb2cca40f696d59b5d26f44577439f031a510` | `sha256:92c3b5d3451520a6e7b7fc8bd6db0f7c51c772335b9692c4cadf24724693cbc8` | `sha256:faac7840db9a81a8827d9ff255698a89234239f0b55bcf2d607b25c2f132e245` |
+| Latest MP4 SHA-256 | `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2` | `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
 | Output metadata | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 11.624674 s, 279 frames |
 | Technical result | PASS: typecheck, full render, H.264/24 fps/1,728-frame ffprobe gate and upload | PASS: official editor build, 1,728 unique sequential frames, H.264/24 fps/1,728-frame ffprobe gate, zero browser errors and upload | PASS: pinned fork install, H.264/24 fps/279-frame gate, ffprobe and upload |
-| Visual review | Contact sheet and selected native frames reviewed; “NƯỚC” safe area fixed | Run #83 verified water below air and interface/rays aligned; run #89 contact sheet plus selected S02/S06 frames reviewed for Nia rig and spoon kink | Shared palette/font and native-resolution diagram reviewed |
+| Visual review | Contact sheet and selected native frames reviewed; “NƯỚC” safe area fixed | Run #83 verified water below air; run #89 reviewed Nia/S02; run #94 reviewed native S05 frame at 51 s, confirming dashed virtual back-extension distinct from solid physical rays | Shared palette/font and native-resolution diagram reviewed |
 | Scientific geometry | PASS on reviewed diagram | PASS against shared diagram model | PASS on reviewed diagram |
 | Character acting | Not approved: vector blockout, weak hand/prop performance | First reusable Nia rig now has torso/neck/head/eyes/mouth, upper arm, forearm and elbow; S02 includes anticipation, lift, inspection, re-dip and lean. Still a simplified blockout with a basic hand/prop coupling, not production-quality fingers or contact | Not applicable to specialist role |
-| Diagram choreography | Needs work: causality and timing need full-speed review | Needs work: long holds and reveal order need a deliberate teaching pass | Legible reveal, but opening is sparse; VO timing not tested |
+| Diagram choreography | Needs work: causality and timing need full-speed review | Reusable refraction diagram extracted; backward extension is now dashed and geometry remains shared. Still needs a causal pacing/hold review at full speed | Legible reveal, but opening is sparse; VO timing not tested |
 | Audio | Silent; no VO, transcript sync, SFX or music | Silent; no VO, transcript sync, SFX or music | No audio |
 | License | Two-tier source-available license; eligible individuals/small companies may create commercial videos, but selling/licensing a Remotion derivative is restricted | MIT core; optional GPLv3 FFmpeg exporter excluded | MIT (Community Edition and pinned fork files) |
 
@@ -35,7 +35,7 @@
 | Story and learning objective | PARTIAL PASS | Six-shot sequence renders; complete 24 fps comprehension review remains |
 | Scientific correctness | PASS for reviewed geometry | Shared Snell/geometry validator and native-resolution diagrams pass |
 | Deterministic frame output | PASS | Both full-film engines: exactly 1,728 frames; Manim segment: 279 frames |
-| Technical media export | PASS | All three candidate jobs green in runs 45944266231 and 45944799022 |
+| Technical media export | PASS | All three candidate jobs green in run [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) |
 | Visual readability | PASS at reviewed native frames; reduced/mobile-size check open | Remotion caption safe area, Motion Canvas angle labels and Manim font/palette fixed |
 | Diagram choreography | NEEDS WORK | Stage interface → normal → physical rays → measured angles → backward extension → apparent point as distinct causal transformations; remove unmotivated static holds |
 | Acting, prop contact and continuity | NOT APPROVED | Build Nia gaze, anticipation, articulated grip, hand/spoon coupling, reaction and follow-through; review key poses and 24 fps playback |
