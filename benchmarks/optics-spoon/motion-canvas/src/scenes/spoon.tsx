@@ -1,6 +1,7 @@
 import {
   Circle,
   Line,
+  Node,
   Rect,
   Txt,
   makeScene2D
@@ -46,12 +47,16 @@ export default makeScene2D(function* (view) {
   const glass = createRef<Rect>();
   const water = createRef<Rect>();
   const waterline = createRef<Line>();
+  const spoonRig = createRef<Node>();
   const spoonTop = createRef<Line>();
   const spoonBentBottom = createRef<Line>();
   const spoonStraight = createRef<Line>();
   const spoonBowl = createRef<Circle>();
-  const head = createRef<Circle>();
+  const hand = createRef<Rect>();
+  const thumb = createRef<Circle>();
   const torso = createRef<Rect>();
+  const headRig = createRef<Node>();
+  const head = createRef<Circle>();
   const arm = createRef<Line>();
   const eyeA = createRef<Circle>();
   const eyeB = createRef<Circle>();
@@ -85,17 +90,23 @@ export default makeScene2D(function* (view) {
       <Rect ref={glass} size={[460, 470]} position={[-320, 85]} radius={28} fill={"#9AD8D7"} opacity={0} lineWidth={10} stroke={C.ivory} />
       <Rect ref={water} size={[440, 230]} position={[-320, 195]} fill={C.water} opacity={0} />
       <Line ref={waterline} points={[[-550, 80], [-90, 80]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
-      <Line ref={spoonTop} points={[[-465, -300], [-320, 80]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
-      <Line ref={spoonBentBottom} points={[[-250, 80], [-115, 360]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
-      <Line ref={spoonStraight} points={[[-465, -300], [-160, 360]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
-      <Circle ref={spoonBowl} size={78} position={[-125, 365]} scale={[0.65, 1.25]} fill="#B7C3C5" stroke={C.ivory} lineWidth={8} opacity={0} />
+      <Node ref={spoonRig} position={[-320, 80]}>
+        <Line ref={spoonTop} points={[[-145, -380], [0, 0]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
+        <Line ref={spoonBentBottom} points={[[70, 0], [205, 280]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
+        <Line ref={spoonStraight} points={[[-145, -380], [160, 280]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
+        <Circle ref={spoonBowl} size={78} position={[195, 285]} scale={[0.65, 1.25]} fill="#B7C3C5" stroke={C.ivory} lineWidth={8} opacity={0} />
+        <Rect ref={hand} size={[62, 40]} position={[-36, -80]} rotation={-12} radius={16} fill="#D9B89B" stroke={C.ink} lineWidth={6} opacity={0} />
+        <Circle ref={thumb} size={28} position={[-8, -66]} fill="#D9B89B" stroke={C.ink} lineWidth={5} opacity={0} />
+      </Node>
       <Rect ref={torso} size={[185, 265]} position={[505, 185]} radius={38} fill={C.slate} stroke={C.ink} lineWidth={10} opacity={0} />
-      <Circle ref={head} size={230} position={[505, -105]} fill="#D9B89B" stroke={C.ink} lineWidth={10} opacity={0} />
-      <Circle size={125} position={[505, -190]} fill="#172631" opacity={0} />
-      <Circle ref={eyeA} size={18} position={[465, -105]} fill={C.ink} opacity={0} />
-      <Circle ref={eyeB} size={18} position={[545, -105]} fill={C.ink} opacity={0} />
-      <Line ref={arm} points={[[420, 95], [270, 45], [-380, 10]]} stroke="#D9B89B" lineWidth={28} lineCap="round" opacity={0} />
-      <Txt ref={face} text="?" position={[635, -205]} fontSize={76} fill={C.brass} fontFamily="Arial" opacity={0} />
+      <Node ref={headRig} position={[505, -105]}>
+        <Circle ref={head} size={230} position={[0, 0]} fill="#D9B89B" stroke={C.ink} lineWidth={10} opacity={0} />
+        <Circle size={125} position={[0, -85]} fill="#172631" opacity={0} />
+        <Circle ref={eyeA} size={18} position={[-40, 0]} fill={C.ink} opacity={0} />
+        <Circle ref={eyeB} size={18} position={[40, 0]} fill={C.ink} opacity={0} />
+        <Txt ref={face} text="?" position={[130, -100]} fontSize={76} fill={C.brass} fontFamily="Arial" opacity={0} />
+      </Node>
+      <Line ref={arm} points={[[420, 95], [245, 30], [-356, 0]]} stroke="#D9B89B" lineWidth={28} lineCap="round" opacity={0} />
       <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
 
       <Rect ref={diagramWater} size={[1920, 635]} position={[0, -222.5]} fill={C.water} opacity={0} />
@@ -119,7 +130,7 @@ export default makeScene2D(function* (view) {
     </>
   );
 
-  // S01 — 8 seconds: reveal the apparent kink.
+  // S01 — 8 seconds: establish Nia's attention, then make a clear grip/contact.
   yield* all(
     kitchenWall().opacity(1, 0.4),
     table().opacity(1, 0.4),
@@ -133,23 +144,39 @@ export default makeScene2D(function* (view) {
     head().opacity(1, 0.5),
     eyeA().opacity(1, 0.5),
     eyeB().opacity(1, 0.5),
-    arm().opacity(1, 0.5),
     face().opacity(1, 0.5),
     kitchenCaption().opacity(1, 0.5)
   );
+  yield* waitFor(0.45);
+  yield* all(
+    arm().opacity(1, 0.35),
+    hand().opacity(1, 0.25),
+    thumb().opacity(1, 0.25),
+    eyeA().position([-48, -3], 0.25),
+    eyeB().position([32, -3], 0.25),
+    headRig().rotation(-4, 0.25)
+  );
   yield* view.scale([1.025, 1.025], 1.4);
-  yield* waitFor(6.1);
+  yield* waitFor(5.45);
   checkpoint("S01-complete");
 
-  // S02 — 10 seconds: lift and reveal the physically straight spoon.
+  // S02 — 10 seconds: expose the straight spoon and lift it as one constrained prop.
   yield* all(
     spoonTop().opacity(0, 0.4),
     spoonBentBottom().opacity(0, 0.4),
-    spoonStraight().opacity(1, 0.6),
+    spoonStraight().opacity(1, 0.4),
     face().text("!", 0.3),
-    head().position([505, -125], 0.4)
+    headRig().position([505, -125], 0.4),
+    headRig().rotation(0, 0.4)
   );
-  yield* waitFor(9.4);
+  yield* all(
+    spoonRig().position([-320, 10], 0.85),
+    spoonRig().rotation(-5, 0.85),
+    arm().points([[420, 95], [240, 10], [-360, -70]], 0.85),
+    eyeA().position([-55, 0], 0.35),
+    eyeB().position([25, 0], 0.35)
+  );
+  yield* waitFor(8.35);
   checkpoint("S02-complete");
 
   // S03 — 10 seconds: move from the everyday scene into the invisible optical path.
@@ -159,20 +186,13 @@ export default makeScene2D(function* (view) {
     glass().opacity(0, 0.8),
     water().opacity(0, 0.8),
     waterline().opacity(0, 0.8),
-    spoonStraight().opacity(0, 0.8),
-    spoonBowl().opacity(0, 0.8),
+    spoonRig().opacity(0, 0.8),
     torso().opacity(0, 0.8),
-    head().opacity(0, 0.8),
-    eyeA().opacity(0, 0.8),
-    eyeB().opacity(0, 0.8),
+    headRig().opacity(0, 0.8),
     arm().opacity(0, 0.8),
-    face().opacity(0, 0.8),
     kitchenCaption().opacity(0, 0.8),
     diagramWater().opacity(0.22, 0.8),
     interfaceLine().opacity(1, 0.8),
-    incident().opacity(1, 0.8),
-    refracted().opacity(1, 0.8),
-    eyePoint().opacity(1, 0.8),
     airLabel().opacity(1, 0.8),
     waterLabel().opacity(1, 0.8),
     diagramCaption().opacity(1, 0.8),
@@ -181,26 +201,36 @@ export default makeScene2D(function* (view) {
   yield* waitFor(9.2);
   checkpoint("S03-complete");
 
-  // S04 — 16 seconds: show the normal and Snell relationship.
+  // S04 — 16 seconds: construct the physical path in causal order.
   yield* all(
     normal().opacity(1, 0.6),
-    normalLabel().opacity(1, 0.6),
-    angleWater().opacity(1, 0.7),
-    angleAir().opacity(1, 0.7),
-    formula().opacity(1, 0.9)
+    normalLabel().opacity(1, 0.6)
   );
-  yield* waitFor(15.1);
+  yield* all(
+    incident().opacity(1, 0.8),
+    truePoint().opacity(1, 0.5)
+  );
+  yield* waitFor(0.8);
+  yield* all(
+    refracted().opacity(1, 0.8),
+    eyePoint().opacity(1, 0.6)
+  );
+  yield* all(
+    angleWater().opacity(1, 0.6),
+    angleAir().opacity(1, 0.6)
+  );
+  yield* formula().opacity(1, 0.8);
+  yield* waitFor(11.1);
   checkpoint("S04-complete");
 
-  // S05 — 17 seconds: construct the apparent image by extending the outgoing ray backward.
+  // S05 — 17 seconds: derive the apparent point from a backward extension.
+  yield* backward().opacity(1, 0.8);
   yield* all(
-    backward().opacity(1, 0.8),
-    truePoint().opacity(1, 0.5),
     apparentPoint().opacity(1, 0.5),
     trueLabel().opacity(1, 0.6),
     apparentLabel().opacity(1, 0.6)
   );
-  yield* waitFor(16.2);
+  yield* waitFor(15.1);
   checkpoint("S05-complete");
 
   // S06 — 11 seconds: return to the intact spoon and resolve the misconception.
@@ -228,13 +258,21 @@ export default makeScene2D(function* (view) {
     glass().opacity(0.28, 0.8),
     water().opacity(0.55, 0.8),
     waterline().opacity(1, 0.8),
+    spoonRig().opacity(1, 0.8),
+    spoonRig().position([-320, 80], 0.8),
+    spoonRig().rotation(0, 0.8),
     spoonStraight().opacity(1, 0.8),
     spoonBowl().opacity(1, 0.8),
     torso().opacity(1, 0.8),
-    head().opacity(1, 0.8),
+    headRig().opacity(1, 0.8),
+    headRig().position([505, -105], 0.8),
+    headRig().rotation(0, 0.8),
     eyeA().opacity(1, 0.8),
     eyeB().opacity(1, 0.8),
     arm().opacity(1, 0.8),
+    arm().points([[420, 95], [245, 30], [-356, 0]], 0.8),
+    hand().opacity(1, 0.8),
+    thumb().opacity(1, 0.8),
     face().opacity(1, 0.8),
     kitchenCaption().text("Chiếc thìa vẫn nguyên vẹn.", 0.8),
     kitchenCaption().opacity(1, 0.8)
