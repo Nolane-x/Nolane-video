@@ -12,16 +12,10 @@ import {
   waitFor,
   usePlayback
 } from "@motion-canvas/core";
-import diagramGeometry from "../../../shared/diagram.json";
 import storyboard from "../../../shared/storyboard.json";
+import { createRefractionDiagram } from "../diagrams/refraction";
 import { createNiaActor } from "../actors/nia";
 
-// Convert canonical top-left diagram pixels to centered Motion Canvas coordinates.
-// Keep +Y downward so the water remains below the air-water interface.
-const toStage = (point: {x: number; y: number}): [number, number] => [
-  point.x - 960,
-  point.y - 540
-];
 const C = {
   ink: "#101B26",
   slate: "#203746",
@@ -83,24 +77,7 @@ export default makeScene2D(function* (view) {
   const nia = createNiaActor();
   const kitchenCaption = createRef<Txt>();
 
-  const diagramWater = createRef<Rect>();
-  const interfaceLine = createRef<Line>();
-  const normal = createRef<Line>();
-  const incident = createRef<Line>();
-  const refracted = createRef<Line>();
-  const backward = createRef<Line>();
-  const truePoint = createRef<Circle>();
-  const apparentPoint = createRef<Circle>();
-  const eyePoint = createRef<Circle>();
-  const airLabel = createRef<Txt>();
-  const waterLabel = createRef<Txt>();
-  const normalLabel = createRef<Txt>();
-  const angleWater = createRef<Txt>();
-  const angleAir = createRef<Txt>();
-  const formula = createRef<Txt>();
-  const trueLabel = createRef<Txt>();
-  const apparentLabel = createRef<Txt>();
-  const diagramCaption = createRef<Txt>();
+  const optics = createRefractionDiagram(C);
 
   view.add(
     <>
@@ -121,24 +98,7 @@ export default makeScene2D(function* (view) {
       {nia.view}
       <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
 
-      <Rect ref={diagramWater} size={[1920, 635]} position={[0, 222.5]} fill={C.water} opacity={0} />
-      <Line ref={interfaceLine} points={[[-960, diagramGeometry.interface.y - 540], [960, diagramGeometry.interface.y - 540]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
-      <Line ref={normal} points={[toStage(diagramGeometry.normal.from), toStage(diagramGeometry.normal.to)]} stroke={C.ivory} lineWidth={4} opacity={0} />
-      <Line ref={incident} points={[toStage(diagramGeometry.incident_point), toStage(diagramGeometry.interface)]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
-      <Line ref={refracted} points={[toStage(diagramGeometry.interface), toStage(diagramGeometry.observer_point)]} stroke={C.ray} lineWidth={12} lineCap="round" opacity={0} />
-      <Line ref={backward} points={[toStage(diagramGeometry.interface), toStage(diagramGeometry.apparent_point)]} stroke={C.ivory} lineWidth={6} opacity={0} />
-      <Circle ref={truePoint} size={38} position={toStage(diagramGeometry.incident_point)} fill={C.coral} opacity={0} />
-      <Circle ref={apparentPoint} size={38} position={toStage(diagramGeometry.apparent_point)} fill={C.mint} opacity={0} />
-      <Circle ref={eyePoint} size={42} position={toStage(diagramGeometry.observer_point)} fill={C.ivory} opacity={0} />
-      <Txt ref={airLabel} text="KHÔNG KHÍ" position={[-650, -320]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={waterLabel} text="NƯỚC" position={[-650, 320]} fontSize={46} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={normalLabel} text="Pháp tuyến" position={[-340, -300]} fontSize={34} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={angleWater} text="40°" position={[-275, 210]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
-      <Txt ref={angleAir} text="58,9°" position={[55, -275]} fontSize={46} fill={C.ray} fontFamily="Arial" opacity={0} />
-      <Txt ref={formula} text="n₁ sin θ₁ = n₂ sin θ₂" position={[300, -430]} fontSize={38} fill={C.ivory} fontFamily="Arial" opacity={0} />
-      <Txt ref={trueLabel} text="Vị trí thật" position={[-600, 390]} fontSize={34} fill={C.coral} fontFamily="Arial" opacity={0} />
-      <Txt ref={apparentLabel} text="Vị trí biểu kiến" position={[-600, 160]} fontSize={34} fill={C.mint} fontFamily="Arial" opacity={0} />
-      <Txt ref={diagramCaption} text="Ánh sáng đổi hướng khi đi từ nước sang không khí" position={[0, -500]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
+      {optics.view}
     </>
   );
 
@@ -246,11 +206,11 @@ export default makeScene2D(function* (view) {
     nia.forearm().opacity(0, 0.8),
     nia.elbow().opacity(0, 0.8),
     kitchenCaption().opacity(0, 0.8),
-    diagramWater().opacity(0.22, 0.8),
-    interfaceLine().opacity(1, 0.8),
-    airLabel().opacity(1, 0.8),
-    waterLabel().opacity(1, 0.8),
-    diagramCaption().opacity(1, 0.8),
+    optics.diagramWater().opacity(0.22, 0.8),
+    optics.interfaceLine().opacity(1, 0.8),
+    optics.airLabel().opacity(1, 0.8),
+    optics.waterLabel().opacity(1, 0.8),
+    optics.diagramCaption().opacity(1, 0.8),
     view.scale([1, 1], 0.8)
   );
   yield* waitFor(9.2 + 1 / 24);
@@ -258,58 +218,58 @@ export default makeScene2D(function* (view) {
 
   // S04 — 16 seconds: construct the physical path in causal order.
   yield* all(
-    normal().opacity(1, 0.6),
-    normalLabel().opacity(1, 0.6)
+    optics.normal().opacity(1, 0.6),
+    optics.normalLabel().opacity(1, 0.6)
   );
   yield* all(
-    incident().opacity(1, 0.8),
-    truePoint().opacity(1, 0.5)
+    optics.incident().opacity(1, 0.8),
+    optics.truePoint().opacity(1, 0.5)
   );
   yield* waitFor(0.8);
   yield* all(
-    refracted().opacity(1, 0.8),
-    eyePoint().opacity(1, 0.6)
+    optics.refracted().opacity(1, 0.8),
+    optics.eyePoint().opacity(1, 0.6)
   );
   yield* all(
-    angleWater().opacity(1, 0.6),
-    angleAir().opacity(1, 0.6)
+    optics.angleWater().opacity(1, 0.6),
+    optics.angleAir().opacity(1, 0.6)
   );
-  yield* formula().opacity(1, 0.8);
+  yield* optics.formula().opacity(1, 0.8);
   // Motion Canvas evaluates the final timestamp inclusively; compensate one sample
   // so the scene checkpoint lands on storyboard frame 1055, not 1056.
   yield* waitFor(11.6 - 1 / 24);
   checkpoint("S04-complete");
 
   // S05 — 17 seconds: derive the apparent point from a backward extension.
-  yield* backward().opacity(1, 0.8);
+  yield* optics.backward().opacity(1, 0.8);
   yield* all(
-    apparentPoint().opacity(1, 0.5),
-    trueLabel().opacity(1, 0.6),
-    apparentLabel().opacity(1, 0.6)
+    optics.apparentPoint().opacity(1, 0.5),
+    optics.trueLabel().opacity(1, 0.6),
+    optics.apparentLabel().opacity(1, 0.6)
   );
   yield* waitFor(15.6);
   checkpoint("S05-complete");
 
   // S06 — 11 seconds: return to the intact spoon and resolve the misconception.
   yield* all(
-    diagramWater().opacity(0, 0.8),
-    interfaceLine().opacity(0, 0.8),
-    normal().opacity(0, 0.8),
-    incident().opacity(0, 0.8),
-    refracted().opacity(0, 0.8),
-    backward().opacity(0, 0.8),
-    truePoint().opacity(0, 0.8),
-    apparentPoint().opacity(0, 0.8),
-    eyePoint().opacity(0, 0.8),
-    airLabel().opacity(0, 0.8),
-    waterLabel().opacity(0, 0.8),
-    normalLabel().opacity(0, 0.8),
-    angleWater().opacity(0, 0.8),
-    angleAir().opacity(0, 0.8),
-    formula().opacity(0, 0.8),
-    trueLabel().opacity(0, 0.8),
-    apparentLabel().opacity(0, 0.8),
-    diagramCaption().opacity(0, 0.8),
+    optics.diagramWater().opacity(0, 0.8),
+    optics.interfaceLine().opacity(0, 0.8),
+    optics.normal().opacity(0, 0.8),
+    optics.incident().opacity(0, 0.8),
+    optics.refracted().opacity(0, 0.8),
+    optics.backward().opacity(0, 0.8),
+    optics.truePoint().opacity(0, 0.8),
+    optics.apparentPoint().opacity(0, 0.8),
+    optics.eyePoint().opacity(0, 0.8),
+    optics.airLabel().opacity(0, 0.8),
+    optics.waterLabel().opacity(0, 0.8),
+    optics.normalLabel().opacity(0, 0.8),
+    optics.angleWater().opacity(0, 0.8),
+    optics.angleAir().opacity(0, 0.8),
+    optics.formula().opacity(0, 0.8),
+    optics.trueLabel().opacity(0, 0.8),
+    optics.apparentLabel().opacity(0, 0.8),
+    optics.diagramCaption().opacity(0, 0.8),
     kitchenWall().opacity(1, 0.8),
     table().opacity(1, 0.8),
     glass().opacity(0.28, 0.8),
