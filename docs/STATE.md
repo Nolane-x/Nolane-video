@@ -1,3 +1,37 @@
+## -10. Latest verified state — 2026-11-27 (candidate #140; Nia arm articulation slice verified)
+
+This snapshot supersedes the candidate #137 handoff below. M1 remains in progress; candidate #140 is a technical render and selected-frame visual check, not final creative approval.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Working branch:** `m1/optics-benchmark`; code/test commit: [`a8cbe22`](https://github.com/Nolane-x/Nolane-video/commit/a8cbe2242ade6c00a09d11517f02a9f3c2d8b2b6). **Main** remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate workflow:** [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282) completed **success** for Remotion, Motion Canvas and Manim.
+- **Contract validation:** [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489) completed **success** with 26 Python contract tests and the benchmark validator. Motion Canvas IK/grip runtime tests, Remotion parity test/typecheck, all three render gates, ffprobe checks and uploads also passed.
+
+### Candidate #140 outputs (downloaded and checked)
+
+- **Remotion 4.0.547:** H.264, 1920×1080, yuv420p, nominal/average 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`. Actions artifact id `15204821586`, archive digest `sha256:2fe1d309307b9c0fd5e3b2e8f6c90b38890845950ed8cdfe594dee7a6b28ba5f`.
+- **Motion Canvas 3.17.2:** official editor rendered 1,728/1,728 frames with zero browser errors; H.264, 1920×1080, yuv420p, nominal/average 24/1 fps, 72.000 s. MP4 SHA-256 `b4637a336e3206a36975e769b2067802afeaa114d1aad90e63d928685e89260a`. Actions artifact id `15204537011`, archive digest `sha256:3b23ed29cb53a4e94c1e9466d7ad4ed12dea7309acee49fa9c4621d4e260e098`.
+- **Manim CE specialist segment:** H.264, 1920×1080, yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average rate `857088/35711` (~24.00067 fps), within the CI <0.01 fps tolerance. MP4 SHA-256 remains `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Actions artifact id `15204886417`, archive digest `sha256:857d15c11361985c33af811570292232e0aad62fb8c92551b7ba76d40d0f4ddc`.
+- Both full-film MP4s are video-only; narration, SFX and music have not been supplied.
+
+### Nia arm visual slice
+
+- `motion-canvas/src/actors/nia.tsx` now draws separate dark contour strokes behind the upper arm and forearm, plus shoulder, elbow and wrist joint circles.
+- The outline paths follow the exact same shoulder/elbow/wrist coordinates as the existing `solveTwoBoneIK` update on every tween callback. Bone lengths remain 200 px / 615 px; the authored wrist anchors and prop-attached grip are unchanged.
+- `scenes/spoon.tsx` animates visibility of the extra contours/joints consistently when Nia enters S01, disappears for the S03 cutaway and returns in S06.
+- The contract test now asserts the outline/joint controls exist, follow the IK points and are wired into scene visibility. Contract #36 passes all 26 tests.
+- The #140 Motion Canvas contact sheet, 4-fps S02 strip and native 1920×1080 frames at 8.8, 9.5, 10.5 and 11.5 seconds were inspected. The arm silhouette and three joints are more legible through lift/inspect/re-dip. It remains a stylized vector rig, **not** anatomical hand/arm approval.
+
+### Still incomplete / next task
+
+- Watch both full 72-second films continuously at 24 fps and log shot/frame/timecode, severity, symptom and reproduction.
+- Improve hand anatomy (finger joints/depth/occlusion, palm compression, thumb base, wrist roll), forearm/shoulder shape, torso counterbalance, weight transfer, gaze and follow-through.
+- Review causal diagram pacing/camera, mobile/reduced-size typography, approved Vietnamese narration, synchronized captions and audio; both full-film previews are currently silent.
+- Measure authoring/preview/render/revision costs on equivalent runners; complete H2 source/license provenance before reuse from `Nolane-x/video`.
+- **Do not mark M1 complete or start a broad Film IR/M2 build yet.** Motion Canvas remains the provisional first 2D adapter; Manim remains specialist and Remotion remains the full-film baseline/reference.
+
+---
+
 ## -9. Latest verified state — 2026-11-27 (candidate #137; Remotion parity repair verified)
 
 This snapshot supersedes the candidate #134 source-level parity finding below. M1 remains in progress; this is a technical and sampled-QA update, not creative approval.

@@ -1,8 +1,19 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [46011488421 (#137)](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421). All three engine jobs passed. Both Remotion and Motion Canvas MP4s were downloaded and checked with ffprobe; contact sheets and S02 samples at 4 fps were inspected, along with selected native 1920×1080 frames.  
-**Review scope:** candidate #137 contact sheets and S02 4-fps samples for both full-film engines, selected native 1080p frames at S02 and diagram stages, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133 and #134. This is sampled prototype QA, **not** a continuous 24-fps review or final creative approval; narration and audio review remain open.
+**Latest reviewed candidate run:** [46013464282 (#140)](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282). All three engine jobs passed. The Motion Canvas MP4 was downloaded and ffprobed; its contact sheet, 4-fps S02 strip and selected native 1920×1080 frames at 8.8/9.5/10.5/11.5 s were inspected. The Remotion MP4 was also downloaded and ffprobed.  
+**Review scope:** candidate #140 contact sheets and S02 4-fps strip, selected native 1080p Motion Canvas arm frames, Remotion ffprobe, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134 and #137. This is sampled prototype QA, **not** a continuous 24-fps review or final creative approval; narration and audio review remain open.
+
+## Candidate #140 — Nia arm contour and joint slice
+
+- Candidate workflow [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282) ran on source commit `a8cbe2242ade6c00a09d11517f02a9f3c2d8b2b6`; Remotion, Motion Canvas and Manim all passed. Contract workflow [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489) passed 26 tests and benchmark validation.
+- Motion Canvas adds two outline strokes around the existing upper arm and forearm, plus shoulder, elbow and wrist joint circles. They are bound to the same IK shoulder/elbow/wrist coordinates on every tween callback; bone lengths (200/615 px), anchors and prop/grip geometry are unchanged.
+- The scene fades the additional controls in S01, out for the S03 cutaway and back in at S06. The contract now asserts the controls, IK point bindings and visibility wiring.
+- Candidate #140 Motion Canvas MP4: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `b4637a336e3206a36975e769b2067802afeaa114d1aad90e63d928685e89260a`.
+- The contact sheet, 4-fps S02 strip and native 1920×1080 frames at 8.8, 9.5, 10.5 and 11.5 seconds were inspected. The shoulder/elbow/wrist contour and joint markers make the extended arm easier to parse through lift/inspection/re-dip. The style is still a simple graphic/vector rig; it does not yet provide organic anatomy, skin volume or nuanced acting.
+- Remotion candidate #140 remained green and ffprobed at H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames; its parity helper/test was unchanged. Manim's specialist segment also passed.
+
+**Assessment:** this is a measurable silhouette/readability improvement with stable IK and technical render proof. It does **not** close hand/arm anatomy or M1 creative acceptance; full-speed 24-fps review, motion weight, body counterbalance, mobile type and audio remain open.
 
 ## Candidate #137 — Remotion storyboard parity repair and full candidate rerender
 

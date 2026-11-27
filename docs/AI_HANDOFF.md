@@ -1,3 +1,37 @@
+## Latest continuation snapshot — 2026-11-27 (candidate #140; Nia arm articulation update)
+
+This is the current starting point for the next session. The Motion Canvas arm silhouette/joint pass is implemented, tested and rendered on the active branch. M1 creative acceptance remains open.
+
+### GitHub state
+- Correct repo: `Nolane-x/Nolane-video` (NEE), **not** `Nolane-x/video`.
+- Branch: `m1/optics-benchmark`.
+- Latest source/test commit: [`a8cbe22`](https://github.com/Nolane-x/Nolane-video/commit/a8cbe2242ade6c00a09d11517f02a9f3c2d8b2b6).
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge/change main.
+- Candidate [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282): Remotion, Motion Canvas and Manim all passed.
+- Contract [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489): 26 tests and benchmark validator passed.
+
+### New Nia arm implementation
+- `nia.tsx` adds outlined upper-arm and forearm strokes plus visible shoulder, elbow and wrist joint circles.
+- All five visual parts are updated from the exact shoulder/elbow/wrist values already produced by the two-bone solver every tween frame.
+- Bone lengths remain fixed at 200 px / 615 px; no grip anchors, spoon geometry or choreography timings were changed.
+- S01/S03/S06 visibility transitions now include all new controls.
+- `tests/test_benchmark.py` expands the jointed actor contract to require the outline/joint controls, their per-frame IK bindings and scene visibility wiring.
+- Candidate #140 passed existing IK and grip runtime tests, Motion Canvas build, 1,728-frame render and ffprobe; contract #36 passed 26 tests.
+
+### Verified candidate outputs
+- Remotion: H.264 1920×1080 yuv420p, 24/1 fps, 72 s, 1,728 frames; MP4 SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`.
+- Motion Canvas: H.264 1920×1080 yuv420p, 24/1 fps, 72 s, 1,728 frames, zero browser errors; MP4 SHA-256 `b4637a336e3206a36975e769b2067802afeaa114d1aad90e63d928685e89260a`.
+- Manim specialist: H.264 1920×1080, nominal 24 fps, 279 frames, 11.624674 s; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Both full-film MP4s are silent. No VO/SFX/music or transcript-aligned captions are approved or tested.
+
+### QA scope and remaining work
+- The Motion Canvas contact sheet, 4-fps S02 strip and native frames at 8.8/9.5/10.5/11.5 s were inspected. Shoulder/elbow/wrist contours now make the extended arm easier to read through lift/inspection/re-dip.
+- This is sampled frame QA, **not** an uninterrupted 24-fps review or proof of organic anatomy. The actor remains stylized vector blocking.
+- Next: watch both full 72-second films at 24 fps; log defects with shot/frame/timecode/severity; improve actual hand anatomy, shoulder/torso counterbalance and follow-through; review diagram pacing and mobile type; then resolve narration/audio/caption and iteration-cost gates.
+- Do not begin broad Film IR/M2 work or declare M1 complete before acceptance. Keep #140 artifacts as the known-good arm visual baseline and preserve the Remotion parity tests.
+
+---
+
 ## Latest continuation snapshot — 2026-11-27 (candidate #137; Remotion parity repair complete)
 
 This is the authoritative starting point for the next session. The source-level Remotion storyboard gap identified after #134 has now been repaired and technically rendered; M1 creative acceptance remains open.
