@@ -1,5 +1,6 @@
 import { Circle, Line, Rect } from "@motion-canvas/2d";
 import { createRef } from "@motion-canvas/core";
+import { NIA_GRIP_LOCAL_POSITION } from "./rig-anchors";
 
 /**
  * Nia's prop-attached grip. Mount this view inside the spoon node so the palm
@@ -18,7 +19,7 @@ export const createNiaGrip = () => {
       <Rect
         ref={palm}
         size={[62, 40]}
-        position={[-36, -80]}
+        position={NIA_GRIP_LOCAL_POSITION}
         rotation={-12}
         radius={16}
         fill="#D9B89B"
