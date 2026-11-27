@@ -1,3 +1,52 @@
+## Latest continuation snapshot — 2026-11-27 07:12 UTC
+
+This is the authoritative handoff for the next session. It supersedes older pre-grip, pre-kitchen and non-rotating wrist instructions below.
+
+### GitHub state
+
+- Repository: `Nolane-x/Nolane-video` (NEE); not the separate `Nolane-x/video` production workspace.
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- Active branch: `m1/optics-benchmark`; latest current branch/test HEAD: `1b433b8c9eae6767e6a2d425a93347ba5b5ace73`.
+- Latest candidate run [#116](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455) rendered source commit `7daf94a6a0b06b86f2626bb448da6c8027d895b9`; all three engine jobs passed. Latest contract CI [#24](https://github.com/Nolane-x/Nolane-video/actions/runs/45956346788) passed 21 tests.
+
+### Verified render outputs
+
+- Remotion: H.264, 1920×1080, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `b03965a3367b7785e9b4b1d59cd530981304092af7c9c1ea5ad059893a8c07d6`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- Motion Canvas: 1,728 export events, unique sequential PNGs, zero browser errors; H.264, 1920×1080, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `d67eb551a582cd52713f08ae9734d5461140dbac1334a8df11ca3ca012f7e5a9`; MP4 SHA-256 `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`.
+- Manim: H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Average rate `857088/35711` is ~24.00067 and is accepted within <0.01 fps tolerance. Artifact digest `bf396a8825f5c3ccf21af854084e13bad32d24f2707725e175b60c92c275247f`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+
+### Engine modules now extracted
+
+- `src/actors/nia.tsx`: reusable Nia torso/neck/head/eyes/mouth/upper arm/forearm/elbow.
+- `src/actors/nia-grip.tsx`: palm, thumb, outlined index and middle fingers; the grip is a child of the prop transform.
+- `src/actors/rig-anchors.ts`: immutable canonical stage/local anchors plus a rotation-aware point transform.
+- `src/props/spoon.tsx`: one prop owns top/bent-bottom/straight spoon geometry, bowl and grip.
+- `src/sets/kitchen.tsx`: reusable kitchen wall/table/glass/water/waterline/caption.
+- `src/diagrams/refraction.tsx`: reusable diagram using canonical `shared/diagram.json`; virtual backward construction uses a dashed stroke.
+- `src/scenes/spoon.tsx`: scene timeline and performance orchestration; it calls the actor, prop, set and diagram modules instead of declaring all their geometry itself.
+
+### Rotation-aware contact
+
+`getSpoonGripStagePoint(spoonOrigin, rotationDegrees)` rotates the local grip anchor using the same 2D matrix as prop rotation. S02 uses rest, lift at −5° and inspection turn at +6°. The wrist/forearm endpoint is tweened to the matching shared stage point, then returns to rest before re-dip. The regression test computes expected rest/lift/turn contact from source constants and verifies scene/component wiring.
+
+Run #116 selected native 1920×1080 frames at 9.8 s, 10.8 s and 11.8 s were opened. The hand remains at the spoon handle during the lifted pose, the +6° inspection turn and the re-dip. This confirms the selected poses only; a full 24 fps motion watch is still required.
+
+### Exact next work
+
+1. Watch the entire Remotion and Motion Canvas films at 24 fps. Record shot ID, frame/time range, severity, reproduction, visual impact and proposed repair in `benchmarks/optics-spoon/reports/VISUAL-QA.md`. Do not use contact sheets or isolated frames as a substitute for continuous review.
+2. Upgrade Nia from stylized blockout toward production performance: articulated thumb/index/middle/ring/pinky, wrist transition, palm compression, grip/release, elbow/shoulder continuity, weight shift, gaze, anticipation, follow-through and secondary motion.
+3. Review S02 at full speed. Confirm grip stability on every frame of the lift, turn and re-dip; inspect for interpenetration, floating or clipping.
+4. Re-choreograph the educational diagram as a causal reveal: water/air interface → normal → incident ray → refracted ray → angle labels/law → dashed backward extension → apparent point. Use purposeful holds and motivated camera moves only.
+5. Review type/labels at reduced/mobile size and safe areas.
+6. Keep audio marked incomplete until approved Vietnamese VO and SFX/music are supplied. Then align captions to actual spoken timing and conduct perceptual audio QA.
+7. Measure authoring, preview, render and revision iteration on equivalent runners; do not rank performance from single runs.
+8. Complete H2 provenance/license review before copying any external code.
+9. Only after M1 creative acceptance, begin a typed renderer-independent Film IR slice. Motion Canvas is an execution adapter, not the Film IR.
+
+### Honest status
+
+M1 technical export is green for Remotion and Motion Canvas full films and the Manim scientific segment. Reusable scene components and a rotation-aware prop/hand contact slice now exist. **M1 is not complete**: full-speed review, production-quality acting/contact, diagram pacing, mobile readability and real audio/creative approval remain open. Keep authored source, tests, render, technical validation, selected-frame review and final creative approval as separate states.
+
 
 
 ---
