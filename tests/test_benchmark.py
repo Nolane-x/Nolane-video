@@ -175,7 +175,7 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("networkFailures", script_source)
         self.assertIn("browser-runtime-debug.json", script_source)
         self.assertIn('if (pageErrors.length)', script_source)
-        self.assertIn('throw new Error("Browser runtime errors:', script_source)
+        self.assertIn('"Browser runtime errors after the frame render completed:', script_source)
 
     def test_s02_authors_anticipation_lift_inspection_and_redip(self):
         scene_path = (
