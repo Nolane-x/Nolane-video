@@ -2,19 +2,19 @@
 
 **Snapshot:** 2026-11-27  
 **Branch:** `m1/optics-benchmark`  
-**Decision status:** OPEN — candidate evidence is now technically complete; creative/audio review and architecture decision remain open.
+**Decision status:** provisional first 2D runtime selected by [ADR-0001](../../docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md); creative/audio acceptance remains open.
 
 ## Executive status
 
-Run [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530) completed successfully with all three candidate jobs passing. Remotion and Motion Canvas each produced the full silent 72-second film; Manim produced the specialist refraction segment. The shared validator and the frame-range regression tests also pass.
+Candidate run [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231) completed successfully with all three jobs green. Remotion and Motion Canvas each produced the full silent 72-second film; Manim produced the specialist refraction segment. Motion Canvas's exact 1,728-frame range, MP4 metadata, process cleanup and angle-label adjustment all passed.
 
 | Candidate | Technical result | Visual result | Remaining limitation |
 |---|---|---|---|
-| Remotion 4.0.547 | PASS — H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames | Six-shot sequence and science diagram reviewed; water-label caption safe area fixed | Character/prop acting is still a geometric blockout; no real audio |
-| Motion Canvas 3.17.2 | PASS — H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames; full official editor export and ffprobe pass | Six-shot contact sheet/native frames reviewed; angle-label spacing correction pending in run 45944266231 | Character is a static geometric blockout; no believable hand/grip or prop-contact performance; no real audio |
-| Manim CE fork | PASS — S04–S05 specialist segment, H.264, 1920×1080, 24 fps, 11.624674 s / 279 frames | Shared palette/font revision reviewed at native resolution; scientific construction is legible | Only a diagram segment; no character-led full-film role or audio sync |
+| Remotion 4.0.547 | PASS — H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames | Six-shot sequence and science diagram reviewed; water-label caption safe area fixed | Character/prop acting is a vector blockout; silent; proprietary two-tier license needs product review |
+| Motion Canvas 3.17.2 | PASS — official editor export, 1,728 sequential frames, FFmpeg, ffprobe and candidate upload | Contact sheet/native frames reviewed; angle labels corrected away from ray paths | Character/arm is a blockout with no articulated grip; diagram still has long static holds; silent |
+| Manim CE fork | PASS — S04–S05 specialist segment, H.264, 1920×1080, 24 fps, 11.624674 s / 279 frames | Shared palette/font and scientific construction reviewed | Specialist diagram only; opening timing needs VO context |
 
-No numeric ranking is approved and no master renderer is selected yet. A completed render proves export reliability, not final animation quality.
+No numeric quality ranking is claimed. A technical render pass is not final creative approval.
 
 ## Shared benchmark contract
 
@@ -23,58 +23,59 @@ No numeric ranking is approved and no master renderer is selected yet. A complet
 - Six shots: hook, physical contradiction, optical reveal, refraction, apparent image, resolution.
 - Canonical storyboard: `benchmarks/optics-spoon/shared/storyboard.json`.
 - Canonical scientific geometry: `benchmarks/optics-spoon/shared/diagram.json`.
-- Script, research ledger and art direction live in `benchmarks/optics-spoon/shared/`.
-- The frame-range contract is half-open `[0, 1728)`. Motion Canvas maps time endpoints with `ceil(seconds × fps)`; its last included timestamp is therefore 71.95833333333333 s.
+- The frame-range contract is half-open `[0, 1728)`. Motion Canvas maps its inclusive time endpoint with `ceil(seconds × fps)`; the last included timestamp is 71.95833333333333 s.
 
 ## Candidate evidence
 
-### Remotion 4.0.547 — full-film candidate
+### Remotion 4.0.547 — full-film baseline
 
-- Successful job in [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530).
-- Artifact: `m1-remotion-candidate`, digest `sha256:18712527a3c4cb5ec10790c31dd3db296aa418774783588a8a8a98c263ab6903`.
+- Successful job in [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231).
+- Artifact: `m1-remotion-candidate`, digest `sha256:4ebbeecc977c377910eed47949d4eb5271f22f6cb90aeecbeff94f9000e6cc7e`.
 - Output: H.264, 1920×1080 progressive, 24/1 fps, 72.000 s, 1,728 frames.
-- The “NƯỚC” label safe-area fix from `e5e0259ca2c517858511dcaf11a70edb40f640ea` is present and was reviewed in the full-resolution output.
-- This is a deterministic vector prototype. It does not yet show production-level character acting, articulated fingers/grip, convincing prop weight/contact or a real audio mix.
-- Recheck Remotion's two-tier product license before considering commercial redistribution/embedding.
+- The “NƯỚC” caption-safe-area fix from commit `e5e0259ca2c517858511dcaf11a70edb40f640ea` is present and visually verified.
+- The prototype still lacks production-level character acting, articulated fingers/grip, convincing prop weight/contact and a real audio mix.
+- Upstream/fork license source inspected at `Nolane-x/remotion` commit `6951a4f4f72fa0e397ea91586aef1386bf2585bb`: `LICENSE.md` is a two-tier source-available license (blob SHA `b0ad889f2b3eaee020de507ca6e98f1f1b664c9d`). Eligible individuals and small companies can create videos/images, including commercial output; the Free License prohibits selling, renting, licensing, relicensing or sublicensing a Remotion derivative. Verify the intended legal entity and NEE distribution model before embedding/redistributing Remotion-derived software.
 
-### Motion Canvas 3.17.2 — full-film candidate
+### Motion Canvas 3.17.2 — first 2D runtime (provisional)
 
-- Successful job in [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530).
-- Artifact: `m1-motion-canvas-candidate`, digest `sha256:19c770d1cff47e1a11d7b6ffefacbb457004724542a5f052f5a01343b82c982d`.
-- MP4 SHA-256: `2cda419f879a99a06b17453bc33232ecc43d4c3bedd648d2be77b5ad2ae18acd`.
-- Output: H.264 High profile, 1920×1080, yuv420p, 24/1 fps, 1,728 frames, 72.000 s. The accompanying render report records 1,728/1,728 frames and zero browser errors.
+- Successful job in [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231).
+- Artifact: `m1-motion-canvas-candidate`, digest `sha256:daa9b3a5501a001d1f34af7b19bd6000cbaf3d8d831db30d79beefbe809a9a2d`.
+- MP4 SHA-256: `8b6d7c9f388c5660b2594105ba0dcfa0e9a2ed1248262daea140048dbd40220d`.
+- Contact-sheet SHA-256: `d88fc57c6d7452a5e720cecc7afca84ee167ddb2c74f3157bdd7d84df4070a03`.
+- Output: H.264, 1920×1080, yuv420p, 24/1 fps, 1,728 frames, 72.000 s. Render report records zero browser errors.
 - Renderer log: `RendererResult.Success`, `lastFrame: 1727`, `exportEvents=1728`, `uniqueFrames=1728`, `PNG files=1728/1728`.
-- The script hang is fixed in commit `ad8fc14a848b02a61d7b76fb916ab4bfb0942e14`: the renderer launches Vite directly in a detached process group and waits for the process group to terminate, rather than killing only an `npm` wrapper and leaving Vite/esbuild orphaned.
-- Visual correction to move 40°/58.9° labels away from ray lines is in commit `3a091f4fe5eec706014aadfb42f17679752ea733`; render confirmation is in [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231), currently in progress at the time of this report.
-- Motion Canvas public packages inspected are MIT-licensed. Its optional FFmpeg exporter is GPLv3 and is not used; independent FFmpeg assembles the MP4 from PNGs.
+- Process lifecycle fix: commit `ad8fc14a848b02a61d7b76fb916ab4bfb0942e14` starts Vite directly in a detached process group and awaits group termination, so Actions no longer hangs after MP4 creation.
+- Angle-label layout correction: commit `3a091f4fe5eec706014aadfb42f17679752ea733` moved 40°/58.9° and “Pháp tuyến” away from ray lines; run 45944266231 confirms the new output.
+- Exact upstream v3.17.2 `LICENSE` is MIT (blob SHA `b30f04e173f68773714b7d9e2652caecbeec53f9`). Optional Motion Canvas FFmpeg exporter is GPLv3 and remains excluded; the benchmark uses the core image-sequence exporter plus independent FFmpeg.
+- The current renderer is not itself a character rig. NEE still needs its own actor, hand/grip/contact and acting systems.
 
-### Manim Community Edition fork — specialist scientific segment
+### Manim Community Edition fork — specialist scientific adapter
 
-- Successful job in [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530).
+- Successful job in [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231).
 - Pinned fork commit: `18320e2f0feaf142b2c3a377068ddb44c82fb2a1`.
-- Artifact: `m1-manim-refraction-segment`, digest `sha256:d33772298acaabfe6eeb1506758d625e888b267674bdf5155a3789af60859c63`.
+- Artifact: `m1-manim-refraction-segment`, digest `sha256:b70d75224e904f4d04719f6f7388bb973cbd239016b8a2f265f024f09a097c36`.
 - MP4 SHA-256: `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
 - Output: H.264, 1920×1080, 24/1 fps, 279 frames, 11.624674 s.
-- The revised source uses the shared Deep Ink/Water Slate/Ray Gold palette, DejaVu Sans and a persistent water region. The final native-resolution frame, contact sheet, formula and ray construction have been reviewed.
-- Manim remains a specialist diagram adapter, not a full-film candidate.
+- The revised source uses the shared Deep Ink/Water Slate/Ray Gold palette, DejaVu Sans and persistent water region; the final native-resolution frame and contact sheet were reviewed.
+- Both `LICENSE.community` and base `LICENSE` at the pinned fork commit are MIT. Manim remains a specialist math/diagram adapter, not a full-film candidate.
 
-## Shared validation and regression coverage
+## Shared validation and architecture decision
 
 - Validator run [45849610249](https://github.com/Nolane-x/Nolane-video/actions/runs/45849610249) passed.
-- Unit/regression run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) passed all 11 tests, including a regression that rejects a 72.0-second Motion Canvas inclusive endpoint because it would add frame 1,728.
-- Candidate run [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530) passed Remotion, Motion Canvas and Manim jobs.
+- Unit/regression run [45849637293](https://github.com/Nolane-x/Nolane-video/actions/runs/45849637293) passed all 11 tests, including rejection of a 72.0-second inclusive Motion Canvas endpoint.
+- Candidate run [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231) passed Remotion, Motion Canvas and Manim.
+- [ADR-0001](../../docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md) provisionally selects Motion Canvas as the first 2D scene-execution adapter, preserves Film IR independence, assigns Manim a specialist role and keeps Remotion as a reference/possible adapter pending licensing review.
 
 ## What remains incomplete
 
-- Inspect run 45944266231 to approve/revise Motion Canvas angle-label safe-area correction.
-- Watch complete moving output for both full-film candidates; the current report covers contact sheets and selected stills, not full continuous-motion creative approval.
-- Upgrade character performance, hand anatomy, grip/contact coupling, anticipation, follow-through and motivated camera work.
-- Add an approved real Vietnamese VO, transcript-aligned captions, SFX and music before audio QA. Current previews are silent.
-- Complete H2 source provenance/license audit before any reuse.
-- Complete the candidate scorecard and architecture decision with explicit quality gates and caveats. Do not infer final superiority from technical render success alone.
+- Full-speed 24 fps playback review for both full-film outputs.
+- More convincing Nia acting, a real hand/grip, prop contact coupling, anticipation, reaction and follow-through.
+- More deliberate diagram choreography: interface → normal → physical rays → measured angles → backward extension → apparent point, with purposeful holds rather than long static layouts.
+- Motivated camera moves and stronger shot-to-shot continuity.
+- Approved Vietnamese narration, transcript-aligned captions, SFX and music; current outputs are silent.
+- Reduced/mobile-size type check and repeated performance/authoring-cost measurements.
+- H2 source provenance/license audit before any reuse.
 
-## Immediate next action
+## Next task
 
-1. Inspect [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231); review the updated Motion Canvas contact sheet and 1080p frame for angle-label spacing.
-2. Update `VISUAL-QA.md` and `M1_SCORECARD.md` from that artifact.
-3. Perform continuous-motion review and write a provisional renderer/adapter ADR. Keep audio and final acting quality explicitly open.
+Build the first NEE-owned character/diagram vertical slice on Motion Canvas behind the renderer-independent Film IR boundary. Start with one convincing Nia–spoon interaction (gaze, anticipation, grip, lift, contact/release and settle), then choreograph the Snell diagram causally. Keep the full benchmark passing as a regression fixture and do not claim audio approval until a real approved track is synchronized.
