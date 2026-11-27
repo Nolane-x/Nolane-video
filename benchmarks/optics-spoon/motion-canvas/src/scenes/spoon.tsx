@@ -243,7 +243,9 @@ export default makeScene2D(function* (view) {
     angleAir().opacity(1, 0.6)
   );
   yield* formula().opacity(1, 0.8);
-  yield* waitFor(11.6);
+  // Motion Canvas evaluates the final timestamp inclusively; compensate one sample
+  // so the scene checkpoint lands on storyboard frame 1055, not 1056.
+  yield* waitFor(11.6 - 1 / 24);
   checkpoint("S04-complete");
 
   // S05 — 17 seconds: derive the apparent point from a backward extension.
