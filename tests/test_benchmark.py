@@ -74,26 +74,49 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("Math.round(playback.frame)", scene_source)
 
     def test_motion_canvas_cutaway_preserves_water_below_air(self):
-        scene_path = (
+        diagram_path = (
             Path(__file__).resolve().parents[1]
             / "benchmarks"
             / "optics-spoon"
             / "motion-canvas"
             / "src"
-            / "scenes"
-            / "spoon.tsx"
+            / "diagrams"
+            / "refraction.tsx"
         )
+        diagram_source = diagram_path.read_text(encoding="utf-8")
+
+        # The canonical top-left pixels are converted to a centered Motion
+        # Canvas stage with +Y downward; water must remain below the interface.
+        self.assertIn("point.y - 540", diagram_source)
+        self.assertNotIn("540 - point.y", diagram_source)
+        self.assertIn("geometry.interface.y - 540", diagram_source)
+        self.assertNotIn("540 - geometry.interface.y", diagram_source)
+        self.assertIn("position={[0, 222.5]}", diagram_source)
+        self.assertIn('text="NƯỚC"', diagram_source)
+        self.assertIn('text="KHÔNG KHÍ"', diagram_source)
+
+    def test_refraction_diagram_is_reusable_and_marks_virtual_ray_as_dashed(self):
+        diagram_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "diagrams"
+            / "refraction.tsx"
+        )
+        diagram_source = diagram_path.read_text(encoding="utf-8")
+        scene_path = diagram_path.parents[1] / "scenes" / "spoon.tsx"
         scene_source = scene_path.read_text(encoding="utf-8")
 
-        # The canonical diagram uses top-left pixel coordinates. Motion Canvas
-        # uses a centered stage with +Y downward, so this mapping must not flip Y.
-        self.assertIn("point.y - 540", scene_source)
-        self.assertNotIn("540 - point.y", scene_source)
-        self.assertIn("diagramGeometry.interface.y - 540", scene_source)
-        self.assertNotIn("540 - diagramGeometry.interface.y", scene_source)
-        self.assertIn("position={[0, 222.5]}", scene_source)
-        self.assertIn('text="NƯỚC" position={[-650, 320]}', scene_source)
-        self.assertIn('text="KHÔNG KHÍ" position={[-650, -320]}', scene_source)
+        self.assertIn("export const createRefractionDiagram", diagram_source)
+        self.assertIn("lineDash={[18, 14]}", diagram_source)
+        self.assertIn("palette.ivory", diagram_source)
+        self.assertIn("toStage(geometry.apparent_point)", diagram_source)
+        self.assertIn("const optics = createRefractionDiagram(C)", scene_source)
+        self.assertIn("{optics.view}", scene_source)
+        self.assertIn("optics.backward().opacity(1, 0.8)", scene_source)
+        self.assertNotIn("<Line ref={backward}", scene_source)
 
     def test_nia_actor_is_a_reusable_jointed_rig(self):
         actor_path = (
