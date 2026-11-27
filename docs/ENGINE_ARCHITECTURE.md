@@ -177,38 +177,37 @@ Every recurring asset has a stable ID. A continuity check compares scene usage a
 
 ## 5. Rendering architecture
 
-### Proposed initial strategy: domain core + replaceable backends
+### M1 decision — Motion Canvas as the first 2D scene adapter
 
-Do not begin by rewriting a renderer from zero. Establish the Film IR and specialist scene/acting model first. Use existing renderers for a measured vertical slice, then decide what should become native.
+The first comparable benchmark has now passed its technical export gates. [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md) provisionally selects Motion Canvas 3.17.2 as the first 2D/2.5D scene-execution adapter for NEE's next vertical slice.
 
-Candidate responsibilities:
+This does **not** make Motion Canvas the Film IR, nor does it declare that it produces better art than Remotion. The decision is bounded to the first implementation path and must be revisited after an acted, voice-synchronized vertical slice.
 
-| System | Potential role | Boundary |
+| System | Current NEE role | Boundary |
 |---|---|---|
-| Remotion | frame-accurate final composition, audio/video media, browser rendering, CLI and render pipeline | General timeline/render infrastructure; not the semantic teaching or acting model |
-| Manim CE | precise math, geometry, graphs and object transformations | Mathematical scene subsystem; not the whole narrative film system |
-| Motion Canvas | generator-driven 2D choreography, signals, live preview and voice-over-synchronized animation | Strong candidate for the 2D runtime; must be benchmarked before adoption |
-| Rive runtime | reusable character/prop rigs and state-machine driven motion | Optional asset/runtime adapter; validate linear-film control and authoring constraints |
-| Blender | rare 3D shots or depth simulations | Not a core general-purpose 3D product |
-| FFmpeg/ffprobe | final assembly, transcode, audio mastering and media validation | Delivery infrastructure, not the scene authoring engine |
+| Motion Canvas 3.17.2 | First 2D/2.5D scene-execution adapter: generator choreography, signals and deterministic frame rendering | Adapter behind Film IR; not the product data model. NEE still owns actors, contact constraints, educational primitives, continuity and QA |
+| Remotion 4.0.547 | Full-film benchmark baseline and possible future adapter | Do not vendor/redistribute or make it a product dependency until the two-tier license and intended deployment model are reviewed |
+| Manim CE | Optional specialist math, geometry, graph and scientific-diagram adapter | Specialist scenes only; it does not own the story or master film timeline |
+| Rive runtime | Optional future reusable character/prop rig adapter | Evaluate only if NEE's own actor system has a measured gap; validate linear-film control and licensing |
+| Blender | Rare 3D shots or depth simulations | Not a core general-purpose 3D product |
+| FFmpeg/ffprobe | Final assembly, transcode, audio mastering and media validation | Delivery infrastructure, not the scene authoring engine |
 
 ### Critical rule
 
-Only one backend should own the master project timeline. Other engines may provide scene outputs or specialized assets, but they must not each become competing sources of truth.
+The Film IR owns the master story and timeline. Motion Canvas executes the first adapter path; it must not become the only representation of shots, actors, timing or diagrams. Manim and any future backend consume explicitly mapped scene/diagram data. No adapter may silently discard unsupported IR features.
 
-The benchmark should compare:
-- authoring complexity;
-- frame determinism;
-- text and vector quality;
-- acting/rigging flexibility;
-- camera and depth;
-- voice-over synchronization;
-- incremental rendering;
-- output quality;
-- setup and maintenance cost;
-- licensing and distribution constraints.
+Do not vendor whole frameworks. Pin versions, audit licenses, and keep framework-specific imports inside adapter boundaries.
 
-After the first benchmark, record a formal architecture decision. Do not commit to a backend by familiarity alone.
+### Evidence required to revisit
+
+- equivalent acted scene authored and revised in Motion Canvas and (where license terms allow) Remotion;
+- deterministic frame output and repeated render/preview measurements;
+- expressive acting, hand/prop contact, anticipation, follow-through and motivated camera;
+- narration/word-aligned captions/SFX/music synchronization;
+- full-speed perceptual review, revision cost and dependency/operational friction;
+- a refreshed license/distribution review.
+
+A technically successful renderer is not a creative approval.
 
 ## 6. AI production roles
 
@@ -282,11 +281,13 @@ This is a target layout, not a requirement to create empty directories immediate
 
 ## 9. Architecture decisions still open
 
-The next implementation design review must decide, based on a runnable benchmark:
-- whether Motion Canvas or Remotion should own 2D scene execution;
-- whether Manim should render math sequences as a separate adapter or provide semantic objects consumed by the main runtime;
-- whether the H2 rig from the prior Nolane-x/video repository is a clean reusable starting point;
-- whether a custom 2D renderer is justified by a measured gap;
-- whether Rive is useful for authored character motion or adds avoidable tooling constraints.
+The first 2D adapter is provisionally selected in [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md). Remaining decisions require implementation evidence:
 
-Do not resolve these by guesswork or by counting features in README files.
+- the exact Film IR schema/version and adapter capability contract;
+- whether Manim scenes should be compiled from semantic Film IR diagram nodes or remain separately authored specialist scenes;
+- whether Rive adds enough rigging value to justify another adapter and licensing surface;
+- whether the H2 rig in the prior Nolane-x/video repository has clean provenance/reuse rights;
+- whether a custom NEE-owned renderer or stage runtime is justified by a measured gap after the actor/diagram vertical slice;
+- the audio/sample-time model and word-level caption representation.
+
+Do not resolve these by guesswork or by counting features in README files. The next step is to build one small NEE-owned actor/prop/diagram vertical slice on the decided adapter, not to create every target package in advance.
