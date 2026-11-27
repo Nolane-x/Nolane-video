@@ -4,8 +4,15 @@ import ts from "typescript";
 
 const here = new URL("../src/actors/", import.meta.url);
 
-const loadTypeScriptModule = async fileName => {
-  const source = await readFile(new URL(fileName, here), "utf8");
+const loadTypeScriptModule = async (fileName, sourceOverrides = []) => {
+  let source = await readFile(new URL(fileName, here), "utf8");
+  for (const [before, after] of sourceOverrides) {
+    if (!source.includes(before)) {
+      throw new Error(`Unable to resolve ${before} in ${fileName}.`);
+    }
+    source = source.replace(before, after);
+  }
+
   const result = ts.transpileModule(source, {
     fileName,
     reportDiagnostics: true,
@@ -23,16 +30,20 @@ const loadTypeScriptModule = async fileName => {
       ts.formatDiagnostics(errors, {
         getCanonicalFileName: file => file,
         getCurrentDirectory: () => process.cwd(),
-        getNewLine: () => "\n"
+        getNewLine: () => "\\n"
       })
     );
   }
   const encoded = Buffer.from(result.outputText, "utf8").toString("base64");
-  return import(`data:text/javascript;base64,${encoded}`);
+  const url = `data:text/javascript;base64,${encoded}`;
+  return {module: await import(url), url};
 };
 
-const anchors = await loadTypeScriptModule("rig-anchors.ts");
-const { NIA_GRIP_POSES } = await loadTypeScriptModule("grip-geometry.ts");
+const {module: anchors, url: anchorsUrl} = await loadTypeScriptModule("rig-anchors.ts");
+const {module: gripGeometry} = await loadTypeScriptModule("grip-geometry.ts", [
+  ['from "./rig-anchors";', `from "${anchorsUrl}";`]
+]);
+const {NIA_GRIP_POSES} = gripGeometry;
 
 const ax = anchors.SPOON_HANDLE_LOCAL_END[0] - anchors.SPOON_HANDLE_LOCAL_START[0];
 const ay = anchors.SPOON_HANDLE_LOCAL_END[1] - anchors.SPOON_HANDLE_LOCAL_START[1];
