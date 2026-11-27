@@ -1,8 +1,8 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166). All three candidate jobs passed; Motion Canvas and Remotion artifacts were checked, including a native 1920×1080 Motion Canvas S05 frame at 51 s.  
-**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89 and #94. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [45956296455 (#116)](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.8 s, 10.8 s and 11.8 s were opened for grip/wrist/prop continuity, in addition to earlier refraction-diagram review.  
+**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115 and #116. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
 
 ## Remotion 4.0.547 — full-film candidate
 
@@ -117,3 +117,15 @@ Output: H.264, 1920×1080, yuv420p, 24/1 fps, 279 frames, 11.624674 s.
 - Contract workflow [#13](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed 17 tests, including checks for component reuse and `lineDash={[18, 14]}`.
 
 **Still not approved:** this confirms the selected scientific diagram frame and technical render only. Full-speed 24 fps pacing/comprehension review, small-screen readability, the remaining actor contact work and all real audio review remain open.
+
+
+## Run #116 — rotation-aware Nia/spoon contact
+
+- Candidate workflow [#116](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455) passed all three engine jobs.
+- Motion Canvas output: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, exactly 1,728 frames; MP4 SHA-256 `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`.
+- The S02 grip/wrist chain uses one shared local anchor. Wrist endpoint is recomputed from prop origin and rotation at rest (0°), lift (−5°) and inspection turn (+6°). This avoids leaving the forearm endpoint at the old stage position while the spoon rotates.
+- Frames at 9.8 s, 10.8 s and 11.8 s were inspected at native 1920×1080. At 9.8 s the wrist meets the grip during lift; at 10.8 s the handle rotates and the wrist remains attached; at 11.8 s the spoon re-dips and the hand remains attached. No visible hand/prop separation appears in these selected frames.
+- This is still a stylized blockout: fingers are simplified, not anatomical; palm compression, subtle grip pressure, full wrist articulation and nuanced weight transfer remain to be authored.
+- Contract workflow [#24](https://github.com/Nolane-x/Nolane-video/actions/runs/45956346788) passed 21 tests, including numerical rest/lift/turn contact checks and component wiring.
+
+**Still not approved:** full-speed 24 fps review of both films, continuous S02 grip inspection frame-by-frame, reduced/mobile typography, causal diagram pacing, final character animation and all audio/narration approval remain open.
