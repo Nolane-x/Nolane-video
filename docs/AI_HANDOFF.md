@@ -210,3 +210,50 @@ The immediately preceding all-green candidate run was [45945392423 / run #70](ht
 
 This repo is a specialist code-first pipeline for story-driven, narration-led 2D/2.5D educational films (math, physics, chemistry, engineering and technology), not a universal editor or prompt-to-video wrapper. The current benchmark is a silent technical prototype. Nia's acting, hand/grip and spoon contact, causal diagram pacing, motivated camera moves, mobile typography, approved Vietnamese narration, transcript-aligned captions, SFX/music and perceptual audio review remain open. H2 source/license provenance must be audited before reuse. Do not begin broad Film IR/runtime implementation until M1 evidence and creative acceptance are ready.
 
+
+
+---
+
+## Latest continuation snapshot — 2026-11-27 06:29 UTC
+
+This is the authoritative continuation note for the latest session. It supersedes the older timing-failure and “no actor rig” next-task directions above.
+
+### Repository and branch
+
+- Work only in `Nolane-x/Nolane-video`; this is not `Nolane-x/video`.
+- Default branch `main` remains at `19b53bd0bf785a8d58a91031678be717a8ae11d4`. No merge to main was made.
+- Active branch: `m1/optics-benchmark`. Current code/test commits include `776d219fa02bd5392b7ade94ad348fbe3d74a7dd` (actor/scene polish) and `304db032c2ba4cefa269e795e2cbda7e06ac8d03` (16-test regression guard). State was then refreshed at `ac3f21acae0919c72854f314767fde7013461dfd`.
+
+### Verified CI and media
+
+- [Candidate run #89](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411): all three jobs passed.
+  - Remotion full film: H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `1970da35a380c0fd08a8a04e74bc03d050d21bb389ecb0bdd483ab49f232bbda`.
+  - Motion Canvas full film: 1,728 sequential PNGs (000000–001727), 1,728 export events, 1,728 unique frames, zero browser errors; H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `0016d083c11a3dc1615c8ae9e8dbc4a58af5a02bbcb5354e66f2b80583965616`.
+  - Manim specialist segment: H.264, 1920×1080, 24 fps nominal, 279 frames, 11.624674 s. Average fps is `857088/35711` (~24.00067); CI accepts <0.01 fps mean-rate deviation while requiring `r_frame_rate=24/1` and exactly 279 frames.
+- [Contract workflow #12](https://github.com/Nolane-x/Nolane-video/actions/runs/45951654984): all 16 tests and benchmark validator passed.
+- [Run #87](https://github.com/Nolane-x/Nolane-video/actions/runs/45951356993) also passed all three candidates after exact frame-count gates were added.
+- The stricter Remotion/Motion Canvas gates require codec H.264, 1920×1080, 24/1 average and nominal rate, exactly 1,728 frames and 72.000 s. Manim requires H.264, 1920×1080, 24/1 nominal rate, 279 frames, and <0.01 fps average deviation.
+
+### Changes now in the repository
+
+- Fixed Motion Canvas S04's one-frame drift by retaining the exact half-open storyboard and compensating one sample in the final hold. All six scene checkpoints are exercised by tests.
+- Corrected the top-left-pixel to centered-stage mapping so water sits below the interface and air above it. The interface line uses the same mapping as rays/points.
+- Added reusable actor module `benchmarks/optics-spoon/motion-canvas/src/actors/nia.tsx`. It exposes torso, neck, head rig, eyes, mouth, upper arm, forearm and elbow.
+- S02 now sequences anticipation, lift, inspect/turn, re-dip and lean. The hand remains attached to the spoon node, preserving basic grip coupling. The apparent lower spoon segment now has a 14 px offset under a 22 px stroke so it remains visually connected.
+- Tests additionally guard all six runtime checkpoints, coordinate orientation, interface alignment, Nia rig structure, S02 action beats and the continuous apparent-spoon kink.
+- Run #89 selected 1080p frames at 9.7, 11.8, 12.2 and 63.0 seconds were inspected. They show a straight lifted spoon, continuous apparent kink on re-dip, Nia's neck/mouth and final straight-spoon resolution. Run #83 frames verified diagram geometry orientation.
+
+### Exact next work
+
+1. Watch the full Remotion and Motion Canvas films at 24 fps. Record shot ID, frame range, issue severity, reproduction notes and proposed correction in `benchmarks/optics-spoon/reports/VISUAL-QA.md`. Do not infer motion quality from contact sheets alone.
+2. Improve Nia beyond the first rig blockout: articulated fingers, believable grip/hand-to-spoon contact, shoulder/elbow/wrist continuity, weight transfer, reaction, follow-through and pose holds. Preserve deterministic timing and six shot checkpoints.
+3. Re-choreograph S03–S05 causally: interface → normal → incident ray → refracted ray → angle labels/law → backward extension → apparent point. Reduce static diagram holds; use motivated camera changes only when they aid comprehension.
+4. Review captions/labels at reduced mobile size and maintain safe areas.
+5. Keep audio marked incomplete until the user supplies or approves real Vietnamese narration and SFX/music. Then align captions to actual speech/sample timing and perform perceptual audio QA.
+6. Measure repeated render and edit/preview iteration on equivalent runners. Do not rank performance from one run or compare unlike segments.
+7. Complete H2 source provenance and license review before copying any code from `Nolane-x/video`.
+8. Only after M1 creative and acceptance gates are complete, start the first typed, renderer-independent Film IR vertical slice. Motion Canvas is the provisional execution adapter, not the IR or product model.
+
+### Current honest status
+
+M1 technical export is now green for all three candidates and the first reusable Nia actor slice is implemented. M1 is **not complete**: full-speed review, production-quality acting/contact, final diagram pacing, mobile typography and audio/creative approval remain open. Outputs are silent prototypes. Keep these states separate: authored source, tests, export, technical validation, selected-frame review and final creative approval.
