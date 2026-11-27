@@ -66,7 +66,7 @@ export default makeScene2D(function* (view) {
   const glass = createRef<Rect>();
   const water = createRef<Rect>();
   const waterline = createRef<Line>();
-  const spoon = createSpoonProp({ink: C.ink, ivory: C.ivory, metal: "#E7E3D9"});
+  const spoon = createSpoonProp({ivory: C.ivory, metal: "#E7E3D9"});
   const nia = createNiaActor();
   const kitchenCaption = createRef<Txt>();
 
