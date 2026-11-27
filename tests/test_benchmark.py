@@ -225,6 +225,90 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn('brace: {', geometry_source)
         self.assertIn("NIA_GRIP_LOCAL_POSITION", geometry_source)
 
+    def test_nia_grip_geometry_is_derived_from_the_shared_spoon_handle_axis(self):
+        root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas"
+        anchors = (root / "src" / "actors" / "rig-anchors.ts").read_text(encoding="utf-8")
+        geometry = (root / "src" / "actors" / "grip-geometry.ts").read_text(encoding="utf-8")
+        grip = (root / "src" / "actors" / "nia-grip.tsx").read_text(encoding="utf-8")
+        prop = (root / "src" / "props" / "spoon.tsx").read_text(encoding="utf-8")
+        runtime_test = (root / "scripts" / "test-grip-geometry.mjs").read_text(encoding="utf-8")
+        package_source = (root / "package.json").read_text(encoding="utf-8")
+        workflow_source = (
+            Path(__file__).resolve().parents[1]
+            / ".github"
+            / "workflows"
+            / "m1-benchmark-candidates.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("SPOON_HANDLE_LOCAL_START: StagePoint = [-145, -380]", anchors)
+        self.assertIn("SPOON_HANDLE_LOCAL_END: StagePoint = [0, 0]", anchors)
+        self.assertIn("SPOON_HANDLE_LOCAL_START", prop)
+        self.assertIn("SPOON_HANDLE_LOCAL_END", prop)
+        self.assertIn("const axis: GripPoint", geometry)
+        self.assertIn("const normal: GripPoint", geometry)
+        self.assertIn("const gripAlong", geometry)
+        self.assertNotIn("gripAcross", geometry)
+        self.assertIn("normal[0] * across", geometry)
+        self.assertIn("normal[1] * across", geometry)
+        for digit in ("index", "middle", "ring", "pinky"):
+            with self.subTest(digit=digit):
+                self.assertIn(f"{digit}: wrapFinger(", geometry)
+        self.assertIn("thumbPath: wrapThumb(", geometry)
+        self.assertIn("NIA_GRIP_POSES", geometry)
+        self.assertIn("thumbOutline().points(copyPath(pose.thumbPath)", grip)
+
+        # Runtime assertions protect centreline crossings, separated finger
+        # stations and the opposing thumb on both named poses.
+        self.assertIn("startPoint.across > 20", runtime_test)
+        self.assertIn("Math.abs(middlePoint.across) <= 3", runtime_test)
+        self.assertIn("endPoint.across < -20", runtime_test)
+        self.assertIn("thumbStart.across < -20", runtime_test)
+        self.assertIn("thumbEnd.across > 20", runtime_test)
+        self.assertIn('"test:grip": "node scripts/test-grip-geometry.mjs"', package_source)
+        self.assertIn("npm run test:grip", workflow_source)
+
+    def test_nia_grip_geometry_is_derived_from_the_shared_spoon_handle_axis(self):
+        root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas"
+        anchors = (root / "src" / "actors" / "rig-anchors.ts").read_text(encoding="utf-8")
+        geometry = (root / "src" / "actors" / "grip-geometry.ts").read_text(encoding="utf-8")
+        grip = (root / "src" / "actors" / "nia-grip.tsx").read_text(encoding="utf-8")
+        prop = (root / "src" / "props" / "spoon.tsx").read_text(encoding="utf-8")
+        runtime_test = (root / "scripts" / "test-grip-geometry.mjs").read_text(encoding="utf-8")
+        package_source = (root / "package.json").read_text(encoding="utf-8")
+        workflow_source = (
+            Path(__file__).resolve().parents[1]
+            / ".github"
+            / "workflows"
+            / "m1-benchmark-candidates.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("SPOON_HANDLE_LOCAL_START: StagePoint = [-145, -380]", anchors)
+        self.assertIn("SPOON_HANDLE_LOCAL_END: StagePoint = [0, 0]", anchors)
+        self.assertIn("SPOON_HANDLE_LOCAL_START", prop)
+        self.assertIn("SPOON_HANDLE_LOCAL_END", prop)
+        self.assertIn("const axis: GripPoint", geometry)
+        self.assertIn("const normal: GripPoint", geometry)
+        self.assertIn("const gripAlong", geometry)
+        self.assertNotIn("gripAcross", geometry)
+        self.assertIn("normal[0] * across", geometry)
+        self.assertIn("normal[1] * across", geometry)
+        for digit in ("index", "middle", "ring", "pinky"):
+            with self.subTest(digit=digit):
+                self.assertIn(f"{digit}: wrapFinger(", geometry)
+        self.assertIn("thumbPath: wrapThumb(", geometry)
+        self.assertIn("NIA_GRIP_POSES", geometry)
+        self.assertIn("thumbOutline().points(copyPath(pose.thumbPath)", grip)
+
+        # Runtime assertions protect centreline crossings, separated finger
+        # stations and the opposing thumb on both named poses.
+        self.assertIn("startPoint.across > 20", runtime_test)
+        self.assertIn("Math.abs(middlePoint.across) <= 3", runtime_test)
+        self.assertIn("endPoint.across < -20", runtime_test)
+        self.assertIn("thumbStart.across < -20", runtime_test)
+        self.assertIn("thumbEnd.across > 20", runtime_test)
+        self.assertIn('"test:grip": "node scripts/test-grip-geometry.mjs"', package_source)
+        self.assertIn("npm run test:grip", workflow_source)
+
     def test_nia_arm_uses_reachable_two_bone_ik_and_candidate_gate_runs_its_tests(self):
         root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas"
         actor_source = (root / "src" / "actors" / "nia.tsx").read_text(encoding="utf-8")

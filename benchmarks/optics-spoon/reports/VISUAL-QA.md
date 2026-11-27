@@ -1,8 +1,18 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [46003070151 (#126)](https://github.com/Nolane-x/Nolane-video/actions/runs/46003070151). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 8.8 s, 9.8 s, 10.8 s and 11.8 s were opened for per-frame IK tracking, prop contact and layer continuity, in addition to earlier refraction-diagram review.  
-**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121, #122, #125 and #126. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [46006606072 (#133)](https://github.com/Nolane-x/Nolane-video/actions/runs/46006606072). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.5 s, 10.5 s and 11.5 s were opened for handle-axis-derived finger wrap, opposing thumb, per-frame IK and prop continuity, in addition to earlier refraction-diagram review.  
+**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126 and #133. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+
+## Follow-up review — candidate #133: spoon-axis grip geometry
+
+- Candidate workflow: [46006606072](https://github.com/Nolane-x/Nolane-video/actions/runs/46006606072); Remotion, Motion Canvas and Manim all passed. Motion Canvas IK runtime test, grip geometry runtime test, TypeScript build, official 1,728-frame render and ffprobe all passed.
+- Motion Canvas output: H.264, 1920×1080, yuv420p, 24/1 fps, exactly 1,728 frames, 72.000 s; render report records zero browser errors.
+- Native 1920×1080 frames at 9.5 s, 10.5 s and 11.5 s were opened. The four fingers now read as distinct bands crossing the shaft at separate positions; the thumb pad sits opposite the finger wrap. The pose remains visible through the selected lift/inspection/re-dip states.
+- New shared anchors `SPOON_HANDLE_LOCAL_START` and `SPOON_HANDLE_LOCAL_END` are used by both `SpoonProp` and `grip-geometry.ts`. This prevents the prop shaft and hand rig from drifting due to duplicated axis constants.
+- `grip-geometry.ts` projects the palm anchor onto the shaft centreline, derives an along-axis/perpendicular basis and creates four separated cross-section finger paths for rest/brace. The thumb path crosses in the opposing direction.
+- `test-grip-geometry.mjs` executes the actual TypeScript geometry and asserts correct start/middle/end sides, centreline crossing, finger spacing, opposing thumb direction and thumb endpoint alignment.
+- **Remaining visual defects:** current digits are pill-like vector strokes, not anatomical fingers with joints or occlusion/depth. The palm still needs compression/shape, thumb base articulation and wrist roll. Selected stills are not a full-speed 24 fps watch or final approval.
 
 ## Follow-up review — candidate #126: per-frame two-bone arm IK
 

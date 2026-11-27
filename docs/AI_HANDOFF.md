@@ -1,3 +1,54 @@
+## Latest continuation snapshot — 2026-11-27 (candidate #133 verified)
+
+This is the authoritative continuation point. It supersedes older endpoint-only grip and pre-handle-axis finger path notes below.
+
+### GitHub state
+
+- Repository: `Nolane-x/Nolane-video` (NEE), not `Nolane-x/video`.
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- Active branch: `m1/optics-benchmark`; latest code/test head before this state/test/doc refresh: `16a1c8982bf74b7401c160c5b340d1ce6e29c224`.
+- Candidate [#133](https://github.com/Nolane-x/Nolane-video/actions/runs/46006606072): Remotion, Motion Canvas and Manim all succeeded.
+- Repository contract validator [#33](https://github.com/Nolane-x/Nolane-video/actions/runs/46005131989): 24 tests plus benchmark validation passed. The current refresh adds another static contract for handle-axis source ownership; expect a new validator run.
+- Candidate #133 executes both actor runtime suites before building/rendering; both IK and grip geometry tests passed.
+
+### Latest grip geometry
+
+- The spoon prop and finger rig now share the same local-space shaft endpoints from `rig-anchors.ts`; do not hardcode the shaft direction separately in any hand module.
+- `grip-geometry.ts` constructs a coordinate frame from the physical handle axis. The palm anchor is projected onto that axis; finger paths use along-axis offsets and a perpendicular normal.
+- The index, middle, ring and pinky are four separate cross-section paths spaced by at least 14 px along the shaft. Each begins on one side, crosses near the handle centreline and exits on the opposite side.
+- The thumb path crosses in the opposing direction. The endpoint circle is tied exactly to the last thumb-path point in both rest and brace poses.
+- `nia-grip.tsx` renders outlined/fill paths for each finger and thumb, with `toPose("rest" | "brace")` interpolating them under the spoon parent transform.
+- `scripts/test-grip-geometry.mjs` loads the TypeScript geometry with its shared anchor module, checks both named poses and rejects broken centreline crossing, overlapping finger stations or non-opposing thumb geometry.
+- The prior hand render looked like a single cluster. Candidate #133 frames at 9.5 s, 10.5 s and 11.5 s now show four clearer finger bands across the handle with a thumb pad on the opposite side. This is still a stylized vector hand, not a realistic anatomical hand.
+
+### Latest candidate outputs
+
+- **Remotion:** H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames. Artifact digest `fd1f4d7e210956e86d3829d2c80aee3948b9eb86f9cd6cb95d179a1994ba23aa`; MP4 hash `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- **Motion Canvas:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. Artifact digest `a6c481f21017504181ecd55e445764540a60d3c96bdbac762785c51ac7b04c1c`; MP4 SHA-256 `9cfb358469bbf0d84a2ee656e9f1163db72b1df32fb2efc6fefd727d8a511c87`.
+- **Manim:** H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `0e2a721cf4624339391966080376c08e49f2904fabfe556e241ada3b0d66d236`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+
+### Arm IK still in place
+
+The two-bone solver uses fixed 200 px / 615 px segment lengths, validates reachability and solves the elbow at every Motion Canvas tween callback. It is independently tested at canonical poses and across 101 interpolation samples in each S02 transition.
+
+### Exact next work
+
+1. Watch both complete candidate films continuously at 24 fps and record shot/frame, severity, visual symptom and reproduction in `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+2. Improve hand anatomy after that review: distinct thumb base/opposition, finger joints wrapping in depth, palm compression, wrist roll and believable release. The handle-axis cross-section is a clearer blockout, not final anatomy.
+3. Improve shoulder/torso counterbalance, weight shift, head/gaze reaction and settle/follow-through.
+4. Rework the S04/S05 diagram into a causal reveal with purposeful holds and motivated camera staging.
+5. Test essential text and safe areas at reduced/mobile size.
+6. Keep audio incomplete until approved Vietnamese VO and SFX/music exist; then align captions to speech timing and conduct perceptual audio QA.
+7. Measure authoring/preview/render/revision loops on equivalent runners.
+8. Finish H2 provenance/license review before reusing material from `Nolane-x/video`.
+9. Only after M1 creative acceptance, begin a typed renderer-independent Film IR slice.
+
+### Honest status
+
+Candidate #133 demonstrates the new grip geometry compiles, passes runtime assertions and renders in the full film. **M1 remains open** for complete-motion creative review, realistic anatomy/acting, diagram pacing, mobile typography, approved audio/captions and provenance/performance evidence. Keep runtime geometry, contract CI, technical render, selected-frame review and final creative approval as separate gates.
+
+---
+
 ## Latest continuation snapshot — 2026-11-27 (candidate #126 verified)
 
 This is the authoritative continuation point. It supersedes older endpoint-only arm tween notes below.

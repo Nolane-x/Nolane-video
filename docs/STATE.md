@@ -1,3 +1,27 @@
+## -6. Latest verified state — 2026-11-27 (candidate #133 verified)
+
+This snapshot supersedes older grip, actor and render status below.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Main:** `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no changes have been merged to main.
+- **Working branch:** `m1/optics-benchmark`; latest code/test head before this state/test/doc refresh: `16a1c8982bf74b7401c160c5b340d1ce6e29c224`.
+- **Latest candidate:** [run #133](https://github.com/Nolane-x/Nolane-video/actions/runs/46006606072), source commit `16a1c8982bf74b7401c160c5b340d1ce6e29c224`; Remotion, Motion Canvas and Manim all **success**.
+  - Remotion: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `sha256:fd1f4d7e210956e86d3829d2c80aee3948b9eb86f9cd6cb95d179a1994ba23aa`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+  - Motion Canvas: official editor rendered exactly 1,728/1,728 frames, zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. Artifact digest `sha256:a6c481f21017504181ecd55e445764540a60d3c96bdbac762785c51ac7b04c1c`; MP4 SHA-256 `9cfb358469bbf0d84a2ee656e9f1163db72b1df32fb2efc6fefd727d8a511c87`; contact-sheet SHA-256 `1523957d30eb91fdfa38d22a1aeca3b3738a0d95e4197d81c0493162ee8fd48c`.
+  - Manim specialist segment: H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `sha256:0e2a721cf4624339391966080376c08e49f2904fabfe556e241ada3b0d66d236`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- **Latest repository contract CI:** [#33](https://github.com/Nolane-x/Nolane-video/actions/runs/46005131989) passed 24 tests and benchmark validation. This contract suite is being extended in the present documentation/test refresh to assert that grip geometry stays tied to the canonical spoon handle axis.
+- **Latest candidate runtime gates:** IK runtime test, grip geometry runtime test, TypeScript build, 1,728-frame Motion Canvas render and MP4 probe all passed in #133.
+- **Grip geometry architecture:**
+  - `src/actors/rig-anchors.ts` defines canonical `SPOON_HANDLE_LOCAL_START` and `SPOON_HANDLE_LOCAL_END`; `src/props/spoon.tsx` uses these same constants for the physical shaft, eliminating duplicated handle endpoints.
+  - `src/actors/grip-geometry.ts` projects the palm anchor onto the handle centreline, derives its along-axis/normal basis and generates four finger paths spaced along the shaft. Each path crosses the centreline; the thumb travels in the opposite direction to form a visible pinch.
+  - `src/actors/nia-grip.tsx` renders the four wrapped finger strokes plus thumb path/end point and interpolates named `rest` / `brace` poses.
+  - `scripts/test-grip-geometry.mjs` executes the TypeScript geometry and checks each finger crosses the centreline on the correct sides, finger stations stay separated, and the thumb approaches from the opposite side in both named poses.
+- **Arm rig:** `src/actors/arm-ik.ts` solves a deterministic two-bone chain. Nia uses fixed segment lengths of 200 px / 615 px and re-solves the elbow in every tween callback; reachability and invalid-input guards remain enabled.
+- **Selected-frame QA:** native 1920×1080 frames at 9.5 s, 10.5 s and 11.5 s from run #133 were inspected. Four finger bands are more clearly separated across the shaft and the thumb sits opposite the finger wrap. The grip remains visible during the selected lift/inspection/re-dip frames. This is selected-frame QA, not a complete 24 fps review or anatomical approval.
+- **Architecture:** Motion Canvas 3.17.2 remains provisionally selected as the first 2D/2.5D scene adapter; Film IR remains renderer-independent; Manim remains specialist; Remotion remains full-film baseline pending license/distribution review.
+- **Still incomplete:** full-speed review of both films; hand anatomy, believable thumb/finger wrapping, palm compression and wrist articulation; shoulder/torso weight transfer and acting; reaction/follow-through; causal diagram pacing and camera staging; mobile typography; approved Vietnamese VO, speech-aligned captions, SFX/music and audio QA; repeated authoring/preview/render measurements; H2 provenance/license audit.
+- **Next task:** perform continuous 24 fps creative review, then improve hand anatomy and full-body acting from recorded defects. M1 is **not complete**; do not begin a broad Film IR/runtime package or claim creative approval while these acceptance gates remain open.
+
 ## -5. Latest verified state — 2026-11-27 (candidate #126 verified)
 
 This snapshot supersedes older candidate-run, arm-rig and handoff status below.
