@@ -1,8 +1,8 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [45944799022](https://github.com/Nolane-x/Nolane-video/actions/runs/45944799022). All three candidate jobs passed again; contact sheets were downloaded and inspected for this latest artifact set.  
-**Review scope:** contact sheets and selected 1920×1080 still frames. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411). All three candidate jobs passed; the Motion Canvas and Remotion contact sheets and selected 1920×1080 frames were inspected.  
+**Review scope:** contact sheets and selected 1920×1080 still frames from run #89, plus geometry frames from run #83. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
 
 ## Remotion 4.0.547 — full-film candidate
 
@@ -88,3 +88,21 @@ Output: H.264, 1920×1080, yuv420p, 24/1 fps, 279 frames, 11.624674 s.
 - The full-film candidate visuals remain prototype-level. None yet demonstrates NEE's target character performance, believable prop contact, polished camera language, final audio or word-level caption synchronization.
 - This review uses contact sheets and selected still frames; continuous-motion review is still required.
 - Motion Canvas is provisionally selected as the first 2D scene adapter by [ADR-0001](../../docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md). This is an implementation choice, not creative approval or proof of final quality. See `docs/M1_SCORECARD.md` and `docs/ANIMATION_CRAFT_STANDARDS.md`.
+
+
+## Follow-up review — corrected geometry and first reusable Nia rig
+
+### Run #83 — coordinate-system correction
+
+- Candidate workflow: [45950491747](https://github.com/Nolane-x/Nolane-video/actions/runs/45950491747), all three engine jobs passed.
+- Motion Canvas MP4: H.264, 1920×1080, 24/1 fps, 72.000 s, exactly 1,728 frames. The renderer emitted 1,728 unique sequential PNGs and no browser errors.
+- Selected native frames and contact sheet confirm that the water region is below the air-water boundary, the air region is above it, and the interface line now uses the same top-left-to-centered coordinate mapping as the rays and points. The outgoing ray bends away from the normal; the dashed backward extension and true/apparent points are in the intended regions.
+
+### Run #89 — reusable actor and S02 acting slice
+
+- Candidate workflow: [45951640411](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411), all three engine jobs passed.
+- Motion Canvas artifact: `m1-motion-canvas-candidate`, digest `sha256:4da7c9e84a449dabbb09ac235e14e9819691ecbdb444ca2755d98258c9904a92`. Output: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `0016d083c11a3dc1615c8ae9e8dbc4a58af5a02bbcb5354e66f2b80583965616`.
+- Selected frames at 9.7 s, 11.8 s, 12.2 s and 63.0 s were inspected at native resolution. At 9.7 s, the spoon is shown straight outside the water. At 11.8 s, the apparent lower segment is visibly offset but continuous at the waterline (the offset is 14 px with a 22 px stroke, not a separated pair of pieces). At 12.2 s, Nia has leaned in and changed expression. At 63.0 s, the diagram has resolved back to the straight spoon.
+- Nia now has a reusable rig in `src/actors/nia.tsx`: torso, neck, head, eyes, mouth, upper arm, forearm and elbow. The S02 prop-hand relationship remains a simple parented coupling; the hand is still a geometric blockout, not articulated fingers or a production grip constraint.
+
+**Still not approved:** the review did not watch both entire films at 24 fps. Character performance and prop physics remain prototype-level; narration, transcript-aligned captions, SFX, music and perceptual audio QA are absent. Camera choreography, small-screen type and the full diagram pacing still need a dedicated review.
