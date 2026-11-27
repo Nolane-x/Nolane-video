@@ -104,6 +104,10 @@ export default makeScene2D(function* (view) {
     spoon.grip.indexFinger().opacity(1, 0.25),
     spoon.grip.middleOutline().opacity(1, 0.25),
     spoon.grip.middleFinger().opacity(1, 0.25),
+    spoon.grip.ringOutline().opacity(1, 0.25),
+    spoon.grip.ringFinger().opacity(1, 0.25),
+    spoon.grip.pinkyOutline().opacity(1, 0.25),
+    spoon.grip.pinkyFinger().opacity(1, 0.25),
     spoon.grip.thumb().opacity(1, 0.25),
     nia.eyeLeft().position([-48, -3], 0.25),
     nia.eyeRight().position([32, -3], 0.25),
@@ -125,13 +129,7 @@ export default makeScene2D(function* (view) {
     nia.headRig().rotation(0, 0.4)
   );
   // Anticipation: Nia steadies the wrist before lifting.
-  yield* all(
-    spoon.grip.thumb().position([-10, -68], 0.25),
-    spoon.grip.indexOutline().points([[-6, -66], [-19, -80], [-36, -95]], 0.25),
-    spoon.grip.indexFinger().points([[-6, -66], [-19, -80], [-36, -95]], 0.25),
-    spoon.grip.middleOutline().points([[-2, -54], [-16, -69], [-32, -85]], 0.25),
-    spoon.grip.middleFinger().points([[-2, -54], [-16, -69], [-32, -85]], 0.25)
-  );
+  yield* spoon.grip.toPose("brace", 0.25);
   yield* all(
     spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
     spoon.rig().rotation(-5, 0.85),
@@ -285,11 +283,7 @@ export default makeScene2D(function* (view) {
     spoon.grip.middleOutline().opacity(1, 0.8),
     spoon.grip.middleFinger().opacity(1, 0.8),
     spoon.grip.thumb().opacity(1, 0.8),
-    spoon.grip.thumb().position([-8, -66], 0.8),
-    spoon.grip.indexOutline().points([[-8, -65], [-20, -79], [-36, -94]], 0.8),
-    spoon.grip.indexFinger().points([[-8, -65], [-20, -79], [-36, -94]], 0.8),
-    spoon.grip.middleOutline().points([[-3, -53], [-17, -68], [-32, -84]], 0.8),
-    spoon.grip.middleFinger().points([[-3, -53], [-17, -68], [-32, -84]], 0.8),
+    spoon.grip.toPose("rest", 0.8),
     nia.expression().opacity(1, 0.8),
     nia.mouth().opacity(1, 0.8),
     nia.mouth().points([[-26, 68], [0, 75], [26, 68]], 0.8),

@@ -146,7 +146,13 @@ class BenchmarkContractTests(unittest.TestCase):
         scene_source = (root / "scenes" / "spoon.tsx").read_text(encoding="utf-8")
 
         self.assertIn("export const createNiaGrip", grip_source)
-        for part in ("palm", "thumb", "indexOutline", "indexFinger", "middleOutline", "middleFinger"):
+        for part in (
+            "palm", "thumb",
+            "indexOutline", "indexFinger",
+            "middleOutline", "middleFinger",
+            "ringOutline", "ringFinger",
+            "pinkyOutline", "pinkyFinger",
+        ):
             with self.subTest(part=part):
                 self.assertIn(f"const {part} =", grip_source)
         self.assertIn("export const createSpoonProp", prop_source)
@@ -155,11 +161,37 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("const grip = createNiaGrip()", prop_source)
         self.assertIn("const spoon = createSpoonProp", scene_source)
         self.assertIn("{spoon.view}", scene_source)
-        self.assertIn("spoon.grip.indexFinger().points", scene_source)
-        self.assertIn("spoon.grip.middleFinger().points", scene_source)
-        self.assertIn("spoon.grip.indexOutline().points", scene_source)
-        self.assertIn("spoon.grip.middleOutline().points", scene_source)
-        self.assertIn("spoon.grip.thumb().position", scene_source)
+        self.assertIn('spoon.grip.toPose("brace", 0.25)', scene_source)
+        self.assertIn('spoon.grip.toPose("rest", 0.8)', scene_source)
+        self.assertNotIn("spoon.grip.indexFinger().points", scene_source)
+        self.assertNotIn("spoon.grip.middleFinger().points", scene_source)
+        self.assertIn("export const NIA_GRIP_POSES", grip_source)
+        self.assertIn('export type NiaGripPoseName = "rest" | "brace"', grip_source)
+        self.assertIn("const toPose =", grip_source)
+        self.assertIn("return all(", grip_source)
+
+    def test_nia_grip_pose_library_contains_four_independently_articulated_fingers(self):
+        grip_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "actors"
+            / "nia-grip.tsx"
+        )
+        grip_source = grip_path.read_text(encoding="utf-8")
+        for digit in ("index", "middle", "ring", "pinky"):
+            with self.subTest(digit=digit):
+                self.assertIn(f"{digit}: FingerPath", grip_source)
+                self.assertIn(f"{digit}Outline", grip_source)
+                self.assertIn(f"{digit}Finger", grip_source)
+                self.assertIn(f"{digit}Outline().points(copyPath(pose.{digit})", grip_source)
+                self.assertIn(f"{digit}Finger().points(copyPath(pose.{digit})", grip_source)
+
+        self.assertIn('rest: {', grip_source)
+        self.assertIn('brace: {', grip_source)
+        self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
 
     def test_motion_canvas_runtime_failure_keeps_actionable_browser_diagnostics(self):
         script_path = (
