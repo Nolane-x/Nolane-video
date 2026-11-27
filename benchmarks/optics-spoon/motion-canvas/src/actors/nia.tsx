@@ -1,6 +1,39 @@
 import { Circle, Line, Node, Rect, Txt } from "@motion-canvas/2d";
-import { createRef } from "@motion-canvas/core";
-import { NIA_REST_GRIP_STAGE_POINT } from "./rig-anchors";
+import { all, createRef } from "@motion-canvas/core";
+import {
+  NIA_LIFT_GRIP_STAGE_POINT,
+  NIA_LIFT_TURN_GRIP_STAGE_POINT,
+  NIA_REST_GRIP_STAGE_POINT
+} from "./rig-anchors";
+
+type StagePoint = readonly [number, number];
+export type NiaArmPoseName = "rest" | "lift" | "inspect";
+type NiaArmPose = {
+  shoulder: StagePoint;
+  elbow: StagePoint;
+  wrist: StagePoint;
+};
+
+/** Canonical shoulder, elbow and wrist targets for Nia's arm rig. */
+export const NIA_ARM_POSES: Record<NiaArmPoseName, NiaArmPose> = {
+  rest: {
+    shoulder: [420, 95],
+    elbow: [245, 30],
+    wrist: NIA_REST_GRIP_STAGE_POINT
+  },
+  lift: {
+    shoulder: [420, 95],
+    elbow: [240, 10],
+    wrist: NIA_LIFT_GRIP_STAGE_POINT
+  },
+  inspect: {
+    shoulder: [420, 95],
+    elbow: [240, 10],
+    wrist: NIA_LIFT_TURN_GRIP_STAGE_POINT
+  }
+};
+
+const copyPoint = (point: StagePoint): [number, number] => [point[0], point[1]];
 
 /**
  * Nia is a reusable, NEE-owned 2D actor rig.
@@ -22,6 +55,7 @@ export const createNiaActor = () => {
   const upperArm = createRef<Line>();
   const forearm = createRef<Line>();
   const elbow = createRef<Circle>();
+  const restArm = NIA_ARM_POSES.rest;
 
   const view = (
     <>
@@ -90,7 +124,7 @@ export const createNiaActor = () => {
       </Node>
       <Line
         ref={upperArm}
-        points={[[420, 95], [245, 30]]}
+        points={[[...restArm.shoulder], [...restArm.elbow]]}
         stroke="#D9B89B"
         lineWidth={28}
         lineCap="round"
@@ -98,7 +132,7 @@ export const createNiaActor = () => {
       />
       <Line
         ref={forearm}
-        points={[[245, 30], NIA_REST_GRIP_STAGE_POINT]}
+        points={[[...restArm.elbow], [...restArm.wrist]]}
         stroke="#D9B89B"
         lineWidth={28}
         lineCap="round"
@@ -107,7 +141,7 @@ export const createNiaActor = () => {
       <Circle
         ref={elbow}
         size={34}
-        position={[245, 30]}
+        position={[...restArm.elbow]}
         fill="#D9B89B"
         stroke="#101B26"
         lineWidth={5}
@@ -115,6 +149,15 @@ export const createNiaActor = () => {
       />
     </>
   );
+
+  const toArmPose = (name: NiaArmPoseName, duration: number) => {
+    const pose = NIA_ARM_POSES[name];
+    return all(
+      upperArm().points([copyPoint(pose.shoulder), copyPoint(pose.elbow)], duration),
+      forearm().points([copyPoint(pose.elbow), copyPoint(pose.wrist)], duration),
+      elbow().position(copyPoint(pose.elbow), duration)
+    );
+  };
 
   return {
     view,
@@ -128,6 +171,7 @@ export const createNiaActor = () => {
     expression,
     upperArm,
     forearm,
-    elbow
+    elbow,
+    toArmPose
   };
 };

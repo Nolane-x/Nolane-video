@@ -11,7 +11,7 @@ import { createRefractionDiagram } from "../diagrams/refraction";
 import { createNiaActor } from "../actors/nia";
 import { createSpoonProp } from "../props/spoon";
 import { createKitchenSet } from "../sets/kitchen";
-import { NIA_LIFT_GRIP_STAGE_POINT, NIA_LIFT_TURN_GRIP_STAGE_POINT, NIA_REST_GRIP_STAGE_POINT, SPOON_LIFT_ORIGIN, SPOON_REST_ORIGIN } from "../actors/rig-anchors";
+import { SPOON_LIFT_ORIGIN, SPOON_REST_ORIGIN } from "../actors/rig-anchors";
 
 const C = {
   ink: "#101B26",
@@ -133,9 +133,7 @@ export default makeScene2D(function* (view) {
   yield* all(
     spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
     spoon.rig().rotation(-5, 0.85),
-    nia.upperArm().points([[420, 95], [240, 10]], 0.85),
-    nia.forearm().points([[240, 10], [...NIA_LIFT_GRIP_STAGE_POINT]], 0.85),
-    nia.elbow().position([240, 10], 0.85),
+    nia.toArmPose("lift", 0.85),
     nia.eyeLeft().position([-55, 0], 0.35),
     nia.eyeRight().position([25, 0], 0.35)
   );
@@ -143,7 +141,7 @@ export default makeScene2D(function* (view) {
   yield* waitFor(0.8);
   yield* all(
     spoon.rig().rotation(6, 0.25),
-    nia.forearm().points([[240, 10], [...NIA_LIFT_TURN_GRIP_STAGE_POINT]], 0.25),
+    nia.toArmPose("inspect", 0.25),
     nia.headRig().position([505, -118], 0.25),
     nia.headRig().rotation(3, 0.25)
   );
@@ -156,9 +154,7 @@ export default makeScene2D(function* (view) {
   yield* all(
     spoon.rig().position([...SPOON_REST_ORIGIN], 0.85),
     spoon.rig().rotation(0, 0.85),
-    nia.upperArm().points([[420, 95], [245, 30]], 0.85),
-    nia.forearm().points([[245, 30], [...NIA_REST_GRIP_STAGE_POINT]], 0.85),
-    nia.elbow().position([245, 30], 0.85),
+    nia.toArmPose("rest", 0.85),
     nia.eyeLeft().position([-48, -3], 0.5),
     nia.eyeRight().position([32, -3], 0.5)
   );
@@ -272,11 +268,9 @@ export default makeScene2D(function* (view) {
     nia.eyeLeft().opacity(1, 0.8),
     nia.eyeRight().opacity(1, 0.8),
     nia.upperArm().opacity(1, 0.8),
-    nia.upperArm().points([[420, 95], [245, 30]], 0.8),
+    nia.toArmPose("rest", 0.8),
     nia.forearm().opacity(1, 0.8),
-    nia.forearm().points([[245, 30], [...NIA_REST_GRIP_STAGE_POINT]], 0.8),
     nia.elbow().opacity(1, 0.8),
-    nia.elbow().position([245, 30], 0.8),
     spoon.grip.palm().opacity(1, 0.8),
     spoon.grip.indexOutline().opacity(1, 0.8),
     spoon.grip.indexFinger().opacity(1, 0.8),

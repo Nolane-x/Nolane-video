@@ -265,6 +265,14 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("Math.cos(radians)", anchor_source)
         self.assertIn("Math.sin(radians)", anchor_source)
         self.assertIn("NIA_REST_GRIP_STAGE_POINT", actor_source)
+        self.assertIn("export const NIA_ARM_POSES", actor_source)
+        self.assertIn("NIA_LIFT_GRIP_STAGE_POINT", actor_source)
+        self.assertIn("NIA_LIFT_TURN_GRIP_STAGE_POINT", actor_source)
+        self.assertIn('nia.toArmPose("lift", 0.85)', scene_source)
+        self.assertIn('nia.toArmPose("inspect", 0.25)', scene_source)
+        self.assertIn('nia.toArmPose("rest", 0.85)', scene_source)
+        self.assertNotIn("nia.upperArm().points", scene_source)
+        self.assertNotIn("nia.forearm().points", scene_source)
         self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
         self.assertIn("position={[...NIA_GRIP_LOCAL_POSITION]}", grip_source)
         self.assertIn("palm: [...NIA_GRIP_LOCAL_POSITION]", grip_source)
@@ -307,8 +315,9 @@ class BenchmarkContractTests(unittest.TestCase):
         for beat in ("Anticipation:", "Re-dip:", "leans closer"):
             with self.subTest(beat=beat):
                 self.assertIn(beat, scene_source)
-        self.assertIn("nia.upperArm().points", scene_source)
-        self.assertIn("nia.forearm().points", scene_source)
+        self.assertIn('nia.toArmPose("lift", 0.85)', scene_source)
+        self.assertIn('nia.toArmPose("inspect", 0.25)', scene_source)
+        self.assertIn('nia.toArmPose("rest", 0.85)', scene_source)
         self.assertIn("spoon.bentBottom().opacity(1, 0.2)", scene_source)
         self.assertIn(
             "10 - 1 / 24 - (0.4 + 0.25 + 0.85 + 0.8 + 0.25 + 0.2 + 0.85 + 0.6)",
