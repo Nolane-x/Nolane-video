@@ -96,6 +96,14 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Current implementation note — 2026-11-27
+
+- The first NEE-owned Motion Canvas actor slice is implemented in `benchmarks/optics-spoon/motion-canvas/src/actors/nia.tsx`. It exposes torso, neck, head, eyes, mouth, upper arm, forearm and elbow as reusable refs.
+- S02 now has a first authored action arc: anticipation, lift, inspect/turn, re-dip and lean. The spoon hand remains parented to the prop; the grip and hand are still geometric, so this does not satisfy final articulation/contact acceptance.
+- The visual kink was adjusted to remain continuous at the interface while still being offset; the selected frame review and final run #89 validate the prototype result.
+- Candidate run [45951640411](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) passed all three render/ffprobe/upload jobs. Contract CI [45951654984](https://github.com/Nolane-x/Nolane-video/actions/runs/45951654984) passed 16 tests.
+- M1 remains open until both full films receive full-speed review and the missing audio/creative gates are resolved or explicitly scoped out. No general Film IR/runtime package build is authorized by these results alone.
+
 ## Required acceptance
 
 M1 is not complete until the benchmark outputs are rendered or the limitations of each candidate are demonstrated with fresh logs, the scientific and visual reviews are recorded, and the architecture decision is explicit. A successful typecheck alone does not pass M1.
