@@ -1,5 +1,20 @@
 # M1 Candidate Status — The Spoon That Bends
 
+## Latest integrated set/prop/rotation candidate — 2026-11-27 07:12 UTC
+
+This section supersedes all older run references below where they disagree.
+
+- Candidate workflow [#116](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455), source commit `7daf94a6a0b06b86f2626bb448da6c8027d895b9`: **all three jobs passed**.
+- Remotion full-film candidate: H.264, 1920×1080, yuv420p, 24/1 nominal+average, 72.000 s, 1,728 frames. Artifact digest `sha256:b03965a3367b7785e9b4b1d59cd530981304092af7c9c1ea5ad059893a8c07d6`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- Motion Canvas 3.17.2: renderer finished; 1,728 export events, 1,728 unique sequential PNGs, zero browser errors; H.264, 1920×1080, yuv420p, 24/1 nominal+average, 72.000 s, 1,728 frames. Artifact digest `sha256:d67eb551a582cd52713f08ae9734d5461140dbac1334a8df11ca3ca012f7e5a9`; MP4 SHA-256 `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`.
+- Manim CE specialist segment: H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s; average rate `857088/35711` (~24.00067), within <0.01 fps tolerance. Artifact digest `sha256:bf396a8825f5c3ccf21af854084e13bad32d24f2707725e175b60c92c275247f`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Contract workflow [#24](https://github.com/Nolane-x/Nolane-video/actions/runs/45956346788) passed **21 tests**, including rotation-aware wrist/grip geometry, immutable anchor use and reusable kitchen/prop/diagram module boundaries.
+- Scene modules: `src/actors/nia.tsx`, `src/actors/nia-grip.tsx`, `src/actors/rig-anchors.ts`, `src/props/spoon.tsx`, `src/sets/kitchen.tsx`, `src/diagrams/refraction.tsx`, and orchestrator `src/scenes/spoon.tsx`.
+- The wrist anchor is computed from the same local grip point and prop transform: rest 0°, lift −5°, inspection turn +6°. S02 updates the forearm endpoint during the +6° turn, then returns it with the prop to rest before re-dip.
+- Native frames at 9.8 s, 10.8 s and 11.8 s from run #116 were inspected at 1920×1080. They show contact at lift, a wrist endpoint that remains on the rotated handle, and contact retained on re-dip. This is selected-pose validation, not full-speed acting approval.
+
+**Acceptance boundary:** run #116 proves a green technical export and a working rotation-aware first prop/hand slice. M1 remains open for full-speed 24 fps review, production-quality fingers/hand acting, diagram pacing, mobile typography, approved audio and revision-cost evidence.
+
 ## Latest verified component-render update — 2026-11-27 06:38 UTC
 
 This section supersedes older candidate-run references and is the latest technical snapshot.
