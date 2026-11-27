@@ -25,10 +25,18 @@ Read in this order before exploring or editing:
 7. docs/ROADMAP.md
 8. docs/STATE.md
 9. docs/AI_HANDOFF.md
+10. docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md
+11. docs/M1_SCORECARD.md
+12. docs/M1_BENCHMARK_PLAN.md
+13. benchmarks/optics-spoon/reports/VISUAL-QA.md
 
 After reading, inspect the actual current branch, HEAD commit, repository tree, latest commit, and uncommitted changes available in the workspace. A previous handoff is a starting map, not proof that the repository has not changed.
 
-## 3. Never drift from the product boundary
+## 3. Apply the current architecture decision
+
+Read `docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md` before adding renderer dependencies. Motion Canvas is the provisional first 2D/2.5D adapter; it is not the Film IR and not a complete character-animation system. Keep Manim specialist and Remotion benchmark/reference until the ADR's revisit conditions or a newer ADR changes the decision. Do not embed/vendor framework source without a separate license/provenance review.
+
+## 4. Never drift from the product boundary
 
 Before adding a capability, answer:
 
@@ -40,7 +48,7 @@ If not, do not add it. Record a proposed exception in a decision note instead of
 
 Do not turn a narrow engine into an accumulation of every useful media tool. Prefer a small number of excellent domain primitives and clean adapters.
 
-## 4. Creative and reference ethics
+## 5. Creative and reference ethics
 
 Study craft, system architecture, and publicly documented workflows. Do not copy protected characters, scripts, frames, source projects, music, sound libraries, or distinctive artwork from Median, Alan Becker, or any other creator.
 
@@ -50,7 +58,7 @@ Alan Becker's public behind-the-scenes material and production credits are refer
 
 Every external code, model, font, image, audio file, effect, or preset must pass a source and license audit before it enters the project. Record exact origin, version or commit, license, attribution, modifications, and redistribution constraints.
 
-## 5. Framework integration policy
+## 6. Framework integration policy
 
 - Treat Nolane-x/remotion and Nolane-x/manim as the user's research forks. Do not modify these repositories as a side effect of working here.
 - Study Remotion for composition, timeline, browser rendering, media handling, preview, CLI and production reliability.
@@ -60,7 +68,7 @@ Every external code, model, font, image, audio file, effect, or preset must pass
 - Do not vendor or embed entire frameworks by default. Do not make several renderers hard dependencies until a benchmark proves they add value.
 - Any copied or adapted source requires a file-level provenance and license review. The presence of a fork in the user's GitHub account is not permission to ignore upstream terms.
 
-## 6. Production truth and quality
+## 7. Production truth and quality
 
 Never conflate these states:
 
@@ -78,11 +86,11 @@ For every benchmark film, preserve the script, research sources, Film IR, scene 
 
 Do not overwrite a known-good final render before a replacement passes the appropriate gates.
 
-## 7. Animation craft is a production requirement
+## 8. Animation craft is a production requirement
 
 Read and apply `docs/ANIMATION_CRAFT_STANDARDS.md` whenever designing, implementing or reviewing shots. Build/render success is not creative approval. Review staging, character intent, anticipation, action, reaction, follow-through, prop contact, continuity, motivated camera movement, readable educational diagrams and caption-safe areas. Every important interaction must have explicit anticipation/contact/peak/settle review frames. Do not substitute generic motion or decorative transitions for acting and explanation.
 
-## 8. Engineering rules
+## 9. Engineering rules
 
 - Design interfaces and tests before building large subsystems.
 - Use integer frame indices and explicit frame-rate metadata for timeline-critical operations. Avoid accumulated floating-point time drift.
@@ -92,7 +100,7 @@ Read and apply `docs/ANIMATION_CRAFT_STANDARDS.md` whenever designing, implement
 - Prefer small vertical slices over speculative large code dumps.
 - Keep the core independent from any one LLM provider. AI writes and revises typed project artifacts; the deterministic engine executes them.
 
-## 9. Required handoff after every working session
+## 10. Required handoff after every working session
 
 Before ending any session that changes or investigates the project:
 
@@ -104,7 +112,7 @@ Before ending any session that changes or investigates the project:
 
 A session without a refreshed handoff is incomplete.
 
-## 10. Session closing checklist
+## 11. Session closing checklist
 
 - [ ] Product boundary preserved.
 - [ ] Current repository state inspected.
