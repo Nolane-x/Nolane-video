@@ -111,6 +111,14 @@
 - Candidate run [45952654166 (#94)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) passed all three engine jobs and the exact frame/codec gates. Contract workflow [45952657476 (#13)](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed 17 tests.
 - Selected native-resolution frame review at 51 s confirms the physical/backward ray styling. This does not close full-speed creative review, audio or mobile-size QA.
 
+## Latest implementation slice — 2026-11-27
+
+- Motion Canvas visual systems now live in reusable Nia actor/grip, SpoonProp, KitchenSet and RefractionDiagram modules; `spoon.tsx` primarily orchestrates shot timing and acting.
+- `rig-anchors.ts` defines immutable local/stage anchors and computes wrist contact after prop rotation. S02 uses rest (0°), lift (−5°) and inspection turn (+6°) points; the forearm endpoint is tweened to the matching contact target during the turn.
+- Candidate run [#116](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455) passed all three engine jobs and exact frame/codec gates. Contract validation [#24](https://github.com/Nolane-x/Nolane-video/actions/runs/45956346788) passed 21 tests.
+- Selected native frames at 9.8 s, 10.8 s and 11.8 s show the hand remains attached through lift/turn/re-dip. This is selected-frame prototype QA, not final motion approval.
+- M1 remains open for full-speed review, production-quality hand/acting, diagram choreography, mobile typography, audio approval and repeated authoring/revision measurements.
+
 ## Required acceptance
 
 M1 is not complete until the benchmark outputs are rendered or the limitations of each candidate are demonstrated with fresh logs, the scientific and visual reviews are recorded, and the architecture decision is explicit. A successful typecheck alone does not pass M1.
