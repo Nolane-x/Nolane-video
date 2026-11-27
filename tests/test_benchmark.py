@@ -1,5 +1,6 @@
 import copy
 import math
+import re
 import unittest
 from pathlib import Path
 
@@ -176,6 +177,39 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("browser-runtime-debug.json", script_source)
         self.assertIn('if (pageErrors.length)', script_source)
         self.assertIn('"Browser runtime errors after the frame render completed:', script_source)
+
+    def test_actor_prop_grip_contact_uses_one_shared_anchor_contract(self):
+        root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas" / "src"
+        anchor_source = (root / "actors" / "rig-anchors.ts").read_text(encoding="utf-8")
+        actor_source = (root / "actors" / "nia.tsx").read_text(encoding="utf-8")
+        grip_source = (root / "actors" / "nia-grip.tsx").read_text(encoding="utf-8")
+        prop_source = (root / "props" / "spoon.tsx").read_text(encoding="utf-8")
+        scene_source = (root / "scenes" / "spoon.tsx").read_text(encoding="utf-8")
+
+        def read_point(name):
+            match = re.search(
+                rf"{name}: StagePoint = \\[(-?\\d+),\\s*(-?\\d+)\\]",
+                anchor_source,
+            )
+            self.assertIsNotNone(match, f"Missing typed rig anchor: {name}")
+            return (int(match.group(1)), int(match.group(2)))
+
+        rest_origin = read_point("SPOON_REST_ORIGIN")
+        lift_origin = read_point("SPOON_LIFT_ORIGIN")
+        grip_local = read_point("NIA_GRIP_LOCAL_POSITION")
+
+        rest_contact = (rest_origin[0] + grip_local[0], rest_origin[1] + grip_local[1])
+        lift_contact = (lift_origin[0] + grip_local[0], lift_origin[1] + grip_local[1])
+        self.assertEqual(rest_contact, (-356, 0))
+        self.assertEqual(lift_contact, (-356, -70))
+
+        self.assertIn("NIA_REST_GRIP_STAGE_POINT", actor_source)
+        self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
+        self.assertIn("SPOON_REST_ORIGIN", prop_source)
+        self.assertIn("NIA_LIFT_GRIP_STAGE_POINT", scene_source)
+        self.assertIn("NIA_REST_GRIP_STAGE_POINT", scene_source)
+        self.assertIn("SPOON_LIFT_ORIGIN", scene_source)
+        self.assertIn("SPOON_REST_ORIGIN", scene_source)
 
     def test_s02_authors_anticipation_lift_inspection_and_redip(self):
         scene_path = (
