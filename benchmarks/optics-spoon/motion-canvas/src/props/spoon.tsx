@@ -3,7 +3,6 @@ import { createRef } from "@motion-canvas/core";
 import { createNiaGrip } from "../actors/nia-grip";
 
 export type SpoonPropPalette = {
-  ink: string;
   ivory: string;
   metal: string;
 };
