@@ -112,7 +112,7 @@ export default makeScene2D(function* (view) {
       <Line ref={waterline} points={[[-550, 80], [-90, 80]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
       <Node ref={spoonRig} position={[-320, 80]}>
         <Line ref={spoonTop} points={[[-145, -380], [0, 0]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
-        <Line ref={spoonBentBottom} points={[[70, 0], [205, 280]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
+        <Line ref={spoonBentBottom} points={[[14, 0], [205, 280]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
         <Line ref={spoonStraight} points={[[-145, -380], [160, 280]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
         <Circle ref={spoonBowl} size={78} position={[195, 285]} scale={[0.65, 1.25]} fill="#B7C3C5" stroke={C.ivory} lineWidth={8} opacity={0} />
         <Rect ref={hand} size={[62, 40]} position={[-36, -80]} rotation={-12} radius={16} fill="#D9B89B" stroke={C.ink} lineWidth={6} opacity={0} />
@@ -153,10 +153,12 @@ export default makeScene2D(function* (view) {
     spoonBentBottom().opacity(1, 0.5),
     spoonBowl().opacity(1, 0.5),
     nia.torso().opacity(1, 0.5),
+    nia.neck().opacity(1, 0.5),
     nia.head().opacity(1, 0.5),
     nia.eyeLeft().opacity(1, 0.5),
     nia.eyeRight().opacity(1, 0.5),
     nia.expression().opacity(1, 0.5),
+    nia.mouth().opacity(1, 0.5),
     kitchenCaption().opacity(1, 0.5)
   );
   yield* waitFor(0.45);
@@ -181,6 +183,7 @@ export default makeScene2D(function* (view) {
     spoonBentBottom().opacity(0, 0.4),
     spoonStraight().opacity(1, 0.4),
     nia.expression().text("!", 0.3),
+    nia.mouth().points([[-17, 62], [0, 85], [17, 62]], 0.3),
     nia.headRig().position([505, -125], 0.4),
     nia.headRig().rotation(0, 0.4)
   );
@@ -221,7 +224,8 @@ export default makeScene2D(function* (view) {
   yield* all(
     nia.headRig().position([505, -145], 0.6),
     nia.headRig().rotation(4, 0.6),
-    nia.expression().text("?", 0.4)
+    nia.expression().text("?", 0.4),
+    nia.mouth().points([[-26, 68], [0, 75], [26, 68]], 0.4)
   );
   // Exact ten-second half-open shot, with Motion Canvas's inclusive endpoint correction.
   yield* waitFor(10 - 1 / 24 - (0.4 + 0.25 + 0.85 + 0.8 + 0.25 + 0.2 + 0.85 + 0.6));
@@ -236,6 +240,7 @@ export default makeScene2D(function* (view) {
     waterline().opacity(0, 0.8),
     spoonRig().opacity(0, 0.8),
     nia.torso().opacity(0, 0.8),
+    nia.neck().opacity(0, 0.8),
     nia.headRig().opacity(0, 0.8),
     nia.upperArm().opacity(0, 0.8),
     nia.forearm().opacity(0, 0.8),
@@ -318,6 +323,7 @@ export default makeScene2D(function* (view) {
     spoonStraight().opacity(1, 0.8),
     spoonBowl().opacity(1, 0.8),
     nia.torso().opacity(1, 0.8),
+    nia.neck().opacity(1, 0.8),
     nia.headRig().opacity(1, 0.8),
     nia.headRig().position([505, -105], 0.8),
     nia.headRig().rotation(0, 0.8),
@@ -332,6 +338,8 @@ export default makeScene2D(function* (view) {
     hand().opacity(1, 0.8),
     thumb().opacity(1, 0.8),
     nia.expression().opacity(1, 0.8),
+    nia.mouth().opacity(1, 0.8),
+    nia.mouth().points([[-26, 68], [0, 75], [26, 68]], 0.8),
     kitchenCaption().text("Chiếc thìa vẫn nguyên vẹn.", 0.8),
     kitchenCaption().opacity(1, 0.8)
   );
