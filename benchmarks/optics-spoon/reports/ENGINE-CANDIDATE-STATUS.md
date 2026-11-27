@@ -1,5 +1,20 @@
 # M1 Candidate Status — The Spoon That Bends
 
+
+## Live technical and vertical-slice update — 2026-11-27 06:29 UTC
+
+This section supersedes the older run references below where they disagree.
+
+- Latest candidate workflow: [run #89](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411), source commit `776d219fa02bd5392b7ade94ad348fbe3d74a7dd`. **All three jobs passed.**
+- Remotion artifact `m1-remotion-candidate`: digest `sha256:a703a6af58513e18f7a771f3e00ac17dcc49a31d7d6f12b84910e4b429c26389`; H.264, 1920×1080, 24/1 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `1970da35a380c0fd08a8a04e74bc03d050d21bb389ecb0bdd483ab49f232bbda`.
+- Motion Canvas artifact `m1-motion-canvas-candidate`: digest `sha256:4da7c9e84a449dabbb09ac235e14e9819691ecbdb444ca2755d98258c9904a92`; renderer finished at frame 1,727, 1,728 export events, 1,728 unique PNGs and 1,728 sequential files; zero browser errors. H.264, 1920×1080, 24/1 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `0016d083c11a3dc1615c8ae9e8dbc4a58af5a02bbcb5354e66f2b80583965616`.
+- Manim artifact `m1-manim-refraction-segment`: digest `sha256:9a6fb300a693c886dbea7b4ab9e56444ef7ba67bac6fb4d163864325e0178386`; H.264, 1920×1080, 24 fps nominal, 11.624674 s, 279 frames; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Its average rate is reported as `857088/35711` (~24.00067 fps) because of stream timestamps; CI requires `r_frame_rate=24/1`, 279 frames and average-rate tolerance <0.01 fps.
+- Contract-validation workflow [#12](https://github.com/Nolane-x/Nolane-video/actions/runs/45951654984) passed **16 tests**, including geometry orientation, continuous kink, reusable Nia rig and S02 action beats.
+- Reusable Nia rig source: `motion-canvas/src/actors/nia.tsx`. It exposes torso, neck, head, eyes, mouth, upper arm, forearm and elbow. S02 now sequences anticipation, lift, inspection, a slight turn, re-dip and lean toward the waterline; the hand remains parented to the spoon prop for basic grip coupling.
+- Visual review of the run #89 contact sheet and selected native 1080p frames at 9.7 s, 11.8 s, 12.2 s and 63.0 s confirms the straight-spoon/lift state, continuous apparent kink, Nia's neck/mouth and final straight-spoon resolution. Run #83's selected science frames confirmed water below air and the single interface aligned with the rays.
+
+**Acceptance boundary:** these are technical and selected-frame prototype passes, not full creative approval. Full-speed 24 fps review, fine hand/finger animation, robust grip/contact, causal diagram pacing, mobile-size checks and audio remain incomplete.
+
 **Snapshot:** 2026-11-27  
 **Branch:** `m1/optics-benchmark`  
 **Decision status:** provisional first 2D runtime selected by [ADR-0001](../../docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md); creative/audio acceptance remains open.
