@@ -1,3 +1,43 @@
+## -9. Latest verified state — 2026-11-27 (candidate #137; Remotion parity repair verified)
+
+This snapshot supersedes the candidate #134 source-level parity finding below. M1 remains in progress; this is a technical and sampled-QA update, not creative approval.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Working branch:** `m1/optics-benchmark`; candidate code/test commit: [`9e639c2`](https://github.com/Nolane-x/Nolane-video/commit/9e639c2df7e80141fda25cdd8f1718070f2b9d99). This follow-up documentation refresh is docs-only. **Main** remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate workflow:** [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421) completed **success** for Remotion, Motion Canvas and Manim.
+- **Contract validation:** [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347) completed **success** with **26 Python contract tests** and the benchmark validator. The candidate workflow also passed the Remotion deterministic parity test, Remotion TypeScript typecheck, Motion Canvas IK/grip runtime tests, Motion Canvas build, all three renders, ffprobe gates and artifact uploads.
+
+### Latest candidate outputs (downloaded and checked)
+
+- **Remotion 4.0.547:** H.264, 1920×1080, yuv420p, nominal/average 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`. Actions artifact id `15203563873`, archive digest `sha256:5566755d3a98961fcc61f094a152076eb747ecc1ee6bf7277b12ed88e8b1c136`.
+- **Motion Canvas 3.17.2:** official editor rendered exactly 1,728/1,728 frames, zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. MP4 SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`. Actions artifact id `15203143475`, archive digest `sha256:058b10938d2d206bf67dbf34735cd975520caa14c33707eb417c17bf717b95fe`.
+- **Manim CE specialist segment:** H.264, 1920×1080, yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average rate `857088/35711` (~24.00067 fps), within the workflow's 0.01 fps tolerance. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Actions artifact id `15202838965`, archive digest `sha256:8ba8edce850e3e45aa935a752eb12e02839b8d5e1cdb2aaeb0641f981aeff1e4`.
+- Both full-film MP4s contain only a video stream; there is **no narration, music or SFX**.
+
+### Remotion parity repair
+
+- `benchmarks/optics-spoon/remotion/src/benchmark-motion.ts` defines deterministic global-frame motion for S02 `[192, 432)`: anticipation, lift, 6° inspection turn, re-dip and lean/reaction. The rendered spoon and Nia's hand share the same vertical lift value.
+- The same helper stages the scientific reveal: S03 interface/physical ray path; S04 normal, angle labels and Snell formula; S05 dashed backward extension followed by the apparent point.
+- `benchmarks/optics-spoon/remotion/scripts/test-parity.mjs` executes the TypeScript helper and asserts shot boundaries, representative beat values, every S02 hand/prop coupling sample and causal diagram ordering. It runs before typecheck/render in candidate CI.
+- The repo-level Python contract test verifies the runtime helper and workflow wiring. Contract #35 passes all 26 tests.
+
+### Visual inspection scope
+
+- Downloaded both full-film candidate MP4s and checked their streams with ffprobe. Opened both contact sheets and sampled S02 at 4 fps; also inspected selected 1080p S02 and diagram frames in Remotion and selected 1080p S02 frames in Motion Canvas.
+- Remotion samples show the straight-spoon lift, inspection turn, re-dip and Nia's lean/reaction. The diagram samples show the staged physical rays, normal/angle/formula reveal and later backward construction/apparent point.
+- This is **sampled frame review, not a continuous full-speed 24-fps watch**. It does not establish final acting quality or full-film comprehension.
+
+### Still incomplete / next task
+
+- Watch both full 72-second films continuously at 24 fps; log shot ID, frame range, severity, visible symptom and reproduction in `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+- Improve Nia's hand anatomy (knuckles, finger depth/occlusion, palm compression, thumb base, wrist roll), shoulder/torso counterbalance, weight transfer, gaze, reaction and follow-through.
+- Revisit diagram pacing and camera staging after continuous review; check all essential Vietnamese typography at mobile/reduced size.
+- Obtain approved Vietnamese narration and SFX/music, synchronize captions to actual speech, and run perceptual audio QA; otherwise explicitly revise the benchmark to silent visual-only scope.
+- Measure authoring, preview, render and revision loops on equivalent runners; complete H2 source/license provenance before any reuse from `Nolane-x/video`.
+- **Do not mark M1 complete or start a broad Film IR/M2 build yet.** Motion Canvas remains the provisional first 2D adapter; Manim remains specialist and Remotion remains the full-film baseline/reference.
+
+---
+
 ## -8. Independent session audit — 2026-11-27 (candidate #134 parity review)
 
 This snapshot is newer than the candidate #134 handoff below. It records an additional artifact/source audit; it does not replace the verified CI results.

@@ -1,3 +1,50 @@
+## Latest continuation snapshot — 2026-11-27 (candidate #137; Remotion parity repair complete)
+
+This is the authoritative starting point for the next session. The source-level Remotion storyboard gap identified after #134 has now been repaired and technically rendered; M1 creative acceptance remains open.
+
+### GitHub state
+- Correct repository: `Nolane-x/Nolane-video` (NEE), **not** `Nolane-x/video`.
+- Active branch: `m1/optics-benchmark`.
+- Code/test commit: [`9e639c2`](https://github.com/Nolane-x/Nolane-video/commit/9e639c2df7e80141fda25cdd8f1718070f2b9d99); this session's follow-up documentation commit is docs-only.
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge into or change main.
+- Candidate [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421): all Remotion, Motion Canvas and Manim jobs passed.
+- Contract [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347): **26 tests passed** and benchmark validation passed.
+
+### What changed
+- Remotion `src/benchmark-motion.ts` supplies deterministic global-frame helpers.
+- Remotion S02 (`[192,432)`) now authors anticipation → lift → inspection turn (6°) → re-dip → lean/reaction. The arm/hand endpoint uses the same Y displacement as the lifted spoon.
+- Remotion's explanation sequence shows interface/physical rays during S03, then normal, angle labels and Snell formula during S04, followed by the dashed backward extension and apparent image point during S05.
+- New `remotion/scripts/test-parity.mjs` tests representative frames, S02 boundaries, every frame of the 240-frame hand/prop vertical coupling, reveal ordering and invalid frame guards. It is wired as `npm run test:parity` before typecheck/render.
+- `tests/test_benchmark.py` adds a repository-level parity contract. Candidate #137 proves it runs before the Remotion render.
+
+### Verified outputs
+- Remotion: H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15203563873`.
+- Motion Canvas: H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors; MP4 SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`; artifact id `15203143475`.
+- Manim specialist segment: H.264 1920×1080 yuv420p, nominal 24 fps, 279 frames, 11.624674 s; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15202838965`.
+- Both full-film candidates are silent (video-only MP4s). No VO, SFX/music, synchronized captions or audio review is complete.
+
+### Visual QA truth
+- Both full-film MP4s were downloaded and ffprobed directly. Contact sheets and S02 samples at 4 fps were inspected; selected 1080p S02/diagram frames were opened.
+- These samples show Remotion's lift/inspect/re-dip/reaction and the causal optical reveal. This is **not** a continuous 24-fps review or final creative approval.
+- Motion Canvas remains stylized vector blocking: hand/finger anatomy, weight transfer and secondary acting need meaningful improvement. Diagram hold/pacing also requires continuous review.
+
+### Exact next task
+1. Watch both entire 72-second MP4s uninterrupted at 24 fps.
+2. Record shot ID, frame range/timecode, severity, symptom and reproduction for every issue in `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+3. Fix the highest-severity defects in acting/contact/diagram pacing while retaining frame-level parity tests and the #137 outputs as a known-good technical baseline.
+4. Inspect Vietnamese labels and safe areas at reduced/mobile size.
+5. Add only approved Vietnamese VO, synchronized captions, SFX/music and conduct perceptual audio QA; otherwise document a deliberate silent-visual benchmark scope change.
+6. Measure authoring/preview/render/revision costs and complete H2 provenance/license audit.
+
+### Guardrails
+- Do not start a broad Film IR/M2 implementation or call M1 complete yet.
+- Keep Motion Canvas as the provisional first 2D adapter, Manim as specialist, Remotion as full-film baseline/reference.
+- Do not copy H2 code/assets from `Nolane-x/video` before provenance/license review.
+- Preserve candidate #137 artifacts and current passing tests; no frame-count/checkpoint weakening.
+- Keep technical pass, sampled-frame QA, continuous creative approval and audio approval separate.
+
+---
+
 ## Latest continuation snapshot — 2026-11-27 (candidate #134 + cross-engine parity audit)
 
 This is the current starting point for the next session. It adds a source-level parity finding to the candidate #134 verification; it does not claim M1 is complete.

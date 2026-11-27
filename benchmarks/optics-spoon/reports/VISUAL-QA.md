@@ -1,8 +1,20 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [46007922641 (#134)](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.5 s, 10.5 s and 11.5 s were opened for handle-axis-derived finger wrap, opposing thumb, per-frame IK and prop continuity, in addition to earlier refraction-diagram review.  
-**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133 and #134. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [46011488421 (#137)](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421). All three engine jobs passed. Both Remotion and Motion Canvas MP4s were downloaded and checked with ffprobe; contact sheets and S02 samples at 4 fps were inspected, along with selected native 1920×1080 frames.  
+**Review scope:** candidate #137 contact sheets and S02 4-fps samples for both full-film engines, selected native 1080p frames at S02 and diagram stages, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133 and #134. This is sampled prototype QA, **not** a continuous 24-fps review or final creative approval; narration and audio review remain open.
+
+## Candidate #137 — Remotion storyboard parity repair and full candidate rerender
+
+- Candidate workflow [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421) ran on code commit `9e639c2df7e80141fda25cdd8f1718070f2b9d99`; Remotion, Motion Canvas and Manim all completed successfully. Contract workflow [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347) passed **26 tests** and the benchmark validator.
+- **Remotion:** deterministic `benchmark-motion.ts` helpers drive S02 anticipation/lift/inspection/re-dip/lean and the S03–S05 diagram reveal. The parity test runs before typecheck/render and passed. Downloaded MP4 metadata: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames; SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`.
+- **Motion Canvas:** candidate rerender also passed; `render-report.json` reports 1,728 expected/rendered frames and zero browser errors. Downloaded MP4 metadata: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames; SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`.
+- **Manim specialist segment:** H.264, 1920×1080, yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average stream rate `857088/35711` is ~24.00067 fps, within the CI tolerance. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Contact sheets and 4-fps S02 samples were inspected. Remotion samples show the lifted straight spoon, inspection turn, re-dip and the character lean/reaction; selected diagram frames show the interface/physical path in S03, normal and angles/formula in S04, then the dashed backward construction and apparent point in S05. This confirms the new states are present in rendered frames, but **does not substitute for watching the full films at 24 fps**.
+- All three full candidate MP4s are silent/video-only. There is no approved narration, SFX/music or speech-synchronized caption track.
+- **Remaining visual defects:** Nia remains a stylized vector blockout; hand anatomy/depth, palm and thumb articulation, shoulder/torso counterbalance and secondary acting need improvement. Diagram holds/camera pacing, mobile typography and complete shot-to-shot continuity remain open.
+
+**Assessment:** source-level and deterministic storyboard parity gates are now in place, and candidate #137 proves all three renderers still pass their technical gates. Creative acceptance remains open.
 
 ## Independent cross-engine parity audit — candidate #134
 
