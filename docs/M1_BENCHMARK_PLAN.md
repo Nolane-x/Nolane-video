@@ -117,8 +117,8 @@
 - `rig-anchors.ts` defines immutable local/stage anchors and computes wrist contact after prop rotation. S02 uses rest (0°), lift (−5°) and inspection turn (+6°) points.
 - The grip is a prop-attached palm/thumb/four-finger rig with named rest/brace poses. Finger paths are generated from the shared spoon-handle axis; the four fingers cross the centreline at separated along-axis stations, while the thumb crosses from the opposite side. The prop and rig use the same handle endpoint constants.
 - Nia's two-bone arm rig uses 200 px / 615 px fixed segment lengths and re-solves the elbow inside the Motion Canvas tween callback on every frame. The scene no longer interpolates precomputed elbow endpoints.
-- Candidate run [#133](https://github.com/Nolane-x/Nolane-video/actions/runs/46006606072) passed all three engine jobs, both actor runtime suites, typecheck and exact frame/codec gates. The grip runtime suite verifies both rest/brace paths against the actual shaft axis.
-- Selected native frames at 9.5 s, 10.5 s and 11.5 s show four distinct finger bands and the opposing thumb across the shaft, with the elbow following the wrist through the lift/inspection/re-dip. This is selected-frame prototype QA, not a full-speed creative approval.
+- Candidate run [#134](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641) passed all three engine jobs, both actor runtime suites, typecheck and exact frame/codec gates. Contract validation [#34](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922552) passed 25 tests, including shared handle-axis ownership; the grip runtime suite verifies both rest/brace paths against the actual shaft axis.
+- Selected native frames at 9.5 s, 10.5 s and 11.5 s from candidate #134 show four distinct finger bands and the opposing thumb across the shaft, with the elbow following the wrist through the lift/inspection/re-dip. This is selected-frame prototype QA, not a full-speed creative approval.
 - M1 remains open for full-speed review, production-quality hand/body acting, diagram choreography, mobile typography, audio approval and repeated authoring/revision measurements.
 
 ## Required acceptance

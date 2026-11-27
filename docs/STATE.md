@@ -1,3 +1,22 @@
+## -7. Latest verified state — 2026-11-27 (candidate #134 verified)
+
+This snapshot supersedes older candidate-run, grip, actor and render references below.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Main:** `19b53bd0bf785a8d58a91031678be717a8ae11d4`; unchanged and not merged.
+- **Working branch:** `m1/optics-benchmark`; candidate #134 and validator #34 ran against source commit `0c0118b372b930fc5ad84ff9773918e148a13bbc`. The documentation refresh that follows is docs-only.
+- **Latest candidate:** [run #134](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641), source commit `0c0118b372b930fc5ad84ff9773918e148a13bbc`; Remotion, Motion Canvas and Manim all **success**.
+  - Remotion: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `sha256:eae41102226da187891482d0f67b2317635134f677e69f149b4d59ff3c1ed238`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+  - Motion Canvas: official editor rendered exactly 1,728/1,728 frames, zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. Artifact digest `sha256:a97cef0a398ec82d351bf4c9cd47d46525e934fea35b82d0ff318e83ec230e89`; MP4 SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`; contact-sheet SHA-256 `1523957d30eb91fdfa38d22a1aeca3b3738a0d95e4197d81c0493162ee8fd48c`.
+  - Manim specialist segment: H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `sha256:296a568a8929ee2a60dd2e0bc7883ff5037f1145ae28f8cfef5a3291b0283140`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- **Latest repository contract validation:** [run #34](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922552) passed **25 tests** and benchmark validation.
+- **Candidate runtime gates:** candidate #134 passed two-bone IK runtime tests, handle-axis grip geometry runtime tests, TypeScript build, 1,728-frame official editor render, MP4 probe and artifact upload.
+- **Grip geometry:** `rig-anchors.ts` owns the canonical spoon shaft endpoints. The physical spoon prop and `grip-geometry.ts` consume the same constants. Four finger paths are generated in a shaft-local coordinate frame at separated along-axis stations; all four cross the shaft centreline and exit on the other side. The thumb wraps in the opposing direction. Runtime assertions cover both `rest` and `brace` poses.
+- **Arm rig:** two-bone IK uses fixed 200 px upper-arm and 615 px forearm lengths, and recalculates the elbow on every tween callback from the current wrist target. Reachability and invalid-input checks remain enabled.
+- **Selected-frame QA:** native 1920×1080 frames at 9.5 s, 10.5 s and 11.5 s from candidate #134 were inspected. Four distinct finger bands and an opposing thumb are visible across the handle; the grip remains attached in the selected lift/inspection/re-dip poses. This is selected-frame prototype QA, not a complete 24 fps review or anatomical approval.
+- **Still incomplete:** full-speed review of both films; anatomical finger joints/depth, palm compression and wrist articulation; shoulder/torso weight transfer and acting; reaction/follow-through; causal diagram pacing and camera staging; mobile typography; approved Vietnamese VO, speech-aligned captions, SFX/music and audio QA; repeated authoring/preview/render measurements; H2 provenance/license audit.
+- **Next task:** complete continuous 24 fps creative review and record frame-specific issues, then improve hand anatomy and whole-body acting. M1 is **not complete**. Do not begin a broad Film IR/runtime package or claim creative approval before remaining acceptance gates close.
+
 ## -6. Latest verified state — 2026-11-27 (candidate #133 verified)
 
 This snapshot supersedes older grip, actor and render status below.

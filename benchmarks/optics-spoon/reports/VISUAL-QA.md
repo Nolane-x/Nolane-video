@@ -1,8 +1,17 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [46006606072 (#133)](https://github.com/Nolane-x/Nolane-video/actions/runs/46006606072). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.5 s, 10.5 s and 11.5 s were opened for handle-axis-derived finger wrap, opposing thumb, per-frame IK and prop continuity, in addition to earlier refraction-diagram review.  
-**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126 and #133. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [46007922641 (#134)](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.5 s, 10.5 s and 11.5 s were opened for handle-axis-derived finger wrap, opposing thumb, per-frame IK and prop continuity, in addition to earlier refraction-diagram review.  
+**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133 and #134. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+
+## Follow-up review — candidate #134: handle-axis grip regression pass
+
+- Candidate workflow: [46007922641](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641); Remotion, Motion Canvas and Manim all passed. Repository contract validator [#34](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922552) passed 25 tests.
+- Motion Canvas runtime IK test, handle-axis grip geometry test, TypeScript build, official editor render, 1,728-frame count, MP4 probe and artifact upload all passed.
+- Native 1920×1080 frames at 9.5 s, 10.5 s and 11.5 s were opened. The four finger bands remain separately readable across the spoon handle; the thumb sits opposite the wrap; the hand remains visible in the selected lift/inspection/re-dip poses.
+- Motion Canvas output: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`.
+- The repo-level contract checks that the prop and grip share handle-axis constants and that runtime geometry tests are wired into candidate CI.
+- **Remaining defects:** finger strokes are still pill-like, with no convincing knuckle joints, depth occlusion or organic palm shape. The thumb base and wrist need more articulation, and arm/body acting remains a blockout. These still frames do not substitute for a full-speed 24 fps review.
 
 ## Follow-up review — candidate #133: spoon-axis grip geometry
 

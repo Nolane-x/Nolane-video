@@ -1,15 +1,51 @@
-## Latest continuation snapshot — 2026-11-27 (candidate #133 verified)
+## Latest continuation snapshot — 2026-11-27 (candidate #134 verified)
 
-This is the authoritative continuation point. It supersedes older endpoint-only grip and pre-handle-axis finger path notes below.
+This is the authoritative continuation point. It supersedes older candidate #133 and pre-shared-axis grip notes below.
 
 ### GitHub state
 
 - Repository: `Nolane-x/Nolane-video` (NEE), not `Nolane-x/video`.
 - Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
-- Active branch: `m1/optics-benchmark`; latest code/test head before this state/test/doc refresh: `16a1c8982bf74b7401c160c5b340d1ce6e29c224`.
-- Candidate [#133](https://github.com/Nolane-x/Nolane-video/actions/runs/46006606072): Remotion, Motion Canvas and Manim all succeeded.
-- Repository contract validator [#33](https://github.com/Nolane-x/Nolane-video/actions/runs/46005131989): 24 tests plus benchmark validation passed. The current refresh adds another static contract for handle-axis source ownership; expect a new validator run.
-- Candidate #133 executes both actor runtime suites before building/rendering; both IK and grip geometry tests passed.
+- Active branch: `m1/optics-benchmark`; candidate/validator source HEAD: `0c0118b372b930fc5ad84ff9773918e148a13bbc`. The current documentation refresh is docs-only.
+- Candidate [#134](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922641): Remotion, Motion Canvas and Manim all succeeded.
+- Contract validator [#34](https://github.com/Nolane-x/Nolane-video/actions/runs/46007922552): 25 tests passed, plus benchmark validation.
+
+### Verified candidate outputs
+
+- **Remotion:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `eae41102226da187891482d0f67b2317635134f677e69f149b4d59ff3c1ed238`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- **Motion Canvas:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, exactly 1,728 frames, zero browser errors. Artifact digest `a97cef0a398ec82d351bf4c9cd47d46525e934fea35b82d0ff318e83ec230e89`; MP4 SHA-256 `3906dc514affe8b91fe226e51a5c16b0a535869ddc5f3483359dab024b81ead4`.
+- **Manim:** H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `296a568a8929ee2a60dd2e0bc7883ff5037f1145ae28f8cfef5a3291b0283140`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+
+### Current grip geometry
+
+- The spoon prop and grip share `SPOON_HANDLE_LOCAL_START` / `SPOON_HANDLE_LOCAL_END` from `rig-anchors.ts`; do not duplicate the shaft direction in any actor module.
+- `grip-geometry.ts` derives a local shaft axis and perpendicular normal. It projects the palm grip anchor onto the physical shaft centreline and generates four cross-section finger paths at separated along-axis stations.
+- Index, middle, ring and pinky each approach from one side, cross near the shaft centreline, then wrap to the other side. The thumb follows an opposing path, creating a clearer pinch.
+- `nia-grip.tsx` renders outlined/fill paths for each finger and thumb, with named `rest` / `brace` poses. They remain children of the spoon prop transform.
+- `scripts/test-grip-geometry.mjs` executes the actual TypeScript geometry, checks both poses, shaft-centreline crossing, finger station separation and opposing thumb direction. Candidate #134 runs this before build/render.
+- Native frames at 9.5 s, 10.5 s and 11.5 s from candidate #134 were inspected. Four finger bands and opposing thumb are visible across the shaft through the selected lift/inspection/re-dip states. The design is still a stylized vector blockout, not anatomical anatomy.
+
+### Current arm rig
+
+The two-bone solver uses fixed 200 px / 615 px segment lengths and recalculates the elbow inside each tween callback. It rejects unreachable/invalid targets and is tested at canonical poses plus 101 intermediate samples for each S02 transition.
+
+### Exact next work
+
+1. Watch both complete candidate films continuously at 24 fps; log shot ID, frame range, severity, symptom and reproduction in `benchmarks/optics-spoon/reports/VISUAL-QA.md`.
+2. Improve the hand beyond pill-like strokes: thumb base/opposition, visible knuckle/finger joints, palm compression, finger depth/occlusion, wrist roll and release.
+3. Improve shoulder/torso counterbalance, weight transfer, elbow plane, gaze reaction and settle/follow-through.
+4. Rework S04/S05 as a causal educational reveal with purposeful holds and motivated camera staging.
+5. Check essential typography/safe areas at reduced/mobile size.
+6. Keep audio incomplete until approved Vietnamese VO and SFX/music exist; then align captions to spoken timing and conduct perceptual audio QA.
+7. Measure authoring/preview/render/revision loops on equivalent runners.
+8. Finish H2 provenance/license review before reusing material from `Nolane-x/video`.
+9. Only after M1 creative acceptance, begin a typed renderer-independent Film IR slice.
+
+### Honest status
+
+Candidate #134 proves the new handle-axis grip compiles, passes runtime geometry assertions and renders in the full film. **M1 remains open** for full-speed creative review, realistic anatomy/acting, diagram pacing, mobile typography, approved audio/captions and provenance/performance evidence. Keep runtime geometry, contract CI, technical render, selected-frame review and final creative approval as separate gates.
+
+---
 
 ### Latest grip geometry
 
