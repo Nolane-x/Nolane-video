@@ -211,6 +211,23 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("SPOON_LIFT_ORIGIN", scene_source)
         self.assertIn("SPOON_REST_ORIGIN", scene_source)
 
+    def test_kitchen_environment_is_a_reusable_scene_set(self):
+        root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas" / "src"
+        set_source = (root / "sets" / "kitchen.tsx").read_text(encoding="utf-8")
+        scene_source = (root / "scenes" / "spoon.tsx").read_text(encoding="utf-8")
+
+        self.assertIn("export const createKitchenSet", set_source)
+        for part in ("wall", "table", "glass", "water", "waterline", "caption"):
+            with self.subTest(part=part):
+                self.assertIn(f"const {part} =", set_source)
+        self.assertIn('import { createKitchenSet } from "../sets/kitchen"', scene_source)
+        self.assertIn("const kitchen = createKitchenSet(", scene_source)
+        self.assertIn("{kitchen.view}", scene_source)
+        self.assertIn("kitchen.wall().opacity", scene_source)
+        self.assertIn("kitchen.caption().text", scene_source)
+        self.assertNotIn("const kitchenWall =", scene_source)
+        self.assertNotIn("<Rect ref={glass}", scene_source)
+
     def test_s02_authors_anticipation_lift_inspection_and_redip(self):
         scene_path = (
             Path(__file__).resolve().parents[1]
