@@ -1,10 +1,10 @@
 # AI Session Handoff
 
-**Updated:** 2026-11-27 05:34 UTC (live snapshot)  
+**Updated:** 2026-11-27 06:29 UTC (live snapshot)  
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main`  
 **Working branch:** `m1/optics-benchmark`  
-**Verified active branch HEAD:** `bdb7fe239530af0624769f4167187f550bcc47c4`  
+**Verified code/test branch HEAD before documentation refresh:** `304db032c2ba4cefa269e795e2cbda7e06ac8d03`  
 **Current milestone:** M1 — comparable benchmark and architecture decision, still in progress.  
 **Architecture:** Motion Canvas is provisionally selected as the first 2D scene adapter by ADR-0001; Film IR remains renderer-independent. Do not treat this as creative approval or a final single-renderer decision.
 
