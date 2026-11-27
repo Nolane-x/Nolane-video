@@ -1,6 +1,7 @@
 import { Circle, Line, Node } from "@motion-canvas/2d";
 import { createRef } from "@motion-canvas/core";
 import { createNiaGrip } from "../actors/nia-grip";
+import { SPOON_REST_ORIGIN } from "../actors/rig-anchors";
 
 export type SpoonPropPalette = {
   ivory: string;
@@ -23,7 +24,7 @@ export const createSpoonProp = (palette: SpoonPropPalette) => {
   const grip = createNiaGrip();
 
   const view = (
-    <Node ref={rig} position={[-320, 80]}>
+    <Node ref={rig} position={SPOON_REST_ORIGIN}>
       <Line
         ref={top}
         points={[[-145, -380], [0, 0]]}
