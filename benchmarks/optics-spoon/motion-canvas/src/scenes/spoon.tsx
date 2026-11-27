@@ -35,19 +35,28 @@ const C = {
 export default makeScene2D(function* (view) {
   const playback = usePlayback();
   const checkpoint = (name: string) => {
+    const shot = storyboard.shots.find(
+      candidate => `${candidate.id}-complete` === name
+    );
     const expectedFrame =
       name === "scene-start"
         ? 0
-        : storyboard.shots.find(shot => `${shot.id}-complete` === name)?.end_frame - 1;
+        : shot
+          ? shot.end_frame - 1
+          : undefined;
+    if (expectedFrame === undefined) {
+      throw new Error(`Unknown storyboard checkpoint: ${name}.`);
+    }
     const actualFrame = Math.round(playback.frame);
-    if (expectedFrame !== undefined && actualFrame !== expectedFrame) {
+    if (actualFrame !== expectedFrame) {
       throw new Error(
-        `Shot timing drift at ${name}: expected frame ${expectedFrame}, got ${actualFrame}.`
+        `Shot timing drift at ${name}: expected last included frame ${expectedFrame}, got ${actualFrame}.`
       );
     }
     console.log("[M1 Motion Canvas]", name, {
       frame: actualFrame,
       expected_frame: expectedFrame,
+      exclusive_end_frame: shot?.end_frame,
       time_seconds: playback.time,
       fps: playback.fps,
       speed: playback.speed
