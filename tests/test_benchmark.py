@@ -73,6 +73,26 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("candidate.end_frame - 1", scene_source)
         self.assertIn("Math.round(playback.frame)", scene_source)
 
+    def test_motion_canvas_cutaway_preserves_water_below_air(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+
+        # The canonical diagram uses top-left pixel coordinates. Motion Canvas
+        # uses a centered stage with +Y downward, so this mapping must not flip Y.
+        self.assertIn("point.y - 540", scene_source)
+        self.assertNotIn("540 - point.y", scene_source)
+        self.assertIn("position={[0, 222.5]}", scene_source)
+        self.assertIn('text="NƯỚC" position={[-650, 320]}', scene_source)
+        self.assertIn('text="KHÔNG KHÍ" position={[-650, -320]}', scene_source)
+
     def test_snell_example_bends_away_from_normal(self):
         theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
         self.assertAlmostEqual(theta_air, 58.9346, delta=0.001)
