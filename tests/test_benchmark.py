@@ -70,7 +70,7 @@ class BenchmarkContractTests(unittest.TestCase):
 
         # The runtime must compare the sampled final frame against the
         # storyboard's half-open end frame, rather than a seconds estimate.
-        self.assertIn("candidate.end_frame - 1", scene_source)
+        self.assertIn("shot.end_frame - 1", scene_source)
         self.assertIn("Math.round(playback.frame)", scene_source)
 
     def test_motion_canvas_cutaway_preserves_water_below_air(self):
