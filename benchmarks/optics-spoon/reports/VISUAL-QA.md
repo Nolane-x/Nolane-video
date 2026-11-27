@@ -1,75 +1,88 @@
 # M1 Visual QA — The Spoon That Bends
 
-**Review date:** 2026-11-26  
-**Review scope:** static contact-sheet and selected 1080p frame review of candidate artifacts from run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169). This is an early visual review, not final artistic approval.
+**Review date:** 2026-11-27  
+**Review scope:** contact sheets and selected native-resolution frames from successful candidate run [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530), plus the earlier scientific frame review. This is a prototype QA report, not final creative approval.
 
-## Remotion 4.0.547 — full film prototype
+## Remotion 4.0.547 — full-film candidate
 
 Artifact: `m1-remotion-candidate`  
-Digest: `sha256:f829285a43711aed3a869bae9d93ede74d37c9561125a510ad2101e673d20b14`  
-Technical metadata: H.264, 1920×1080, progressive, 24/1 fps, 72.000 seconds, 1,728 frames.
+Artifact digest: `sha256:18712527a3c4cb5ec10790c31dd3db296aa418774783588a8a8a98c263ab6903`  
+Output: H.264, 1920×1080, progressive, 24/1 fps, 72.000 s, 1,728 frames.
+
+### Passed
+
+- The six-shot progression is present: hook, physical contradiction, optical reveal, refraction, apparent image and resolution.
+- The water/air boundary, normal, 40° incident angle, approximately 58.9° refracted angle, Snell relation, true point and apparent point are represented from the shared scientific model.
+- The “NƯỚC” label safe-area correction from commit `e5e0259ca2c517858511dcaf11a70edb40f640ea` is verified in the current artifact: it no longer sits under the lower caption bar.
+- The spoon is shown as a bent optical appearance and then as a straight physical object.
+
+### Still below the target
+
+- Nia is a simple geometric blockout. There is no persuasive hand/finger articulation, visible grip, weight transfer or detailed facial performance.
+- The hand/prop relationship is not convincingly animated through anticipation, contact, lift, release and settle.
+- Camera language and scene transitions are functional rather than cinematic; the move into the diagram is a quick crossfade.
+- The bottom line is an explanatory per-shot caption, not a transcript aligned to real spoken Vietnamese. There is no VO/SFX/music track.
+
+**Judgement:** technical and diagram prototype pass. Acting, contact continuity, audio and final art direction are not approved.
+
+## Motion Canvas 3.17.2 — full-film candidate
+
+Artifact: `m1-motion-canvas-candidate`  
+Artifact digest: `sha256:19c770d1cff47e1a11d7b6ffefacbb457004724542a5f052f5a01343b82c982d`  
+MP4 SHA-256: `2cda419f879a99a06b17453bc33232ecc43d4c3bedd648d2be77b5ad2ae18acd`  
+Contact-sheet SHA-256: `ee0de3d39c0d9b06942830262ce7ccaea343416d5e9bebbcb6c8185590504a41`  
+Output: H.264, 1920×1080, yuv420p, 24/1 fps, exactly 1,728 frames, 72.000 s. Render report has zero browser errors.
+
+### Technical result
+
+Run [45943879530](https://github.com/Nolane-x/Nolane-video/actions/runs/45943879530) passed all three candidate jobs. The Motion Canvas renderer log records `RendererResult.Success`, `lastFrame: 1727`, `exportEvents=1728`, `uniqueFrames=1728` and `PNG files=1728/1728`. The official ffprobe step also passed.
+
+The render script had previously kept Actions alive after producing the MP4 because it killed only the `npm` wrapper and left Vite/esbuild descendants running. Commit `ad8fc14a848b02a61d7b76fb916ab4bfb0942e14` launches Vite directly in its own process group and waits for the group to terminate. The run now exits successfully and uploads the candidate, diagnostics and MP4.
 
 ### What works
 
-- The six-shot progression is present: everyday observation, spoon check, optical cutaway, Snell-law geometry, apparent image, and return to the spoon.
-- At full 1080p, the water/air boundary, normal, 40° incident angle, 58.9° refracted angle and Snell formula are legible.
-- The physical outgoing ray and dashed backward extension share the canonical geometry. The apparent point is above the true point but remains below the interface.
-- S02 uses a straight spoon outside the water and visually distinguishes the physical object from the refracted appearance.
+- All six shots exist in the same frame schedule as the Remotion candidate.
+- The diagram uses the canonical interface, rays, normal, true/apparent positions and the same NEE semantic colors.
+- The “NƯỚC” and “KHÔNG KHÍ” region labels are clear in the native-resolution review.
+- The transition from the kitchen to the diagram and return to the intact spoon gives the short an understandable overall structure.
 
-### Issues to fix
+### Visual defects and current correction
 
-- The earlier “NƯỚC” label/caption overlap is fixed in the current artifact. Source moved its SVG baseline from y=970 to y=820 in commit `e5e0259ca2c517858511dcaf11a70edb40f640ea`; the current render's contact sheet and 1080p frames 1056 and 1248 confirm the label is now clear of the caption safe area.
-- The character/acting remains a simple vector blockout. The gesture is readable at a glance but lacks distinct anticipation, wrist/finger articulation, grip continuity and expressive follow-through.
-- The kitchen scenes use a limited number of poses and the transition to the ray diagram is a quick crossfade. This is acceptable for an engine smoke test, not the target cinematic quality.
-- The on-screen bottom line is a per-shot explanatory caption, not a transcript synchronized to real speech. No real voice, SFX or music is included.
-- The apparent-image shot has small labels that should be checked at normal viewing distance and on mobile output. Consider moving labels away from the ray if an editor's frame-size makes them hard to parse.
+- The 40° and 58.9° labels are too close to, and partially intersect visually with, the ray lines in the reviewed frames. Source commit `3a091f4fe5eec706014aadfb42f17679752ea733` moves both labels away from the lines and relocates “Pháp tuyến”. The confirming render is running in [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231); do not mark that correction approved until its new contact sheet/frame is inspected.
+- The geometric character/arm remains a blockout. The arm is a single static stroke without a hand/grip, so the prop-contact standard is not met.
+- The spoon's apparent bend is represented by a segmented line, then replaced by a straight line; there is no convincing lift/re-dip animation showing the physical action.
+- Several explanatory labels are readable at 1080p but look crowded around the diagram's center at reduced scale. Verify after the safe-area/angle-label correction.
+- No real audio is included and no speech/caption timing has been tested.
 
-### Acceptance judgement
-
-**Technical delivery:** PASS for the artifact above.  
-**Educational diagram:** PASS for this prototype; the water label safe-area correction is visually verified.  
-**Character acting / film craft:** prototype only; not approved as final film quality.  
-**Audio/caption sync:** NOT TESTED; no actual audio asset exists.
+**Judgement:** technical full-film pass; visual clarity is promising but still prototype-level. Character acting, prop contact, camera craft and audio are not approved.
 
 ## Manim CE fork — S04/S05 specialist diagram
 
 Artifact: `m1-manim-refraction-segment`  
-Digest: `sha256:a2fcf0ddda1cb40eb27bfd877b93be0c2d725d2162fd08926e1765cd416c77e4`  
-Technical metadata: 1920×1080, 24 fps, 11.625 seconds.
+Artifact digest: `sha256:d33772298acaabfe6eeb1506758d625e888b267674bdf5155a3789af60859c63`  
+MP4 SHA-256: `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`  
+Output: H.264, 1920×1080, 24/1 fps, 279 frames, 11.624674 s.
 
-### What works
+### Passed
 
 - The water-air interface is horizontal and the normal is perpendicular to it.
-- The incident and refracted rays are directed correctly; the outgoing angle is larger than the in-water angle.
-- The dashed backward extension is clearly differentiated from the physical ray.
-- True and apparent points are visually separated, with stable semantic colors.
-- Eye, ray, labels and equation fit within the 1080p canvas after the coordinate scale and label placement fixes.
+- The incident and refracted ray directions are consistent with water-to-air refraction; 40° and 58.9° are measured from the normal.
+- The dashed backward construction, true point and apparent point are distinct.
+- The style update uses the NEE Deep Ink/Water Slate/Ray Gold palette, DejaVu Sans and a persistent water region. The final native-resolution frame has good contrast and clear Vietnamese typography.
+- The formula and refractive-index values fit within the 1080p canvas.
 
-### Issues / scope
+### Still open
 
-- Manim is used only for the mathematical sequence, not the character-led story. It should be assessed as a specialist visual adapter, not scored against Remotion/Motion Canvas for full-scene performance.
-- The current contact sheet has a near-black background that does not match the shared Deep Ink/Water Slate art direction; a few opening frames are visually too empty before the ray appears.
-- Default serif typography is inconsistent with the shared sans-serif typography brief, and the water-region label is low-contrast against black.
-- The source was revised in commit `0a09f2ef4925dcd55734d38a8f455c1a54c0a6b5` to use the shared palette, a DejaVu Sans typeface and a persistent slate water region from frame zero. Its new render is pending in [45849998362](https://github.com/Nolane-x/Nolane-video/actions/runs/45849998362).
-- The rendered formula currently uses a vector text fallback rather than a LaTeX rendering path. The formula is readable, but a production style pass must retain mathematical glyph legibility.
+- The opening builds the diagram progressively and is sparse. That may be appropriate when synchronized to narration, but must be reviewed with a real voice track before approval.
+- The formula is rendered with Manim's vector text fallback rather than a LaTeX pipeline. It is legible in the reviewed final frame; ensure math glyphs remain correct if the typography changes.
+- Manim is only the specialist diagram adapter in this benchmark, not a comparable 72-second story/acting candidate.
 
-### Acceptance judgement
-
-**Scientific geometry:** PASS for the current specialist segment. **Visual style:** needs the palette/font revision to be re-rendered and reviewed.  
-**Full-film renderer:** NOT APPLICABLE to this M1 candidate role.  
-**Audio/caption sync:** NOT TESTED.
-
-## Motion Canvas 3.17.2 — exact-range render pending
-
-Run [45840319216](https://github.com/Nolane-x/Nolane-video/actions/runs/45840319216) proved the renderer can finish with `RendererResult.Success`, but the inclusive 72-second endpoint produced 1,729 frames. Commit `31fd2997dce941be05b089e8066928eebc0f7dd3` moved the range end to `71.95833333333333` seconds, the final included frame timestamp. Run [45840831148](https://github.com/Nolane-x/Nolane-video/actions/runs/45840831148) was cancelled while still rendering. A new run [45842364169](https://github.com/Nolane-x/Nolane-video/actions/runs/45842364169) has Remotion and Manim jobs complete; Motion Canvas has passed setup/build and remains in its render step. The next run is waiting with the Manim style correction.
-
-Do not assign a Motion Canvas visual score until the exact 1,728-frame MP4 and its contact sheet have been uploaded and inspected.
+**Judgement:** scientific geometry and the revised visual style pass for this specialist segment. Audio timing is not tested.
 
 ## Cross-engine conclusion
 
-No master runtime has been selected. The evidence so far supports:
-- Remotion as a viable deterministic full-film baseline;
-- Manim as a strong specialist adapter for the mathematical sequence;
-- Motion Canvas as a viable editor/runtime candidate whose exact half-open output range is under validation.
-
-The current prototypes do not yet prove the product's final quality bar. A final comparison requires the same approved narration and audio cues, equivalent acting/asset effort, continuous-motion review, frame-level text legibility checks and revision-effort measurements.
+- Remotion and Motion Canvas both have a complete silent 72-second technical render.
+- Manim has a successful 11.625-second specialist scientific segment.
+- The reviewed images remain prototype-level. Neither full-film candidate currently demonstrates the character acting, prop-contact continuity, expressive timing, camera language or voice synchronization required for NEE's final quality target.
+- Full continuous-motion review is still required; this report primarily records contact sheets and selected still frames.
+- No master runtime is selected in this report. See `docs/M1_SCORECARD.md` for the evidence ledger and `docs/ANIMATION_CRAFT_STANDARDS.md` for required creative review criteria.
