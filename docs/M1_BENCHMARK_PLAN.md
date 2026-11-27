@@ -97,6 +97,15 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest Motion Canvas arm articulation update — 2026-11-27
+
+- `motion-canvas/src/actors/nia.tsx` now draws dark contour strokes behind the upper arm and forearm plus shoulder, elbow and wrist joint circles.
+- Each outline and joint follows the same shoulder/elbow/wrist values as the two-bone solver on every tween callback. Bone lengths remain 200 px / 615 px; grip anchors and spoon geometry are unchanged.
+- `scenes/spoon.tsx` includes the new controls in S01/S03/S06 visibility transitions. `tests/test_benchmark.py` asserts their existence, IK-point bindings and scene wiring.
+- Contract [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489) passes 26 tests. Candidate [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282) passes all three engine jobs, including Motion Canvas build/render/ffprobe and Remotion parity/typecheck.
+- Motion Canvas artifact metadata: H.264, 1920×1080 yuv420p, 24 fps, 72.000 s, 1,728 frames, zero browser errors; MP4 SHA-256 `b4637a336e3206a36975e769b2067802afeaa114d1aad90e63d928685e89260a`.
+- Contact sheet, 4-fps S02 strip and selected native 1080p frames at 8.8/9.5/10.5/11.5 s were inspected. Arm silhouette and joint landmarks read more clearly; anatomy/acting remains prototype-level. This does not close continuous 24-fps creative review.
+
 ## Latest Remotion parity and candidate update — 2026-11-27
 
 - Added `remotion/src/benchmark-motion.ts` with deterministic global-frame S02 and diagram schedules. The S02 helper covers the half-open range `[192, 432)`; the spoon/hand lift coupling is asserted across all 240 frames.

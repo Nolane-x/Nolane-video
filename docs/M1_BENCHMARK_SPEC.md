@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Date:** 2026-11-26  
-**Status:** Technical candidate renders completed and Remotion storyboard parity repaired; M1 creative/audio acceptance remains open.
+**Status:** Technical candidate renders and Remotion storyboard parity repair are complete; the first outlined/jointed Motion Canvas arm slice is verified; M1 creative/audio acceptance remains open.
 
 ## 1. Purpose
 
@@ -150,6 +150,6 @@ A technically successful render is only one gate. The film must also pass scient
 
 ## 10. Current status
 
-Candidate workflow [#137](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488421) passes all three renderer jobs: Remotion and Motion Canvas each render the full 72-second / 1,728-frame film, and Manim renders the 279-frame S04–S05 specialist segment. Contract CI [#35](https://github.com/Nolane-x/Nolane-video/actions/runs/46011488347) passes 26 tests and the benchmark validator. Remotion's previously incomplete S02 action and S03–S05 causal diagram reveal are now implemented with deterministic global-frame helpers and a runtime parity test.
+Candidate workflow [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282) passes all three renderer jobs: Remotion and Motion Canvas each render the full 72-second / 1,728-frame film, and Manim renders the 279-frame S04–S05 specialist segment. Contract CI [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489) passes 26 tests and the benchmark validator. Remotion's S02 action/S03–S05 causal reveal parity remains green. Motion Canvas now adds outlined upper/forearm shapes and animated shoulder, elbow and wrist joints bound to the existing two-bone IK solver; bone lengths and grip anchors remain unchanged.
 
-This is a technical implementation milestone, not final creative approval. Full-speed 24-fps film review, acting/contact quality, diagram pacing, mobile typography, approved narration/caption/audio synchronization, repeated authoring/revision measurements and H2 provenance/license review remain open. No overall artistic ranking is assigned until those reviews are complete.
+This is a technical and selected-frame prototype milestone, not final creative approval. Full-speed 24-fps film review, organic hand/arm anatomy, acting/contact, diagram pacing, mobile typography, approved narration/caption/audio synchronization, repeated authoring/revision measurements and H2 provenance/license review remain open. No overall artistic ranking is assigned until those reviews are complete.

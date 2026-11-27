@@ -1,3 +1,19 @@
+## Latest all-green arm articulation candidate — 2026-11-27 (candidate #140)
+
+This section supersedes the earlier candidate #137 technical snapshot.
+
+- Code/test source commit: `a8cbe2242ade6c00a09d11517f02a9f3c2d8b2b6`.
+- Candidate workflow [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282): **Remotion, Motion Canvas and Manim all succeeded**.
+- Contract validation [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489): **26 tests passed** and benchmark validation passed.
+- Remotion: H.264, 1920×1080, yuv420p, nominal/average 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`. Artifact id `15204821586`; ZIP digest `sha256:2fe1d309307b9c0fd5e3b2e8f6c90b38890845950ed8cdfe594dee7a6b28ba5f`.
+- Motion Canvas 3.17.2: official editor rendered 1,728/1,728 frames; zero browser errors; H.264, 1920×1080, yuv420p, nominal/average 24/1 fps, 72.000 s. MP4 SHA-256 `b4637a336e3206a36975e769b2067802afeaa114d1aad90e63d928685e89260a`. Artifact id `15204537011`; ZIP digest `sha256:3b23ed29cb53a4e94c1e9466d7ad4ed12dea7309acee49fa9c4621d4e260e098`.
+- Manim specialist segment: H.264, 1920×1080, yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average stream rate `857088/35711` (~24.00067 fps), within the workflow's <0.01 fps tolerance. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Artifact id `15204886417`; ZIP digest `sha256:857d15c11361985c33af811570292232e0aad62fb8c92551b7ba76d40d0f4ddc`.
+- **Nia arm visual slice:** outlined upper-arm/forearm contours and shoulder/elbow/wrist joint circles are rendered in the Motion Canvas actor. The same IK points drive lines, outlines and joint positions every frame; fixed 200/615 px segment lengths and grip anchors are preserved. Contract coverage checks the visual controls and S01/S03/S06 visibility wiring.
+- The #140 contact sheet, 4-fps S02 strip and selected native frames at 8.8/9.5/10.5/11.5 s were inspected. The arm now reads as an articulated graphic shape through lift/inspection/re-dip, but still lacks organic anatomy and nuanced acting.
+- Both full-film MP4s remain silent/video-only. There is no approved VO, SFX/music or synchronized caption track.
+
+**Acceptance boundary:** #140 confirms the arm contour/joint slice compiles, passes contract/IK/grip tests and renders at exact media settings. M1 remains open for continuous 24-fps review, hand anatomy/depth, shoulder/torso counterbalance, acting, diagram pacing, mobile typography, approved audio/captions, iteration-cost measurements and H2 provenance/license audit.
+
 ## Latest all-green parity candidate — 2026-11-27 (candidate #137)
 
 This section supersedes older candidate references for the latest technical render set.
