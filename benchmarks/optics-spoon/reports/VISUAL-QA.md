@@ -1,8 +1,18 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [45956296455 (#116)](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.8 s, 10.8 s and 11.8 s were opened for grip/wrist/prop continuity, in addition to earlier refraction-diagram review.  
-**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115 and #116. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+**Latest reviewed candidate run:** [45997725029 (#122)](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029). All three candidate jobs passed; selected native 1920×1080 Motion Canvas frames at 9.0 s, 10.5 s and 11.5 s were opened for four-finger grip, arm pose and prop continuity, in addition to earlier refraction-diagram review.  
+**Review scope:** contact sheets and selected 1920×1080 still frames from runs #83, #89, #94, #100, #115, #116, #121 and #122. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
+
+## Follow-up review — candidate #122: reusable four-finger and arm poses
+
+- Candidate workflow: [45997725029](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029); all Remotion, Motion Canvas and Manim jobs passed. Contract validation [#29](https://github.com/Nolane-x/Nolane-video/actions/runs/45997963537) passed 23 tests.
+- Motion Canvas output: H.264, 1920×1080, yuv420p, 24/1 fps, exactly 1,728 frames and 72.000 s; render report records 1,728 expected/rendered frames and zero browser errors.
+- Selected native frames at 9.0 s, 10.5 s and 11.5 s were opened. The hand is visibly in front of the forearm; the palm and finger strokes remain over the spoon handle in the selected lift/inspection/re-dip states.
+- createNiaGrip() now defines four separate finger paths (index, middle, ring, pinky) plus thumb and palm. Named local-space poses "rest" and "brace" are animated by toPose().
+- createNiaActor() now owns named shoulder/elbow/wrist poses "rest", "lift" and "inspect", with a toArmPose() API. Scene code no longer declares arm point coordinates for these beats; the arm rig uses shared rotation-aware targets from rig-anchors.ts.
+- A layer-order regression test ensures Nia's forearm is drawn before the spoon node, so prop-attached fingers are not obscured.
+- **Remaining visual defects:** the hand remains a stylized vector blockout rather than convincing anatomical contact; thumb opposition, palm compression, wrist transition and true finger wrap need work. The arm lacks believable weight transfer and secondary motion. Selected stills do not prove stable contact across all 240 S02 frames or constitute a full-speed 24 fps review.
 
 ## Remotion 4.0.547 — full-film candidate
 

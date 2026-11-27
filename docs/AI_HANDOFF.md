@@ -1,3 +1,52 @@
+## Latest continuation snapshot — 2026-11-27 (candidate #122 verified)
+
+This is the authoritative continuation point. It supersedes older pre-four-finger and scene-owned arm-coordinate notes below.
+
+### GitHub state
+
+- Repository: `Nolane-x/Nolane-video` (NEE), not `Nolane-x/video`.
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- Active branch: `m1/optics-benchmark`; code/test head before this documentation refresh: `f4124f37505ede40db0fa8454390525ed08f23ea`.
+- Candidate [#122](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029), source commit `d4793bfc154b9311718e530215a2552525e740f1`: Remotion, Motion Canvas and Manim all succeeded.
+- Contract validator [#29](https://github.com/Nolane-x/Nolane-video/actions/runs/45997963537): 23 tests passed and benchmark validation passed.
+
+### Verified render outputs
+
+- **Remotion:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `6738609fc2b7601daed9caf972c743cb789d4a1d08bed521c1101992e17a5cec`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+- **Motion Canvas:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, exactly 1,728 frames, zero browser errors. Artifact digest `a2dc668a3c14340ecb79e31ad12d9107c1d0cf90d330623dcf943cfd4f2bc2c8`; MP4 SHA-256 `c435cb1149b75f0bb8c4d88c2cde08cdaed3e351accb6040089df9634a86d069`.
+- **Manim:** H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `ded403a68f387ec1de4198133a7a0847de7fb7535adc9a41fa21c1c0d1f68419`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+
+### Latest reusable actor/prop slice
+
+- `src/actors/nia-grip.tsx`: palm, thumb and four independently authored finger paths (index, middle, ring, pinky), in two named local-space poses: `rest` and `brace`. Call `grip.toPose(name, duration)`; do not reintroduce coordinate literals in scene code.
+- `src/actors/nia.tsx`: owns `NIA_ARM_POSES` and the `toArmPose(name, duration)` API. Named poses: `rest`, `lift`, `inspect`. It interpolates shoulder-to-elbow and elbow-to-wrist paths plus elbow position.
+- `src/actors/rig-anchors.ts`: source of canonical spoon origins and rotation-aware wrist targets. Current S02 uses rest 0°, lift −5° and inspect +6°.
+- `src/props/spoon.tsx`: prop node owns spoon geometry and grip subtree, so fingers inherit prop motion.
+- `src/scenes/spoon.tsx`: orchestrates semantic poses and beat timing; Nia is added before the spoon in draw order so the forearm remains behind the prop-attached hand.
+- Tests protect four-finger pose coverage, prop parenting, canonical rest anchor, arm-pose ownership and scene layer order.
+
+### Selected-frame review
+
+Native 1920×1080 frames at 9.0 s, 10.5 s and 11.5 s from run #122 were inspected. The palm/finger cluster appears in front of the forearm and remains visually attached during selected lift/inspection/re-dip poses. This is not a full 24 fps watch or final anatomical approval. Current hand and actor remain stylized vector blockouts.
+
+### Exact next work
+
+1. Watch both entire full-film candidates continuously at 24 fps and log shot/frame, severity, visual symptom and reproduction in `benchmarks/optics-spoon/reports/VISUAL-QA.md`. Never substitute selected frames for continuous review.
+2. Improve hand anatomy and convincing grip: thumb opposition, finger wrapping around the handle, palm shape/compression, wrist transition and release. The current four paths improve articulation, but are still stylized strokes, not production anatomy.
+3. Improve shoulder/elbow/wrist mechanics with measured joint continuity and believable weight shift. Consider a reusable two-bone IK/contact constraint only after visual defects are recorded; preserve deterministic anchor tests.
+4. Rework S04/S05 as a causal reveal: interface → normal → incident ray → refracted ray → measured angles/law → dashed backward extension → apparent point, with intentional holds and motivated framing.
+5. Check type, labels and safe areas at reduced/mobile size.
+6. Keep audio incomplete until approved Vietnamese VO and SFX/music exist; then align captions to spoken timing and conduct perceptual audio QA.
+7. Measure authoring, preview, render and revision loops on equivalent runners; do not rank performance using one-off timings.
+8. Finish H2 provenance/license review before reusing material from `Nolane-x/video`.
+9. Only after M1 creative acceptance, start the first typed renderer-independent Film IR slice. Motion Canvas is the execution adapter, not the IR.
+
+### Honest status
+
+The technical render gates are green and the reusable Nia hand/arm pose slice is in place. **M1 remains open** for full-speed creative review, production-level acting/contact, diagram pacing, mobile readability, real audio/captions and provenance/performance evidence. Keep code pass, contract pass, render pass, selected-frame review and final creative approval as separate states.
+
+---
+
 ## Latest continuation snapshot — 2026-11-27 07:12 UTC
 
 This is the authoritative handoff for the next session. It supersedes older pre-grip, pre-kitchen and non-rotating wrist instructions below.

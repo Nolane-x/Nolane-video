@@ -1,3 +1,26 @@
+## -4. Latest verified state — 2026-11-27 (candidate #122 verified)
+
+This snapshot supersedes older candidate-run, actor/grip and next-task references below.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Main:** `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no changes have been merged to main.
+- **Working branch:** `m1/optics-benchmark`. Code/test head before this documentation refresh: `f4124f37505ede40db0fa8454390525ed08f23ea`. Engine implementation commit: `d4793bfc154b9311718e530215a2552525e740f1`.
+- **Latest candidate:** [run #122](https://github.com/Nolane-x/Nolane-video/actions/runs/45997725029), source commit `d4793bfc154b9311718e530215a2552525e740f1`; Remotion, Motion Canvas and Manim all **success**.
+  - Remotion: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. Artifact digest `sha256:6738609fc2b7601daed9caf972c743cb789d4a1d08bed521c1101992e17a5cec`; MP4 SHA-256 `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+  - Motion Canvas: official editor rendered 1,728/1,728 frames, zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. Artifact digest `sha256:a2dc668a3c14340ecb79e31ad12d9107c1d0cf90d330623dcf943cfd4f2bc2c8`; MP4 SHA-256 `c435cb1149b75f0bb8c4d88c2cde08cdaed3e351accb6040089df9634a86d069`.
+  - Manim specialist segment: H.264, 1920×1080, nominal 24 fps, 279 frames, 11.624674 s. Artifact digest `sha256:ded403a68f387ec1de4198133a7a0847de7fb7535adc9a41fa21c1c0d1f68419`; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- **Latest contract validation:** [run #29](https://github.com/Nolane-x/Nolane-video/actions/runs/45997963537) passed **23 tests** and the benchmark validator.
+- **Actor/prop architecture now in source:**
+  - `src/actors/nia-grip.tsx`: four separate finger paths (index, middle, ring, pinky), thumb, palm, and named `rest` / `brace` poses exposed by `toPose()`.
+  - `src/actors/nia.tsx`: named shoulder/elbow/wrist arm poses `rest`, `lift`, `inspect`; `toArmPose()` owns joint interpolation.
+  - `src/actors/rig-anchors.ts`: shared rotation-aware grip targets for rest, −5° lift and +6° inspection.
+  - `src/props/spoon.tsx`: spoon and hand remain under one prop transform. Scene draw order places Nia's forearm behind the spoon-attached hand.
+  - `src/scenes/spoon.tsx`: choreography calls semantic actor/hand poses instead of scattering finger and joint coordinates through the scene.
+- **Selected-frame QA:** native 1920×1080 Motion Canvas frames at 9.0 s, 10.5 s and 11.5 s from run #122 were inspected. The palm/finger group is visible above the forearm and remains visually attached through the selected lift/inspection/re-dip states. This is selected-still evidence, **not** full-speed 24 fps motion approval.
+- **Architecture:** Motion Canvas 3.17.2 remains provisionally selected as the first 2D/2.5D scene adapter; Film IR remains renderer-independent; Manim remains specialist; Remotion remains full-film baseline pending license/distribution review.
+- **Still incomplete:** complete full-speed 24 fps review of both films; production-quality hand anatomy/contact and believable wrist/elbow/shoulder mechanics; weight transfer, reaction and follow-through; causal diagram pacing and camera staging; mobile typography; approved Vietnamese VO, transcript-synchronized captions, SFX/music and audio QA; repeated authoring/preview/render measurements; H2 provenance/license audit.
+- **Next task:** review full motion and log frame-accurate issues, then improve anatomical contact/acting and diagram choreography based on evidence. M1 is **not complete**. Do not start a broad Film IR/runtime build or claim creative approval before the remaining gates are closed.
+
 # Project State
 ## -3. Latest verified state — 2026-11-27 07:12 UTC
 
