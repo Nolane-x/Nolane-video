@@ -7,6 +7,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
     "test:ik": "node scripts/test-arm-ik.mjs",
+    "test:grip": "node scripts/test-grip-geometry.mjs",
     "render": "node scripts/render-editor.mjs"
   },
   "dependencies": {

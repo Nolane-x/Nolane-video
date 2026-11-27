@@ -147,7 +147,7 @@ class BenchmarkContractTests(unittest.TestCase):
 
         self.assertIn("export const createNiaGrip", grip_source)
         for part in (
-            "palm", "thumb",
+            "palm", "thumb", "thumbOutline", "thumbFinger",
             "indexOutline", "indexFinger",
             "middleOutline", "middleFinger",
             "ringOutline", "ringFinger",
@@ -165,8 +165,23 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn('spoon.grip.toPose("rest", 0.8)', scene_source)
         self.assertNotIn("spoon.grip.indexFinger().points", scene_source)
         self.assertNotIn("spoon.grip.middleFinger().points", scene_source)
-        self.assertIn("export const NIA_GRIP_POSES", grip_source)
-        self.assertIn('export type NiaGripPoseName = "rest" | "brace"', grip_source)
+        geometry_source = (root / "actors" / "grip-geometry.ts").read_text(encoding="utf-8")
+        package_source = (root / "package.json").read_text(encoding="utf-8")
+        workflow_source = (
+            Path(__file__).resolve().parents[1]
+            / ".github"
+            / "workflows"
+            / "m1-benchmark-candidates.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("NIA_GRIP_POSES", grip_source)
+        self.assertIn('export type NiaGripPoseName = "rest" | "brace"', geometry_source)
+        self.assertIn("pointOnGripFrame", geometry_source)
+        self.assertIn("SPOON_HANDLE_LOCAL_START", geometry_source)
+        self.assertIn("SPOON_HANDLE_LOCAL_END", geometry_source)
+        self.assertIn('"test:grip": "node scripts/test-grip-geometry.mjs"', package_source)
+        self.assertIn("npm run test:grip", workflow_source)
+        self.assertIn("thumbOutline().points(copyPath(pose.thumbPath)", grip_source
+        )
         self.assertIn("const toPose =", grip_source)
         self.assertIn("return all(", grip_source)
 

@@ -1,45 +1,11 @@
 import { Circle, Line, Rect } from "@motion-canvas/2d";
 import { all, createRef } from "@motion-canvas/core";
-import { NIA_GRIP_LOCAL_POSITION } from "./rig-anchors";
-
-type Point = [number, number];
-type FingerPath = [Point, Point, Point];
-
-export type NiaGripPoseName = "rest" | "brace";
-
-type NiaGripPose = {
-  palm: Point;
-  thumb: Point;
-  index: FingerPath;
-  middle: FingerPath;
-  ring: FingerPath;
-  pinky: FingerPath;
-};
-
-/**
- * Named, reusable hand poses in spoon-local coordinates.
- *
- * Keep these paths local to the spoon prop: the whole hand inherits its
- * position and rotation, while the pose transition only articulates the grip.
- */
-export const NIA_GRIP_POSES: Record<NiaGripPoseName, NiaGripPose> = {
-  rest: {
-    palm: [...NIA_GRIP_LOCAL_POSITION],
-    thumb: [-8, -66],
-    index: [[-8, -65], [-20, -79], [-36, -94]],
-    middle: [[-3, -53], [-17, -68], [-32, -84]],
-    ring: [[2, -43], [-11, -57], [-27, -73]],
-    pinky: [[8, -32], [-4, -45], [-21, -60]]
-  },
-  brace: {
-    palm: [-37, -81],
-    thumb: [-10, -68],
-    index: [[-6, -66], [-19, -80], [-36, -95]],
-    middle: [[-2, -54], [-16, -69], [-32, -85]],
-    ring: [[4, -44], [-8, -58], [-25, -74]],
-    pinky: [[10, -33], [-2, -47], [-20, -61]]
-  }
-};
+import {
+  NIA_GRIP_POSES,
+  type FingerPath,
+  type GripPoint,
+  type NiaGripPoseName
+} from "./grip-geometry";
 
 const copyPath = (path: FingerPath): Point[] =>
   path.map(([x, y]): Point => [x, y]);
@@ -51,6 +17,8 @@ const copyPath = (path: FingerPath): Point[] =>
 export const createNiaGrip = () => {
   const palm = createRef<Rect>();
   const thumb = createRef<Circle>();
+  const thumbOutline = createRef<Line>();
+  const thumbFinger = createRef<Line>();
   const indexOutline = createRef<Line>();
   const indexFinger = createRef<Line>();
   const middleOutline = createRef<Line>();
@@ -138,9 +106,25 @@ export const createNiaGrip = () => {
         lineCap="round"
         opacity={0}
       />
+      <Line
+        ref={thumbOutline}
+        points={rest.thumbPath}
+        stroke="#101B26"
+        lineWidth={20}
+        lineCap="round"
+        opacity={0}
+      />
+      <Line
+        ref={thumbFinger}
+        points={rest.thumbPath}
+        stroke="#D9B89B"
+        lineWidth={13}
+        lineCap="round"
+        opacity={0}
+      />
       <Circle
         ref={thumb}
-        size={28}
+        size={25}
         position={[...rest.thumb]}
         fill="#D9B89B"
         stroke="#101B26"
@@ -155,6 +139,8 @@ export const createNiaGrip = () => {
     return all(
       palm().position([...pose.palm], duration),
       thumb().position([...pose.thumb], duration),
+      thumbOutline().points(copyPath(pose.thumbPath), duration),
+      thumbFinger().points(copyPath(pose.thumbPath), duration),
       indexOutline().points(copyPath(pose.index), duration),
       indexFinger().points(copyPath(pose.index), duration),
       middleOutline().points(copyPath(pose.middle), duration),
@@ -170,6 +156,8 @@ export const createNiaGrip = () => {
     view,
     palm,
     thumb,
+    thumbOutline,
+    thumbFinger,
     indexOutline,
     indexFinger,
     middleOutline,
