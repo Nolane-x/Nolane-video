@@ -1,12 +1,30 @@
 # Project State
 
-**Snapshot date:** 2026-11-26  
+
+## 0. Live verification override — 2026-11-27 05:34 UTC
+
+This section supersedes older run numbers, branch-head references, and next-task statements elsewhere in this snapshot.
+
+- Repository: `Nolane-x/Nolane-video` (not `Nolane-x/video`); default branch: `main`; active work branch: `m1/optics-benchmark`.
+- Active branch HEAD: `bdb7fe239530af0624769f4167187f550bcc47c4` — `fix: align S03 cutaway hold to 240-frame shot`.
+- Main HEAD: `19b53bd0bf785a8d58a91031678be717a8ae11d4`. There are two branches (`main`, `m1/optics-benchmark)); no open PRs, issues, or releases were returned at verification.
+- The working tree is a 59-entry benchmark/research implementation: shared story/script/art direction/research, Remotion and Motion Canvas full-film candidates, a Manim scientific segment, Python validator/tests, CI workflows, visual reports, scorecard and ADR-0001. It is not yet the complete reusable Film IR engine.
+- ADR-0001 provisionally selects Motion Canvas 3.17.2 as the first 2D/2.5D scene adapter; it does not select Motion Canvas as the Film IR, does not make it the only renderer, and does not constitute creative approval.
+- Latest observed candidate CI: [run 45946419330 (#80)](https://github.com/Nolane-x/Nolane-video/actions/runs/45946419330), head `bdb7fe2`, overall **failure**. Remotion full-film job **passed**; Manim S04–S05 job **passed**; Motion Canvas full-film job **failed** at `S04-complete`.
+- Motion Canvas diagnostics: job `140332141710`, artifact [m1-motion-canvas-diagnostics](https://github.com/Nolane-x/Nolane-video/actions/runs/45946419330/artifacts/15175275163). The checkpoint expected last included frame 1055 but observed frame 1056; renderer reported `Error`, `lastFrame: 0`, and exported zero PNG files. This is a scene-timing regression, not an environment setup or FFmpeg failure.
+- The prior all-green candidate run [45945392423 (#70)](https://github.com/Nolane-x/Nolane-video/actions/runs/45945392423) passed all three jobs on commit `204659c2853230c6245abc9337064df9713e8984`. Thirteen commits have landed since that green baseline; the intervening Motion Canvas choreography/checkpoint changes introduced the current failure.
+- The shared benchmark remains **The Spoon That Bends**, Vietnamese, 72.000 seconds, 1920×1080, 24 fps, exactly 1,728 frames (half-open `[0, 1728)`). The canonical Snell example is 40° in water to approximately 58.9346° in air, measured from the normal.
+- Still not accepted: full-speed creative review, production-quality acting and hand/prop contact, mobile/reduced-size label review, real approved VO, transcript-synchronized captions, SFX/music, audio QA, repeatable authoring/render-time measurements, and H2 provenance/license audit.
+- Do not start broad M2 runtime implementation yet. First align the Motion Canvas shot checkpoints without weakening the frame contract, rerun CI, then update the evidence reports and handoff from the resulting artifacts.
+
+
+**Snapshot date:** 2026-11-27 (live verification override below)  
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main` (unchanged by this benchmark branch)  
 **Working branch:** `m1/optics-benchmark`  
-**Verified branch HEAD before this state update:** `45cd830e5922be2612d28b16f079380c661e953c`  
+**Verified branch HEAD:** `bdb7fe239530af0624769f4167187f550bcc47c4`  
 **Current phase:** M1 — comparable benchmark and architecture decision (in progress).  
-**Architecture decision:** OPEN; no master runtime selected.
+**Architecture decision:** Motion Canvas provisionally selected as the first 2D scene-execution adapter by ADR-0001; Film IR remains renderer-independent.
 
 ## 1. Project identity and scope
 
