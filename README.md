@@ -84,6 +84,6 @@ Then inspect the current Git branch, HEAD, repository tree, recent commits, and 
 
 ## Current status
 
-> **M1 benchmark phase — 2026-11-26.** The product foundation and scope lock are complete. A shared 72-second educational film is implemented in Remotion, Motion Canvas and Manim's specialist diagram scene. Remotion and Manim have technical renders; Motion Canvas's exact 1,728-frame output is still under validation. No master renderer is selected, and no real audio track is claimed.
+> **M1 benchmark phase — 2026-11-27.** The three candidate jobs now pass together: Remotion and Motion Canvas each render the full 72-second/1,728-frame film; Manim renders the specialist scientific segment. Motion Canvas now terminates its editor/Vite process cleanly after exporting, and ffprobe verifies its H.264 1920×1080/24 fps/72-second output. The angle-label safe-area polish and complete perceptual/audio/acting review remain open. No master renderer has yet been selected.
 
 The first implementation milestone is not a large code dump. It is a small, complete benchmark film that proves the chosen runtime can turn one approved educational idea into an editable, narratively coherent, mathematically correct, well-acted, voice-synchronized short film.
