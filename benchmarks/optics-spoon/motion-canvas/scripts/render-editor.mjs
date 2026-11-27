@@ -68,6 +68,38 @@ async function run(command, args, options = {}) {
   });
 }
 
+async function stopProcessGroup(child, timeoutMs = 5000) {
+  if (!child || child.exitCode !== null || child.signalCode !== null) return;
+
+  const exited = new Promise((resolve) => child.once("exit", resolve));
+  try {
+    if (process.platform !== "win32" && child.pid) {
+      process.kill(-child.pid, "SIGTERM");
+    } else {
+      child.kill("SIGTERM");
+    }
+  } catch (error) {
+    if (error?.code !== "ESRCH") throw error;
+  }
+
+  const stopped = await Promise.race([
+    exited.then(() => true),
+    sleep(timeoutMs).then(() => false)
+  ]);
+  if (!stopped && child.exitCode === null && child.signalCode === null) {
+    try {
+      if (process.platform !== "win32" && child.pid) {
+        process.kill(-child.pid, "SIGKILL");
+      } else {
+        child.kill("SIGKILL");
+      }
+    } catch (error) {
+      if (error?.code !== "ESRCH") throw error;
+    }
+    await exited;
+  }
+}
+
 async function summarizeFiles(root) {
   const files = [];
   async function visit(directory) {
@@ -107,10 +139,19 @@ async function summarizeFiles(root) {
 await fs.mkdir(DELIVERY_DIR, {recursive: true});
 await fs.rm(OUTPUT_ROOT, {recursive: true, force: true});
 
-const vite = spawn("npm", ["run", "dev", "--", "--host", "127.0.0.1", "--port", "9000"], {
-  cwd: ROOT,
-  stdio: ["ignore", "pipe", "pipe"]
-});
+// Launch Vite's Node entry directly in its own process group. Spawning
+// "npm run dev" leaves npm/sh wrapper processes between the runner and Vite;
+// killing only the wrapper can orphan Vite/esbuild and keep the Actions step
+// alive after the MP4 has already been written.
+const vite = spawn(
+  process.execPath,
+  [path.join(ROOT, "node_modules", "vite", "bin", "vite.js"), "--host", "127.0.0.1", "--port", "9000"],
+  {
+    cwd: ROOT,
+    stdio: ["ignore", "pipe", "pipe"],
+    detached: process.platform !== "win32"
+  }
+);
 let viteLog = "";
 vite.stdout.on("data", (chunk) => {
   const text = chunk.toString();
@@ -403,6 +444,7 @@ try {
     "-i", videoPath,
     "-vf", "fps=1/6,scale=480:-1,tile=4x3",
     "-frames:v", "1",
+    "-update", "1",
     path.join(DELIVERY_DIR, "contact-sheet.jpg")
   ]);
 
@@ -424,6 +466,11 @@ try {
 
   console.log(`Motion Canvas rendered ${finalFrames.pngs.length} PNG frames and encoded ${videoPath}`);
 } finally {
-  if (browser) await browser.close();
-  vite.kill("SIGTERM");
+  try {
+    if (browser) await browser.close();
+  } finally {
+    await stopProcessGroup(vite);
+    vite.stdout?.destroy();
+    vite.stderr?.destroy();
+  }
 }
