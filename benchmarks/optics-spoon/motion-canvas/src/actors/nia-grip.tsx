@@ -19,7 +19,7 @@ export const createNiaGrip = () => {
       <Rect
         ref={palm}
         size={[62, 40]}
-        position={NIA_GRIP_LOCAL_POSITION}
+        position={[...NIA_GRIP_LOCAL_POSITION]}
         rotation={-12}
         radius={16}
         fill="#D9B89B"
