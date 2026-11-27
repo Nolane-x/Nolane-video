@@ -24,7 +24,7 @@ type NiaGripPose = {
  */
 export const NIA_GRIP_POSES: Record<NiaGripPoseName, NiaGripPose> = {
   rest: {
-    palm: [-36, -80],
+    palm: [...NIA_GRIP_LOCAL_POSITION],
     thumb: [-8, -66],
     index: [[-8, -65], [-20, -79], [-36, -94]],
     middle: [[-3, -53], [-17, -68], [-32, -84]],
@@ -66,7 +66,7 @@ export const createNiaGrip = () => {
       <Rect
         ref={palm}
         size={[62, 40]}
-        position={[...rest.palm]}
+        position={[...NIA_GRIP_LOCAL_POSITION]}
         rotation={-12}
         radius={16}
         fill="#D9B89B"
