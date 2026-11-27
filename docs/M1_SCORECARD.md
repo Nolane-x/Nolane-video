@@ -16,14 +16,14 @@
 | Dimension | Remotion 4.0.547 | Motion Canvas 3.17.2 | Manim CE fork |
 |---|---|---|---|
 | Intended role | Full-film baseline / possible adapter | First 2D/2.5D scene runtime (provisional) | Specialist diagram adapter |
-| Latest green candidate run | [45944799022](https://github.com/Nolane-x/Nolane-video/actions/runs/45944799022) | [45944799022](https://github.com/Nolane-x/Nolane-video/actions/runs/45944799022) | [45944799022](https://github.com/Nolane-x/Nolane-video/actions/runs/45944799022) |
-| Latest artifact digest | `sha256:e5819c0d06ebcdd9eda332a0619a605b8957bc3c77bdccf7d4e55dea92f3f998` | `sha256:d8450a374bfce31820c1cdfd2bf5aadd324396cd58dcb1e80a731fd85755816b` | `sha256:cc5f53c5252d81399f3b640e4ac16053c0feb68152afb34dd64e035724c87889` |
-| Latest MP4 SHA-256 | `1970da35a380c0fd08a8a04e74bc03d050d21bb389ecb0bdd483ab49f232bbda` | `8b6d7c9f388c5660b2594105ba0dcfa0e9a2ed1248262daea140048dbd40220d` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
+| Latest green candidate run | [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) | [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) | [45951640411 (#89)](https://github.com/Nolane-x/Nolane-video/actions/runs/45951640411) |
+| Latest artifact digest | `sha256:a703a6af58513e18f7a771f3e00ac17dcc49a31d7d6f12b84910e4b429c26389` | `sha256:4da7c9e84a449dabbb09ac235e14e9819691ecbdb444ca2755d98258c9904a92` | `sha256:9a6fb300a693c886dbea7b4ab9e56444ef7ba67bac6fb4d163864325e0178386` |
+| Latest MP4 SHA-256 | `1970da35a380c0fd08a8a04e74bc03d050d21bb389ecb0bdd483ab49f232bbda` | `0016d083c11a3dc1615c8ae9e8dbc4a58af5a02bbcb5354e66f2b80583965616` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
 | Output metadata | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 11.624674 s, 279 frames |
-| Technical result | PASS: typecheck, full render, ffprobe and upload | PASS: official editor build, exactly 1,728 unique sequential frames, renderer success, FFmpeg, ffprobe, upload and clean process exit | PASS: pinned fork install, render, ffprobe and upload |
-| Visual review | Contact sheet and selected native frames reviewed; “NƯỚC” safe area fixed | Contact sheet and native frame reviewed; 40°/58.9° labels corrected clear of rays | Shared palette/font and native-resolution diagram reviewed |
+| Technical result | PASS: typecheck, full render, H.264/24 fps/1,728-frame ffprobe gate and upload | PASS: official editor build, 1,728 unique sequential frames, H.264/24 fps/1,728-frame ffprobe gate, zero browser errors and upload | PASS: pinned fork install, H.264/24 fps/279-frame gate, ffprobe and upload |
+| Visual review | Contact sheet and selected native frames reviewed; “NƯỚC” safe area fixed | Run #83 verified water below air and interface/rays aligned; run #89 contact sheet plus selected S02/S06 frames reviewed for Nia rig and spoon kink | Shared palette/font and native-resolution diagram reviewed |
 | Scientific geometry | PASS on reviewed diagram | PASS against shared diagram model | PASS on reviewed diagram |
-| Character acting | Not approved: vector blockout, weak hand/prop performance | Not approved: static arm stroke, no detailed hand/grip or acted lift/re-dip | Not applicable to specialist role |
+| Character acting | Not approved: vector blockout, weak hand/prop performance | First reusable Nia rig now has torso/neck/head/eyes/mouth, upper arm, forearm and elbow; S02 includes anticipation, lift, inspection, re-dip and lean. Still a simplified blockout with a basic hand/prop coupling, not production-quality fingers or contact | Not applicable to specialist role |
 | Diagram choreography | Needs work: causality and timing need full-speed review | Needs work: long holds and reveal order need a deliberate teaching pass | Legible reveal, but opening is sparse; VO timing not tested |
 | Audio | Silent; no VO, transcript sync, SFX or music | Silent; no VO, transcript sync, SFX or music | No audio |
 | License | Two-tier source-available license; eligible individuals/small companies may create commercial videos, but selling/licensing a Remotion derivative is restricted | MIT core; optional GPLv3 FFmpeg exporter excluded | MIT (Community Edition and pinned fork files) |
@@ -56,8 +56,8 @@ This is not an artistic ranking. Both full-film candidates remain below NEE's ta
 
 ## Next required evidence
 
-1. Full-speed 24 fps review of the complete Remotion and Motion Canvas films.
-2. A real character/prop vertical slice with articulated hand, grip constraints, anticipation, action, reaction and follow-through.
-3. A deliberately choreographed educational diagram reveal with purposeful holds.
-4. Approved narration, synchronized captions, SFX and music, or a documented amendment to benchmark silent visuals only.
-5. Repeated render and authoring/revision measurements; revisit ADR-0001 if the evidence changes.
+1. Full-speed 24 fps review of the complete Remotion and Motion Canvas films with shot/frame-specific findings; selected stills are not a substitute.
+2. Upgrade the first Nia rig slice with articulated fingers, explicit grip/contact constraints, weight transfer, reaction and follow-through.
+3. Re-choreograph the diagram as a causal sequence with purposeful holds and motivated camera moves.
+4. Approved narration, transcript-synchronized captions, SFX and music, or a documented amendment to benchmark silent visuals only.
+5. Reduced/mobile-size typography review and repeated render/authoring/revision measurements; revisit ADR-0001 if evidence changes.
