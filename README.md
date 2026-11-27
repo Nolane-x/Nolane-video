@@ -77,6 +77,9 @@ Read these files in order:
 6. [docs/ROADMAP.md](docs/ROADMAP.md)
 7. [docs/STATE.md](docs/STATE.md)
 8. [docs/AI_HANDOFF.md](docs/AI_HANDOFF.md)
+9. [docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md](docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md)
+10. [docs/M1_SCORECARD.md](docs/M1_SCORECARD.md)
+11. [docs/M1_BENCHMARK_PLAN.md](docs/M1_BENCHMARK_PLAN.md)
 
 Then inspect the current Git branch, HEAD, repository tree, recent commits, and the relevant upstream/fork source before changing anything.
 
@@ -84,6 +87,6 @@ Then inspect the current Git branch, HEAD, repository tree, recent commits, and 
 
 ## Current status
 
-> **M1 benchmark phase — 2026-11-27.** The three candidate jobs now pass together: Remotion and Motion Canvas each render the full 72-second/1,728-frame film; Manim renders the specialist scientific segment. Motion Canvas now terminates its editor/Vite process cleanly after exporting, and ffprobe verifies its H.264 1920×1080/24 fps/72-second output. The angle-label safe-area polish and complete perceptual/audio/acting review remain open. No master renderer has yet been selected.
+> **M1 benchmark phase — 2026-11-27.** The three candidate jobs pass in repeated runs: Remotion and Motion Canvas each render the full 72-second/1,728-frame film; Manim renders the specialist scientific segment. [ADR-0001](docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md) provisionally selects Motion Canvas as the first 2D scene adapter; Film IR remains independent. The angle-label layout is verified. Full-speed acting/prop-contact, diagram pacing, narration/audio synchronization and final creative approval remain open.
 
 The first implementation milestone is not a large code dump. It is a small, complete benchmark film that proves the chosen runtime can turn one approved educational idea into an editable, narratively coherent, mathematically correct, well-acted, voice-synchronized short film.
