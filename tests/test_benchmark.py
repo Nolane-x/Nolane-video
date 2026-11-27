@@ -141,20 +141,41 @@ class BenchmarkContractTests(unittest.TestCase):
     def test_nia_grip_is_prop_attached_and_has_finger_controls(self):
         root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas" / "src"
         grip_source = (root / "actors" / "nia-grip.tsx").read_text(encoding="utf-8")
+        prop_source = (root / "props" / "spoon.tsx").read_text(encoding="utf-8")
         scene_source = (root / "scenes" / "spoon.tsx").read_text(encoding="utf-8")
 
         self.assertIn("export const createNiaGrip", grip_source)
         for part in ("palm", "thumb", "indexOutline", "indexFinger", "middleOutline", "middleFinger"):
             with self.subTest(part=part):
                 self.assertIn(f"const {part} =", grip_source)
-        spoon_node = scene_source.split('<Node ref={spoonRig}', 1)[1].split("</Node>", 1)[0]
-        self.assertIn("{grip.view}", spoon_node)
-        self.assertIn("const grip = createNiaGrip()", scene_source)
-        self.assertIn("grip.indexFinger().points", scene_source)
-        self.assertIn("grip.middleFinger().points", scene_source)
-        self.assertIn("grip.indexOutline().points", scene_source)
-        self.assertIn("grip.middleOutline().points", scene_source)
-        self.assertIn("grip.thumb().position", scene_source)
+        self.assertIn("export const createSpoonProp", prop_source)
+        self.assertIn('<Node ref={rig}', prop_source)
+        self.assertIn("{grip.view}", prop_source)
+        self.assertIn("const grip = createNiaGrip()", prop_source)
+        self.assertIn("const spoon = createSpoonProp", scene_source)
+        self.assertIn("{spoon.view}", scene_source)
+        self.assertIn("spoon.grip.indexFinger().points", scene_source)
+        self.assertIn("spoon.grip.middleFinger().points", scene_source)
+        self.assertIn("spoon.grip.indexOutline().points", scene_source)
+        self.assertIn("spoon.grip.middleOutline().points", scene_source)
+        self.assertIn("spoon.grip.thumb().position", scene_source)
+
+    def test_motion_canvas_runtime_failure_keeps_actionable_browser_diagnostics(self):
+        script_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "scripts"
+            / "render-editor.mjs"
+        )
+        script_source = script_path.read_text(encoding="utf-8")
+        self.assertIn("error.stack", script_source)
+        self.assertIn('page.on("requestfailed"', script_source)
+        self.assertIn("networkFailures", script_source)
+        self.assertIn("browser-runtime-debug.json", script_source)
+        self.assertIn('if (pageErrors.length)', script_source)
+        self.assertIn('throw new Error("Browser runtime errors:', script_source)
 
     def test_s02_authors_anticipation_lift_inspection_and_redip(self):
         scene_path = (
@@ -172,7 +193,7 @@ class BenchmarkContractTests(unittest.TestCase):
                 self.assertIn(beat, scene_source)
         self.assertIn("nia.upperArm().points", scene_source)
         self.assertIn("nia.forearm().points", scene_source)
-        self.assertIn("spoonBentBottom().opacity(1, 0.2)", scene_source)
+        self.assertIn("spoon.bentBottom().opacity(1, 0.2)", scene_source)
         self.assertIn(
             "10 - 1 / 24 - (0.4 + 0.25 + 0.85 + 0.8 + 0.25 + 0.2 + 0.85 + 0.6)",
             scene_source,
