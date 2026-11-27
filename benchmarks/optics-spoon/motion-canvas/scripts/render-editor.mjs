@@ -177,11 +177,25 @@ try {
   });
   const page = await browser.newPage({viewport: {width: 1600, height: 1000}});
   const pageErrors = [];
+  const networkFailures = [];
   const browserConsole = [];
   let rendererStarted = false;
   let rendererFinished = false;
   let rendererFinishMessage = null;
-  page.on("pageerror", (error) => pageErrors.push(error.message));
+  page.on("pageerror", (error) => pageErrors.push({
+    name: error.name,
+    message: error.message,
+    stack: error.stack ?? null
+  }));
+  page.on("requestfailed", (request) => {
+    if (networkFailures.length >= 100) return;
+    networkFailures.push({
+      url: request.url(),
+      method: request.method(),
+      resourceType: request.resourceType(),
+      failure: request.failure()?.errorText ?? null
+    });
+  });
   page.on("console", (message) => {
     const text = message.text();
     if (text.includes("[M1 renderer] state Working")) rendererStarted = true;
@@ -399,7 +413,7 @@ try {
     const debug = {
       status, body, inputs, localStorage, exportAudit, exportAuditError, fileSummary,
       rendererStarted, rendererFinished, rendererFinishMessage,
-      pageErrors, browserConsole, viteLog: viteLog.slice(-10000)
+      pageErrors, networkFailures, browserConsole, viteLog: viteLog.slice(-10000)
     };
     await fs.writeFile(path.join(DELIVERY_DIR, "short-render-debug.json"), JSON.stringify(debug, null, 2) + "\n");
     await page.screenshot({path: path.join(DELIVERY_DIR, "short-render-editor.png"), fullPage: true}).catch(() => {});
@@ -415,7 +429,29 @@ try {
     );
   }
   if (pageErrors.length) {
-    throw new Error("Browser runtime errors:\n" + pageErrors.join("\n"));
+    const debug = {
+      status: "browser-runtime-error-after-render",
+      rendererStarted,
+      rendererFinished,
+      rendererFinishMessage,
+      renderedFrames: finalFrames.pngs.length,
+      pageErrors,
+      networkFailures,
+      browserConsole,
+      viteLog: viteLog.slice(-10000)
+    };
+    await fs.writeFile(
+      path.join(DELIVERY_DIR, "browser-runtime-debug.json"),
+      JSON.stringify(debug, null, 2) + "\n"
+    );
+    await page.screenshot({
+      path: path.join(DELIVERY_DIR, "browser-runtime-error.png"),
+      fullPage: true
+    }).catch(() => {});
+    throw new Error(
+      "Browser runtime errors after the frame render completed:\n" +
+      JSON.stringify({pageErrors, networkFailures}, null, 2)
+    );
   }
 
   const frameNumbers = finalFrames.pngs.map((name) => Number.parseInt(name.slice(0, 6), 10));
