@@ -221,7 +221,7 @@ export default makeScene2D(function* (view) {
     diagramCaption().opacity(1, 0.8),
     view.scale([1, 1], 0.8)
   );
-  yield* waitFor(9.2);
+  yield* waitFor(9.2 + 1 / 24);
   checkpoint("S03-complete");
 
   // S04 — 16 seconds: construct the physical path in causal order.
