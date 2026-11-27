@@ -1,6 +1,7 @@
 import copy
 import math
 import unittest
+from pathlib import Path
 
 from tools.validate_benchmark import (
     BENCHMARK,
@@ -49,6 +50,28 @@ class BenchmarkContractTests(unittest.TestCase):
         errors = validate_motion_canvas_range(self.storyboard, meta)
         self.assertTrue(errors)
         self.assertIn("maps to frame 1728", errors[0])
+
+    def test_every_storyboard_shot_has_a_runtime_frame_checkpoint(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+
+        for shot in self.storyboard["shots"]:
+            checkpoint = f'checkpoint("{shot["id"]}-complete")'
+            with self.subTest(shot=shot["id"]):
+                self.assertIn(checkpoint, scene_source)
+
+        # The runtime must compare the sampled final frame against the
+        # storyboard's half-open end frame, rather than a seconds estimate.
+        self.assertIn("candidate.end_frame - 1", scene_source)
+        self.assertIn("Math.round(playback.frame)", scene_source)
 
     def test_snell_example_bends_away_from_normal(self):
         theta_air = refracted_angle_degrees(1.333, 1.0003, 40.0)
