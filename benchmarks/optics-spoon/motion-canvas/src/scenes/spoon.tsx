@@ -126,7 +126,9 @@ export default makeScene2D(function* (view) {
     nia.forearm().opacity(1, 0.35),
     nia.elbow().opacity(1, 0.35),
     grip.palm().opacity(1, 0.25),
+    grip.indexOutline().opacity(1, 0.25),
     grip.indexFinger().opacity(1, 0.25),
+    grip.middleOutline().opacity(1, 0.25),
     grip.middleFinger().opacity(1, 0.25),
     grip.thumb().opacity(1, 0.25),
     nia.eyeLeft().position([-48, -3], 0.25),
@@ -151,7 +153,9 @@ export default makeScene2D(function* (view) {
   // Anticipation: Nia steadies the wrist before lifting.
   yield* all(
     grip.thumb().position([-10, -68], 0.25),
+    grip.indexOutline().points([[-6, -66], [-19, -80], [-36, -95]], 0.25),
     grip.indexFinger().points([[-6, -66], [-19, -80], [-36, -95]], 0.25),
+    grip.middleOutline().points([[-2, -54], [-16, -69], [-32, -85]], 0.25),
     grip.middleFinger().points([[-2, -54], [-16, -69], [-32, -85]], 0.25)
   );
   yield* all(
@@ -301,11 +305,15 @@ export default makeScene2D(function* (view) {
     nia.elbow().opacity(1, 0.8),
     nia.elbow().position([245, 30], 0.8),
     grip.palm().opacity(1, 0.8),
+    grip.indexOutline().opacity(1, 0.8),
     grip.indexFinger().opacity(1, 0.8),
+    grip.middleOutline().opacity(1, 0.8),
     grip.middleFinger().opacity(1, 0.8),
     grip.thumb().opacity(1, 0.8),
     grip.thumb().position([-8, -66], 0.8),
+    grip.indexOutline().points([[-8, -65], [-20, -79], [-36, -94]], 0.8),
     grip.indexFinger().points([[-8, -65], [-20, -79], [-36, -94]], 0.8),
+    grip.middleOutline().points([[-3, -53], [-17, -68], [-32, -84]], 0.8),
     grip.middleFinger().points([[-3, -53], [-17, -68], [-32, -84]], 0.8),
     nia.expression().opacity(1, 0.8),
     nia.mouth().opacity(1, 0.8),
