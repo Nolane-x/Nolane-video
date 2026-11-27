@@ -170,6 +170,21 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("const toPose =", grip_source)
         self.assertIn("return all(", grip_source)
 
+    def test_prop_attached_grip_renders_above_the_forearm(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+        # The actor arm is a separate stroke; draw it first so the spoon node's
+        # attached palm/fingers are not hidden at the contact point.
+        self.assertLess(scene_source.index("{nia.view}"), scene_source.index("{spoon.view}"))
+
     def test_nia_grip_pose_library_contains_four_independently_articulated_fingers(self):
         grip_path = (
             Path(__file__).resolve().parents[1]

@@ -68,8 +68,8 @@ export default makeScene2D(function* (view) {
   view.add(
     <>
       {kitchen.view}
-      {spoon.view}
       {nia.view}
+      {spoon.view}
 
       {optics.view}
     </>
