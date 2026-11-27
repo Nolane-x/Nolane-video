@@ -3,14 +3,12 @@ import { createRef } from "@motion-canvas/core";
 import geometry from "../../../shared/diagram.json";
 
 export type RefractionDiagramPalette = {
-  ink: string;
   water: string;
   waterLight: string;
   ivory: string;
   ray: string;
   coral: string;
   mint: string;
-  muted: string;
 };
 
 const toStage = (point: {x: number; y: number}): [number, number] => [
