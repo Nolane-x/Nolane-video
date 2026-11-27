@@ -11,10 +11,12 @@ import { createRef } from "@motion-canvas/core";
  */
 export const createNiaActor = () => {
   const torso = createRef<Rect>();
+  const neck = createRef<Rect>();
   const headRig = createRef<Node>();
   const head = createRef<Circle>();
   const eyeLeft = createRef<Circle>();
   const eyeRight = createRef<Circle>();
+  const mouth = createRef<Line>();
   const expression = createRef<Txt>();
   const upperArm = createRef<Line>();
   const forearm = createRef<Line>();
@@ -30,6 +32,16 @@ export const createNiaActor = () => {
         fill="#203746"
         stroke="#101B26"
         lineWidth={10}
+        opacity={0}
+      />
+      <Rect
+        ref={neck}
+        size={[82, 85]}
+        position={[505, 32]}
+        radius={24}
+        fill="#D9B89B"
+        stroke="#101B26"
+        lineWidth={8}
         opacity={0}
       />
       <Node ref={headRig} position={[505, -105]}>
@@ -55,6 +67,14 @@ export const createNiaActor = () => {
           size={18}
           position={[40, 0]}
           fill="#101B26"
+          opacity={0}
+        />
+        <Line
+          ref={mouth}
+          points={[[-26, 68], [0, 75], [26, 68]]}
+          stroke="#8A554C"
+          lineWidth={9}
+          lineCap="round"
           opacity={0}
         />
         <Txt
@@ -98,10 +118,12 @@ export const createNiaActor = () => {
   return {
     view,
     torso,
+    neck,
     headRig,
     head,
     eyeLeft,
     eyeRight,
+    mouth,
     expression,
     upperArm,
     forearm,
