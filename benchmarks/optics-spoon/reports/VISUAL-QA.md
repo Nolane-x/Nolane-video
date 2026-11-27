@@ -1,14 +1,16 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-27  
-**Latest reviewed candidate run:** [45944266231](https://github.com/Nolane-x/Nolane-video/actions/runs/45944266231). All three candidate jobs passed in this run.  
+**Latest reviewed candidate run:** [45944799022](https://github.com/Nolane-x/Nolane-video/actions/runs/45944799022). All three candidate jobs passed again; contact sheets were downloaded and inspected for this latest artifact set.  
 **Review scope:** contact sheets and selected 1920×1080 still frames. This is prototype visual QA, not final creative approval; full continuous-motion, narration and audio review remain open.
 
 ## Remotion 4.0.547 — full-film candidate
 
 Artifact: `m1-remotion-candidate`  
-Artifact digest: `sha256:4ebbeecc977c377910eed47949d4eb5271f22f6cb90aeecbeff94f9000e6cc7e`  
-Output: H.264, 1920×1080, progressive, 24/1 fps, 72.000 s, 1,728 frames.
+Artifact digest: `sha256:e5819c0d06ebcdd9eda332a0619a605b8957bc3c77bdccf7d4e55dea92f3f998`  
+MP4 SHA-256: `1970da35a380c0fd08a8a04e74bc03d050d21bb389ecb0bdd483ab49f232bbda`  
+Contact-sheet SHA-256: `76de5519cdc408ca3b925c331b918f17a1aaab78f30c73fad77d127df9106d84`  
+Output: H.264 High, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames.
 
 ### Passed
 
@@ -29,7 +31,7 @@ Output: H.264, 1920×1080, progressive, 24/1 fps, 72.000 s, 1,728 frames.
 ## Motion Canvas 3.17.2 — full-film candidate
 
 Artifact: `m1-motion-canvas-candidate`  
-Artifact digest: `sha256:daa9b3a5501a001d1f34af7b19bd6000cbaf3d8d831db30d79beefbe809a9a2d`  
+Artifact digest: `sha256:d8450a374bfce31820c1cdfd2bf5aadd324396cd58dcb1e80a731fd85755816b`  
 MP4 SHA-256: `8b6d7c9f388c5660b2594105ba0dcfa0e9a2ed1248262daea140048dbd40220d`  
 Contact-sheet SHA-256: `d88fc57c6d7452a5e720cecc7afca84ee167ddb2c74f3157bdd7d84df4070a03`  
 Output: H.264, 1920×1080, yuv420p, 24/1 fps, exactly 1,728 frames, 72.000 s. Report records zero browser errors.
@@ -42,6 +44,8 @@ Output: H.264, 1920×1080, yuv420p, 24/1 fps, exactly 1,728 frames, 72.000 s. Re
 - The “NƯỚC”/“KHÔNG KHÍ” labels remain legible, and the diagram is consistent with canonical geometry.
 - The 40° and 58.9° labels have been moved clear of the physical ray paths in source commit `3a091f4fe5eec706014aadfb42f17679752ea733`; contact sheet and frame 1152 in run 45944266231 confirm the correction.
 - The runner no longer hangs after export. Commit `ad8fc14a848b02a61d7b76fb916ab4bfb0942e14` starts Vite directly in a process group and awaits its termination, so CI proceeds through ffprobe and candidate upload.
+
+- Run [45944799022](https://github.com/Nolane-x/Nolane-video/actions/runs/45944799022) reran all three candidates successfully after the report update. The newly downloaded MP4s have been ffprobed: Remotion and Motion Canvas both 1920×1080, H.264/yuv420p, 24 fps, 72.000 s and 1,728 frames; Manim 1920×1080, 24 fps, 279 frames, 11.624674 s.
 
 ### Still below the target
 
@@ -56,9 +60,10 @@ Output: H.264, 1920×1080, yuv420p, 24/1 fps, exactly 1,728 frames, 72.000 s. Re
 ## Manim CE fork — S04/S05 specialist diagram
 
 Artifact: `m1-manim-refraction-segment`  
-Artifact digest: `sha256:b70d75224e904f4d04719f6f7388bb973cbd239016b8a2f265f024f09a097c36`  
+Artifact digest: `sha256:cc5f53c5252d81399f3b640e4ac16053c0feb68152afb34dd64e035724c87889`  
 MP4 SHA-256: `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`  
-Output: H.264, 1920×1080, 24/1 fps, 279 frames, 11.624674 s.
+Contact-sheet SHA-256: `b81bdd8da5a3e93e417b0822ec3c9cf99e4b6cf9e804fca666eb6a7bb6c5a33f`  
+Output: H.264, 1920×1080, yuv420p, 24/1 fps, 279 frames, 11.624674 s.
 
 ### Passed
 
@@ -82,4 +87,4 @@ Output: H.264, 1920×1080, 24/1 fps, 279 frames, 11.624674 s.
 - Manim passes the 11.624674-second specialist scientific segment.
 - The full-film candidate visuals remain prototype-level. None yet demonstrates NEE's target character performance, believable prop contact, polished camera language, final audio or word-level caption synchronization.
 - This review uses contact sheets and selected still frames; continuous-motion review is still required.
-- No master runtime is selected in this QA report. See `docs/M1_SCORECARD.md`, `docs/ANIMATION_CRAFT_STANDARDS.md` and the renderer strategy ADR.
+- Motion Canvas is provisionally selected as the first 2D scene adapter by [ADR-0001](../../docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md). This is an implementation choice, not creative approval or proof of final quality. See `docs/M1_SCORECARD.md` and `docs/ANIMATION_CRAFT_STANDARDS.md`.
