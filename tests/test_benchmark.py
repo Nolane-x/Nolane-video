@@ -205,7 +205,9 @@ class BenchmarkContractTests(unittest.TestCase):
 
         self.assertIn("NIA_REST_GRIP_STAGE_POINT", actor_source)
         self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
+        self.assertIn("position={[...NIA_GRIP_LOCAL_POSITION]}", grip_source)
         self.assertIn("SPOON_REST_ORIGIN", prop_source)
+        self.assertIn("position={[...SPOON_REST_ORIGIN]}", prop_source)
         self.assertIn("NIA_LIFT_GRIP_STAGE_POINT", scene_source)
         self.assertIn("NIA_REST_GRIP_STAGE_POINT", scene_source)
         self.assertIn("SPOON_LIFT_ORIGIN", scene_source)
