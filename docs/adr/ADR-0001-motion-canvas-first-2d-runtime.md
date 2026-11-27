@@ -56,6 +56,10 @@ This decision is provisional and deliberately narrow:
 
 The first reusable scientific diagram vertical slice now exists at `benchmarks/optics-spoon/motion-canvas/src/diagrams/refraction.tsx`. It reads the canonical shared diagram geometry, keeps coordinate conversion inside the adapter component, returns semantic refs for orchestration, and uses a dashed backward construction for the virtual image ray. Candidate run [#94](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166) passed all three engine jobs after this extraction; contract CI [#13](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed 17 tests. This strengthens the adapter boundary but does not change the Film IR or imply final creative acceptance.
 
+## Integrated actor/prop/set implementation evidence — 2026-11-27
+
+The first execution vertical slice is now separated into reusable Nia actor/grip, SpoonProp, KitchenSet and RefractionDiagram modules. A typed rig-anchor module computes wrist contact from the same local grip point and prop transform at rest (0°), lift (−5°) and inspection turn (+6°). Candidate run [#116](https://github.com/Nolane-x/Nolane-video/actions/runs/45956296455) passed all three render/ffprobe gates; contract CI [#24](https://github.com/Nolane-x/Nolane-video/actions/runs/45956346788) passed 21 tests. Selected native frames support the first grip/turn/re-dip slice. This strengthens the adapter boundary but does not define Film IR or imply final creative approval.
+
 ## Alternatives considered
 
 ### Remotion as the first runtime
