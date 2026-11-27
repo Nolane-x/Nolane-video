@@ -1,3 +1,51 @@
+
+
+---
+
+## Latest continuation snapshot — 2026-11-27 06:38 UTC
+
+This snapshot supersedes the older S04-timing failure and pre-refactor diagram handoff above.
+
+### Current GitHub state
+
+- Repository: `Nolane-x/Nolane-video` (NEE), not the separate `Nolane-x/video` production workspace.
+- Main remains at `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- Active branch `m1/optics-benchmark`; latest docs HEAD `962e0fd2898e0958f38ff8e6cf8218b7ae90b464`; diagram component source commit `560303cb3738d150cbfb779844bfbc5768805893`; latest diagram tests commit `75b28da9463e5b9894a9a21a5b3a282fa8c78b72`.
+
+### Latest CI evidence
+
+- Candidate workflow [#94](https://github.com/Nolane-x/Nolane-video/actions/runs/45952654166), source head `29b33b50fee8d616bcfcb29ece939fb0a5430b96): all Remotion, Motion Canvas and Manim jobs passed.
+  - Remotion: H.264 1920×1080, 24 fps, 72 s, 1,728 frames; artifact digest `1074b604e55f79fa95a553e732beb2cca40f696d59b5d26f44577439f031a510`; MP4 hash `27814a96eddfc8e53ba9b022efaf84a1f7d7365b70b962a063a104e4cdf786a2`.
+  - Motion Canvas: exactly 1,728 unique sequential PNGs/events, zero browser errors; H.264 1920×1080, 24 fps, 72.000 s, 1,728 frames; artifact digest `92c3b5d3451520a6e7b7fc8bd6db0f7c51c772335b9692c4cadf24724693cbc8`; MP4 hash `4a12e4609d27e941202892b7ad10b6847f88ddfe878aac50e1119d6908b2fce3`.
+  - Manim specialist segment: H.264 1920×1080, nominal 24 fps, 279 frames, 11.624674 s; artifact digest `faac7840db9a81a8827d9ff255698a89234239f0b55bcf2d607b25c2f132e245`; MP4 hash `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Contract validator [#13](https://github.com/Nolane-x/Nolane-video/actions/runs/45952657476) passed 17 tests, including the refraction module and dashed ray guard.
+
+### New diagram architecture
+
+- New file: `benchmarks/optics-spoon/motion-canvas/src/diagrams/refraction.tsx`.
+- API: `createRefractionDiagram(palette)` returns `view` plus refs for diagram water, interface, normal, incident/refracted/backward rays, true/apparent/eye points, labels, angles, formula and caption.
+- It consumes `shared/diagram.json` directly and owns its top-left pixel to centered Motion Canvas coordinate conversion (+Y down). The scene imports the component and only choreographs returned refs; duplicated diagram JSX and the local geometry helper were removed.
+- The virtual/backward construction is rendered with `lineDash={[18, 14]}`; the real incident and refracted rays remain solid yellow.
+- Inspected native frame at 51 s from run #94 confirms: water below interface, air above; white dashed extension goes backward from the interface along the outgoing ray to the mint apparent point; true point remains coral.
+
+### Existing actor slice
+
+Nia's reusable rig is still at `src/actors/nia.tsx`, with torso/neck/head/eyes/mouth/upper arm/forearm/elbow. S02 sequences anticipation, lift, inspection/turn, re-dip and lean. The spoon hand is still a geometric piece parented to the prop node; build articulated fingers, explicit grip/contact constraints, wrist/elbow continuity, weight transfer and follow-through next.
+
+### Exact next work
+
+1. Do a full 24 fps watch of the complete Remotion and Motion Canvas films. Record shot/frame IDs, severity, reproduction note and repair in `benchmarks/optics-spoon/reports/VISUAL-QA.md`; contact sheets and selected frames are not full motion approval.
+2. Improve the Nia hand/prop system: articulated palm/fingers, grip target on spoon handle, constraint/coupling while lifting and dipping, visible contact/release, wrist/elbow continuity and secondary motion.
+3. Use the new refraction diagram module as the reusable primitive for a causal teaching sequence: interface → normal → incident ray → refracted ray → angle labels/law → dashed backward extension → apparent point. Add purposeful holds and only motivated camera moves.
+4. Review all essential typography at reduced/mobile sizes and maintain safe areas.
+5. Keep audio incomplete until approved Vietnamese VO and SFX/music are supplied; then align captions to actual speech/sample time and conduct perceptual audio QA.
+6. Measure repeated render and edit/preview iteration on equivalent runners. Do not rank by one run.
+7. Finish provenance/license review before reusing H2 from `Nolane-x/video`.
+8. After M1 creative acceptance, begin the first typed, renderer-independent Film IR slice. Motion Canvas is an execution adapter, not the Film IR.
+
+### Honest status
+
+The first reusable actor slice and reusable scientific diagram component exist. The exact 72-second technical render is green for Remotion and Motion Canvas, and the Manim scientific segment is green. The virtual-ray construction is now correctly dashed. **M1 remains open** because full-speed creative review, production-level acting/contact, mobile typography and real audio/creative approval remain incomplete. Keep source authored, test pass, render, technical QA, selected-frame review and final creative approval as distinct states.
 # AI Session Handoff
 
 **Updated:** 2026-11-27 06:29 UTC (live snapshot)  
