@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "render": "remotion render src/index.ts optics-spoon out/optics-spoon.mp4 --codec=h264 --concurrency=2"
+    "render": "remotion render src/index.ts optics-spoon out/optics-spoon.mp4 --codec=h264 --concurrency=2",
+    "test:parity": "node scripts/test-parity.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.547",

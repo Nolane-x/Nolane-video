@@ -1,4 +1,5 @@
 import copy
+import json
 import math
 import re
 import unittest
@@ -539,6 +540,47 @@ class BenchmarkContractTests(unittest.TestCase):
         broken = copy.deepcopy(self.diagram)
         broken["apparent_point"]["y"] = 745
         self.assertTrue(validate_diagram(broken))
+
+
+    def test_remotion_candidate_has_deterministic_storyboard_parity_gates(self):
+        root = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "remotion"
+        )
+        source = (root / "src" / "OpticsSpoon.tsx").read_text(encoding="utf-8")
+        motion_source = (root / "src" / "benchmark-motion.ts").read_text(encoding="utf-8")
+        runtime_test = (root / "scripts" / "test-parity.mjs").read_text(encoding="utf-8")
+        package = json.loads((root / "package.json").read_text(encoding="utf-8"))
+        workflow = (
+            Path(__file__).resolve().parents[1]
+            / ".github"
+            / "workflows"
+            / "m1-benchmark-candidates.yml"
+        ).read_text(encoding="utf-8")
+
+        s02 = next(shot for shot in self.storyboard["shots"] if shot["id"] == "S02")
+        self.assertEqual((s02["start_frame"], s02["end_frame"]), (192, 432))
+        self.assertIn("s02MotionAt(frame)", source)
+        self.assertIn("diagramMotionAt(frame)", source)
+        for key in (
+            "anticipation", "lift", "inspection", "redip", "lean",
+            "straightness", "spoonRotationDeg", "handLiftPx",
+        ):
+            with self.subTest(key=key):
+                self.assertIn(key, motion_source)
+        for phase in (
+            "incidentRay", "refractedRay", "normal", "angles",
+            "formula", "backward", "apparent",
+        ):
+            with self.subTest(phase=phase):
+                self.assertIn(phase, motion_source)
+                self.assertIn(phase, runtime_test)
+
+        self.assertEqual(package["scripts"]["test:parity"], "node scripts/test-parity.mjs")
+        self.assertIn("npm run test:parity", workflow)
+
 
 
 if __name__ == "__main__":

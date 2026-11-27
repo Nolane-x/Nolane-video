@@ -7,10 +7,12 @@ on:
     paths:
       - "benchmarks/optics-spoon/**"
       - ".github/workflows/m1-benchmark-candidates.yml"
+      - "tests/test_benchmark.py"
   pull_request:
     paths:
       - "benchmarks/optics-spoon/**"
       - ".github/workflows/m1-benchmark-candidates.yml"
+      - "tests/test_benchmark.py"
   workflow_dispatch:
 
 permissions:
@@ -39,6 +41,8 @@ jobs:
           sudo apt-get install -y ffmpeg
       - name: Install pinned dependencies
         run: npm install --no-audit --no-fund
+      - name: Test deterministic storyboard parity
+        run: npm run test:parity
       - name: Type-check
         run: npm run typecheck
       - name: Render 72-second benchmark
