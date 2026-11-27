@@ -15,6 +15,7 @@ import {
 import storyboard from "../../../shared/storyboard.json";
 import { createRefractionDiagram } from "../diagrams/refraction";
 import { createNiaActor } from "../actors/nia";
+import { createNiaGrip } from "../actors/nia-grip";
 
 const C = {
   ink: "#101B26",
@@ -72,9 +73,8 @@ export default makeScene2D(function* (view) {
   const spoonBentBottom = createRef<Line>();
   const spoonStraight = createRef<Line>();
   const spoonBowl = createRef<Circle>();
-  const hand = createRef<Rect>();
-  const thumb = createRef<Circle>();
   const nia = createNiaActor();
+  const grip = createNiaGrip();
   const kitchenCaption = createRef<Txt>();
 
   const optics = createRefractionDiagram(C);
@@ -92,8 +92,7 @@ export default makeScene2D(function* (view) {
         <Line ref={spoonBentBottom} points={[[14, 0], [205, 280]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
         <Line ref={spoonStraight} points={[[-145, -380], [160, 280]]} stroke="#E7E3D9" lineWidth={22} lineCap="round" opacity={0} />
         <Circle ref={spoonBowl} size={78} position={[195, 285]} scale={[0.65, 1.25]} fill="#B7C3C5" stroke={C.ivory} lineWidth={8} opacity={0} />
-        <Rect ref={hand} size={[62, 40]} position={[-36, -80]} rotation={-12} radius={16} fill="#D9B89B" stroke={C.ink} lineWidth={6} opacity={0} />
-        <Circle ref={thumb} size={28} position={[-8, -66]} fill="#D9B89B" stroke={C.ink} lineWidth={5} opacity={0} />
+        {grip.view}
       </Node>
       {nia.view}
       <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
@@ -126,8 +125,10 @@ export default makeScene2D(function* (view) {
     nia.upperArm().opacity(1, 0.35),
     nia.forearm().opacity(1, 0.35),
     nia.elbow().opacity(1, 0.35),
-    hand().opacity(1, 0.25),
-    thumb().opacity(1, 0.25),
+    grip.palm().opacity(1, 0.25),
+    grip.indexFinger().opacity(1, 0.25),
+    grip.middleFinger().opacity(1, 0.25),
+    grip.thumb().opacity(1, 0.25),
     nia.eyeLeft().position([-48, -3], 0.25),
     nia.eyeRight().position([32, -3], 0.25),
     nia.headRig().rotation(-4, 0.25)
@@ -148,7 +149,11 @@ export default makeScene2D(function* (view) {
     nia.headRig().rotation(0, 0.4)
   );
   // Anticipation: Nia steadies the wrist before lifting.
-  yield* waitFor(0.25);
+  yield* all(
+    grip.thumb().position([-10, -68], 0.25),
+    grip.indexFinger().points([[-6, -66], [-19, -80], [-36, -95]], 0.25),
+    grip.middleFinger().points([[-2, -54], [-16, -69], [-32, -85]], 0.25)
+  );
   yield* all(
     spoonRig().position([-320, 10], 0.85),
     spoonRig().rotation(-5, 0.85),
@@ -295,8 +300,13 @@ export default makeScene2D(function* (view) {
     nia.forearm().points([[245, 30], [-356, 0]], 0.8),
     nia.elbow().opacity(1, 0.8),
     nia.elbow().position([245, 30], 0.8),
-    hand().opacity(1, 0.8),
-    thumb().opacity(1, 0.8),
+    grip.palm().opacity(1, 0.8),
+    grip.indexFinger().opacity(1, 0.8),
+    grip.middleFinger().opacity(1, 0.8),
+    grip.thumb().opacity(1, 0.8),
+    grip.thumb().position([-8, -66], 0.8),
+    grip.indexFinger().points([[-8, -65], [-20, -79], [-36, -94]], 0.8),
+    grip.middleFinger().points([[-3, -53], [-17, -68], [-32, -84]], 0.8),
     nia.expression().opacity(1, 0.8),
     nia.mouth().opacity(1, 0.8),
     nia.mouth().points([[-26, 68], [0, 75], [26, 68]], 0.8),
