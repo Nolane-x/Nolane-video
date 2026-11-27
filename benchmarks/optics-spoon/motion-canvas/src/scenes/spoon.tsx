@@ -1,12 +1,8 @@
 import {
-  Line,
-  Rect,
-  Txt,
   makeScene2D
 } from "@motion-canvas/2d";
 import {
   all,
-  createRef,
   waitFor,
   usePlayback
 } from "@motion-canvas/core";
@@ -14,6 +10,7 @@ import storyboard from "../../../shared/storyboard.json";
 import { createRefractionDiagram } from "../diagrams/refraction";
 import { createNiaActor } from "../actors/nia";
 import { createSpoonProp } from "../props/spoon";
+import { createKitchenSet } from "../sets/kitchen";
 import { NIA_LIFT_GRIP_STAGE_POINT, NIA_REST_GRIP_STAGE_POINT, SPOON_LIFT_ORIGIN, SPOON_REST_ORIGIN } from "../actors/rig-anchors";
 
 const C = {
@@ -62,28 +59,17 @@ export default makeScene2D(function* (view) {
   checkpoint("scene-start");
   view.fill(C.ink);
 
-  const kitchenWall = createRef<Rect>();
-  const table = createRef<Rect>();
-  const glass = createRef<Rect>();
-  const water = createRef<Rect>();
-  const waterline = createRef<Line>();
+  const kitchen = createKitchenSet({water: C.water, waterLight: C.waterLight, ivory: C.ivory});
   const spoon = createSpoonProp({ivory: C.ivory, metal: "#E7E3D9"});
   const nia = createNiaActor();
-  const kitchenCaption = createRef<Txt>();
 
   const optics = createRefractionDiagram(C);
 
   view.add(
     <>
-      <Rect ref={kitchenWall} size={[1920, 1080]} fill="#142433" opacity={0} />
-      <Rect size={[1920, 360]} position={[0, 360]} fill="#172A35" opacity={0} />
-      <Rect ref={table} size={[1080, 130]} position={[-350, 390]} radius={20} fill="#5B493D" opacity={0} />
-      <Rect ref={glass} size={[460, 470]} position={[-320, 85]} radius={28} fill={"#9AD8D7"} opacity={0} lineWidth={10} stroke={C.ivory} />
-      <Rect ref={water} size={[440, 230]} position={[-320, 195]} fill={C.water} opacity={0} />
-      <Line ref={waterline} points={[[-550, 80], [-90, 80]]} stroke={C.waterLight} lineWidth={8} opacity={0} />
+      {kitchen.view}
       {spoon.view}
       {nia.view}
-      <Txt ref={kitchenCaption} text="Vì sao chiếc thìa trông như bị gãy?" position={[0, 465]} fontSize={40} fill={C.ivory} fontFamily="Arial" opacity={0} />
 
       {optics.view}
     </>
@@ -91,11 +77,11 @@ export default makeScene2D(function* (view) {
 
   // S01 — 8 seconds: establish Nia's attention, then make a clear grip/contact.
   yield* all(
-    kitchenWall().opacity(1, 0.4),
-    table().opacity(1, 0.4),
-    glass().opacity(0.28, 0.5),
-    water().opacity(0.55, 0.5),
-    waterline().opacity(1, 0.5),
+    kitchen.wall().opacity(1, 0.4),
+    kitchen.table().opacity(1, 0.4),
+    kitchen.glass().opacity(0.28, 0.5),
+    kitchen.water().opacity(0.55, 0.5),
+    kitchen.waterline().opacity(1, 0.5),
     spoon.top().opacity(1, 0.5),
     spoon.bentBottom().opacity(1, 0.5),
     spoon.bowl().opacity(1, 0.5),
@@ -106,7 +92,7 @@ export default makeScene2D(function* (view) {
     nia.eyeRight().opacity(1, 0.5),
     nia.expression().opacity(1, 0.5),
     nia.mouth().opacity(1, 0.5),
-    kitchenCaption().opacity(1, 0.5)
+    kitchen.caption().opacity(1, 0.5)
   );
   yield* waitFor(0.45);
   yield* all(
@@ -190,11 +176,11 @@ export default makeScene2D(function* (view) {
 
   // S03 — 10 seconds: move from the everyday scene into the invisible optical path.
   yield* all(
-    kitchenWall().opacity(0, 0.8),
-    table().opacity(0, 0.8),
-    glass().opacity(0, 0.8),
-    water().opacity(0, 0.8),
-    waterline().opacity(0, 0.8),
+    kitchen.wall().opacity(0, 0.8),
+    kitchen.table().opacity(0, 0.8),
+    kitchen.glass().opacity(0, 0.8),
+    kitchen.water().opacity(0, 0.8),
+    kitchen.waterline().opacity(0, 0.8),
     spoon.rig().opacity(0, 0.8),
     nia.torso().opacity(0, 0.8),
     nia.neck().opacity(0, 0.8),
@@ -202,7 +188,7 @@ export default makeScene2D(function* (view) {
     nia.upperArm().opacity(0, 0.8),
     nia.forearm().opacity(0, 0.8),
     nia.elbow().opacity(0, 0.8),
-    kitchenCaption().opacity(0, 0.8),
+    kitchen.caption().opacity(0, 0.8),
     optics.diagramWater().opacity(0.22, 0.8),
     optics.interfaceLine().opacity(1, 0.8),
     optics.airLabel().opacity(1, 0.8),
@@ -267,11 +253,11 @@ export default makeScene2D(function* (view) {
     optics.trueLabel().opacity(0, 0.8),
     optics.apparentLabel().opacity(0, 0.8),
     optics.diagramCaption().opacity(0, 0.8),
-    kitchenWall().opacity(1, 0.8),
-    table().opacity(1, 0.8),
-    glass().opacity(0.28, 0.8),
-    water().opacity(0.55, 0.8),
-    waterline().opacity(1, 0.8),
+    kitchen.wall().opacity(1, 0.8),
+    kitchen.table().opacity(1, 0.8),
+    kitchen.glass().opacity(0.28, 0.8),
+    kitchen.water().opacity(0.55, 0.8),
+    kitchen.waterline().opacity(1, 0.8),
     spoon.rig().opacity(1, 0.8),
     spoon.rig().position([...SPOON_REST_ORIGIN], 0.8),
     spoon.rig().rotation(0, 0.8),
@@ -306,8 +292,8 @@ export default makeScene2D(function* (view) {
     nia.expression().opacity(1, 0.8),
     nia.mouth().opacity(1, 0.8),
     nia.mouth().points([[-26, 68], [0, 75], [26, 68]], 0.8),
-    kitchenCaption().text("Chiếc thìa vẫn nguyên vẹn.", 0.8),
-    kitchenCaption().opacity(1, 0.8)
+    kitchen.caption().text("Chiếc thìa vẫn nguyên vẹn.", 0.8),
+    kitchen.caption().opacity(1, 0.8)
   );
   yield* waitFor(10.2);
   checkpoint("S06-complete");
