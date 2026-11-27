@@ -171,7 +171,7 @@ export default makeScene2D(function* (view) {
     headRig().rotation(-4, 0.25)
   );
   yield* view.scale([1.025, 1.025], 1.4);
-  yield* waitFor(5.3);
+  yield* waitFor(5.3 + 1 / 24); // Motion Canvas waitFor resolves on an integer frame boundary.
   checkpoint("S01-complete");
 
   // S02 — 10 seconds: expose the straight spoon and lift it as one constrained prop.
