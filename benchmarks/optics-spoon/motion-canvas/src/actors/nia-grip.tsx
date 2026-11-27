@@ -1,5 +1,6 @@
 import { Circle, Line, Rect } from "@motion-canvas/2d";
 import { all, createRef } from "@motion-canvas/core";
+import { NIA_GRIP_LOCAL_POSITION } from "./rig-anchors";
 import {
   NIA_GRIP_POSES,
   type FingerPath,
@@ -7,7 +8,7 @@ import {
   type NiaGripPoseName
 } from "./grip-geometry";
 
-const copyPath = (path: FingerPath): Point[] =>
+const copyPath = (path: FingerPath): GripPoint[] =>
   path.map(([x, y]): Point => [x, y]);
 
 /**

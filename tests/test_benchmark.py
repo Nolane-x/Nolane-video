@@ -166,7 +166,7 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertNotIn("spoon.grip.indexFinger().points", scene_source)
         self.assertNotIn("spoon.grip.middleFinger().points", scene_source)
         geometry_source = (root / "actors" / "grip-geometry.ts").read_text(encoding="utf-8")
-        package_source = (root / "package.json").read_text(encoding="utf-8")
+        package_source = (root.parent / "package.json").read_text(encoding="utf-8")
         workflow_source = (
             Path(__file__).resolve().parents[1]
             / ".github"
@@ -211,17 +211,19 @@ class BenchmarkContractTests(unittest.TestCase):
             / "nia-grip.tsx"
         )
         grip_source = grip_path.read_text(encoding="utf-8")
+        geometry_source = (grip_path.parent / "grip-geometry.ts").read_text(encoding="utf-8")
         for digit in ("index", "middle", "ring", "pinky"):
             with self.subTest(digit=digit):
-                self.assertIn(f"{digit}: FingerPath", grip_source)
+                self.assertIn(f"{digit}: FingerPath", geometry_source)
+                self.assertIn(f"{digit}: wrapFinger(", geometry_source)
                 self.assertIn(f"{digit}Outline", grip_source)
                 self.assertIn(f"{digit}Finger", grip_source)
                 self.assertIn(f"{digit}Outline().points(copyPath(pose.{digit})", grip_source)
                 self.assertIn(f"{digit}Finger().points(copyPath(pose.{digit})", grip_source)
 
-        self.assertIn('rest: {', grip_source)
-        self.assertIn('brace: {', grip_source)
-        self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
+        self.assertIn('rest: {', geometry_source)
+        self.assertIn('brace: {', geometry_source)
+        self.assertIn("NIA_GRIP_LOCAL_POSITION", geometry_source)
 
     def test_nia_arm_uses_reachable_two_bone_ik_and_candidate_gate_runs_its_tests(self):
         root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas"
@@ -346,9 +348,12 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn('nia.toArmPose("rest", 0.85)', scene_source)
         self.assertNotIn("nia.upperArm().points", scene_source)
         self.assertNotIn("nia.forearm().points", scene_source)
+        geometry_source = (root / "actors" / "grip-geometry.ts").read_text(encoding="utf-8")
         self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
         self.assertIn("position={[...NIA_GRIP_LOCAL_POSITION]}", grip_source)
-        self.assertIn("palm: [...NIA_GRIP_LOCAL_POSITION]", grip_source)
+        self.assertIn("palm: [...NIA_GRIP_LOCAL_POSITION]", geometry_source)
+        self.assertIn("SPOON_HANDLE_LOCAL_START", geometry_source)
+        self.assertIn("SPOON_HANDLE_LOCAL_END", geometry_source)
         self.assertIn("SPOON_REST_ORIGIN", prop_source)
         self.assertIn("position={[...SPOON_REST_ORIGIN]}", prop_source)
         self.assertIn("NIA_LIFT_GRIP_STAGE_POINT", actor_source)
