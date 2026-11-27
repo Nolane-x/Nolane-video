@@ -14,6 +14,7 @@ import storyboard from "../../../shared/storyboard.json";
 import { createRefractionDiagram } from "../diagrams/refraction";
 import { createNiaActor } from "../actors/nia";
 import { createSpoonProp } from "../props/spoon";
+import { NIA_LIFT_GRIP_STAGE_POINT, NIA_REST_GRIP_STAGE_POINT, SPOON_LIFT_ORIGIN, SPOON_REST_ORIGIN } from "../actors/rig-anchors";
 
 const C = {
   ink: "#101B26",
@@ -146,10 +147,10 @@ export default makeScene2D(function* (view) {
     spoon.grip.middleFinger().points([[-2, -54], [-16, -69], [-32, -85]], 0.25)
   );
   yield* all(
-    spoon.rig().position([-320, 10], 0.85),
+    spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
     spoon.rig().rotation(-5, 0.85),
     nia.upperArm().points([[420, 95], [240, 10]], 0.85),
-    nia.forearm().points([[240, 10], [-360, -70]], 0.85),
+    nia.forearm().points([[240, 10], [...NIA_LIFT_GRIP_STAGE_POINT]], 0.85),
     nia.elbow().position([240, 10], 0.85),
     nia.eyeLeft().position([-55, 0], 0.35),
     nia.eyeRight().position([25, 0], 0.35)
@@ -168,10 +169,10 @@ export default makeScene2D(function* (view) {
     spoon.bentBottom().opacity(1, 0.2)
   );
   yield* all(
-    spoon.rig().position([-320, 80], 0.85),
+    spoon.rig().position([...SPOON_REST_ORIGIN], 0.85),
     spoon.rig().rotation(0, 0.85),
     nia.upperArm().points([[420, 95], [245, 30]], 0.85),
-    nia.forearm().points([[245, 30], [-356, 0]], 0.85),
+    nia.forearm().points([[245, 30], [...NIA_REST_GRIP_STAGE_POINT]], 0.85),
     nia.elbow().position([245, 30], 0.85),
     nia.eyeLeft().position([-48, -3], 0.5),
     nia.eyeRight().position([32, -3], 0.5)
@@ -272,7 +273,7 @@ export default makeScene2D(function* (view) {
     water().opacity(0.55, 0.8),
     waterline().opacity(1, 0.8),
     spoon.rig().opacity(1, 0.8),
-    spoon.rig().position([-320, 80], 0.8),
+    spoon.rig().position([...SPOON_REST_ORIGIN], 0.8),
     spoon.rig().rotation(0, 0.8),
     spoon.top().opacity(0, 0.8),
     spoon.bentBottom().opacity(0, 0.8),
@@ -288,7 +289,7 @@ export default makeScene2D(function* (view) {
     nia.upperArm().opacity(1, 0.8),
     nia.upperArm().points([[420, 95], [245, 30]], 0.8),
     nia.forearm().opacity(1, 0.8),
-    nia.forearm().points([[245, 30], [-356, 0]], 0.8),
+    nia.forearm().points([[245, 30], [...NIA_REST_GRIP_STAGE_POINT]], 0.8),
     nia.elbow().opacity(1, 0.8),
     nia.elbow().position([245, 30], 0.8),
     spoon.grip.palm().opacity(1, 0.8),
