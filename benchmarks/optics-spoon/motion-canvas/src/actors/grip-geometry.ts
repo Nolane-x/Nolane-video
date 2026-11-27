@@ -85,7 +85,7 @@ export const NIA_GRIP_POSES: Record<NiaGripPoseName, NiaGripPose> = {
   },
   brace: {
     palm: [NIA_GRIP_LOCAL_POSITION[0] - 1, NIA_GRIP_LOCAL_POSITION[1] - 1],
-    thumb: pointOnGripFrame(1, 22),
+    thumb: pointOnGripFrame(2, 22),
     thumbPath: wrapThumb(25, -2, 22),
     index: wrapFinger(-23, 25, 0),
     middle: wrapFinger(-7, 25, 0),
