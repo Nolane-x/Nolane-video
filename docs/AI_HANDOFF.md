@@ -1,12 +1,12 @@
 # AI Session Handoff
 
-**Updated:** 2026-11-26  
+**Updated:** 2026-11-27 05:34 UTC (live snapshot)  
 **Repository:** https://github.com/Nolane-x/Nolane-video  
 **Default branch:** `main`  
 **Working branch:** `m1/optics-benchmark`  
-**Verified HEAD before this handoff update:** `77cbe88ca8bcf4c04af5d46d6c2515803f7c93fc`  
+**Verified active branch HEAD:** `bdb7fe239530af0624769f4167187f550bcc47c4`  
 **Current milestone:** M1 — comparable benchmark and architecture decision, still in progress.  
-**Do not merge or select a master renderer yet.**
+**Architecture:** Motion Canvas is provisionally selected as the first 2D scene adapter by ADR-0001; Film IR remains renderer-independent. Do not treat this as creative approval or a final single-renderer decision.
 
 ## Read first
 
@@ -167,3 +167,46 @@ Keep audio incomplete until a real approved VO/SFX/music source is provided and 
 ## End-of-session rule
 
 Before ending a session, update both `docs/STATE.md` and `docs/AI_HANDOFF.md` with the live branch/commit, exact evidence, unverified items, blocker and one next task. Never mark a build, render, test or review as passed without fresh logs/artifacts.
+
+
+---
+
+## Live continuation override — 2026-11-27 05:34 UTC
+
+This section supersedes the older **Still incomplete** and **Immediate next actions** lists above. Always recheck live HEAD and Actions before acting.
+
+### Exact repository identity and branch state
+
+- Work only in `Nolane-x/Nolane-video`; do not confuse it with the separate prior production repository `Nolane-x/video`.
+- Default branch: `main`, HEAD `19b53bd0bf785a8d58a91031678be717a8ae11d4`.
+- Working branch: `m1/optics-benchmark`, HEAD `bdb7fe239530af0624769f4167187f550bcc47c4`.
+- Current tree has the shared 72-second optics benchmark, Remotion full-film candidate, Motion Canvas full-film candidate, Manim S04–S05 candidate, validator/tests, CI and evidence documentation.
+- Provisional adapter decision is in `docs/adr/ADR-0001-motion-canvas-first-2d-runtime.md`: Motion Canvas 3.17.2 is the first 2D scene-execution adapter; Film IR remains renderer-independent; Manim remains specialist; Remotion remains benchmark/reference pending license/distribution review.
+
+### Latest CI truth
+
+Latest candidate workflow is [45946419330 / run #80](https://github.com/Nolane-x/Nolane-video/actions/runs/45946419330), on HEAD `bdb7fe2`:
+- Remotion full-film: **PASS**.
+- Manim scientific segment: **PASS**.
+- Motion Canvas full-film: **FAIL**.
+- Overall workflow: **FAIL**.
+
+Motion Canvas failed at the `S04-complete` checkpoint:
+`Shot timing drift at S04-complete: expected last included frame 1055, got 1056.`
+The diagnostics artifact is [m1-motion-canvas-diagnostics, artifact 15175275163](https://github.com/Nolane-x/Nolane-video/actions/runs/45946419330/artifacts/15175275163). The log shows `rendererFinished: true`, finish result `Error`, `lastFrame: 0`, zero exported image files, and no page errors. Setup, package install, Chromium, Vite/editor build and TypeScript checks passed before the timeline failure.
+
+The immediately preceding all-green candidate run was [45945392423 / run #70](https://github.com/Nolane-x/Nolane-video/actions/runs/45945392423) on commit `204659c2853230c6245abc9337064df9713e8984`. Thirteen commits separate that baseline from current HEAD. Recent changes include a more causal, staged S04 reveal and shot-duration/checkpoint fixes; the current error is a one-frame Motion Canvas scene-timeline mismatch. Do not change the storyboard frame ranges or relax the checkpoint/1,728-frame requirement to hide it.
+
+### Next task — fix the actual S04 timing drift
+
+1. Inspect `benchmarks/optics-spoon/motion-canvas/src/scenes/spoon.tsx` around S04. Its sequential sub-actions total a nominal 16 seconds, but Motion Canvas reaches the checkpoint one frame late. Compare with S01–S03, where the final wait has explicit one-frame alignment compensation.
+2. Make the smallest evidence-led timing correction while retaining the shared storyboard's exact half-open ranges. A one-frame compensation to the final S04 hold is a candidate, not a proven fix until CI confirms it.
+3. Push to `m1/optics-benchmark` and inspect the new Motion Canvas diagnostics. Confirm S04, S05 and S06 checkpoints all match the storyboard, not just the first failing checkpoint.
+4. Require Motion Canvas to export exactly 1,728 sequential PNGs (000000–001727), then H.264 1920×1080 / 24 fps / 72.000 s, successful ffprobe and artifact upload. Keep Remotion/Manim outcomes recorded separately.
+5. Run `python -m unittest discover -s tests -v` and `python tools/validate_benchmark.py` where the environment permits. The existing validator workflow is path-filtered to shared benchmark data, validator, tests and its own workflow; scene changes do not automatically prove those tests ran.
+6. Update `docs/STATE.md`, this file, `benchmarks/optics-spoon/reports/ENGINE-CANDIDATE-STATUS.md`, and the scorecard only from fresh run data.
+
+### Product/creative constraints that remain unchanged
+
+This repo is a specialist code-first pipeline for story-driven, narration-led 2D/2.5D educational films (math, physics, chemistry, engineering and technology), not a universal editor or prompt-to-video wrapper. The current benchmark is a silent technical prototype. Nia's acting, hand/grip and spoon contact, causal diagram pacing, motivated camera moves, mobile typography, approved Vietnamese narration, transcript-aligned captions, SFX/music and perceptual audio review remain open. H2 source/license provenance must be audited before reuse. Do not begin broad Film IR/runtime implementation until M1 evidence and creative acceptance are ready.
+
