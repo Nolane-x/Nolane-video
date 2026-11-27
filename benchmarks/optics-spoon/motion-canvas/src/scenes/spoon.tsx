@@ -13,6 +13,7 @@ import {
   usePlayback
 } from "@motion-canvas/core";
 import diagramGeometry from "../../../shared/diagram.json";
+import storyboard from "../../../shared/storyboard.json";
 
 const toStage = (point: {x: number; y: number}): [number, number] => [
   point.x - 960,
@@ -33,12 +34,25 @@ const C = {
 
 export default makeScene2D(function* (view) {
   const playback = usePlayback();
-  const checkpoint = (name: string) => console.log("[M1 Motion Canvas]", name, {
-    frame: playback.frame,
-    time_seconds: playback.time,
-    fps: playback.fps,
-    speed: playback.speed
-  });
+  const checkpoint = (name: string) => {
+    const expectedFrame =
+      name === "scene-start"
+        ? 0
+        : storyboard.shots.find(shot => `${shot.id}-complete` === name)?.end_frame;
+    const actualFrame = Math.round(playback.frame);
+    if (expectedFrame !== undefined && actualFrame !== expectedFrame) {
+      throw new Error(
+        `Shot timing drift at ${name}: expected frame ${expectedFrame}, got ${actualFrame}.`
+      );
+    }
+    console.log("[M1 Motion Canvas]", name, {
+      frame: actualFrame,
+      expected_frame: expectedFrame,
+      time_seconds: playback.time,
+      fps: playback.fps,
+      speed: playback.speed
+    });
+  };
   checkpoint("scene-start");
   view.fill(C.ink);
 
