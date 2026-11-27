@@ -208,6 +208,61 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn('brace: {', grip_source)
         self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
 
+    def test_nia_arm_uses_reachable_two_bone_ik_and_candidate_gate_runs_its_tests(self):
+        root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas"
+        actor_source = (root / "src" / "actors" / "nia.tsx").read_text(encoding="utf-8")
+        ik_source = (root / "src" / "actors" / "arm-ik.ts").read_text(encoding="utf-8")
+        package_source = (root / "package.json").read_text(encoding="utf-8")
+        workflow_source = (
+            Path(__file__).resolve().parents[1]
+            / ".github"
+            / "workflows"
+            / "m1-benchmark-candidates.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn('import { solveTwoBoneIK } from "./arm-ik"', actor_source)
+        self.assertIn("export const NIA_ARM_BONE_LENGTHS", actor_source)
+        self.assertIn("elbow: solveTwoBoneIK(", actor_source)
+        self.assertNotIn("elbow: [245, 30]", actor_source)
+        self.assertIn("Math.hypot(dx, dy)", ik_source)
+        self.assertIn("Math.sqrt(Math.max(0, heightSquared))", ik_source)
+        self.assertIn("Wrist target is unreachable", ik_source)
+        self.assertIn('"test:ik": "node scripts/test-arm-ik.mjs"', package_source)
+        self.assertIn("npm run test:ik", workflow_source)
+
+        lengths = (200, 615)
+        targets = (
+            ((-356.0, 0.0), (258.567310, -23.065602)),
+            ((-362.8354685511, -66.5579691084), (249.519104, -9.576595)),
+            ((-347.4405111718, -73.3247763071), (266.228404, -32.883917)),
+        )
+        shoulder = (420.0, 95.0)
+
+        def solve_reference(target):
+            dx = target[0] - shoulder[0]
+            dy = target[1] - shoulder[1]
+            distance = math.hypot(dx, dy)
+            upper, forearm = lengths
+            self.assertGreaterEqual(distance, abs(upper - forearm))
+            self.assertLessEqual(distance, upper + forearm)
+            along = (upper**2 - forearm**2 + distance**2) / (2 * distance)
+            height = math.sqrt(max(0.0, upper**2 - along**2))
+            unit_x, unit_y = dx / distance, dy / distance
+            elbow = (
+                shoulder[0] + unit_x * along - unit_y * height,
+                shoulder[1] + unit_y * along + unit_x * height,
+            )
+            return elbow, distance
+
+        for target, expected_elbow in targets:
+            with self.subTest(target=target):
+                elbow, distance = solve_reference(target)
+                self.assertAlmostEqual(elbow[0], expected_elbow[0], delta=0.002)
+                self.assertAlmostEqual(elbow[1], expected_elbow[1], delta=0.002)
+                self.assertAlmostEqual(math.dist(shoulder, elbow), lengths[0], delta=1e-6)
+                self.assertAlmostEqual(math.dist(elbow, target), lengths[1], delta=1e-6)
+                self.assertGreater(lengths[0] + lengths[1] - distance, 0)
+
     def test_motion_canvas_runtime_failure_keeps_actionable_browser_diagnostics(self):
         script_path = (
             Path(__file__).resolve().parents[1]

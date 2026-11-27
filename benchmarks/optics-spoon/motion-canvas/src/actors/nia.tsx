@@ -5,6 +5,7 @@ import {
   NIA_LIFT_TURN_GRIP_STAGE_POINT,
   NIA_REST_GRIP_STAGE_POINT
 } from "./rig-anchors";
+import { solveTwoBoneIK } from "./arm-ik";
 
 type StagePoint = readonly [number, number];
 export type NiaArmPoseName = "rest" | "lift" | "inspect";
@@ -14,23 +15,31 @@ type NiaArmPose = {
   wrist: StagePoint;
 };
 
-/** Canonical shoulder, elbow and wrist targets for Nia's arm rig. */
+/** Fixed segment lengths prevent the arm from stretching as the wrist moves. */
+export const NIA_ARM_BONE_LENGTHS = {
+  upper: 200,
+  forearm: 615
+} as const;
+
+const NIA_SHOULDER: StagePoint = [420, 95];
+
+const createArmPose = (wrist: StagePoint): NiaArmPose => ({
+  shoulder: NIA_SHOULDER,
+  elbow: solveTwoBoneIK(
+    NIA_SHOULDER,
+    wrist,
+    NIA_ARM_BONE_LENGTHS.upper,
+    NIA_ARM_BONE_LENGTHS.forearm,
+    1
+  ),
+  wrist
+});
+
+/** Wrist targets are authored; elbow positions are solved by the two-bone rig. */
 export const NIA_ARM_POSES: Record<NiaArmPoseName, NiaArmPose> = {
-  rest: {
-    shoulder: [420, 95],
-    elbow: [245, 30],
-    wrist: NIA_REST_GRIP_STAGE_POINT
-  },
-  lift: {
-    shoulder: [420, 95],
-    elbow: [240, 10],
-    wrist: NIA_LIFT_GRIP_STAGE_POINT
-  },
-  inspect: {
-    shoulder: [420, 95],
-    elbow: [240, 10],
-    wrist: NIA_LIFT_TURN_GRIP_STAGE_POINT
-  }
+  rest: createArmPose(NIA_REST_GRIP_STAGE_POINT),
+  lift: createArmPose(NIA_LIFT_GRIP_STAGE_POINT),
+  inspect: createArmPose(NIA_LIFT_TURN_GRIP_STAGE_POINT)
 };
 
 const copyPoint = (point: StagePoint): [number, number] => [point[0], point[1]];

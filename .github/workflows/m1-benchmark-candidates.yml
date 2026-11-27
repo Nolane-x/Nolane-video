@@ -89,6 +89,8 @@ jobs:
           sudo apt-get install -y ffmpeg
       - name: Install pinned dependencies
         run: npm install --no-audit --no-fund
+      - name: Test deterministic two-bone arm IK
+        run: npm run test:ik
       - name: Install headless Chromium
         run: npx playwright install --with-deps chromium
       - name: Build and type-check editor project
