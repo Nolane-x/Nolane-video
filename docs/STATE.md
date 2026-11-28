@@ -1,3 +1,47 @@
+## -16. Latest verified state — 2026-11-28 (candidate #164; Nia torso/shoulder counterbalance verified)
+
+This snapshot supersedes candidate #158 below. Candidate #164 is a green technical render plus selected-frame inspection; M1 creative/audio acceptance remains open.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Branch:** `m1/optics-benchmark`; body/arm scene implementation commit [`6469b4e`](https://github.com/Nolane-x/Nolane-video/commit/6469b4ec61251eba21dc75bd88c813ae1615de23); follow-up test-lock commit [`60fd883`](https://github.com/Nolane-x/Nolane-video/commit/60fd88377d6de49362b0a15be92e766b1e2cd714). Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate:** [#164](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553339) completed **success** for Remotion, Motion Canvas and Manim.
+- **Contract:** [#49](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553392) completed **success** with 30 Python tests and benchmark validator. Candidate #164 also passed the final Motion Canvas IK/grip runtime scripts, TypeScript build/typecheck, official editor render, ffprobe and artifact upload.
+
+### Candidate #164 outputs (downloaded and checked)
+
+- **Remotion 4.0.547:** H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15257439850`; ZIP digest `sha256:05c633bdb8be792353664263c3007883f046597d0610b5720ed30e5b9201806f`.
+- **Motion Canvas 3.17.2:** H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames; official editor rendered 1,728/1,728 with zero browser errors. MP4 SHA-256 `950d5ae0a95f2ddbb263878aa6161a1196f31088d60b9165e58d8e47559f74c7`; artifact id `15257706889`; ZIP digest `sha256:6116a5420e413d8f442268d00bc26091236da389cd6e998ce17795602442309b`.
+- **Manim CE specialist segment:** H.264 1920×1080 yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average rate `857088/35711` (~24.00067 fps). MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15258560497`; ZIP digest `sha256:377ac5e6136d45887b62da818daf730f078a1c517cec0e1b44eb687d589b2f8d`.
+- Both full-film MP4s are video-only/silent; no audio stream is present.
+
+### Nia torso/shoulder counterbalance
+
+- Added shared `NIA_BODY_POSES` in `rig-anchors.ts`:
+  - Rest: torso `[505,185]`, rotation 0°, neck `[505,32]`, shoulder `[420,95]`.
+  - Lift: torso `[512,188]`, rotation 2.5°, neck `[512,35]`, shoulder `[431,94]`.
+  - Inspect: torso `[511,187]`, rotation 1.5°, neck `[511,34]`, shoulder `[428,95]`.
+- `nia.tsx` adds `toBodyPose`, which animates torso position/rotation and neck position. `toArmPose` now interpolates both the shoulder and wrist from their current values and runs `solveTwoBoneIK` each rendered frame, preserving the 200 px upper-arm and 615 px forearm lengths.
+- S02 uses lift → inspect → rest/re-dip body poses. S06 uses lift → inspect → lifted settle. Torso/neck/head x-positions and arm shoulder target are coordinated; spoon/grip remains prop-attached.
+- Runtime IK tests verify named shoulder/wrist targets and 101 tween samples across changing shoulder and wrist coordinates. The exact elbow references use unrounded grip anchors; the test retains tight numeric tolerance. Contract #49 also locks the TypeScript shoulder parameter and numeric rotation state.
+- Candidate #163 first validated the body-pose implementation; candidate #164 on the test-lock commit passed all three engine workflows. Native samples/contact sheet in S02 and S06 show a subtle counterbalance and maintained shoulder/arm/prop connection. This is still a small stylized vector-rig improvement, **not** naturalistic full-body acting or final anatomy approval.
+
+### Previously verified scene work retained
+
+- S03 reveals incident ray/true point, then refracted ray/observer point; S04 adds normal, angle labels and Snell formula. Original 240/384-frame windows remain unchanged.
+- S05 reveals dashed backward extension, then coral `Vị trí thật`, pause, then green apparent point/`Vị trí biểu kiến` and explanatory caption. Total remains 17 seconds; the final hold is 13.85 s and still needs narration-led review.
+- S02/S06 share the −50° clear-out transform and −44° inspection angle; the spoon bowl is outside the glass and about 43 px above waterline, with wrist target about 802.4 px from shoulder against 815 px maximum reach.
+
+### Still incomplete
+
+- Watch both 72-second films continuously at 24 fps and log shot/timecode-specific findings.
+- Judge S05's 13.85-second hold against approved Vietnamese VO and continuous playback.
+- Improve Nia's natural body weight/counterbalance, palm compression, finger depth/occlusion, gaze, shoulder follow-through and whole-body acting. Current rig remains stylized.
+- Review reduced/mobile typography; obtain approved Vietnamese VO/captions, add SFX/music and complete audio QA.
+- Measure authoring/preview/render/revision costs on equivalent runners; complete H2 source/license provenance before reuse from `Nolane-x/video`.
+- **Do not mark M1 complete or begin broad Film IR/M2 yet.** Motion Canvas stays provisional first 2D adapter; Remotion baseline/reference; Manim specialist.
+
+---
+
 ## -15. Latest verified state — 2026-11-28 (candidate #158; true/apparent position reveal staged)
 
 This snapshot supersedes candidate #156 below. Candidate #158 is a green technical render and selected-frame inspection; M1 creative/audio acceptance remains open.

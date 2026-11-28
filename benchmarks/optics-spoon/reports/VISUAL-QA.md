@@ -1,4 +1,20 @@
 **Review date:** 2026-11-28  
+**Latest reviewed candidate:** [#164](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553339); all three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. Contact sheet and selected S02/S06 native frames were inspected for the torso/shoulder pose.  
+**Scope:** candidate #164 contact sheet, native torso/arm/prop frames and render report, plus earlier sampled candidates. This is **not** continuous 24-fps review or final creative approval; audio review remains open.
+
+## Candidate #164 — Nia torso/shoulder counterbalance
+
+- Source implementation [`6469b4e`](https://github.com/Nolane-x/Nolane-video/commit/6469b4ec61251eba21dc75bd88c813ae1615de23); final test-lock commit [`60fd883`](https://github.com/Nolane-x/Nolane-video/commit/60fd88377d6de49362b0a15be92e766b1e2cd714).
+- Candidate [#164](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553339) passed all three engines. Contract [#49](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553392) passed 30 tests and benchmark validator.
+- Added rest/lift/inspect body poses. During lift, torso moves 7 px right/down and rotates 2.5°; neck and head shift with it; shoulder target moves 11 px to remain attached to the torso. Inspect uses a smaller 1.5° pose; re-dip restores neutral.
+- The two-bone solver now interpolates shoulder and wrist together, re-solving the elbow each frame; segment lengths remain 200/615 px. S02 uses lift/inspect/rest; S06 uses lift/inspect/lifted settle. The prop-attached grip path is unchanged.
+- Runtime IK tests cover named body/shoulder targets and 101 tween samples through shoulder+wrist transitions. Contract #49 locks the use of the shoulder parameter and typed torso rotation state.
+- Contact sheet and native samples at S02 14.5–15.5 s and S06 62–66 s show a subtle counterbalance while the arm stays connected to the body and the hand remains on the spoon. This is a small silhouette/action improvement; Nia remains a stylized vector construction, not realistic anatomy.
+- Motion Canvas MP4 SHA-256 `950d5ae0a95f2ddbb263878aa6161a1196f31088d60b9165e58d8e47559f74c7`; artifact id `15257706889`; ZIP digest `sha256:6116a5420e413d8f442268d00bc26091236da389cd6e998ce17795602442309b`. Remotion SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15257439850`; ZIP digest `sha256:05c633bdb8be792353664263c3007883f046597d0610b5720ed30e5b9201806f`. Manim SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15258560497`; ZIP digest `sha256:377ac5e6136d45887b62da818daf730f078a1c517cec0e1b44eb687d589b2f8d`.
+
+**Assessment:** the shoulder is now coordinated with a restrained torso/neck shift instead of remaining detached from an independently moving arm. This does not close full-speed acting/anatomy review or the remaining audio, typography and pacing gates.
+
+**Review date:** 2026-11-28  
 **Latest reviewed candidate:** [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649); all three engine jobs passed. Motion Canvas MP4 was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. Native S05 samples at 44.2/44.8/45.5/46.2/47.2 s were inspected.  
 **Scope:** candidate #158 contact sheet, S05 transition frames and render report, plus earlier sampled candidates. This is **not** continuous 24-fps review or final creative approval; audio review remains open.
 

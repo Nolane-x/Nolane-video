@@ -1,3 +1,41 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #164; Nia counterbalance/IK verified)
+
+Latest implementation/render is candidate #164; all three engine jobs and contract #49 are green. M1 creative/audio acceptance remains open.
+
+### GitHub state
+- Repository: `Nolane-x/Nolane-video`, branch `m1/optics-benchmark`.
+- Body/arm scene commit [`6469b4e`](https://github.com/Nolane-x/Nolane-video/commit/6469b4ec61251eba21dc75bd88c813ae1615de23); follow-up contract-test commit [`60fd883`](https://github.com/Nolane-x/Nolane-video/commit/60fd88377d6de49362b0a15be92e766b1e2cd714).
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge/change main.
+- Candidate [#164](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553339) passed Remotion, Motion Canvas and Manim.
+- Contract [#49](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553392) passed 30 Python tests and benchmark validation.
+
+### Nia body/arm change
+- Shared rest/lift/inspect poses now include torso position/rotation, neck position and shoulder anchor.
+- Lift torso moves from `[505,185]` to `[512,188]` and rotates 2.5°; neck shifts with it; shoulder target changes from `[420,95]` to `[431,94]`. Inspect uses a smaller intermediate pose.
+- `toBodyPose` moves torso and neck; `toArmPose` interpolates the shoulder and wrist together and solves the elbow every rendered frame. The arm remains fixed-length (200/615 px) and the hand remains prop-attached.
+- S02 runs lift → inspect → rest/re-dip; S06 runs lift → inspect → lifted settle. IK runtime tests now simulate 101 points through transitions with moving shoulder and wrist; contract #49 locks the type-safe shoulder parameter and torso-rotation state.
+- Candidate #163 first validated the source; #164 confirms all engines and tests on the final test commit. Selected S02/S06 samples show subtle counterbalance and stable shoulder/arm/prop connection. Do not describe this as organic anatomy; it is still a vector rig.
+
+### Candidate #164 output evidence
+- Motion Canvas SHA-256 `950d5ae0a95f2ddbb263878aa6161a1196f31088d60b9165e58d8e47559f74c7`; H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors.
+- Remotion SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; Manim segment SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- All three MP4s downloaded and ffprobed. Both full films are silent/video-only.
+
+### Earlier scene work retained
+- S03 physical incident/refracted rays before S04 normal/angles/Snell formula.
+- S05 dashed backward extension → “Vị trí thật” → pause → apparent point/label/caption; total exactly 17 s, final hold 13.85 s.
+- S02/S06 shared −50° clear-out / −44° inspection spoon pose, bowl clears water and glass; IK contact remains reachable.
+
+### Exact next work
+1. Complete uninterrupted 24-fps review of both films and log timecode/shot-level defects.
+2. Judge S05's 13.85 s hold against approved Vietnamese VO; pace from evidence, not guesswork.
+3. Improve Nia's natural hand/body anatomy, counterbalance, gaze, weight transfer and follow-through; current figure remains stylized.
+4. Review reduced/mobile typography; obtain approved Vietnamese VO, synchronize captions, add SFX/music and complete audio QA.
+5. Run repeated authoring/preview/render/revision cost measurements and complete H2 provenance/license audit.
+6. Keep M1 open; do not start broad Film IR/M2 or claim creative approval.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #158; true/apparent positions staged)
 
 Latest code/render is candidate #158; all three engine jobs and contract #47 are green. M1 creative/audio acceptance remains open.
