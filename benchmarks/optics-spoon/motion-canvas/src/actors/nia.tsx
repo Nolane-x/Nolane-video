@@ -25,7 +25,7 @@ export const NIA_ARM_BONE_LENGTHS = {
 const createArmPose = (wrist: StagePoint, shoulder: StagePoint): NiaArmPose => ({
   shoulder,
   elbow: solveTwoBoneIK(
-    NIA_SHOULDER,
+    shoulder,
     wrist,
     NIA_ARM_BONE_LENGTHS.upper,
     NIA_ARM_BONE_LENGTHS.forearm,
@@ -88,7 +88,7 @@ export const createNiaActor = () => {
   let currentShoulder = copyPoint(restArm.shoulder);
   let currentWrist = copyPoint(restArm.wrist);
   let currentTorsoPosition = copyPoint(restBody.torsoPosition);
-  let currentTorsoRotationDegrees = restBody.torsoRotationDegrees;
+  let currentTorsoRotationDegrees: number = restBody.torsoRotationDegrees;
   let currentNeckPosition = copyPoint(restBody.neckPosition);
 
   const view = (
