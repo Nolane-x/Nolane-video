@@ -1,3 +1,17 @@
+## Latest all-green differentiated finger-wrap candidate — 2026-11-28 (candidate #167)
+
+This section supersedes candidate #165 below. It verifies four distinct prop-local finger wrap profiles and a tighter brace pose; it is not natural anatomy approval.
+
+- Code/test commit: `f488eb4765273767bfb973c7c244ce2908cfdd4c`.
+- Candidate [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408): Remotion, Motion Canvas and Manim all **success**. Contract [#50](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635396): 30 Python tests and benchmark validator **success**.
+- `wrapFinger` now takes individual start/middle/end radii. Index/middle/ring/pinky each have unique contours in rest and brace. Brace tightens individual across-axis wrap and moves centres slightly closer; minimum along-axis separation remains 14 px.
+- The physical handle axis, palm anchor, opposing thumb, prop-local parent and two-bone arm IK are unchanged. Torso/neck counterbalance from #164 is retained.
+- Runtime grip test verifies unique profiles, centreline crossing, opposite-side wrap, separation and per-finger rest→brace compression.
+- Motion Canvas: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. MP4 SHA-256 `497461e2d73aebfcbe18ec11429ff2db7480d93ba00de31d17711f148c32f517`; artifact id `15259560675`; ZIP digest `sha256:200f20dcb5bbf0bf1a597b4eb6c24ec44ec08c0bec3c295886d7701f5da22751`.
+- Remotion: H.264 1920×1080, 24 fps, 72 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15259127403`; ZIP digest `sha256:dea254938ce5d49ab128a03e1bb14611c2cfe830a5d48fc2a9ac1cecfbb1920f`.
+- Manim: H.264 1920×1080, 279 frames, 11.624674 s. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15259770495`; ZIP digest `sha256:944114f001fb01ad5117950d849abd765dbd83e3e143c867360ff060ab83acc9`.
+- Crop review vs #165 shows only a subtle visual difference at 1080p; hand remains stylized. Continuous creative review, natural anatomy, audio, mobile type and narration-led pacing remain open.
+
 ## Latest all-green Nia counterbalance candidate — 2026-11-28 (candidate #165)
 
 This section supersedes the candidate #158 snapshot below. It confirms torso/neck/shoulder pose coupling with two-bone IK and all three engine render gates; it is not final anatomy or creative approval.

@@ -97,6 +97,16 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest Nia differentiated finger wraps — 2026-11-28 (candidate #167)
+
+- The prior `wrapFinger` used one symmetric outer radius and one middle radius for all four digits, making the paths translated copies along the handle.
+- The geometry helper now accepts separate start, middle and end radii. Index, middle, ring and pinky each have distinct profiles in both `rest` and `brace`.
+- Brace also narrows the across-axis wrap and brings contact centres slightly closer while retaining ≥14 px along-axis spacing. Thumb opposition, physical handle centreline and grip anchor remain unchanged.
+- Runtime test now checks that all four contour profiles differ, each finger crosses the handle centreline and wraps to the far side, spacing is valid, and every finger has a smaller across-axis span in brace than in rest.
+- Contract [#50](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635396) passes 30 tests and benchmark validation. Candidate [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) passes all three engines.
+- Motion Canvas output: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors; MP4 SHA-256 `497461e2d73aebfcbe18ec11429ff2db7480d93ba00de31d17711f148c32f517`.
+- Native crops around 10.55–11.2 s compared with #165 show a small differentiated contour change, not a major anatomy improvement. The grip remains vector-style; depth/occlusion and natural hand acting stay open.
+
 ## Latest Nia torso/shoulder counterbalance — 2026-11-28 (candidate #164/#165)
 
 - The original actor held its shoulder at `[420,95]` while the wrist moved, which could read as an isolated arm reach.

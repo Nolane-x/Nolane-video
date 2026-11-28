@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Date:** 2026-11-26  
-**Status:** Candidate #165 and contract #49 verify Nia's torso/neck/shoulder counterbalance coupled to two-bone IK, alongside the S03–S05 refraction reveal and S02/S06 clear-out lift; full-speed creative, anatomy, audio and performance acceptance remain open.
+**Status:** Candidate #167 and contract #50 verify differentiated prop-local finger-wrap profiles/brace compression while preserving the torso/shoulder counterbalance and two-bone IK, alongside the S03–S05 refraction reveal and S02/S06 clear-out lift; full-speed creative, anatomy, audio and performance acceptance remain open.
 
 ## 1. Purpose
 
