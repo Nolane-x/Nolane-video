@@ -11,7 +11,7 @@ const compiled = ts.transpileModule(source, {
 const errors = (compiled.diagnostics ?? []).filter(d => d.category === ts.DiagnosticCategory.Error);
 assert.equal(errors.length, 0, "benchmark motion module must transpile without errors");
 const encoded = Buffer.from(compiled.outputText, "utf8").toString("base64");
-const {s02MotionAt, diagramMotionAt, diagramCaptionAt, cameraScaleAt} = await import("data:text/javascript;base64," + encoded);
+const {s02MotionAt, s06MotionAt, diagramMotionAt, diagramCaptionAt, cameraScaleAt} = await import("data:text/javascript;base64," + encoded);
 const near = (actual, expected, tolerance, label) => {
   assert.ok(Math.abs(actual - expected) <= tolerance, label + ": expected " + expected + ", received " + actual);
 };
@@ -75,5 +75,38 @@ near(cameraScaleAt(1558), 1.0125, 1e-9, "S06 camera push-in midpoint");
 near(cameraScaleAt(1570), 1.025, 1e-9, "S06 camera push-in reaches its final framing");
 near(cameraScaleAt(1727), 1.025, 1e-9, "S06 holds the final close-up");
 assert.throws(() => cameraScaleAt(Number.NaN), {name: "TypeError"});
+
+const s06BeforeLift = s06MotionAt(1492);
+near(s06BeforeLift.brace, 0, 1e-9, "S06 brace must not appear before the grip cue");
+near(s06BeforeLift.lift, 0, 1e-9, "S06 lift must wait for the brace cue");
+near(s06MotionAt(1493).brace, 0, 1e-9, "S06 brace starts at its authored frame");
+near(s06MotionAt(1496).brace, 0.5, 1e-9, "S06 brace midpoint");
+near(s06MotionAt(1499).brace, 1, 1e-9, "S06 grip brace is established before lifting");
+near(s06MotionAt(1499).lift, 0, 1e-9, "S06 lift begins after the brace");
+near(s06MotionAt(1509).lift, 0.5, 1e-9, "S06 lift midpoint");
+near(s06MotionAt(1509).handLiftPx, 37, 1e-9, "S06 wrist follows the prop at lift midpoint");
+near(s06MotionAt(1509).spoonRotationDeg, 3, 1e-9, "S06 spoon rotates with the lifting hand");
+near(s06MotionAt(1519).lift, 1, 1e-9, "S06 lift reaches the clear-out pose");
+near(s06MotionAt(1519).handOffsetX, -8, 1e-9, "S06 wrist horizontal offset");
+near(s06MotionAt(1519).handLiftPx, 74, 1e-9, "S06 wrist vertical offset");
+near(s06MotionAt(1519).bodyOffsetX, 7, 1e-9, "S06 torso counterbalance x");
+near(s06MotionAt(1519).bodyOffsetY, 3, 1e-9, "S06 torso counterbalance y");
+near(s06MotionAt(1519).headOffsetX, 7, 1e-9, "S06 lifted head x");
+near(s06MotionAt(1519).headOffsetY, -20, 1e-9, "S06 lifted head y");
+near(s06MotionAt(1519).eyeLookOffsetX, -15, 1e-9, "S06 gaze follows the lifted spoon");
+near(s06MotionAt(1534).inspection, 0, 1e-9, "S06 inspection waits through the settle pause");
+near(s06MotionAt(1537).inspection, 0.5, 1e-9, "S06 inspection turn midpoint");
+near(s06MotionAt(1537).spoonRotationDeg, 9, 1e-9, "S06 inspection adds a six-degree turn");
+near(s06MotionAt(1540).inspection, 1, 1e-9, "S06 inspection reaches its peak");
+near(s06MotionAt(1540).spoonRotationDeg, 12, 1e-9, "S06 peak inspection angle");
+near(s06MotionAt(1540).headTiltDeg, 3, 1e-9, "S06 head reacts during inspection");
+near(s06MotionAt(1543).settle, 0.5, 1e-9, "S06 inspection settle midpoint");
+near(s06MotionAt(1543).spoonRotationDeg, 9, 1e-9, "S06 spoon returns toward lifted angle");
+near(s06MotionAt(1546).settle, 1, 1e-9, "S06 return to the lifted pose completes before camera push");
+near(s06MotionAt(1546).spoonRotationDeg, 6, 1e-9, "S06 final lifted spoon angle");
+near(s06MotionAt(1546).headOffsetY, 0, 1e-9, "S06 head returns to its lifted neutral");
+near(s06MotionAt(1727).lift, 1, 1e-9, "S06 final hold preserves the lift");
+near(s06MotionAt(1727).spoonRotationDeg, 6, 1e-9, "S06 final hold preserves the settled spoon angle");
+assert.throws(() => s06MotionAt(Number.NaN), {name: "TypeError"});
 
 console.log("Remotion storyboard parity passed: S01/S06 camera beats, S02 action arc and S03-S05 causal diagram reveal are deterministic at 24 fps.");
