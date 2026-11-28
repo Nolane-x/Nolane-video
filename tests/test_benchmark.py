@@ -120,6 +120,34 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("optics.backward().opacity(1, 0.8)", scene_source)
         self.assertNotIn("<Line ref={backward}", scene_source)
 
+    def test_motion_canvas_s06_lifts_and_inspects_the_straight_spoon(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+        s06 = scene_source.split("// S06 —", 1)[1].split('checkpoint("S06-complete")', 1)[0]
+
+        self.assertIn("spoon.straight().opacity(1, 0.8)", s06)
+        self.assertIn("spoon.grip.toPose(\"brace\", 0.25)", s06)
+        self.assertIn("spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85)", s06)
+        self.assertIn("spoon.rig().rotation(-5, 0.85)", s06)
+        self.assertIn('nia.toArmPose("lift", 0.85)', s06)
+        self.assertIn('nia.expression().text("!", 0.25)', s06)
+        self.assertIn("spoon.rig().rotation(6, 0.25)", s06)
+        self.assertIn('nia.toArmPose("inspect", 0.25)', s06)
+        self.assertIn("spoon.rig().rotation(-5, 0.25)", s06)
+        self.assertIn('nia.toArmPose("lift", 0.25)', s06)
+        self.assertIn("view.scale([1.025, 1.025], 1.0)", s06)
+        self.assertIn("yield* waitFor(6.6)", s06)
+        self.assertLess(s06.index("SPOON_LIFT_ORIGIN"), s06.index("spoon.rig().rotation(6, 0.25)"))
+        self.assertLess(s06.index("spoon.rig().rotation(6, 0.25)"), s06.index("spoon.rig().rotation(-5, 0.25)"))
+
     def test_motion_canvas_reveals_physical_rays_in_s03_before_s04_angles(self):
         scene_path = (
             Path(__file__).resolve().parents[1]

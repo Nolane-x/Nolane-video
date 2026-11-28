@@ -316,6 +316,35 @@ export default makeScene2D(function* (view) {
     kitchen.caption().text("Chiếc thìa vẫn nguyên vẹn.", 0.8),
     kitchen.caption().opacity(1, 0.8)
   );
-  yield* waitFor(10.2);
+
+  // Pause on the returned scene, then physically lift the straight spoon.
+  yield* waitFor(0.4);
+  yield* spoon.grip.toPose("brace", 0.25);
+  yield* all(
+    spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
+    spoon.rig().rotation(-5, 0.85),
+    nia.toArmPose("lift", 0.85),
+    nia.eyeLeft().position([-55, 0], 0.35),
+    nia.eyeRight().position([25, 0], 0.35),
+    nia.expression().text("!", 0.25)
+  );
+  // A small inspection turn proves the spoon is intact, then settles back.
+  yield* waitFor(0.6);
+  yield* all(
+    spoon.rig().rotation(6, 0.25),
+    nia.toArmPose("inspect", 0.25),
+    nia.headRig().position([505, -118], 0.25),
+    nia.headRig().rotation(3, 0.25)
+  );
+  yield* all(
+    spoon.rig().rotation(-5, 0.25),
+    nia.toArmPose("lift", 0.25),
+    nia.headRig().position([505, -105], 0.25),
+    nia.headRig().rotation(0, 0.25)
+  );
+  // Finish with a restrained push-in while the straight spoon remains lifted.
+  yield* view.scale([1.025, 1.025], 1.0);
+  // 0.8s return + 3.6s acting/camera + 6.6s final hold = 11s.
+  yield* waitFor(6.6);
   checkpoint("S06-complete");
 });
