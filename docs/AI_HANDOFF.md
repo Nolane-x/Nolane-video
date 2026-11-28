@@ -1,3 +1,44 @@
+## Latest continuation snapshot — 2026-11-28 (CI path filters narrowed; candidate #178 queued)
+
+### Exact repo and branch
+
+- Continue in **`Nolane-x/Nolane-video`**, branch **`m1/optics-benchmark`**. Do not substitute `Nolane-x/video`.
+- Workflow change commit: [`388bd19`](https://github.com/Nolane-x/Nolane-video/commit/388bd19a601edbfcd8307b94525e0c48a3c6cf1e).
+- `main` remains at `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge or force push.
+
+### CI change
+
+In `.github/workflows/m1-benchmark-candidates.yml`, both `push` and `pull_request` triggers now include only:
+- `benchmarks/optics-spoon/shared/**`
+- `benchmarks/optics-spoon/remotion/**`
+- `benchmarks/optics-spoon/motion-canvas/**`
+- `benchmarks/optics-spoon/manim/**`
+- `tests/test_benchmark.py`
+- `.github/workflows/m1-benchmark-candidates.yml`
+
+This replaces `benchmarks/optics-spoon/**`, preventing report/README-only changes from launching three full renderer builds. `workflow_dispatch` is preserved. Do not broaden the glob back to the entire benchmark tree.
+
+### Current verification
+
+- Report-only candidate reruns [#176](https://github.com/Nolane-x/Nolane-video/actions/runs/46143591843) and [#177](https://github.com/Nolane-x/Nolane-video/actions/runs/46143633335) both completed success under the old broad filter.
+- Candidate [#178](https://github.com/Nolane-x/Nolane-video/actions/runs/46158578572) was **queued**, not yet completed, at the time of this handoff. It was triggered by the workflow-file change itself and should validate the new YAML plus all renderer jobs.
+- Last completed full candidate: [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137), all three renderer jobs green. Last contract: [#53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123), 30 tests green.
+- No scene/renderer source or project dependencies changed in this CI task.
+
+### Continue from here
+
+1. Poll candidate #178. Inspect jobs/steps and confirm Remotion, Motion Canvas, Manim, ffprobe and artifact uploads all pass. If failure occurs, inspect the failed job logs before editing.
+2. Verify branch and main refs again; do not merge main.
+3. For subsequent report-only/documentation updates, confirm the workflow does not re-run. A renderer or shared-brief change should still trigger it.
+4. Resume M1 acceptance work: continuous 24-fps film review, safe-area/mobile type, actor/prop action review, approved Vietnamese VO and audio QA, repeated authoring/revision-cost study, and H2 provenance/license audit. Do not advance to broad M2/Film IR work prematurely.
+5. Update this handoff and `docs/STATE.md` after the next investigation or code change.
+
+### Boundaries
+
+The #175 camera parity implementation and sampled visual review remain the latest film evidence. Both full films are silent, S05's long hold still needs VO-led review, and no creative/audio sign-off has been granted. A green #178 only verifies the workflow-trigger change and renderer/contract jobs actually executed; it does not close those gates.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #175 / contract #53; camera parity verified)
 
 ### Exact repository and branch
