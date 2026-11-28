@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Date:** 2026-11-26  
-**Status:** Candidate #167 and contract #50 verify differentiated prop-local finger-wrap profiles/brace compression while preserving the torso/shoulder counterbalance and two-bone IK, alongside the S03–S05 refraction reveal and S02/S06 clear-out lift; full-speed creative, anatomy, audio and performance acceptance remain open.
+**Status:** Candidate #171 and contract #52 verify the current cross-renderer build and 30-test contract; the latest source update aligns progressive S05 caption cues across Motion Canvas and Remotion. The latest visually reviewed candidate remains #167; creative, anatomy, audio and performance acceptance remain open.
 
 ## 1. Purpose
 
@@ -150,6 +150,6 @@ A technically successful render is only one gate. The film must also pass scient
 
 ## 10. Current status
 
-Candidate workflow [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282) passes all three renderer jobs: Remotion and Motion Canvas each render the full 72-second / 1,728-frame film, and Manim renders the 279-frame S04–S05 specialist segment. Contract CI [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489) passes 26 tests and the benchmark validator. Remotion's S02 action/S03–S05 causal reveal parity remains green. Motion Canvas now adds outlined upper/forearm shapes and animated shoulder, elbow and wrist joints bound to the existing two-bone IK solver; bone lengths and grip anchors remain unchanged.
+The latest code/test commit is [`e6ce4a8`](https://github.com/Nolane-x/Nolane-video/commit/e6ce4a81659fe11bac54b450533863da36b79c6b). Candidate workflow [#171](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144320) passes all three renderer jobs: Remotion 4.0.547 and Motion Canvas 3.17.2 each render the full 72-second / 1,728-frame film at H.264 1920×1080 / 24 fps; Manim CE 0.22.1 renders the 279-frame S04–S05 specialist segment. Contract CI [#52](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144238) passes 30 Python tests and the benchmark validator. The latest source change synchronizes the progressive S05 captions across Motion Canvas and Remotion at frames 1056, 1099 and 1117.
 
-This is a technical and selected-frame prototype milestone, not final creative approval. Full-speed 24-fps film review, organic hand/arm anatomy, acting/contact, diagram pacing, mobile typography, approved narration/caption/audio synchronization, repeated authoring/revision measurements and H2 provenance/license review remain open. No overall artistic ranking is assigned until those reviews are complete.
+Candidate #171 is the latest technical render, but the latest visually reviewed candidate remains #167. The outputs are not a final approved film: both full-film renders remain silent/video-only, and full-speed 24-fps playback, learning comprehension, organic hand/body anatomy and acting, S05 narration-led pacing, mobile typography, approved Vietnamese voice-over, transcript/audio synchronization, SFX/music, repeated authoring/revision measurements and H2 provenance/license review remain open. No overall artistic or performance ranking is assigned until comparable evidence and those reviews are complete.
