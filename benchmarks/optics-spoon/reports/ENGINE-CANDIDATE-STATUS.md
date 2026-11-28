@@ -1,3 +1,18 @@
+## Latest all-green Nia counterbalance candidate — 2026-11-28 (candidate #165)
+
+This section supersedes the candidate #158 snapshot below. It confirms torso/neck/shoulder pose coupling with two-bone IK and all three engine render gates; it is not final anatomy or creative approval.
+
+- Body/arm implementation commit: `6469b4ec61251eba21dc75bd88c813ae1615de23`; final test-lock commit: `60fd88377d6de49362b0a15be92e766b1e2cd714`.
+- Candidate [#164](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553339) passed all three engines on the final code/test commit. Contract [#49](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553392) passed 30 Python tests and validator.
+- Candidate [#165](https://github.com/Nolane-x/Nolane-video/actions/runs/46132094912), triggered by the first documentation commit with the same code/test sources, also passed Remotion, Motion Canvas and Manim.
+- Shared `NIA_BODY_POSES` moves torso/neck and the IK shoulder together. Lift uses torso `[512,188]`/2.5°, neck `[512,35]`, shoulder `[431,94]`; inspect uses torso `[511,187]`/1.5°, neck `[511,34]`, shoulder `[428,95]`; rest restores neutral `[505,185]`/shoulder `[420,95]`.
+- `toArmPose` interpolates shoulder and wrist and solves elbow per frame; fixed segment lengths remain 200/615 px. S02 runs lift/inspect/rest; S06 lift/inspect/lifted settle. Prop-attached grip remains unchanged.
+- Runtime IK test covers 101 tween samples with moving shoulder and wrist. Contract #49 has 30 Python tests and benchmark validator.
+- **Candidate #165 Motion Canvas:** H.264 1920×1080 yuv420p, 24/1 fps, 72 s, 1,728 frames, zero browser errors. MP4 SHA-256 `ef5e8feee4bf3e44f0a04c24eec86f7b86163ff279333b9f08ef5201f1df878f`; artifact id `15258327744`; ZIP digest `sha256:5515b9b46553115564b8064ea22e23fa805e105f6aeaddc1a289ef67e7cdcd10`.
+- **Candidate #165 Remotion:** H.264 1920×1080, 24 fps, 72 s, 1,728 frames. MP4 SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`; artifact id `15257717552`; ZIP digest `sha256:3d1242de1cadacaa0310a90def35a90388e9e2eaf113f373c7f67cd763d2acff`.
+- **Candidate #165 Manim:** H.264 1920×1080, 279 frames, 11.624674 s. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15257657386`; ZIP digest `sha256:e3fb292b8153ff878c2c5f9ba91511830c85e8926fb53cea7f1a3e94be2a117c`.
+- Selected S02/S06 frames show restrained counterbalance and retained shoulder/arm/prop connection. Nia remains a stylized vector actor; full-speed acting/anatomy, mobile typography, VO/audio and pacing remain open.
+
 ## Latest all-green true/apparent position staging candidate — 2026-11-28 (candidate #158)
 
 This section supersedes candidate #156 below. It confirms a further S05 cue-order refinement and all three technical render gates; it is not creative approval.

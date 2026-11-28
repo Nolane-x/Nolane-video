@@ -1,6 +1,6 @@
 # M1 Candidate Scorecard — The Spoon That Bends
 
-**Snapshot:** 2026-11-28 — latest technical candidate #158 and contract validation #47 (29 tests).  
+**Snapshot:** 2026-11-28 — latest technical candidate #165 and contract validation #49 (30 tests).  
 **Status:** candidate technical comparison complete; creative/audio acceptance still open. No overall numeric score is assigned.  
 **Architecture decision:** Motion Canvas is provisionally selected as the first 2D scene adapter under [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md).
 
@@ -16,12 +16,12 @@
 | Dimension | Remotion 4.0.547 | Motion Canvas 3.17.2 | Manim CE fork |
 |---|---|---|---|
 | Intended role | Full-film baseline / possible adapter | First 2D/2.5D scene runtime (provisional) | Specialist diagram adapter |
-| Latest green candidate run | [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) | [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) | [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) |
-| Latest Actions artifact ZIP digest | `sha256:c35c6755b07808d7e8ad91b745298d785b247dd305fa4739d249079c7bb7b92b` | `sha256:06a26519a846d660068ec347a3126a66a54a28a1d4f0b6179b6ed91b8261b1b3` | `sha256:b5dbf277be79f74a1f44f8b827a248a355273f51f7d6462fe36809044eab340c` |
-| Latest MP4 SHA-256 | `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67` | `37cda1eb7b8f3d8c5e309c5faaebccf63a498c1cb8037f8f16a090b0cf72bd00` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
+| Latest green candidate run | [#165](https://github.com/Nolane-x/Nolane-video/actions/runs/46132094912) | [#165](https://github.com/Nolane-x/Nolane-video/actions/runs/46132094912) | [#165](https://github.com/Nolane-x/Nolane-video/actions/runs/46132094912) |
+| Latest Actions artifact ZIP digest | `sha256:3d1242de1cadacaa0310a90def35a90388e9e2eaf113f373c7f67cd763d2acff` | `sha256:5515b9b46553115564b8064ea22e23fa805e105f6aeaddc1a289ef67e7cdcd10` | `sha256:e3fb292b8153ff878c2c5f9ba91511830c85e8926fb53cea7f1a3e94be2a117c` |
+| Latest MP4 SHA-256 | `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67` | `ef5e8feee4bf3e44f0a04c24eec86f7b86163ff279333b9f08ef5201f1df878f` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
 | Output metadata | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 11.624674 s, 279 frames |
 | Technical result | PASS: typecheck, full render, H.264/24 fps/1,728-frame ffprobe gate and upload | PASS: official editor build, 1,728 unique sequential frames, H.264/24 fps/1,728-frame ffprobe gate, zero browser errors and upload | PASS: pinned fork install, H.264/24 fps/279-frame gate, ffprobe and upload |
-| Visual review | Candidate #158 parity render is green; sampled stills only, not a continuous 24-fps watch | Candidate #158 MP4 downloaded/ffprobed; S05 44.2–47.2 s transition frames checked. Dashed extension, true-position label, then apparent point/label/caption confirmed in sequence. Not a continuous 24-fps watch | Candidate #158 specialist diagram render and ffprobe passed; full creative review remains limited |
+| Visual review | Candidate #165 parity render is green; sampled stills only, not a continuous 24-fps watch | Candidate #165 MP4 downloaded/ffprobed; S02 hand/shoulder detail and S06 counterbalance samples checked; S05 staged true/apparent reveal remains in source. Not a continuous 24-fps watch | Candidate #165 specialist diagram render and ffprobe passed; full creative review remains limited |
 | Scientific geometry | PASS on reviewed diagram | PASS against shared diagram model | PASS on reviewed diagram |
 | Character acting | S02 storyboard beats render; character remains a stylized vector blockout with anatomy, weight, acting and follow-through not approved | Per-finger/palm articulation remains prop-local; clear-out transform moves the bowl above/outside the glass with the wrist following the same transform. Still vector blocking; body counterbalance, organic hand depth and final acting are not approved | Not applicable to specialist role |
 | Diagram choreography | NEEDS CREATIVE REVIEW | S03/S04 physical-ray/angle order is staged; S05 reveals backward extension, then true-position label, then apparent point/label/caption. The 13.85 s final hold needs VO-led continuous pacing/camera/comprehension review |
@@ -36,10 +36,10 @@
 | Story and learning objective | PARTIAL PASS | Six-shot sequence renders; complete 24 fps comprehension review remains |
 | Scientific correctness | PASS for reviewed geometry | Shared Snell/geometry validator and native-resolution diagrams pass |
 | Deterministic frame output | PASS | Both full-film engines: exactly 1,728 frames; Manim segment: 279 frames |
-| Technical media export | PASS | All three candidate jobs green in run [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) |
+| Technical media export | PASS | All three candidate jobs green in run [#165](https://github.com/Nolane-x/Nolane-video/actions/runs/46132094912) |
 | Visual readability | PASS at reviewed native frames; reduced/mobile-size check open | Remotion caption safe area, Motion Canvas angle labels and Manim font/palette fixed |
 | Diagram choreography | NEEDS CREATIVE REVIEW | S03/S04 causal ray order and S05's dashed-extension → true-position label → apparent-point reveal are implemented and sampled; the 13.85 s S05 hold, camera framing and learning comprehension still need narration-led continuous review |
-| Acting, prop contact and continuity | PARTIAL / NOT APPROVED | S02/S06 clear-out transform is shared with wrist IK and sampled frames show bowl above/outside the glass. Need organic hand volume, palm compression, finger depth/occlusion, wrist roll, shoulder/torso counterbalance, weight transfer, gaze, reaction and follow-through |
+| Acting, prop contact and continuity | PARTIAL / NOT APPROVED | S02/S06 clear-out transform remains shared with wrist IK; lift/inspect body poses now move torso and neck with the shoulder target and solve the elbow each frame. Samples show subtle counterbalance with grip contact intact, but the hand remains stylized. Need palm compression, finger depth/occlusion, wrist roll, weight transfer, gaze, reaction and follow-through |
 | Camera and editing | PARTIAL | Current movement/transitions are basic; use motivated framing and preserve spatial continuity |
 | Audio/narration/captions | NOT TESTED | Add approved real VO, transcript alignment, SFX and music before audio acceptance |
 | Reproducibility and revision cost | PARTIAL | Pinned versions and repeatable CI exist; controlled timing and authoring/revision measurements remain |

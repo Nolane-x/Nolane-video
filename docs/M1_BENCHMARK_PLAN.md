@@ -97,6 +97,16 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest Nia torso/shoulder counterbalance — 2026-11-28 (candidate #164/#165)
+
+- The original actor held its shoulder at `[420,95]` while the wrist moved, which could read as an isolated arm reach.
+- Shared `NIA_BODY_POSES` in `rig-anchors.ts` define rest/lift/inspect positions for torso, neck and shoulder. Lift torso moves `[505,185] → [512,188]` and rotates 2.5°; neck moves `[505,32] → [512,35]`; shoulder moves `[420,95] → [431,94]`. Inspect is smaller at 1.5°; rest returns to neutral.
+- `toBodyPose` animates torso position/rotation and neck. `toArmPose` interpolates shoulder and wrist together, re-solving the elbow per frame. Fixed bone lengths remain 200/615 px; spoon-local grip geometry is unchanged.
+- S02 synchronizes lift → inspect → rest/re-dip; S06 synchronizes lift → inspect → lifted settle.
+- Runtime arm IK tests cover each named shoulder/wrist pair and 101 samples across changing shoulder+wrist transitions. Contract [#49](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553392) passes 30 Python tests and validator, including checks for the new body/shoulder wiring and TypeScript annotations.
+- Candidate [#164](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553339) passes all three engines on the final source/test commit. Candidate [#165](https://github.com/Nolane-x/Nolane-video/actions/runs/46132094912) repeats all three engine renders from the first documentation snapshot, with no source change; all pass.
+- Candidate #165 Motion Canvas MP4 SHA-256 `ef5e8feee4bf3e44f0a04c24eec86f7b86163ff279333b9f08ef5201f1df878f`, H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. Selected S02/S06 frames show subtle counterbalance and a connected shoulder/arm/prop silhouette. It remains stylized vector blocking, not full naturalistic acting.
+
 ## Latest true/apparent position staging — 2026-11-28 (candidate #158)
 
 - S05 now names the real underwater source before introducing the apparent image.
