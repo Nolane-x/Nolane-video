@@ -243,14 +243,18 @@ class BenchmarkContractTests(unittest.TestCase):
         for digit in ("index", "middle", "ring", "pinky"):
             with self.subTest(digit=digit):
                 self.assertIn(f"{digit}: FingerPath", geometry_source)
-                self.assertIn(f"{digit}: wrapFinger(", geometry_source)
+                self.assertIn("wrapFinger(", geometry_source)
                 self.assertIn(f"{digit}Outline", grip_source)
                 self.assertIn(f"{digit}Finger", grip_source)
                 self.assertIn(f"{digit}Outline().points(copyPath(pose.{digit})", grip_source)
                 self.assertIn(f"{digit}Finger().points(copyPath(pose.{digit})", grip_source)
+                self.assertIn(f"{digit}Crease", grip_source)
+                self.assertIn(f"{digit}: fingerCrease({digit})", geometry_source)
 
-        self.assertIn('rest: {', geometry_source)
-        self.assertIn('brace: {', geometry_source)
+        # Poses share a constructor so rest/brace remain structurally consistent.
+        self.assertIn("rest: makePose(", geometry_source)
+        self.assertIn("brace: makePose(", geometry_source)
+        self.assertIn("fingerCreases:", geometry_source)
         self.assertIn("NIA_GRIP_LOCAL_POSITION", geometry_source)
 
     def test_nia_grip_geometry_is_derived_from_the_shared_spoon_handle_axis(self):
