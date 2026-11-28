@@ -1,7 +1,7 @@
 import React from "react";
 import {AbsoluteFill, useCurrentFrame} from "remotion";
 import diagramGeometry from "../../shared/diagram.json";
-import {cameraScaleAt, diagramCaptionAt, diagramMotionAt, s02MotionAt} from "./benchmark-motion";
+import {cameraScaleAt, diagramCaptionAt, diagramMotionAt, s02MotionAt, s06MotionAt} from "./benchmark-motion";
 
 const C = {
   ink: "#101B26", slate: "#203746", ivory: "#F4EDE0", brass: "#DDA85E",
@@ -20,28 +20,34 @@ const windowOpacity = (frame: number, start: number, end: number, fade = 12) =>
 
 const Nia: React.FC<{frame: number}> = ({frame}) => {
   const motion = s02MotionAt(frame);
+  const s06 = s06MotionAt(frame);
   const tilt = frame >= 432 && frame < 672 ? 2 : 0;
-  const handY = 230 - motion.handLiftPx;
-  const armPath = "M-115 590 Q-280 520 -470 420 Q-625 315 -755 " + handY;
+  const handX = -755 + s06.handOffsetX - s06.bodyOffsetX;
+  const handY = 230 - motion.handLiftPx - s06.handLiftPx - s06.bodyOffsetY;
+  const handRotation = motion.spoonRotationDeg + s06.spoonRotationDeg;
+  const armPath = "M-115 590 Q-280 520 -470 420 Q-625 315 " + handX + " " + handY;
+  const headOffsetX = motion.headOffsetX + s06.headOffsetX - s06.bodyOffsetX;
+  const headOffsetY = motion.headOffsetY + s06.headOffsetY - s06.bodyOffsetY;
+  const eyeLookOffsetX = motion.eyeLookOffsetX + s06.eyeLookOffsetX;
   return (
-    <g transform={"translate(1370 0) rotate(" + tilt + " 0 470)"}>
+    <g transform={"translate(" + (1370 + s06.bodyOffsetX) + " " + s06.bodyOffsetY + ") rotate(" + tilt + " 0 470)"}>
       <ellipse cx="0" cy="890" rx="185" ry="28" fill="#07121A" opacity=".5" />
       <path d="M-120 565 Q-158 680 -130 865 L-35 865 L-25 690 L35 690 L58 865 L154 865 Q160 675 105 565Z" fill="#203746" stroke="#0A151D" strokeWidth="12" />
       <path d={armPath} fill="none" stroke="#203746" strokeWidth="64" strokeLinecap="round" />
       <path d={armPath} fill="none" stroke="#D9B89B" strokeWidth="27" strokeLinecap="round" />
-      <g transform={"translate(0 " + (handY - 230) + ")"}>
-        <path d="M-759 230 Q-772 211 -758 190 M-748 235 Q-733 258 -710 246" fill="none" stroke="#D9B89B" strokeWidth="17" strokeLinecap="round" />
+      <g transform={"translate(" + handX + " " + handY + ") rotate(" + handRotation + ")"}>
+        <path d="M-4 0 Q-17 -19 -3 -40 M7 5 Q22 28 45 16" fill="none" stroke="#D9B89B" strokeWidth={17 + 1.5 * s06.brace} strokeLinecap="round" />
       </g>
       <path d="M100 590 Q185 640 215 590" fill="none" stroke="#203746" strokeWidth="58" strokeLinecap="round" />
       <path d="M100 590 Q185 640 215 590" fill="none" stroke="#F4EDE0" strokeWidth="15" strokeLinecap="round" />
       <path d="M-65 875 L-155 935 M85 875 L165 935" stroke="#101B26" strokeWidth="46" strokeLinecap="round" />
-      <g transform={"translate(" + motion.headOffsetX + " " + motion.headOffsetY + ") rotate(" + motion.headTiltDeg + " 0 410)"}>
+      <g transform={"translate(" + headOffsetX + " " + headOffsetY + ") rotate(" + (motion.headTiltDeg + s06.headTiltDeg) + " 0 410)"}>
         <ellipse cx="0" cy="410" rx="145" ry="165" fill="#D9B89B" stroke="#101B26" strokeWidth="12" />
         <path d="M-145 405 Q-150 230 -8 226 Q145 240 145 390 Q85 330 40 320 Q-25 370 -145 405Z" fill="#172631" />
         <path d="M-142 445 Q-85 420 -36 444" stroke="#172631" strokeWidth="13" fill="none" strokeLinecap="round" />
         <path d="M35 444 Q85 420 132 445" stroke="#172631" strokeWidth="13" fill="none" strokeLinecap="round" />
-        <ellipse cx={-65 + motion.eyeLookOffsetX} cy="458" rx="13" ry="18" fill="#101B26" />
-        <ellipse cx={70 + motion.eyeLookOffsetX} cy="458" rx="13" ry="18" fill="#101B26" />
+        <ellipse cx={-65 + eyeLookOffsetX} cy="458" rx="13" ry="18" fill="#101B26" />
+        <ellipse cx={70 + eyeLookOffsetX} cy="458" rx="13" ry="18" fill="#101B26" />
         <path d={"M-25 520 Q0 " + (540 + motion.surprise * 18) + " 28 516"} stroke="#8A554C" strokeWidth="9" fill="none" strokeLinecap="round" />
         <path d="M-55 570 L0 720 L58 570" fill="none" stroke="#DDA85E" strokeWidth="9" opacity=".85" />
       </g>
@@ -53,8 +59,9 @@ const Kitchen: React.FC<{frame: number}> = ({frame}) => {
   const motion = s02MotionAt(frame);
   const finalStraight = frame >= 1452;
   const straightness = finalStraight ? 1 : motion.straightness;
-  const handLiftPx = finalStraight ? 0 : motion.handLiftPx;
-  const spoonTurn = finalStraight ? 0 : motion.spoonRotationDeg;
+  const s06 = s06MotionAt(frame);
+  const handLiftPx = motion.handLiftPx + s06.handLiftPx;
+  const spoonTurn = motion.spoonRotationDeg + s06.spoonRotationDeg;
   return (
     <g>
       <rect width="1920" height="1080" fill="#142433" />
@@ -77,7 +84,7 @@ const Kitchen: React.FC<{frame: number}> = ({frame}) => {
         <ellipse cx="850" cy="708" rx="35" ry="62" transform="rotate(-22 850 708)" fill="#B7C3C5" stroke="#E7E3D9" strokeWidth="9" />
         <path d="M605 220 L690 480" stroke="#FFFFFF" strokeWidth="4" opacity=".65" />
       </g>
-      <g opacity={straightness} transform={"translate(0 " + (-handLiftPx) + ") rotate(" + spoonTurn + " 615 230)"}>
+      <g opacity={straightness} transform={"translate(" + s06.handOffsetX + " " + (-handLiftPx) + ") rotate(" + spoonTurn + " 615 230)"}>
         <path d="M615 230 L1010 230" stroke="#E7E3D9" strokeWidth="22" strokeLinecap="round" />
         <path d="M630 224 L990 224" stroke="#FFFFFF" strokeWidth="4" opacity=".7" />
         <ellipse cx="1042" cy="230" rx="55" ry="29" fill="#B7C3C5" stroke="#E7E3D9" strokeWidth="9" />
