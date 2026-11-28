@@ -248,14 +248,16 @@ export default makeScene2D(function* (view) {
   yield* optics.backward().opacity(1, 0.8);
   // Let the dashed extension read as a geometric construction before the point appears.
   yield* waitFor(1.0);
+  // Name the real underwater source position before contrasting it with the apparent image.
+  yield* optics.trueLabel().opacity(1, 0.4);
+  yield* waitFor(0.35);
   yield* all(
     optics.apparentPoint().opacity(1, 0.5),
-    optics.trueLabel().opacity(1, 0.6),
     optics.apparentLabel().opacity(1, 0.6),
     optics.diagramCaption().text("Mắt kéo dài tia khúc xạ về vị trí biểu kiến.", 0.6)
   );
-  // The one-second construction hold is taken from the final hold; S05 stays exactly 17 seconds.
-  yield* waitFor(14.6);
+  // The staged true/apparent comparison is funded by the final hold; S05 stays exactly 17 seconds.
+  yield* waitFor(13.85);
   checkpoint("S05-complete");
 
   // S06 — 11 seconds: return to the intact spoon and resolve the misconception.

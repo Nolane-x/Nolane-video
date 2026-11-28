@@ -135,17 +135,20 @@ class BenchmarkContractTests(unittest.TestCase):
 
         backward = s05.index("optics.backward().opacity(1, 0.8)")
         construction_hold = s05.index("yield* waitFor(1.0)")
+        true_label = s05.index("optics.trueLabel().opacity(1, 0.4)")
+        comparison_pause = s05.index("yield* waitFor(0.35)")
         apparent_point = s05.index("optics.apparentPoint().opacity(1, 0.5)")
         self.assertLess(backward, construction_hold)
-        self.assertLess(construction_hold, apparent_point)
-        self.assertIn("optics.trueLabel().opacity(1, 0.6)", s05)
+        self.assertLess(construction_hold, true_label)
+        self.assertLess(true_label, comparison_pause)
+        self.assertLess(comparison_pause, apparent_point)
         self.assertIn("optics.apparentLabel().opacity(1, 0.6)", s05)
         self.assertIn(
             'optics.diagramCaption().text("Mắt kéo dài tia khúc xạ về vị trí biểu kiến.", 0.6)',
             s05,
         )
-        self.assertIn("yield* waitFor(14.6)", s05)
-        self.assertAlmostEqual(0.8 + 1.0 + 0.6 + 14.6, 17.0, delta=1e-9)
+        self.assertIn("yield* waitFor(13.85)", s05)
+        self.assertAlmostEqual(0.8 + 1.0 + 0.4 + 0.35 + 0.6 + 13.85, 17.0, delta=1e-9)
         self.assertIn('checkpoint("S05-complete")', s05)
 
     def test_motion_canvas_s06_lifts_and_inspects_the_straight_spoon(self):
