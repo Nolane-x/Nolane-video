@@ -1,5 +1,6 @@
 import { Line, Rect, Txt } from "@motion-canvas/2d";
 import { createRef } from "@motion-canvas/core";
+import { KITCHEN_WATERLINE_STAGE_Y } from "../actors/rig-anchors";
 
 export type KitchenSetPalette = {
   water: string;
@@ -47,7 +48,7 @@ export const createKitchenSet = (palette: KitchenSetPalette) => {
       />
       <Line
         ref={waterline}
-        points={[[-550, 80], [-90, 80]]}
+        points={[[-550, KITCHEN_WATERLINE_STAGE_Y], [-90, KITCHEN_WATERLINE_STAGE_Y]]}
         stroke={palette.waterLight}
         lineWidth={8}
         opacity={0}

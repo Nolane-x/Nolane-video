@@ -2,6 +2,7 @@ import { Circle, Line, Node } from "@motion-canvas/2d";
 import { createRef } from "@motion-canvas/core";
 import { createNiaGrip } from "../actors/nia-grip";
 import {
+  SPOON_BOWL_LOCAL_POSITION,
   SPOON_HANDLE_LOCAL_END,
   SPOON_HANDLE_LOCAL_START,
   SPOON_REST_ORIGIN
@@ -56,7 +57,7 @@ export const createSpoonProp = (palette: SpoonPropPalette) => {
       <Circle
         ref={bowl}
         size={78}
-        position={[195, 285]}
+        position={[...SPOON_BOWL_LOCAL_POSITION]}
         scale={[0.65, 1.25]}
         fill="#B7C3C5"
         stroke={palette.ivory}

@@ -11,7 +11,12 @@ import { createRefractionDiagram } from "../diagrams/refraction";
 import { createNiaActor } from "../actors/nia";
 import { createSpoonProp } from "../props/spoon";
 import { createKitchenSet } from "../sets/kitchen";
-import { SPOON_LIFT_ORIGIN, SPOON_REST_ORIGIN } from "../actors/rig-anchors";
+import {
+  SPOON_INSPECT_ROTATION_DEGREES,
+  SPOON_LIFT_ORIGIN,
+  SPOON_LIFT_ROTATION_DEGREES,
+  SPOON_REST_ORIGIN
+} from "../actors/rig-anchors";
 
 const C = {
   ink: "#101B26",
@@ -143,7 +148,7 @@ export default makeScene2D(function* (view) {
   yield* spoon.grip.toPose("brace", 0.25);
   yield* all(
     spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
-    spoon.rig().rotation(-5, 0.85),
+    spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.85),
     nia.toArmPose("lift", 0.85),
     nia.eyeLeft().position([-55, 0], 0.35),
     nia.eyeRight().position([25, 0], 0.35)
@@ -151,7 +156,7 @@ export default makeScene2D(function* (view) {
   // Give the viewer time to see that the exposed spoon is physically straight.
   yield* waitFor(0.8);
   yield* all(
-    spoon.rig().rotation(6, 0.25),
+    spoon.rig().rotation(SPOON_INSPECT_ROTATION_DEGREES, 0.25),
     nia.toArmPose("inspect", 0.25),
     nia.headRig().position([505, -118], 0.25),
     nia.headRig().rotation(3, 0.25)
@@ -322,7 +327,7 @@ export default makeScene2D(function* (view) {
   yield* spoon.grip.toPose("brace", 0.25);
   yield* all(
     spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
-    spoon.rig().rotation(-5, 0.85),
+    spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.85),
     nia.toArmPose("lift", 0.85),
     nia.eyeLeft().position([-55, 0], 0.35),
     nia.eyeRight().position([25, 0], 0.35),
@@ -331,13 +336,13 @@ export default makeScene2D(function* (view) {
   // A small inspection turn proves the spoon is intact, then settles back.
   yield* waitFor(0.6);
   yield* all(
-    spoon.rig().rotation(6, 0.25),
+    spoon.rig().rotation(SPOON_INSPECT_ROTATION_DEGREES, 0.25),
     nia.toArmPose("inspect", 0.25),
     nia.headRig().position([505, -118], 0.25),
     nia.headRig().rotation(3, 0.25)
   );
   yield* all(
-    spoon.rig().rotation(-5, 0.25),
+    spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.25),
     nia.toArmPose("lift", 0.25),
     nia.headRig().position([505, -105], 0.25),
     nia.headRig().rotation(0, 0.25)

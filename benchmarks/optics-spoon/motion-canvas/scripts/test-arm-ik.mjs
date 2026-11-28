@@ -45,16 +45,48 @@ const cases = [
   {
     name: "lift",
     target: anchors.NIA_LIFT_GRIP_STAGE_POINT,
-    expectedElbow: [249.5191043981, -9.5765950620]
+    expectedElbow: [246.6900142725, -4.8180787591]
   },
   {
     name: "inspect",
     target: anchors.NIA_LIFT_TURN_GRIP_STAGE_POINT,
-    expectedElbow: [266.2284035238, -32.8839165695]
+    expectedElbow: [249.1065484592, -8.9010501414]
   }
 ];
 
 const distance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+
+const rotateLocalPoint = (origin, angleDegrees, point) => {
+  const radians = angleDegrees * Math.PI / 180;
+  const [x, y] = point;
+  return [
+    origin[0] + x * Math.cos(radians) - y * Math.sin(radians),
+    origin[1] + x * Math.sin(radians) + y * Math.cos(radians)
+  ];
+};
+const bowlCenter = rotateLocalPoint(
+  anchors.SPOON_LIFT_ORIGIN,
+  anchors.SPOON_LIFT_ROTATION_DEGREES,
+  anchors.SPOON_BOWL_LOCAL_POSITION
+);
+const bowlLowerEdge = bowlCenter[1] + anchors.SPOON_BOWL_VERTICAL_HALF_EXTENT;
+assert.ok(
+  bowlLowerEdge <= anchors.KITCHEN_WATERLINE_STAGE_Y - 30,
+  `lifted bowl must clear the waterline by at least 30 px; lower edge is ${bowlLowerEdge}`
+);
+const glassRightEdge = -90;
+assert.ok(
+  bowlCenter[0] - 30 > glassRightEdge,
+  "lifted bowl must move completely to the right of the glass"
+);
+for (const poseName of ["NIA_LIFT_GRIP_STAGE_POINT", "NIA_LIFT_TURN_GRIP_STAGE_POINT"]) {
+  const wrist = anchors[poseName];
+  const reach = distance(shoulder, wrist);
+  assert.ok(
+    reach <= upperLength + forearmLength && reach >= Math.abs(upperLength - forearmLength),
+    `${poseName} must remain reachable by the two-bone arm`
+  );
+}
 const near = (actual, expected, tolerance, label) => {
   assert.ok(
     Math.abs(actual - expected) <= tolerance,

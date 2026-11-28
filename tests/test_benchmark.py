@@ -136,17 +136,17 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("spoon.straight().opacity(1, 0.8)", s06)
         self.assertIn("spoon.grip.toPose(\"brace\", 0.25)", s06)
         self.assertIn("spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85)", s06)
-        self.assertIn("spoon.rig().rotation(-5, 0.85)", s06)
+        self.assertIn("spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.85)", s06)
         self.assertIn('nia.toArmPose("lift", 0.85)', s06)
         self.assertIn('nia.expression().text("!", 0.25)', s06)
-        self.assertIn("spoon.rig().rotation(6, 0.25)", s06)
+        self.assertIn("spoon.rig().rotation(SPOON_INSPECT_ROTATION_DEGREES, 0.25)", s06)
         self.assertIn('nia.toArmPose("inspect", 0.25)', s06)
-        self.assertIn("spoon.rig().rotation(-5, 0.25)", s06)
+        self.assertIn("spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.25)", s06)
         self.assertIn('nia.toArmPose("lift", 0.25)', s06)
         self.assertIn("view.scale([1.025, 1.025], 1.0)", s06)
         self.assertIn("yield* waitFor(6.6)", s06)
-        self.assertLess(s06.index("SPOON_LIFT_ORIGIN"), s06.index("spoon.rig().rotation(6, 0.25)"))
-        self.assertLess(s06.index("spoon.rig().rotation(6, 0.25)"), s06.index("spoon.rig().rotation(-5, 0.25)"))
+        self.assertLess(s06.index("SPOON_LIFT_ORIGIN"), s06.index("SPOON_INSPECT_ROTATION_DEGREES"))
+        self.assertLess(s06.index("SPOON_INSPECT_ROTATION_DEGREES"), s06.index("SPOON_LIFT_ROTATION_DEGREES"))
 
     def test_motion_canvas_reveals_physical_rays_in_s03_before_s04_angles(self):
         scene_path = (
@@ -528,6 +528,17 @@ class BenchmarkContractTests(unittest.TestCase):
         rest_origin = read_point("SPOON_REST_ORIGIN")
         lift_origin = read_point("SPOON_LIFT_ORIGIN")
         grip_local = read_point("NIA_GRIP_LOCAL_POSITION")
+        bowl_local = read_point("SPOON_BOWL_LOCAL_POSITION")
+
+        def read_scalar(name):
+            match = re.search(rf"{name} = (-?\d+(?:\.\d+)?)", anchor_source)
+            self.assertIsNotNone(match, f"Missing numeric rig constant: {name}")
+            return float(match.group(1))
+
+        lift_angle = read_scalar("SPOON_LIFT_ROTATION_DEGREES")
+        inspect_angle = read_scalar("SPOON_INSPECT_ROTATION_DEGREES")
+        waterline_y = read_scalar("KITCHEN_WATERLINE_STAGE_Y")
+        bowl_extent = read_scalar("SPOON_BOWL_VERTICAL_HALF_EXTENT")
 
         def rotated_contact(origin, angle_degrees):
             radians = math.radians(angle_degrees)
@@ -537,13 +548,36 @@ class BenchmarkContractTests(unittest.TestCase):
             return (origin[0] + rotated_x, origin[1] + rotated_y)
 
         rest_contact = rotated_contact(rest_origin, 0)
-        lift_contact = rotated_contact(lift_origin, -5)
-        turn_contact = rotated_contact(lift_origin, 6)
+        lift_contact = rotated_contact(lift_origin, lift_angle)
+        turn_contact = rotated_contact(lift_origin, inspect_angle)
         self.assertEqual(rest_contact, (-356, 0))
-        self.assertAlmostEqual(lift_contact[0], -362.83, delta=0.02)
-        self.assertAlmostEqual(lift_contact[1], -66.56, delta=0.02)
-        self.assertAlmostEqual(turn_contact[0], -347.45, delta=0.02)
-        self.assertAlmostEqual(turn_contact[1], -73.32, delta=0.02)
+        self.assertAlmostEqual(lift_contact[0], -364.42, delta=0.02)
+        self.assertAlmostEqual(lift_contact[1], -73.85, delta=0.02)
+        self.assertAlmostEqual(turn_contact[0], -361.47, delta=0.02)
+        self.assertAlmostEqual(turn_contact[1], -82.54, delta=0.02)
+
+        bowl_center_y = (
+            lift_origin[1]
+            + bowl_local[0] * math.sin(math.radians(lift_angle))
+            + bowl_local[1] * math.cos(math.radians(lift_angle))
+        )
+        bowl_lower_edge = bowl_center_y + bowl_extent
+        self.assertLessEqual(
+            bowl_lower_edge,
+            waterline_y - 30,
+            "the entire spoon bowl must clear the waterline by at least 30 stage pixels",
+        )
+        glass_right_edge = -90
+        bowl_center_x = (
+            lift_origin[0]
+            + bowl_local[0] * math.cos(math.radians(lift_angle))
+            - bowl_local[1] * math.sin(math.radians(lift_angle))
+        )
+        self.assertGreater(
+            bowl_center_x - 30,
+            glass_right_edge,
+            "the lifted bowl must clear the glass on its right side",
+        )
 
         self.assertIn("rotationDegrees = 0", anchor_source)
         self.assertIn("Math.cos(radians)", anchor_source)
@@ -573,6 +607,10 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertNotIn("NIA_REST_GRIP_STAGE_POINT", scene_source)
         self.assertIn("SPOON_LIFT_ORIGIN", scene_source)
         self.assertIn("SPOON_REST_ORIGIN", scene_source)
+        self.assertIn("SPOON_LIFT_ROTATION_DEGREES", scene_source)
+        self.assertIn("SPOON_INSPECT_ROTATION_DEGREES", scene_source)
+        self.assertIn("SPOON_BOWL_LOCAL_POSITION", prop_source)
+        self.assertIn("KITCHEN_WATERLINE_STAGE_Y", (root / "sets" / "kitchen.tsx").read_text(encoding="utf-8"))
 
     def test_kitchen_environment_is_a_reusable_scene_set(self):
         root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas" / "src"
