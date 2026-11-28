@@ -1,7 +1,22 @@
 **Review date:** 2026-11-28  
-**Latest technical candidate:** [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) passed all three renderer jobs; contract [#53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123) passed 30 tests and benchmark validation.  
-**Latest sampled visual review:** [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137); both Remotion and Motion Canvas contact sheets and selected native-resolution frames around S01, S03, S06 and S05 were inspected.  
-**Scope:** contact sheets plus selected frames; **not** uninterrupted 24-fps playback, mobile-type sign-off, final creative approval or audio review.
+**Latest technical candidate:** [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477) passed all three renderer jobs on source SHA `0d7e2d2`; contract [#55](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076436) passed 30 tests and benchmark validation.  
+**Latest sampled visual review:** [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477); Remotion and Motion Canvas contact sheets plus paired native-resolution S06 frames 1464, 1493, 1499, 1509, 1519, 1537, 1540, 1546, 1570 and 1727 inspected.  
+**Scope:** sampled stills only; **not** continuous 24-fps playback, mobile-size type sign-off, final creative approval or audio review.
+
+## Candidate #185 — Remotion S06 submerged-to-lift action parity (sampled review)
+
+- Source/test commits: [`ebbc73a`](https://github.com/Nolane-x/Nolane-video/commit/ebbc73ad3ab16726111bcaf5803258171d22646b), [`d08616a`](https://github.com/Nolane-x/Nolane-video/commit/d08616a0c6d72c0499456dfd916e1d4269202b29), and [`0d7e2d2`](https://github.com/Nolane-x/Nolane-video/commit/0d7e2d2256c4581fafd6eff9052b021b0d326d84).
+- Candidate #185 passed Remotion, Motion Canvas and Manim. Contract #55 passed 30 Python tests and benchmark validator; Remotion runtime tests cover brace/lift/inspection/settle boundary, midpoint and final frames.
+- Remotion `s06MotionAt(globalFrame)` renders the straight spoon submerged diagonally at the S06 start, lifts it clear while rotating wrist/prop together, performs a small inspection turn, and settles before the final push-in. Renderer-space prop angle: 64° → 14° → 20° → 14°; do not treat these values as a shared cross-engine angle convention.
+- Frame windows align with Motion Canvas: brace 1493–1499; lift 1499–1519; inspection 1534–1540; settle 1540–1546; final camera push 1546–1570; final hold through frame 1727.
+- Remotion MP4: H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `288118afaa584bc75aca61e6375a54f6c481a17d1f87f33cf6befbfef915be87`, artifact `15269760385`, ZIP SHA-256 `39dfe3a6945e8930bfde3d38b717812f5bf90846d22ba91f2d30d73eec4c4af7`.
+- Motion Canvas MP4: H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `8ec191e235ab28ca36477be47f9cef568a7175f0d26c50fef6ace0ba55c95882`, artifact `15269635145`, ZIP SHA-256 `a6d077ca39523b548a02c1b77ddc0f04ad307900a1f8e99323bbc171b31416fb`; render report says 1,728/1,728 frames and zero browser errors.
+- Manim artifact `15268529534`, ZIP SHA-256 `495ee1ea1c47b0d8539436d669eb7dd3357f18d84378745a25b567a0bad2426c`; ffprobe gate passed its 279-frame, 11.624674-second H.264 1920×1080 scientific segment.
+- At sampled S06 positions, both outputs show the submerged straight spoon, lift clear of water, inspection turn and final settle in the expected order. The wrist remains associated with the moving prop in sampled stills, with no obvious frame-edge crop.
+- **Remaining parity findings:** Nia's visual design and kitchen/set composition differ visibly between Remotion and Motion Canvas. At frame 1727 Remotion is almost dark while Motion Canvas remains visible; reconcile both with the storyboard's “fade to quiet end frame”. These are open picture-quality items, not sign-offs.
+- **Scope limitation:** contact sheets and selected stills only; no continuous 24-fps viewing, mobile typography sign-off, creative approval or audio review. Both full-film MP4s are silent.
+
+## Candidate #175 — Remotion camera parity (sampled review)
 
 ## Candidate #175 — Remotion camera parity (sampled review)
 
