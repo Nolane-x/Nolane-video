@@ -1,3 +1,46 @@
+## -13. Latest verified state — 2026-11-28 (candidate #154; refraction reveal and clear-out spoon lift verified)
+
+This snapshot supersedes candidate #149 below. Candidate #154 is a green technical render and sampled visual check; M1 creative acceptance remains open.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Working branch:** `m1/optics-benchmark`. Geometry/shot implementation commit [`ef59a9a`](https://github.com/Nolane-x/Nolane-video/commit/ef59a9a3d086966e72f2990a1aa1f64151ef3256); contract assertion fix [`6c27763`](https://github.com/Nolane-x/Nolane-video/commit/6c27763fada639ffba00f5367c54cb316ab00d26). **Main** remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate workflow:** [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688) completed **success** for Remotion, Motion Canvas and Manim.
+- **Contract validation:** [#45](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226663) completed **success** with 28 Python tests and the benchmark validator. Motion Canvas IK/grip runtime tests, TypeScript build, 1,728-frame editor render, ffprobe and upload passed.
+
+### Candidate #154 outputs (downloaded and checked)
+
+- **Remotion 4.0.547:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`. Artifact id `15255446471`; ZIP digest `sha256:57a13b2f0e8ab59aaaa78fd72bd2b59954603063ab3c2180e30d62cc80b19114`.
+- **Motion Canvas 3.17.2:** official editor rendered 1,728/1,728 frames with zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. MP4 SHA-256 `91d0f7bec60e21a1deac18a59efe9b6be87b1586739099d91f7d2977e05287dd`. Artifact id `15255207773`; ZIP digest `sha256:38bdc66d26f13b31de09f2496353f260d0c604d2eedf492c288694daf82fb10a`.
+- **Manim CE specialist segment:** H.264, 1920×1080, yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average rate `857088/35711` (~24.00067 fps). MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Artifact id `15254853044`; ZIP digest `sha256:88b8a10939d2c93bce5cb55a45ec87449d29c9fbc25c0fe07d6e25455a34b91f`.
+- Both full-film MP4s are video-only/silent; narration, SFX/music and caption synchronization have not been supplied.
+
+### Refraction reveal timing
+
+- S03 now introduces the physical path in causal order: interface/air-water labels, incident ray and true point, a short pause, then refracted ray and observer point. S04 adds the normal, angle labels and Snell formula without replaying the rays.
+- S03/S04 remain at their storyboard frame boundaries (240 and 384 frames respectively); a one-sample inclusive-endpoint correction is retained.
+- Candidate [#151](https://github.com/Nolane-x/Nolane-video/actions/runs/46122977310) verified the render; candidate #154 includes the final geometry/contract snapshot. Selected samples show the rays earlier in S03. This is not a continuous playback review.
+
+### Clear-out lift geometry and S02/S06 acting
+
+- The prior lift anchor left the bowl underwater even when the wrist moved. The shared pose now uses `SPOON_LIFT_ORIGIN = [-280, -50]`, lift rotation `−50°`, inspection rotation `−44°`, bowl local centre `[195, 285]`, visual vertical half-extent 53 px and shared waterline stage Y `80`.
+- With the prop transform applied, the bowl centre is approximately stage `[63.67, -16.18]`; its conservative lower edge is about Y `36.82`, around 43 px above the waterline. It is also fully to the right of the glass's right edge.
+- The transformed grip target is approximately `[-364.42, -73.85]`, 802.4 px from Nia's shoulder; the rig's maximum reach is 815 px. Named lift/inspection elbow poses and 101-sample IK tween checks pass.
+- Both S02 and S06 use the same clear-out transform and corresponding wrist IK targets. S02 lifts the straight spoon out, inspects, then re-dips; S06 returns to the straight state, lifts it fully out of the glass, makes a small inspection turn and holds the final pose.
+- Candidate #153 render jobs passed, but contract #44 exposed a faulty assertion about the *first* lift-angle occurrence. That test was corrected in [`6c27763`](https://github.com/Nolane-x/Nolane-video/commit/6c27763fada639ffba00f5367c54cb316ab00d26); contract #45 and candidate #154 are green. The #153 and #154 Motion Canvas MP4s are byte-identical.
+- Selected native samples at S02 8–17 s and S06 62–71 s show the bowl clearing the glass/water while the grip stays coupled to the transformed prop. This remains sampled QA, not continuous playback review.
+
+### Still incomplete / next task
+
+- Watch both complete 72-second films continuously at 24 fps and record shot/frame/timecode, severity, symptom and reproduction.
+- Improve whole-body counterbalance, shoulder/wrist weight, gaze, palm/finger depth/occlusion and follow-through; the current vector hand and Nia body remain stylized.
+- S05 still holds the backward construction/apparent point for a long interval; review its reveal, camera framing and purposeful holds.
+- Review diagram readability and label typography at reduced/mobile size.
+- Obtain approved Vietnamese VO, align captions to speech, add SFX/music and run perceptual audio QA.
+- Measure authoring/preview/render/revision costs on equivalent runners; complete H2 source/license provenance before any reuse from `Nolane-x/video`.
+- **Do not mark M1 complete or begin a broad Film IR/M2 build yet.** Motion Canvas remains provisional first 2D adapter; Remotion is baseline/reference; Manim remains specialist.
+
+---
+
 ## -12. Latest verified state — 2026-11-28 (candidate #149; thumb-base silhouette refinement verified)
 
 This snapshot supersedes candidate #146 below. M1 remains in progress; candidate #149 is a green technical render plus selected-frame/crop inspection, not final creative approval.

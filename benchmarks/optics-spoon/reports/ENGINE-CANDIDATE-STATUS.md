@@ -1,3 +1,16 @@
+## Latest all-green clear-out lift and refraction reveal candidate — 2026-11-28 (candidate #154)
+
+This section supersedes the candidate #149 snapshot below. Candidate #154 confirms the S03/S04 choreography, shared clear-out spoon transform, numerical bowl clearance, IK/runtime tests and the three technical renders; it is not creative approval.
+
+- Scene/geometry implementation: commit `ef59a9a3d086966e72f2990a1aa1f64151ef3256`; corrected contract assertion commit `6c27763fada639ffba00f5367c54cb316ab00d26`.
+- Candidate [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688): Remotion, Motion Canvas and Manim all **success**. Contract [#45](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226663): 28 tests and benchmark validation **success**.
+- S03 reveals incident ray/true point, then refracted ray/observer point; S04 adds normal, angles and Snell formula. Original half-open S03/S04 frame ranges remain unchanged.
+- Clear-out lift uses origin `[-280,-50]`, lift angle `−50°`, inspection angle `−44°`; bowl local centre `[195,285]`, conservative vertical extent 53 px and waterline Y=80 are shared constants. Bowl lower edge is ~43 px above waterline and outside the glass's right edge. Lift/inspection grip wrist targets are ~802 px from the shoulder, inside 815 px reach. Both S02 and S06 use the same prop transform and matching IK target.
+- Motion Canvas: H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `91d0f7bec60e21a1deac18a59efe9b6be87b1586739099d91f7d2977e05287dd`; artifact id `15255207773`; ZIP digest `sha256:38bdc66d26f13b31de09f2496353f260d0c604d2eedf492c288694daf82fb10a`.
+- Remotion: H.264 1920×1080, 24 fps, 72 s, 1,728 frames; MP4 SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`; artifact id `15255446471`; ZIP digest `sha256:57a13b2f0e8ab59aaaa78fd72bd2b59954603063ab3c2180e30d62cc80b19114`.
+- Manim specialist segment: H.264 1920×1080, 279 frames, 11.624674 s; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15254853044`; ZIP digest `sha256:88b8a10939d2c93bce5cb55a45ec87449d29c9fbc25c0fe07d6e25455a34b91f`.
+- Selected native samples in S02 8–17 s and S06 62–71 s show the bowl leaving the glass/water while the grip remains coupled. The films remain silent/video-only. M1 remains open for continuous 24-fps creative review, organic anatomy/acting, S05 pacing, mobile text, VO/captions/audio, repeated revision-cost measures and H2 provenance.
+
 ## Latest all-green thumb-base silhouette candidate — 2026-11-28 (candidate #149)
 
 This section supersedes the candidate #146 technical snapshot below. It confirms the thumb-base contour fix, contract/runtime tests and technical renders; it is not creative approval.

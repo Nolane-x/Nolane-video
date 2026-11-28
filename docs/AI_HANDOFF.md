@@ -1,3 +1,42 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #154; clear-out spoon lift and S03 reveal verified)
+
+This is the current starting point. The S03 ray reveal and the physically clear S02/S06 lift have passed contract, runtime and all three engine render gates. M1 creative acceptance remains open.
+
+### GitHub state
+- Correct repository: `Nolane-x/Nolane-video` (NEE), **not** `Nolane-x/video`.
+- Branch: `m1/optics-benchmark`.
+- Geometry/scene commit: [`ef59a9a`](https://github.com/Nolane-x/Nolane-video/commit/ef59a9a3d086966e72f2990a1aa1f64151ef3256); final contract assertion commit: [`6c27763`](https://github.com/Nolane-x/Nolane-video/commit/6c27763fada639ffba00f5367c54cb316ab00d26).
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge/change main.
+- Candidate [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688): Remotion, Motion Canvas and Manim all passed.
+- Contract [#45](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226663): 28 Python tests and benchmark validator passed.
+
+### New physical clear-out spoon pose
+- Centralized in `rig-anchors.ts`: lift origin `[-280,-50]`, lift angle `−50°`, inspection angle `−44°`, bowl local centre `[195,285]`, bowl vertical visual half-extent 53 px and waterline Y=80.
+- `spoon.tsx` and `kitchen.tsx` now use the shared bowl/waterline constants, so test geometry cannot silently drift from the rendered prop or set.
+- Lifted bowl centre is about stage `[63.67,-16.18]`; its lower edge is approximately Y `36.82`, leaving about 43 px clearance above the waterline and moving it fully to the right of the glass.
+- Grip wrist targets for lift and inspect stay reachable (about 802 px from a 420,95 shoulder against 815 px maximum). Named elbow expectations and runtime tween tests were updated.
+- S02 and S06 now rotate to the same −50° clear-out pose and use −44° for inspection. S02 then re-dips; S06 leaves the straight spoon lifted outside the glass and holds the resolved final state.
+
+### Refraction reveal
+- S03 reveals incident ray/true point first, then refracted ray/observer point; S04 adds normal, angles and formula. Shot boundaries remain 240/384 frames with one-sample compensation.
+- Candidate #151 already validated the S03-only render. Candidate #154 validates the combined current source plus clear-out lift.
+
+### Output and visual review
+- Motion Canvas MP4 SHA-256: `91d0f7bec60e21a1deac18a59efe9b6be87b1586739099d91f7d2977e05287dd`; H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors.
+- Remotion MP4 SHA-256: `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`; Manim segment SHA-256: `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Selected native samples in S02 8–17 s and S06 62–71 s were visually inspected. The bowl clears the glass/water and the hand stays on the transformed shaft. This is selected-frame prototype QA; no continuous 24 fps viewing has been completed.
+- Both full films are still silent/video-only.
+
+### Exact next work and guardrails
+1. Review both full films continuously at 24 fps; log timecode, shot, severity and reproduction.
+2. Improve Nia's body counterbalance, wrist/hand depth, gaze, weight transfer and follow-through from those observations.
+3. Rework S05's long apparent-point/backward-ray hold; review diagram/camera pacing and reduced/mobile typography.
+4. Obtain approved Vietnamese narration, synchronize captions, add SFX/music and run audio QA.
+5. Measure authoring/preview/render/revision costs across equivalent runs and complete the H2 provenance/license audit before reusing anything from `Nolane-x/video`.
+6. Keep Motion Canvas provisional, Remotion baseline/reference and Manim specialist. Do not build broad Film IR/M2 or claim M1 complete while acceptance gates remain open.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #149; thumb-base blend fix verified)
 
 This is the current starting point. The thumb-base silhouette correction is implemented, passed contract validation and rendered through all three engines. M1 creative acceptance remains open.

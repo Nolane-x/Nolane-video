@@ -1,3 +1,21 @@
+**Review date:** 2026-11-28  
+**Latest reviewed candidate run:** [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688). All three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed; its MP4 is H.264 1920×1080 yuv420p at 24/1 fps, 72.000 s, 1,728 frames with zero browser errors. Native samples at S02 8–17 s and S06 62–71 s were inspected.  
+**Review scope:** candidate #154 contact sheet, native S02/S06 frame samples and MC ffprobe/render report, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134, #137, #140, #143, #146, #149, #151 and #153. This remains sampled prototype QA, **not** a continuous 24-fps review or final creative approval; audio review remains open.
+
+## Candidate #154 — clear-out spoon lift and causal ray reveal
+
+- Candidate [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688), source/test commit `6c27763fada639ffba00f5367c54cb316ab00d26`, passed Remotion, Motion Canvas and Manim. Contract [#45](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226663) passed 28 Python tests and benchmark validation.
+- S03 now shows the incident ray/true point, then the refracted ray/observer point, before S04 adds the normal, angle labels and Snell formula. S03/S04 checkpoint frame ranges and the 72-second total are preserved.
+- The original S02/S06 lift left the bowl underwater. The shared lift geometry now uses origin `[-280,-50]` and rotation `−50°`; inspection is `−44°`. Bowl centre `[195,285]`, vertical visual extent 53 px and waterline Y=80 are shared constants used by render code and tests.
+- Under the lift transform, bowl centre is approximately stage `[63.67,-16.18]`; its conservative lower edge is `36.82`, about 43 px above the waterline. The bowl is also outside the glass's right edge. The transformed grip wrist is about 802.4 px from Nia's shoulder, within the 815 px maximum reach. Both S02 and S06 use the same prop transform and matching IK wrist targets.
+- Candidate #154 Motion Canvas: H.264, 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `91d0f7bec60e21a1deac18a59efe9b6be87b1586739099d91f7d2977e05287dd`; artifact id `15255207773`; ZIP digest `sha256:38bdc66d26f13b31de09f2496353f260d0c604d2eedf492c288694daf82fb10a`.
+- Remotion #154: H.264 1920×1080, 24 fps, 72.000 s, 1,728 frames; SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`; artifact id `15255446471`; ZIP digest `sha256:57a13b2f0e8ab59aaaa78fd72bd2b59954603063ab3c2180e30d62cc80b19114`.
+- Manim #154: H.264 1920×1080, 279 frames, 11.624674 s; SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15254853044`; ZIP digest `sha256:88b8a10939d2c93bce5cb55a45ec87449d29c9fbc25c0fe07d6e25455a34b91f`.
+- Native samples in S02 8–17 s and S06 62–71 s show the bowl leaving the glass/water and the grip remaining coupled to the transformed shaft. The final hold keeps the straight spoon clear of the glass. This is selected-frame inspection only.
+- Both full-film MP4s remain silent/video-only. No approved VO, synchronized captions, SFX or music are present.
+
+**Assessment:** S03 is now a staged causal reveal and the clear-out lift is physically legible in sampled output. M1 remains open for full-speed review, natural acting/anatomy, S05 pacing, mobile typography and audio acceptance.
+
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-28  

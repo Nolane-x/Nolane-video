@@ -97,6 +97,17 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest refraction reveal and clear-out lift update — 2026-11-28
+
+- S03 in `motion-canvas/src/scenes/spoon.tsx` now reveals the physical light path in two beats: incident ray/true point, then refracted ray/observer point. S04 now adds the normal, angle labels and Snell formula without replaying the physical rays.
+- S03/S04 remain inside their original 240/384-frame half-open windows; the Motion Canvas inclusive-endpoint compensation is retained.
+- The former `SPOON_LIFT_ORIGIN = [-320,10]` left the bowl underwater. Shared geometry now defines lift origin `[-280,-50]`, lift angle `−50°`, inspection angle `−44°`, bowl local centre `[195,285]`, visual vertical half-extent 53 px and waterline Y 80. Render code and runtime/contract tests consume the same constants.
+- Under the clear-out transform the bowl centre is about `[63.67,-16.18]`; the conservative lower edge is about Y `36.82`, 43 px above the waterline and beyond the glass's right edge. The grip wrist target is about 802.4 px from Nia's shoulder, within the 815 px maximum reach.
+- Both S02 and S06 use the same prop transform and wrist targets. S02 lifts the straight spoon out, turns for inspection, then re-dips; S06 returns to the straight state, lifts fully out of the glass, inspects and holds.
+- The new test in `test-arm-ik.mjs` verifies the bowl clears the waterline/glass, lift/inspect wrist targets are reachable, and the named elbow poses and intermediate tween samples preserve both bone lengths. Python contract coverage checks S03/S04 ordering, S06 shot sequence and canonical bowl/waterline ownership.
+- Candidate [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688) passes all three engine jobs. Contract [#45](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226663) passes 28 Python tests and benchmark validation. Motion Canvas renders 1,728/1,728 frames with zero browser errors; MP4 SHA-256 `91d0f7bec60e21a1deac18a59efe9b6be87b1586739099d91f7d2977e05287dd`.
+- Downloaded candidate #154 and inspected native frames: S02 8–17 s and S06 62–71 s. The bowl is visibly outside the glass/above the water while the wrist remains attached to the transformed prop. This remains selected-frame QA, not a continuous 24-fps review.
+
 ## Latest thumb-base silhouette refinement — 2026-11-28
 
 - Visual QA of the #146 native grip crop showed a dark-outlined thumb-base pad overlapping the thumb circle, reading as two separate round masses.
