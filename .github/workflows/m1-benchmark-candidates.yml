@@ -5,12 +5,18 @@ on:
     branches:
       - m1/optics-benchmark
     paths:
-      - "benchmarks/optics-spoon/**"
+      - "benchmarks/optics-spoon/shared/**"
+      - "benchmarks/optics-spoon/remotion/**"
+      - "benchmarks/optics-spoon/motion-canvas/**"
+      - "benchmarks/optics-spoon/manim/**"
       - ".github/workflows/m1-benchmark-candidates.yml"
       - "tests/test_benchmark.py"
   pull_request:
     paths:
-      - "benchmarks/optics-spoon/**"
+      - "benchmarks/optics-spoon/shared/**"
+      - "benchmarks/optics-spoon/remotion/**"
+      - "benchmarks/optics-spoon/motion-canvas/**"
+      - "benchmarks/optics-spoon/manim/**"
       - ".github/workflows/m1-benchmark-candidates.yml"
       - "tests/test_benchmark.py"
   workflow_dispatch:
