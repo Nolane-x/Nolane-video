@@ -145,8 +145,13 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn('nia.toArmPose("lift", 0.25)', s06)
         self.assertIn("view.scale([1.025, 1.025], 1.0)", s06)
         self.assertIn("yield* waitFor(6.6)", s06)
-        self.assertLess(s06.index("SPOON_LIFT_ORIGIN"), s06.index("SPOON_INSPECT_ROTATION_DEGREES"))
-        self.assertLess(s06.index("SPOON_INSPECT_ROTATION_DEGREES"), s06.index("SPOON_LIFT_ROTATION_DEGREES"))
+        inspect_rotation = s06.index("spoon.rig().rotation(SPOON_INSPECT_ROTATION_DEGREES, 0.25)")
+        return_to_lift = s06.index(
+            "spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.25)",
+            inspect_rotation + 1,
+        )
+        self.assertLess(s06.index("SPOON_LIFT_ORIGIN"), inspect_rotation)
+        self.assertLess(inspect_rotation, return_to_lift)
 
     def test_motion_canvas_reveals_physical_rays_in_s03_before_s04_angles(self):
         scene_path = (
