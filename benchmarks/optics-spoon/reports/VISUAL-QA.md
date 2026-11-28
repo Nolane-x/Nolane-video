@@ -18,8 +18,6 @@
 
 ## Candidate #175 — Remotion camera parity (sampled review)
 
-## Candidate #175 — Remotion camera parity (sampled review)
-
 - Source commit [`0425437`](https://github.com/Nolane-x/Nolane-video/commit/042543767e68b2003b1218ece001185203202286); candidate [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) passed Remotion, Motion Canvas and Manim. Contract [#53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123) passed 30 Python tests and benchmark validation.
 - Remotion's new `cameraScaleAt(globalFrame)` matches the existing Motion Canvas camera beats: S01 moves from baseline to 1.025 scale over frames 31–65; S03 returns to baseline over frames 432–451; S06 moves to 1.025 over frames 1546–1570 and holds through frame 1727.
 - The transform is centered on the 1920×1080 canvas and includes the caption overlay. It changes framing only; storyboard durations, optical ray geometry and S05 caption timing are unchanged.
