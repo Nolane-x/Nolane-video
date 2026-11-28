@@ -212,6 +212,12 @@ class BenchmarkContractTests(unittest.TestCase):
                 self.assertIn(f"spoon.grip.{control}().opacity(", scene_source)
         self.assertIn("indexCrease().points(copyLine(pose.fingerCreases.index)", grip_source)
         self.assertIn("thumbBaseCrease().points(copyPath(pose.thumbBaseCrease)", grip_source)
+        # The thenar pad blends into the palm; only the articulated thumb path keeps the dark contour.
+        thumb_base_block = grip_source.split("ref={thumbBase}", 1)[1].split("/>", 1)[0]
+        self.assertIn('fill="#D9B89B"', thumb_base_block)
+        self.assertIn('stroke="#D9B89B"', thumb_base_block)
+        self.assertIn("lineWidth={1}", thumb_base_block)
+        self.assertIn("rotation={-12}", thumb_base_block)
 
     def test_prop_attached_grip_renders_above_the_forearm(self):
         scene_path = (

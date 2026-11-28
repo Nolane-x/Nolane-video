@@ -163,8 +163,9 @@ export const createNiaGrip = () => {
         size={[34, 30]}
         position={[...rest.thumbBase]}
         fill="#D9B89B"
-        stroke="#101B26"
-        lineWidth={5}
+        stroke="#D9B89B"
+        lineWidth={1}
+        rotation={-12}
         opacity={0}
       />
       <Line
