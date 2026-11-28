@@ -203,7 +203,7 @@ class BenchmarkContractTests(unittest.TestCase):
         )
         self.assertIn("const toPose =", grip_source)
         self.assertIn("return all(", grip_source)
-        self.assertIn("fingerCrease(path)", geometry_source)
+        self.assertIn("const fingerCrease = (path: FingerPath)", geometry_source)
         self.assertIn("thumbBaseFrom", geometry_source)
         self.assertIn("palmCrease(palm)", geometry_source)
         for control in ("palmCrease", "thumbBase", "thumbBaseCrease", "indexCrease", "middleCrease", "ringCrease", "pinkyCrease"):
@@ -284,9 +284,19 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("normal[1] * across", geometry)
         for digit in ("index", "middle", "ring", "pinky"):
             with self.subTest(digit=digit):
-                self.assertIn(f"{digit}: wrapFinger(", geometry)
-        self.assertIn("thumbPath: wrapThumb(", geometry)
-        self.assertIn("NIA_GRIP_POSES", geometry)
+                self.assertIn(f"{digit}: FingerPath", geometry)
+                self.assertIn(f"{digit}: fingerCrease({digit})", geometry)
+                self.assertIn(f"{digit}Crease", grip)
+                self.assertIn(f"{digit}Crease().points(copyLine(pose.fingerCreases.{digit})", grip)
+        self.assertIn("const wrapFinger =", geometry)
+        self.assertIn("const wrapThumb =", geometry)
+        self.assertIn("rest: makePose(", geometry)
+        self.assertIn("brace: makePose(", geometry)
+        self.assertIn("thumbBaseFrom", geometry)
+        self.assertIn("thumbBaseCrease", geometry)
+        self.assertIn("palmCrease(palm)", geometry)
+        self.assertIn("fingerCreases:", geometry)
+        self.assertIn("thumbBase().position([...pose.thumbBase]", grip)
         self.assertIn("thumbOutline().points(copyPath(pose.thumbPath)", grip)
 
         # Runtime assertions protect centreline crossings, separated finger
@@ -467,7 +477,7 @@ class BenchmarkContractTests(unittest.TestCase):
         geometry_source = (root / "actors" / "grip-geometry.ts").read_text(encoding="utf-8")
         self.assertIn("NIA_GRIP_LOCAL_POSITION", grip_source)
         self.assertIn("position={[...NIA_GRIP_LOCAL_POSITION]}", grip_source)
-        self.assertIn("palm: [...NIA_GRIP_LOCAL_POSITION]", geometry_source)
+        self.assertIn("[...NIA_GRIP_LOCAL_POSITION]", geometry_source)
         self.assertIn("SPOON_HANDLE_LOCAL_START", geometry_source)
         self.assertIn("SPOON_HANDLE_LOCAL_END", geometry_source)
         self.assertIn("SPOON_REST_ORIGIN", prop_source)
