@@ -789,6 +789,12 @@ class BenchmarkContractTests(unittest.TestCase):
         source = (root / "src" / "OpticsSpoon.tsx").read_text(encoding="utf-8")
         motion_source = (root / "src" / "benchmark-motion.ts").read_text(encoding="utf-8")
         runtime_test = (root / "scripts" / "test-parity.mjs").read_text(encoding="utf-8")
+        self.assertIn("trueLabel: number", motion_source)
+        self.assertIn("trueLabel: progressBetween(globalFrame, 1099, 1109)", motion_source)
+        self.assertIn("apparent: progressBetween(globalFrame, 1117, 1132)", motion_source)
+        self.assertIn("opacity={reveal.trueLabel}", source)
+        self.assertIn("true-position label waits for the construction hold", runtime_test)
+        self.assertIn("apparent point waits after the true-position label", runtime_test)
         package = json.loads((root / "package.json").read_text(encoding="utf-8"))
         workflow = (
             Path(__file__).resolve().parents[1]

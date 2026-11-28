@@ -49,8 +49,10 @@ near(diagramMotionAt(866).angles, 1, 1e-9, "angle labels reveal");
 near(diagramMotionAt(938).formula, 1, 1e-9, "Snell formula reveal");
 near(diagramMotionAt(1056).backward, 0, 1e-9, "backward extension starts in S05");
 near(diagramMotionAt(1076).backward, 1, 1e-9, "backward extension reveal");
-near(diagramMotionAt(1080).apparent, 0, 1e-9, "apparent point follows construction");
-near(diagramMotionAt(1100).apparent, 1, 1e-9, "apparent point reveal");
+near(diagramMotionAt(1098).trueLabel, 0, 1e-9, "true-position label waits for the construction hold");
+near(diagramMotionAt(1109).trueLabel, 1, 1e-9, "true-position label reveal");
+near(diagramMotionAt(1116).apparent, 0, 1e-9, "apparent point waits after the true-position label");
+near(diagramMotionAt(1132).apparent, 1, 1e-9, "apparent point reveal");
 assert.throws(() => s02MotionAt(Number.NaN), {name: "TypeError"});
 assert.throws(() => diagramMotionAt(Number.POSITIVE_INFINITY), {name: "TypeError"});
 

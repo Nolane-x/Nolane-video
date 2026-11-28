@@ -6,7 +6,7 @@ export type S02Motion = {
 };
 export type DiagramMotion = {
   interface: number; incidentRay: number; refractedRay: number; normal: number;
-  angles: number; formula: number; backward: number; apparent: number;
+  angles: number; formula: number; backward: number; trueLabel: number; apparent: number;
 };
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 const smoothstep = (value: number): number => {
@@ -57,6 +57,8 @@ export const diagramMotionAt = (globalFrame: number): DiagramMotion => {
     angles: progressBetween(globalFrame, 846, 866),
     formula: progressBetween(globalFrame, 918, 938),
     backward: progressBetween(globalFrame, 1056, 1076),
-    apparent: progressBetween(globalFrame, 1080, 1100)
+    // Match Motion Canvas S05: construction first, true source label, then apparent image.
+    trueLabel: progressBetween(globalFrame, 1099, 1109),
+    apparent: progressBetween(globalFrame, 1117, 1132)
   };
 };

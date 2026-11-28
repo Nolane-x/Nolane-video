@@ -117,7 +117,7 @@ const Diagram: React.FC<{frame: number}> = ({frame}) => {
       <circle cx={observer_point.x} cy={observer_point.y} r="24" fill={C.ivory} opacity={0.95 * reveal.refractedRay} />
       <path d={"M" + (observer_point.x - 30) + " " + (observer_point.y + 34) + " L" + observer_point.x + " " + observer_point.y + " L" + (observer_point.x + 30) + " " + (observer_point.y + 34)} stroke={C.ivory} strokeWidth="8" fill="none" opacity={0.85 * reveal.refractedRay} />
       <text x="1510" y="160" fill={C.ivory} fontSize="32" fontFamily="Arial" opacity={reveal.refractedRay}>Mắt</text>
-      <text x={incident_point.x - 155} y={incident_point.y + 68} fill={C.coral} fontSize="34" fontFamily="Arial" opacity={reveal.apparent}>Vị trí thật</text>
+      <text x={incident_point.x - 155} y={incident_point.y + 68} fill={C.coral} fontSize="34" fontFamily="Arial" opacity={reveal.trueLabel}>Vị trí thật</text>
       <text x={apparent_point.x - 310} y={apparent_point.y - 75} fill={C.mint} fontSize="32" fontFamily="Arial" opacity={reveal.apparent}>Vị trí biểu kiến</text>
       <text x="680" y="690" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={reveal.angles}>{diagramGeometry.incident_angle_from_normal_deg}°</text>
       <text x="965" y="305" fill={C.ray} fontSize="42" fontFamily="Arial" opacity={reveal.angles}>{(Math.atan2(observer_point.x-interfacePoint.x, interfacePoint.y-observer_point.y)*180/Math.PI).toFixed(1).replace(".", ",")}°</text>
