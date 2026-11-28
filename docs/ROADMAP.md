@@ -1,7 +1,7 @@
 # Roadmap
 
 **Current phase:** M1 — comparable benchmark and architecture decision (in progress)  
-**Date:** 2026-11-26
+**Date:** 2026-11-28
 
 The roadmap is deliberately milestone-based. Do not skip evaluation and benchmark work to create a large codebase before the core approach is proven.
 
@@ -64,7 +64,7 @@ Acceptance:
 - a written architecture decision names the first backend and which tools remain adapters;
 - no engine-wide dependency choice is made solely on familiarity or number of features.
 
-**Status: IN PROGRESS — candidate parity and the first Motion Canvas arm-contour/joint slice are technically verified; creative acceptance remains open.** Candidate [#140](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282) passes Remotion, Motion Canvas and Manim; Contract [#36](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464489) passes 26 tests. Motion Canvas now renders outlined upper/forearm contours and shoulder, elbow and wrist joints from the existing 200/615 px two-bone IK chain without changing grip anchors. Both full-film candidates render exactly 1,728 frames at 1920×1080/24 fps/72 seconds; Manim renders its 279-frame specialist segment. Motion Canvas remains provisionally selected as the first 2D scene adapter by [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md), while Film IR remains renderer-independent. M1 remains open for uninterrupted 24-fps review, organic anatomy/acting, diagram pacing, mobile typography, approved narration/caption/audio synchronization, repeatable authoring-cost measurements and H2 provenance/license review.
+**Status: IN PROGRESS — candidate parity, IK arm contour/joints and the prop-local hand articulation slice are technically verified; creative acceptance remains open.** Candidate [#146](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930631) passes Remotion, Motion Canvas and Manim; Contract [#40](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930644) passes 26 tests. Motion Canvas adds per-finger flexion creases, a palm crease and thumb-base articulation on top of the outlined arm and two-bone IK, while preserving prop anchors and shot timings. Both full-film candidates render exactly 1,728 frames at 1920×1080/24 fps/72 seconds; Manim renders its 279-frame specialist segment. Motion Canvas remains provisionally selected as the first 2D scene adapter by [ADR-0001](adr/adr/ADR-0001-motion-canvas-first-2d-runtime.md), while Film IR remains renderer-independent. M1 remains open for uninterrupted 24-fps review, organic hand/body anatomy and acting, diagram pacing, mobile typography, approved narration/caption/audio synchronization, repeatable authoring-cost measurements and H2 provenance/license review.
 
 ## M2 — Film IR and deterministic time foundation
 
