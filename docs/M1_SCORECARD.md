@@ -38,7 +38,7 @@
 | Deterministic frame output | PASS | Both full-film engines: exactly 1,728 frames; Manim segment: 279 frames |
 | Technical media export | PASS | All three candidate jobs green in run [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963) |
 | Visual readability | PASS at reviewed native frames; reduced/mobile-size check open | Remotion caption safe area, Motion Canvas angle labels and Manim font/palette fixed |
-| Diagram choreography | NEEDS CREATIVE REVIEW | Remotion and Motion Canvas stage the main explanation sequence; continuous timing, holds, camera framing and comprehension review remain open |
+| Diagram choreography | NEEDS CREATIVE REVIEW | S03/S04 causal ray order and S05's backward-extension-before-apparent-point reveal are implemented and sampled; the 14.6 s S05 hold, camera framing and learning comprehension still need narration-led continuous review |
 | Acting, prop contact and continuity | PARTIAL / NOT APPROVED | S02/S06 clear-out transform is shared with wrist IK and sampled frames show bowl above/outside the glass. Need organic hand volume, palm compression, finger depth/occlusion, wrist roll, shoulder/torso counterbalance, weight transfer, gaze, reaction and follow-through |
 | Camera and editing | PARTIAL | Current movement/transitions are basic; use motivated framing and preserve spatial continuity |
 | Audio/narration/captions | NOT TESTED | Add approved real VO, transcript alignment, SFX and music before audio acceptance |
