@@ -396,6 +396,11 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("brace: makePose(", geometry_source)
         self.assertIn("fingerCreases:", geometry_source)
         self.assertIn("NIA_GRIP_LOCAL_POSITION", geometry_source)
+        self.assertIn("endRadius: number", geometry_source)
+        self.assertIn("pointOnGripFrame(alongOffset + 10, -endRadius)", geometry_source)
+        self.assertIn("wrapFinger(-24, 27, 3, 25)", geometry_source)
+        self.assertIn("wrapFinger(-8, 29, 1, 29)", geometry_source)
+        self.assertIn("wrapFinger(22, 22, 2, 21)", geometry_source)
 
     def test_nia_grip_geometry_is_derived_from_the_shared_spoon_handle_axis(self):
         root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas"

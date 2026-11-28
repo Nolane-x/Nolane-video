@@ -55,12 +55,13 @@ const pointOnGripFrame = (along: number, across: number): GripPoint => [
 
 const wrapFinger = (
   alongOffset: number,
-  outerRadius: number,
-  middleRadius: number
+  startRadius: number,
+  middleRadius: number,
+  endRadius: number
 ): FingerPath => [
-  pointOnGripFrame(alongOffset - 8, outerRadius),
+  pointOnGripFrame(alongOffset - 8, startRadius),
   pointOnGripFrame(alongOffset + 1, middleRadius),
-  pointOnGripFrame(alongOffset + 10, -outerRadius)
+  pointOnGripFrame(alongOffset + 10, -endRadius)
 ];
 
 const wrapThumb = (
@@ -164,18 +165,18 @@ export const NIA_GRIP_POSES: Record<NiaGripPoseName, NiaGripPose> = {
     [...NIA_GRIP_LOCAL_POSITION],
     pointOnGripFrame(2, 25),
     wrapThumb(28, -4, 25),
-    wrapFinger(-24, 29, 2),
-    wrapFinger(-8, 29, 2),
-    wrapFinger(8, 29, 2),
-    wrapFinger(24, 29, 2)
+    wrapFinger(-24, 27, 3, 25),
+    wrapFinger(-8, 29, 1, 29),
+    wrapFinger(8, 26, 2, 25),
+    wrapFinger(24, 23, 3, 22)
   ),
   brace: makePose(
     [NIA_GRIP_LOCAL_POSITION[0] - 1, NIA_GRIP_LOCAL_POSITION[1] - 1],
     pointOnGripFrame(2, 22),
     wrapThumb(25, -2, 22),
-    wrapFinger(-23, 25, 0),
-    wrapFinger(-7, 25, 0),
-    wrapFinger(9, 25, 0),
-    wrapFinger(25, 25, 0)
+    wrapFinger(-22, 24, 2, 22),
+    wrapFinger(-7, 27, 0, 27),
+    wrapFinger(8, 25, 1, 23),
+    wrapFinger(22, 22, 2, 21)
   )
 };

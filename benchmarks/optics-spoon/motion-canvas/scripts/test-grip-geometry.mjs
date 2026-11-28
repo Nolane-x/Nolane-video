@@ -74,6 +74,7 @@ for (const poseName of ["rest", "brace"]) {
   const pose = NIA_GRIP_POSES[poseName];
   const fingerNames = ["index", "middle", "ring", "pinky"];
   const middleAlong = [];
+  const contourProfiles = [];
 
   for (const name of fingerNames) {
     const path = pose[name];
@@ -89,11 +90,21 @@ for (const poseName of ["rest", "brace"]) {
     assert.ok(Math.abs(middlePoint.across) <= 3, `${poseName}/${name}: middle must cross the handle axis`);
     assert.ok(middlePoint.along >= 250 && middlePoint.along <= 360, `${poseName}/${name}: contact point must remain in the palm region`);
     middleAlong.push(middlePoint.along);
+    contourProfiles.push([
+      startPoint.across.toFixed(3),
+      middlePoint.across.toFixed(3),
+      endPoint.across.toFixed(3)
+    ].join(":"));
   }
 
   for (let i = 1; i < middleAlong.length; i += 1) {
     assert.ok(middleAlong[i] - middleAlong[i - 1] >= 14, `${poseName}: adjacent fingers must remain separated along the handle`);
   }
+  assert.equal(
+    new Set(contourProfiles).size,
+    fingerNames.length,
+    `${poseName}: each finger must have its own wrap curvature`
+  );
 
   const thumbStart = project(pose.thumbPath[0]);
   const thumbMiddle = project(pose.thumbPath[1]);
@@ -147,6 +158,18 @@ assert.notDeepEqual(
   "finger creases must follow the changing grip pose"
 );
 
+
+for (const name of ["index", "middle", "ring", "pinky"]) {
+  const restPath = NIA_GRIP_POSES.rest[name];
+  const bracePath = NIA_GRIP_POSES.brace[name];
+  const restSpan = project(restPath[0]).across - project(restPath[2]).across;
+  const braceSpan = project(bracePath[0]).across - project(bracePath[2]).across;
+  assert.ok(
+    braceSpan < restSpan,
+    `brace/${name}: the flexed pose must compress the finger wrap around the shaft`
+  );
+}
+
 console.log(
-  "Grip geometry passed: four separated fingers cross the handle centreline, with an opposing thumb on both rest and brace poses."
+  "Grip geometry passed: four distinct finger wraps compress from rest to brace and retain an opposing thumb."
 );
