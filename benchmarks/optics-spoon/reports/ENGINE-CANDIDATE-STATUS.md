@@ -1,3 +1,15 @@
+## Latest all-green hand articulation candidate — 2026-11-28 (candidate #146)
+
+This section supersedes the candidate #140 technical snapshot below. It confirms the hand-detail code, contract/runtime tests and technical renders; it is not creative approval.
+
+- Implementation: commit `0453b9e218fc47046c4237b19e5ed6951df40622`; latest source/test branch HEAD at this review: `511d461fa627b8b86521c25ddf267b4981102831`.
+- Candidate [#146](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930631): Remotion, Motion Canvas and Manim all **success**. Contract [#40](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930644): 26 tests and benchmark validation **success**.
+- Motion Canvas adds per-finger flexion creases, a palm crease, thumb-base pad and thumb-base crease, all generated and animated in the prop-local `rest`/`brace` grip. Existing spoon anchors, actor IK and shot timings remain unchanged.
+- Remotion: H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15252990927`; ZIP digest `sha256:db5a47dadddaaff1d212306f067e293959635e3f8e011506679327150246095a`.
+- Motion Canvas: official editor rendered 1,728/1,728, zero browser errors; H.264, 1920×1080, 24 fps, 72.000 s. MP4 SHA-256 `2b327e50fde101e306642fcf73d3ce02a3af6a9b041edd81d108f1b9b88e8ff2`; artifact id `15252578835`; ZIP digest `sha256:6371d006058612beb0f660d0a82c65704d29cc156f84140405bd752b58aa3535`.
+- Manim specialist segment: H.264, 1920×1080, 279 frames, 11.624674 s; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15252633547`; ZIP digest `sha256:9dd5b1d6495cccfd796c7d018c041f11b292d321a462c148b5628edfac81551d`.
+- Both full-film MP4s are video-only. Selected native grip frames and enlarged crops reveal remaining overlaps and simplified palm/thumb volume. M1 stays open for continuous 24-fps review, organic anatomy/acting, diagram/mobile QA, real audio, comparable revision-cost measurements and H2 provenance.
+
 ## Latest all-green arm articulation candidate — 2026-11-27 (candidate #140)
 
 This section supersedes the earlier candidate #137 technical snapshot.
