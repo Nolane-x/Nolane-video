@@ -1,3 +1,41 @@
+## -18. Latest repository verification — 2026-11-28 (candidate #171 / contract #52)
+
+This snapshot supersedes the candidate #167 **technical** status below. Candidate #171 passed all current CI render jobs, but it has **not** yet received a new visual review. Candidate #167 remains the latest visually reviewed candidate; do not equate a green render with creative acceptance.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Implementation branch:** `m1/optics-benchmark`. Latest code/test commit: [`e6ce4a8`](https://github.com/Nolane-x/Nolane-video/commit/e6ce4a81659fe11bac54b450533863da36b79c6b), `fix(m1): synchronize progressive S05 captions across engines`.
+- **Branch split:** `main` remains at foundation/docs commit `19b53bd0bf785a8d58a91031678be717a8ae11d4`; implementation is not merged to main. This verification updated documentation only; no engine code was changed.
+- **Latest technical candidate:** [workflow #171](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144320), run ID `46136144320`, completed successfully on the code commit above. All three jobs passed:
+  - Remotion 4.0.547 full-film candidate: H.264, 1920×1080, 24/1 fps, 72.000 s, 1,728 frames; typecheck, parity check, render, ffprobe and artifact upload passed.
+  - Motion Canvas 3.17.2 full-film candidate: official editor build, arm IK and grip runtime tests, 1,728-frame render, H.264 1920×1080, 24/1 fps, 72.000 s, ffprobe and artifact upload passed; job log records zero render/browser errors.
+  - Manim CE 0.22.1 scientific segment: H.264 1920×1080, 279 frames, 11.624674 s; ffprobe and artifact upload passed.
+- **Latest contract validation:** [workflow #52](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144238), run ID `46136144238`, completed successfully. Log confirms `Ran 30 tests`, `OK`, `BENCHMARK VALIDATION PASSED`, `duration_frames=1728`.
+- **Latest source change:** S05 progressive caption text is now synchronized between Motion Canvas and Remotion. At the shared frame boundaries: frame 1056 introduces the dashed backward-extension explanation; frame 1099 introduces the true-position explanation; frame 1117 introduces the apparent-image explanation. The visual reveal remains dashed extension → true-position label → apparent point/label; S05 remains 17 seconds.
+- **Files changed by code commit e6ce4a8:** Motion Canvas `src/scenes/spoon.tsx`; Remotion `src/benchmark-motion.ts`, `src/OpticsSpoon.tsx`, `scripts/test-parity.mjs`; Python contract `tests/test_benchmark.py`. No product architecture or renderer decision changed in this commit.
+- **Candidate artifacts from run #171:** Remotion `m1-remotion-candidate` artifact `15259602611`; Motion Canvas `m1-motion-canvas-candidate` artifact `15259288248`; Manim `m1-manim-refraction-segment` artifact `15260285182`. The Motion Canvas diagnostics artifact is `15259507806`. Candidate artifacts were listed and their workflow logs were inspected; the MP4s were not downloaded or visually reviewed in this session. Candidate artifact retention ends around 2026-12-28; the diagnostics artifact expires around 2026-12-12. Preserve them before expiry if their source frames/reports are needed.
+- **Visual QA boundary:** `benchmarks/optics-spoon/reports/VISUAL-QA.md` still correctly records candidate #167 as the latest reviewed candidate. Candidate #171 is technically green but visually unreviewed; do not update the reviewed-candidate claim until the actual videos/contact sheets are inspected.
+- **Audio truth:** both 72-second full-film MP4s are still silent/video-only. No approved Vietnamese VO, transcript-aligned captions/audio track, SFX or music has been added. Caption text rendered in the image is not a substitute for a synchronized subtitle/audio deliverable.
+- **Project phase:** M1 — benchmark and architecture decision, still in progress. Motion Canvas remains the provisional first 2D scene adapter under ADR-0001; Remotion remains baseline/reference pending license/product review; Manim remains the specialist math/diagram adapter. Film IR remains renderer-independent and is not yet implemented as a production compiler.
+
+### Exact next work
+
+1. Download the #171 Remotion and Motion Canvas candidate artifacts (and Manim segment as relevant), inspect the latest contact sheets and actual MP4s, compare the S05 caption transitions at frames 1055/1056, 1098/1099 and 1116/1117, and record any defects with shot/timecode evidence.
+2. Watch both full 72-second films continuously at 24 fps. Selected stills/contact sheets are not a substitute. Review comprehension, camera, transitions, typography, Nia's acting and physical contact.
+3. Review S05's 13.85-second final hold against an approved narration track before changing its duration. Do not guess whether the hold is acceptable without VO/context.
+4. Improve the actor only from observed defects: palm volume, finger depth/occlusion, thumb opposition, wrist roll, gaze, weight transfer, reaction and follow-through. The current hand/body is still stylized vector construction, not naturalistic anatomy.
+5. Complete reduced/mobile typography review, approved Vietnamese VO, transcript/audio alignment, SFX/music and perceptual audio QA; measure authoring, preview, render and revision costs under equivalent repeated conditions.
+6. Finish the H2 source/provenance/license audit before reuse from the separate `Nolane-x/video` workspace. Keep external assets/code license-compliant.
+7. Keep M1 open until the creative/audio/performance gates are evidenced. Do not begin broad M2/M3 Film IR or engine-wide implementation prematurely.
+
+### What this verification did not do
+
+- Did not download or watch candidate #171 MP4s, run a local build, or inspect a local working tree/uncommitted changes.
+- Did not change animation source, renderer dependencies, benchmark design, or branch topology.
+- Did not merge `m1/optics-benchmark` into `main`.
+- Did not approve the benchmark film or claim a production-ready engine.
+
+---
+
 ## -17. Latest verified state — 2026-11-28 (candidate #167; per-finger grip profiles refined)
 
 This snapshot supersedes candidate #165 below. Candidate #167 is a green technical render plus selected-frame/crop inspection; M1 creative/audio acceptance remains open.
