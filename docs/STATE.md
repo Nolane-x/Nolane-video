@@ -1,3 +1,42 @@
+## -14. Latest verified state — 2026-11-28 (candidate #156; staged virtual-ray reveal verified)
+
+This snapshot supersedes candidate #154 below. Candidate #156 is a green technical render plus selected-frame inspection; M1 creative/audio acceptance remains open.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Working branch:** `m1/optics-benchmark`; latest scene/test commit [`dd7b317`](https://github.com/Nolane-x/Nolane-video/commit/dd7b317ed27700d18dac8e83c5ab3f2f1f5a72a9). **Main** remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate workflow:** [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963) completed **success** for Remotion, Motion Canvas and Manim.
+- **Contract validation:** [#46](https://github.com/Nolane-x/Nolane-video/actions/runs/46125153063) completed **success** with 29 Python tests and the benchmark validator. Motion Canvas IK/grip runtime tests, build/typecheck, 1,728-frame render and ffprobe passed.
+
+### Candidate #156 outputs (downloaded and checked)
+
+- **Remotion 4.0.547:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`. Artifact id `15255227810`; ZIP digest `sha256:dea327c1af3db60e6a145464f8401803d4059b8f17fff9c3b32936850282beba`.
+- **Motion Canvas 3.17.2:** official editor rendered 1,728/1,728 with zero browser errors; H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s. MP4 SHA-256 `35868965cadbcb910056ddd1ab32fe68146dccdaa80c75f24071f03d39a8f108`. Artifact id `15255463074`; ZIP digest `sha256:7f85f7252dcd6a8cf450e1adcba3f41ce1efe54e6c6a2d1a476dd16079538c4f`.
+- **Manim CE specialist segment:** H.264 1920×1080 yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average rate `857088/35711` (~24.00067 fps). MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Artifact id `15255610902`; ZIP digest `sha256:c237128e63b7afb85691591324113dfe9fb233cc7fef4fe036e1dfeb52688ffc`.
+- Both full-film MP4s remain video-only/silent.
+
+### S05 — staged backward construction and apparent point
+
+- S05 now reveals the dashed backward extension first, holds it alone for 1.0 second, then reveals the apparent point, true/apparent labels and the explanatory caption: `Mắt kéo dài tia khúc xạ về vị trí biểu kiến.`
+- The final static hold is shortened from 15.6 to 14.6 seconds; with the 0.8-second line reveal and 0.6-second point/caption reveal, S05 remains exactly 17 seconds and retains its checkpoint.
+- Contract #46 adds an ordering/timing test. Candidate #156 was downloaded and inspected at 44–60 s: the dashed line appears before the point/labels, and the explanatory caption follows. The remaining hold is still long; its acceptability depends on the approved narration and continuous review.
+
+### Combined refraction and prop movement updates
+
+- S03 reveals incident ray/true point, then refracted ray/observer point; S04 adds normal, angles and Snell formula. Their original 240/384-frame windows remain unchanged.
+- S02 and S06 use the shared `−50°` clear-out transform and `−44°` inspection angle. The bowl is outside the glass and about 43 px above the waterline; the transformed wrist target remains about 802.4 px from the shoulder against an 815 px maximum IK reach.
+- Candidate #156 native samples in S02 8–17 s and S06 62–71 s, plus S05 44–60 s, were inspected. This is selected-frame QA, **not** continuous 24-fps creative approval.
+
+### Still incomplete / next task
+
+- Watch both 72-second films continuously at 24 fps and record timecode/shot-specific defects.
+- Judge the S05 14.6-second remaining hold with approved narration; re-choreograph if the spoken explanation does not support it.
+- Improve Nia's natural body weight/counterbalance, hand depth/occlusion, gaze and follow-through.
+- Review reduced/mobile typography, obtain approved Vietnamese VO/captions, add SFX/music and complete audio QA.
+- Measure authoring/preview/render/revision costs on equivalent runners; complete H2 source/license provenance before any reuse from `Nolane-x/video`.
+- **Do not mark M1 complete or begin broad Film IR/M2 yet.** Motion Canvas stays provisional first 2D adapter; Remotion baseline/reference; Manim specialist.
+
+---
+
 ## -13. Latest verified state — 2026-11-28 (candidate #154; refraction reveal and clear-out spoon lift verified)
 
 This snapshot supersedes candidate #149 below. Candidate #154 is a green technical render and sampled visual check; M1 creative acceptance remains open.

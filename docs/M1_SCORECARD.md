@@ -1,6 +1,6 @@
 # M1 Candidate Scorecard — The Spoon That Bends
 
-**Snapshot:** 2026-11-28 — latest technical candidate #154 and contract validation #45 (28 tests).  
+**Snapshot:** 2026-11-28 — latest technical candidate #156 and contract validation #46 (29 tests).  
 **Status:** candidate technical comparison complete; creative/audio acceptance still open. No overall numeric score is assigned.  
 **Architecture decision:** Motion Canvas is provisionally selected as the first 2D scene adapter under [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md).
 
@@ -16,15 +16,15 @@
 | Dimension | Remotion 4.0.547 | Motion Canvas 3.17.2 | Manim CE fork |
 |---|---|---|---|
 | Intended role | Full-film baseline / possible adapter | First 2D/2.5D scene runtime (provisional) | Specialist diagram adapter |
-| Latest green candidate run | [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688) | [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688) | [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688) |
-| Latest Actions artifact ZIP digest | `sha256:57a13b2f0e8ab59aaaa78fd72bd2b59954603063ab3c2180e30d62cc80b19114` | `sha256:38bdc66d26f13b31de09f2496353f260d0c604d2eedf492c288694daf82fb10a` | `sha256:88b8a10939d2c93bce5cb55a45ec87449d29c9fbc25c0fe07d6e25455a34b91f` |
-| Latest MP4 SHA-256 | `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67` | `91d0f7bec60e21a1deac18a59efe9b6be87b1586739099d91f7d2977e05287dd` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
+| Latest green candidate run | [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963) | [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963) | [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963) |
+| Latest Actions artifact ZIP digest | `sha256:dea327c1af3db60e6a145464f8401803d4059b8f17fff9c3b32936850282beba` | `sha256:7f85f7252dcd6a8cf450e1adcba3f41ce1efe54e6c6a2d1a476dd16079538c4f` | `sha256:c237128e63b7afb85691591324113dfe9fb233cc7fef4fe036e1dfeb52688ffc` |
+| Latest MP4 SHA-256 | `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2` | `35868965cadbcb910056ddd1ab32fe68146dccdaa80c75f24071f03d39a8f108` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
 | Output metadata | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 11.624674 s, 279 frames |
 | Technical result | PASS: typecheck, full render, H.264/24 fps/1,728-frame ffprobe gate and upload | PASS: official editor build, 1,728 unique sequential frames, H.264/24 fps/1,728-frame ffprobe gate, zero browser errors and upload | PASS: pinned fork install, H.264/24 fps/279-frame gate, ffprobe and upload |
-| Visual review | Candidate #154 parity render is green; sampled stills only, not a continuous 24-fps watch | Candidate #154 MP4 downloaded/ffprobed; S02 8–17 s and S06 62–71 s native samples checked. Bowl clears water/glass in both lift beats; S03 physical ray path appears before S04 angle geometry. Not a continuous 24-fps watch | Candidate #154 specialist diagram render and ffprobe passed; full creative review remains limited |
+| Visual review | Candidate #156 parity render is green; sampled stills only, not a continuous 24-fps watch | Candidate #156 MP4 downloaded/ffprobed; S05 44–60 s, S02 8–17 s and S06 62–71 s native samples checked. Dashed backward extension precedes apparent point/labels; clear-out lift remains visible. Not a continuous 24-fps watch | Candidate #156 specialist diagram render and ffprobe passed; full creative review remains limited |
 | Scientific geometry | PASS on reviewed diagram | PASS against shared diagram model | PASS on reviewed diagram |
-| Character acting | S02 storyboard beats render; character remains a stylized vector blockout with anatomy, weight, acting and follow-through not approved | Per-finger/palm articulation remains prop-local; clear-out transform now moves the spoon bowl above/outside the glass while the wrist target follows the same prop transform. Still vector blocking; body counterbalance, organic hand depth and final acting are not approved | Not applicable to specialist role |
-| Diagram choreography | NEEDS CREATIVE REVIEW | S03 now reveals incident/refracted rays before S04 adds angle geometry; S05 still has a long apparent-point/backward-ray hold and needs continuous pacing/camera/comprehension review |
+| Character acting | S02 storyboard beats render; character remains a stylized vector blockout with anatomy, weight, acting and follow-through not approved | Per-finger/palm articulation remains prop-local; clear-out transform moves the bowl above/outside the glass with the wrist following the same transform. Still vector blocking; body counterbalance, organic hand depth and final acting are not approved | Not applicable to specialist role |
+| Diagram choreography | NEEDS CREATIVE REVIEW | S03 reveals incident/refracted rays before S04 angles; S05 stages dashed backward extension before apparent point/labels and caption. The remaining 14.6 s hold needs VO-led continuous pacing/camera/comprehension review |
 | Audio | Silent; no VO, transcript sync, SFX or music | Silent; no VO, transcript sync, SFX or music | No audio |
 | License | Two-tier source-available license; eligible individuals/small companies may create commercial videos, but selling/licensing a Remotion derivative is restricted | MIT core; optional GPLv3 FFmpeg exporter excluded | MIT (Community Edition and pinned fork files) |
 
@@ -36,7 +36,7 @@
 | Story and learning objective | PARTIAL PASS | Six-shot sequence renders; complete 24 fps comprehension review remains |
 | Scientific correctness | PASS for reviewed geometry | Shared Snell/geometry validator and native-resolution diagrams pass |
 | Deterministic frame output | PASS | Both full-film engines: exactly 1,728 frames; Manim segment: 279 frames |
-| Technical media export | PASS | All three candidate jobs green in run [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688) |
+| Technical media export | PASS | All three candidate jobs green in run [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963) |
 | Visual readability | PASS at reviewed native frames; reduced/mobile-size check open | Remotion caption safe area, Motion Canvas angle labels and Manim font/palette fixed |
 | Diagram choreography | NEEDS CREATIVE REVIEW | Remotion and Motion Canvas stage the main explanation sequence; continuous timing, holds, camera framing and comprehension review remain open |
 | Acting, prop contact and continuity | PARTIAL / NOT APPROVED | S02/S06 clear-out transform is shared with wrist IK and sampled frames show bowl above/outside the glass. Need organic hand volume, palm compression, finger depth/occlusion, wrist roll, shoulder/torso counterbalance, weight transfer, gaze, reaction and follow-through |

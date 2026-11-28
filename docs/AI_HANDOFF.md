@@ -1,3 +1,38 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #156; S05 virtual-ray staging verified)
+
+The latest code/render snapshot is candidate #156; three engine jobs and contract #46 are green. M1 creative/audio acceptance remains open.
+
+### GitHub state
+- Repository: `Nolane-x/Nolane-video` (NEE), **not** `Nolane-x/video`.
+- Branch: `m1/optics-benchmark`; latest scene/test commit [`dd7b317`](https://github.com/Nolane-x/Nolane-video/commit/dd7b317ed27700d18dac8e83c5ab3f2f1f5a72a9).
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge/change main.
+- Candidate [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963): Remotion, Motion Canvas and Manim passed.
+- Contract [#46](https://github.com/Nolane-x/Nolane-video/actions/runs/46125153063): 29 Python tests and benchmark validator passed.
+
+### S05 virtual-ray reveal
+- The dashed backward extension now appears first and holds by itself for one second.
+- The apparent point, true/apparent labels and caption `Mắt kéo dài tia khúc xạ về vị trí biểu kiến.` appear only after that construction cue.
+- The remaining hold is 14.6 seconds. Combined with 0.8-second line fade and 0.6-second point/caption fade, total S05 remains 17 seconds; checkpoint timing is unchanged.
+- Added Python ordering/timing test for the staged reveal.
+- Candidate #156 contact sheet/native samples at 44–60 seconds show the dashed line first, then the apparent point and labels. This is sampled inspection, not a full-speed review; the long hold still needs narration-led judgment.
+
+### Existing physical scene updates retained
+- S03 reveals incident then refracted ray before S04 normal/angle/Snell geometry.
+- S02/S06 share the −50° clear-out prop transform and −44° inspection pose. Bowl clears the waterline/glass; matching wrist targets are within IK reach.
+- Motion Canvas MP4 SHA-256: `35868965cadbcb910056ddd1ab32fe68146dccdaa80c75f24071f03d39a8f108`; H.264 1920×1080, 24 fps, 72 s, 1,728 frames, zero browser errors.
+- Remotion MP4 SHA-256: `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; Manim segment SHA-256: `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Both full films remain silent/video-only; approved VO, caption synchronization, SFX and music are absent.
+
+### Exact next work and guardrails
+1. Complete uninterrupted 24-fps viewing of both full films and log timecode/shot-level defects.
+2. Evaluate S05's 14.6-second hold against approved VO; re-choreograph if the narration does not support it.
+3. Improve Nia body counterbalance, hand depth/occlusion, gaze and follow-through from observed motion defects.
+4. Review reduced/mobile labels; obtain approved Vietnamese narration, synchronize captions, add SFX/music and complete audio QA.
+5. Run comparable repeated authoring/preview/render/revision measurements and complete H2 provenance/license audit.
+6. Keep M1 open; do not start broad Film IR/M2 or claim creative approval.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #154; clear-out spoon lift and S03 reveal verified)
 
 This is the current starting point. The S03 ray reveal and the physically clear S02/S06 lift have passed contract, runtime and all three engine render gates. M1 creative acceptance remains open.

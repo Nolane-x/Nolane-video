@@ -97,6 +97,16 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest S05 backward-construction reveal — 2026-11-28
+
+- S05 previously revealed the dashed backward ray, apparent point and labels nearly together, then held the finished layout for 15.6 seconds.
+- `motion-canvas/src/scenes/spoon.tsx` now reveals the dashed backward extension first, gives it a 1.0-second solo hold, then fades in the apparent point, true/apparent labels and the caption `Mắt kéo dài tia khúc xạ về vị trí biểu kiến.`
+- The final hold is 14.6 seconds. Total authored duration remains 17 seconds (0.8 s line reveal + 1.0 s construction hold + 0.6 s point/caption reveal + 14.6 s hold), and the S05 frame checkpoint is unchanged.
+- Added a Python test for cue ordering, caption and shot duration.
+- Contract [#46](https://github.com/Nolane-x/Nolane-video/actions/runs/46125153063) passes 29 tests and benchmark validation. Candidate [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963) passes all three engine jobs.
+- Motion Canvas #156: H.264, 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors; MP4 SHA-256 `35868965cadbcb910056ddd1ab32fe68146dccdaa80c75f24071f03d39a8f108`.
+- Selected native frames at 44–60 s show the dashed extension before the apparent point and labels. The remaining hold is still long and must be judged against approved narration; no continuous 24-fps review has been completed.
+
 ## Latest refraction reveal and clear-out lift update — 2026-11-28
 
 - S03 in `motion-canvas/src/scenes/spoon.tsx` now reveals the physical light path in two beats: incident ray/true point, then refracted ray/observer point. S04 now adds the normal, angle labels and Snell formula without replaying the physical rays.

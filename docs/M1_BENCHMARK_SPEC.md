@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Date:** 2026-11-26  
-**Status:** Candidate #154 and contract #45 verify the S03/S04 ray reveal and shared S02/S06 clear-out spoon lift with coupled IK; full-speed creative, anatomy, audio and performance acceptance remain open.
+**Status:** Candidate #156 and contract #46 verify S05's staged backward-ray/apparent-point reveal, alongside S03/S04 ray order and the shared S02/S06 clear-out lift; full-speed creative, anatomy, audio and performance acceptance remain open.
 
 ## 1. Purpose
 

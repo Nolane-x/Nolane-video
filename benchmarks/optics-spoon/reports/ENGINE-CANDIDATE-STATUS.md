@@ -1,3 +1,15 @@
+## Latest all-green S05 staged virtual-ray candidate — 2026-11-28 (candidate #156)
+
+This section supersedes the candidate #154 snapshot below. It confirms the S05 source/test change and all three technical render gates; it is not creative approval.
+
+- Scene/test source commit: `dd7b317ed27700d18dac8e83c5ab3f2f1f5a72a9`.
+- Candidate [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963): Remotion, Motion Canvas and Manim all **success**. Contract [#46](https://github.com/Nolane-x/Nolane-video/actions/runs/46125153063): 29 Python tests and benchmark validator **success**.
+- S05 now reveals the dashed backward extension alone, holds for 1.0 s, then reveals apparent point/labels and caption `Mắt kéo dài tia khúc xạ về vị trí biểu kiến.` Final hold is 14.6 s; exact 17 s shot duration/checkpoint remain unchanged.
+- Motion Canvas: H.264 1920×1080 yuv420p, 24 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `35868965cadbcb910056ddd1ab32fe68146dccdaa80c75f24071f03d39a8f108`; artifact id `15255463074`; ZIP digest `sha256:7f85f7252dcd6a8cf450e1adcba3f41ce1efe54e6c6a2d1a476dd16079538c4f`.
+- Remotion: H.264 1920×1080, 24 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15255227810`; ZIP digest `sha256:dea327c1af3db60e6a145464f8401803d4059b8f17fff9c3b32936850282beba`.
+- Manim specialist segment: H.264 1920×1080, 279 frames, 11.624674 s. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15255610902`; ZIP digest `sha256:c237128e63b7afb85691591324113dfe9fb233cc7fef4fe036e1dfeb52688ffc`.
+- Samples at S05 44–60 s show the construction before the point/labels. The remaining 14.6 s hold needs approved narration-led review. Full films remain silent/video-only. M1 remains open for continuous playback, natural acting, mobile type, audio, repeatable revision-cost evidence and H2 provenance.
+
 ## Latest all-green clear-out lift and refraction reveal candidate — 2026-11-28 (candidate #154)
 
 This section supersedes the candidate #149 snapshot below. Candidate #154 confirms the S03/S04 choreography, shared clear-out spoon transform, numerical bowl clearance, IK/runtime tests and the three technical renders; it is not creative approval.

@@ -1,4 +1,19 @@
 **Review date:** 2026-11-28  
+**Latest reviewed candidate run:** [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963). All three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed; H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. Native samples at S05 44–60 s, S02 8–17 s and S06 62–71 s were inspected.  
+**Review scope:** candidate #156 contact sheet, native S05/S02/S06 samples and MC ffprobe/render report, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134, #137, #140, #143, #146, #149, #151, #153 and #154. This remains sampled prototype QA, **not** continuous 24-fps review or final creative approval; audio review remains open.
+
+## Candidate #156 — S05 staged backward extension
+
+- Candidate [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963), source commit `dd7b317ed27700d18dac8e83c5ab3f2f1f5a72a9`, passed Remotion, Motion Canvas and Manim. Contract [#46](https://github.com/Nolane-x/Nolane-video/actions/runs/46125153063) passed 29 Python tests and benchmark validation.
+- S05 now fades in the dashed backward extension, holds it alone for 1.0 second, then reveals the apparent point, labels and explanatory caption. The final hold changes from 15.6 to 14.6 seconds; the shot stays 17 seconds and the checkpoint is unchanged.
+- Native samples at 44–60 s show the backward line first, then the point/labels and new caption. The remaining hold is static and long; its adequacy must be judged with approved narration and continuous playback.
+- Candidate #156 Motion Canvas: H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `35868965cadbcb910056ddd1ab32fe68146dccdaa80c75f24071f03d39a8f108`; artifact id `15255463074`; ZIP digest `sha256:7f85f7252dcd6a8cf450e1adcba3f41ce1efe54e6c6a2d1a476dd16079538c4f`.
+- Remotion #156: H.264 1920×1080, 24 fps, 72.000 s, 1,728 frames; SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15255227810`; ZIP digest `sha256:dea327c1af3db60e6a145464f8401803d4059b8f17fff9c3b32936850282beba`.
+- Manim #156: H.264 1920×1080, 279 frames, 11.624674 s; SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15255610902`; ZIP digest `sha256:c237128e63b7afb85691591324113dfe9fb233cc7fef4fe036e1dfeb52688ffc`.
+
+**Assessment:** reveal order is clearer and shot duration remains deterministic. This does not close diagram pacing/learning-comprehension acceptance; narration and uninterrupted full-speed review remain required.
+
+**Review date:** 2026-11-28  
 **Latest reviewed candidate run:** [#154](https://github.com/Nolane-x/Nolane-video/actions/runs/46124226688). All three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed; its MP4 is H.264 1920×1080 yuv420p at 24/1 fps, 72.000 s, 1,728 frames with zero browser errors. Native samples at S02 8–17 s and S06 62–71 s were inspected.  
 **Review scope:** candidate #154 contact sheet, native S02/S06 frame samples and MC ffprobe/render report, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134, #137, #140, #143, #146, #149, #151 and #153. This remains sampled prototype QA, **not** a continuous 24-fps review or final creative approval; audio review remains open.
 
