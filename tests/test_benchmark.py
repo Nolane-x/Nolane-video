@@ -120,6 +120,44 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("optics.backward().opacity(1, 0.8)", scene_source)
         self.assertNotIn("<Line ref={backward}", scene_source)
 
+    def test_motion_canvas_reveals_physical_rays_in_s03_before_s04_angles(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+        s03 = scene_source.split("// S03 —", 1)[1].split("// S04 —", 1)[0]
+        s04 = scene_source.split("// S04 —", 1)[1].split("// S05 —", 1)[0]
+
+        # The audience must see the physical ray cross the interface during
+        # the cause-reveal shot, not stare at an empty boundary for ten seconds.
+        for cue in (
+            "optics.incident().opacity(1, 0.8)",
+            "optics.truePoint().opacity(1, 0.5)",
+            "optics.refracted().opacity(1, 0.8)",
+            "optics.eyePoint().opacity(1, 0.6)",
+        ):
+            with self.subTest(cue=cue):
+                self.assertIn(cue, s03)
+
+        self.assertLess(s03.index("optics.incident()"), s03.index("optics.refracted()"))
+        self.assertIn("yield* waitFor(0.4)", s03)
+        self.assertIn("yield* waitFor(7.2 + 1 / 24)", s03)
+        self.assertLess(s04.index("optics.normal()"), s04.index("optics.angleWater()"))
+        self.assertLess(s04.index("optics.angleWater()"), s04.index("optics.formula()"))
+        self.assertNotIn("optics.incident().opacity", s04)
+        self.assertNotIn("optics.refracted().opacity", s04)
+        # Preserve exact half-open shot boundaries: S03 remains 240 frames,
+        # and S04 remains 384 frames after inclusive-endpoint compensation.
+        self.assertIn("checkpoint(\"S03-complete\")", s03)
+        self.assertIn("yield* waitFor(14 - 1 / 24)", s04)
+        self.assertIn("checkpoint(\"S04-complete\")", s04)
+
     def test_nia_actor_is_a_reusable_jointed_rig(self):
         actor_path = (
             Path(__file__).resolve().parents[1]

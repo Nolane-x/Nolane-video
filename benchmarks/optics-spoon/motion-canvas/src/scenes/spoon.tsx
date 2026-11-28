@@ -206,22 +206,28 @@ export default makeScene2D(function* (view) {
     optics.diagramCaption().opacity(1, 0.8),
     view.scale([1, 1], 0.8)
   );
-  yield* waitFor(9.2 + 1 / 24);
-  checkpoint("S03-complete");
 
-  // S04 — 16 seconds: construct the physical path in causal order.
-  yield* all(
-    optics.normal().opacity(1, 0.6),
-    optics.normalLabel().opacity(1, 0.6)
-  );
+  // S03: establish the physical light path before introducing angle geometry.
+  // First trace the submerged ray to the water-air interface.
   yield* all(
     optics.incident().opacity(1, 0.8),
     optics.truePoint().opacity(1, 0.5)
   );
-  yield* waitFor(0.8);
+  yield* waitFor(0.4);
+  // Then continue the same physical path through the interface to the observer.
   yield* all(
     optics.refracted().opacity(1, 0.8),
     optics.eyePoint().opacity(1, 0.6)
+  );
+  // Keep a readable hold on the complete path for the S03 explanation.
+  yield* waitFor(7.2 + 1 / 24);
+  checkpoint("S03-complete");
+
+  // S04 — 16 seconds: add the normal, angle measurements and Snell's law.
+  // The physical rays are already visible from S03; do not replay them here.
+  yield* all(
+    optics.normal().opacity(1, 0.6),
+    optics.normalLabel().opacity(1, 0.6)
   );
   yield* all(
     optics.angleWater().opacity(1, 0.6),
@@ -230,7 +236,7 @@ export default makeScene2D(function* (view) {
   yield* optics.formula().opacity(1, 0.8);
   // Motion Canvas evaluates the final timestamp inclusively; compensate one sample
   // so the scene checkpoint lands on storyboard frame 1055, not 1056.
-  yield* waitFor(11.6 - 1 / 24);
+  yield* waitFor(14 - 1 / 24);
   checkpoint("S04-complete");
 
   // S05 — 17 seconds: derive the apparent point from a backward extension.
