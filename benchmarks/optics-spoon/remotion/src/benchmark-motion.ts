@@ -41,6 +41,53 @@ export const cameraScaleAt = (globalFrame: number): number => {
   return Math.max(s01Scale, s06Scale);
 };
 
+export type S06Motion = {
+  brace: number;
+  lift: number;
+  inspection: number;
+  settle: number;
+  handOffsetX: number;
+  handLiftPx: number;
+  spoonRotationDeg: number;
+  bodyOffsetX: number;
+  bodyOffsetY: number;
+  headOffsetX: number;
+  headOffsetY: number;
+  headTiltDeg: number;
+  eyeLookOffsetX: number;
+};
+
+/**
+ * Deterministic S06 clear-out action, aligned to Motion Canvas's authored beats.
+ * The horizontal Remotion prop uses its own compact rotation convention:
+ * a 6-degree lifted pose and a further 6-degree inspection turn preserve the
+ * same relative inspection delta without pushing the bowl outside the frame.
+ */
+export const s06MotionAt = (globalFrame: number): S06Motion => {
+  if (!Number.isFinite(globalFrame)) throw new TypeError("S06 frame must be finite.");
+
+  const brace = easedProgressBetween(globalFrame, 1493, 1499);
+  const lift = easedProgressBetween(globalFrame, 1499, 1519);
+  const inspection = easedProgressBetween(globalFrame, 1534, 1540);
+  const settle = easedProgressBetween(globalFrame, 1540, 1546);
+
+  return {
+    brace,
+    lift,
+    inspection,
+    settle,
+    handOffsetX: -8 * lift,
+    handLiftPx: 74 * lift,
+    spoonRotationDeg: 6 * lift + 6 * inspection - 6 * settle,
+    bodyOffsetX: 7 * lift,
+    bodyOffsetY: 3 * lift,
+    headOffsetX: 7 * lift - inspection + settle,
+    headOffsetY: -20 * lift + 7 * inspection + 13 * settle,
+    headTiltDeg: 3 * inspection * (1 - settle),
+    eyeLookOffsetX: -15 * lift
+  };
+};
+
 /** Deterministic global-frame motion for the half-open S02 range [192, 432). */
 export const s02MotionAt = (globalFrame: number): S02Motion => {
   if (!Number.isFinite(globalFrame)) throw new TypeError("S02 frame must be finite.");
