@@ -336,8 +336,19 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("normal[1] * across", geometry)
         for digit in ("index", "middle", "ring", "pinky"):
             with self.subTest(digit=digit):
-                self.assertIn(f"{digit}: wrapFinger(", geometry)
-        self.assertIn("thumbPath: wrapThumb(", geometry)
+                self.assertIn(f"{digit}: FingerPath", geometry)
+                self.assertIn(f"{digit}: fingerCrease({digit})", geometry)
+                self.assertIn(f"{digit}Crease", grip)
+                self.assertIn(f"{digit}Crease().points(copyLine(pose.fingerCreases.{digit})", grip)
+        self.assertIn("const wrapFinger =", geometry)
+        self.assertIn("const wrapThumb =", geometry)
+        self.assertIn("rest: makePose(", geometry)
+        self.assertIn("brace: makePose(", geometry)
+        self.assertIn("thumbBaseFrom", geometry)
+        self.assertIn("thumbBaseCrease", geometry)
+        self.assertIn("palmCrease(palm)", geometry)
+        self.assertIn("fingerCreases:", geometry)
+        self.assertIn("thumbBase().position([...pose.thumbBase]", grip)
         self.assertIn("NIA_GRIP_POSES", geometry)
         self.assertIn("thumbOutline().points(copyPath(pose.thumbPath)", grip)
 
