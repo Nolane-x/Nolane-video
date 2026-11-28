@@ -809,6 +809,8 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("easedProgressBetween(globalFrame, 1499, 1519)", motion_source)
         self.assertIn("easedProgressBetween(globalFrame, 1534, 1540)", motion_source)
         self.assertIn("easedProgressBetween(globalFrame, 1540, 1546)", motion_source)
+        self.assertIn("globalFrame >= 1464", motion_source)
+        self.assertIn("64 - 50 * lift + 6 * inspection - 6 * settle", motion_source)
         self.assertIn("s06MotionAt(frame)", source)
         self.assertIn("const handX = -755 + s06.handOffsetX - s06.bodyOffsetX", source)
         self.assertIn("const handY = 230 - motion.handLiftPx - s06.handLiftPx - s06.bodyOffsetY", source)
