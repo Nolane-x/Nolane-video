@@ -16,6 +16,31 @@ const smoothstep = (value: number): number => {
 const progressBetween = (frame: number, start: number, end: number): number =>
   end <= start ? (frame >= end ? 1 : 0) : smoothstep((frame - start) / (end - start));
 
+const easeInOutCubic = (value: number): number => {
+  const x = clamp01(value);
+  return x < 0.5
+    ? 4 * x * x * x
+    : 1 - Math.pow(-2 * x + 2, 3) / 2;
+};
+
+const easedProgressBetween = (frame: number, start: number, end: number): number =>
+  end <= start ? (frame >= end ? 1 : 0) : easeInOutCubic((frame - start) / (end - start));
+
+/**
+ * Match the two restrained Motion Canvas camera push-ins in global frame space.
+ * S01 pushes toward the apparent kink, then resets during the S03 diagram cutaway.
+ * S06 pushes toward the intact spoon and holds the final close-up.
+ */
+export const cameraScaleAt = (globalFrame: number): number => {
+  if (!Number.isFinite(globalFrame)) throw new TypeError("Camera frame must be finite.");
+  const s01Push = easedProgressBetween(globalFrame, 31, 65);
+  const s01Reset = easedProgressBetween(globalFrame, 432, 451);
+  const s01Scale = 1 + 0.025 * s01Push * (1 - s01Reset);
+  const s06Push = easedProgressBetween(globalFrame, 1546, 1570);
+  const s06Scale = 1 + 0.025 * s06Push;
+  return Math.max(s01Scale, s06Scale);
+};
+
 /** Deterministic global-frame motion for the half-open S02 range [192, 432). */
 export const s02MotionAt = (globalFrame: number): S02Motion => {
   if (!Number.isFinite(globalFrame)) throw new TypeError("S02 frame must be finite.");

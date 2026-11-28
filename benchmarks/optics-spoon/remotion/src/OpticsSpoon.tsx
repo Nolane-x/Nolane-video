@@ -1,7 +1,7 @@
 import React from "react";
 import {AbsoluteFill, useCurrentFrame} from "remotion";
 import diagramGeometry from "../../shared/diagram.json";
-import {diagramCaptionAt, diagramMotionAt, s02MotionAt} from "./benchmark-motion";
+import {cameraScaleAt, diagramCaptionAt, diagramMotionAt, s02MotionAt} from "./benchmark-motion";
 
 const C = {
   ink: "#101B26", slate: "#203746", ivory: "#F4EDE0", brass: "#DDA85E",
@@ -125,6 +125,7 @@ const Diagram: React.FC<{frame: number}> = ({frame}) => {
 
 export const OpticsSpoon: React.FC = () => {
   const frame = useCurrentFrame();
+  const cameraScale = cameraScaleAt(frame);
   const kitchen = Math.max(windowOpacity(frame, 0, 480), windowOpacity(frame, 1452, 1728));
   const diagram = windowOpacity(frame, 420, 1480);
   const text = diagramCaptionAt(frame);
@@ -137,11 +138,13 @@ export const OpticsSpoon: React.FC = () => {
             <stop offset="100%" stopColor="#101B26" stopOpacity="0" />
           </linearGradient>
         </defs>
-        <g opacity={kitchen}><Kitchen frame={frame} /></g>
-        <g opacity={diagram}><Diagram frame={frame} /></g>
-        <rect x="80" y="945" width="1760" height="90" rx="18" fill="#08121A" fillOpacity=".78" />
-        <text x="960" y="1005" fontSize="38" fill={C.ivory} textAnchor="middle" fontFamily="Arial">{text}</text>
-        <rect x="80" y="80" width="1760" height="1" fill={C.ivory} opacity=".12" />
+        <g transform={"translate(960 540) scale(" + cameraScale + ") translate(-960 -540)"}>
+          <g opacity={kitchen}><Kitchen frame={frame} /></g>
+          <g opacity={diagram}><Diagram frame={frame} /></g>
+          <rect x="80" y="945" width="1760" height="90" rx="18" fill="#08121A" fillOpacity=".78" />
+          <text x="960" y="1005" fontSize="38" fill={C.ivory} textAnchor="middle" fontFamily="Arial">{text}</text>
+          <rect x="80" y="80" width="1760" height="1" fill={C.ivory} opacity=".12" />
+        </g>
       </svg>
     </AbsoluteFill>
   );

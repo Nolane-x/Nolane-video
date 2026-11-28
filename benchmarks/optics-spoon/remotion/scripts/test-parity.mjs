@@ -11,7 +11,7 @@ const compiled = ts.transpileModule(source, {
 const errors = (compiled.diagnostics ?? []).filter(d => d.category === ts.DiagnosticCategory.Error);
 assert.equal(errors.length, 0, "benchmark motion module must transpile without errors");
 const encoded = Buffer.from(compiled.outputText, "utf8").toString("base64");
-const {s02MotionAt, diagramMotionAt, diagramCaptionAt} = await import("data:text/javascript;base64," + encoded);
+const {s02MotionAt, diagramMotionAt, diagramCaptionAt, cameraScaleAt} = await import("data:text/javascript;base64," + encoded);
 const near = (actual, expected, tolerance, label) => {
   assert.ok(Math.abs(actual - expected) <= tolerance, label + ": expected " + expected + ", received " + actual);
 };
@@ -63,4 +63,17 @@ assert.throws(() => diagramCaptionAt(Number.NaN), {name: "TypeError"});
 assert.throws(() => s02MotionAt(Number.NaN), {name: "TypeError"});
 assert.throws(() => diagramMotionAt(Number.POSITIVE_INFINITY), {name: "TypeError"});
 
-console.log("Remotion storyboard parity passed: S02 action arc and S03-S05 causal diagram reveal are deterministic at 24 fps.");
+near(cameraScaleAt(30), 1, 1e-9, "S01 camera starts at the baseline scale");
+near(cameraScaleAt(48), 1.0125, 1e-9, "S01 camera push-in midpoint");
+near(cameraScaleAt(65), 1.025, 1e-9, "S01 camera push-in reaches its 2.5% target");
+near(cameraScaleAt(431), 1.025, 1e-9, "S01 push-in holds until the cutaway");
+near(cameraScaleAt(432), 1.025, 1e-9, "S03 cutaway begins the camera reset");
+near(cameraScaleAt(441.5), 1.0125, 1e-9, "S03 camera reset midpoint");
+near(cameraScaleAt(451), 1, 1e-9, "S03 camera reset returns to baseline");
+near(cameraScaleAt(1545), 1, 1e-9, "S06 push-in begins only after the spoon settles");
+near(cameraScaleAt(1558), 1.0125, 1e-9, "S06 camera push-in midpoint");
+near(cameraScaleAt(1570), 1.025, 1e-9, "S06 camera push-in reaches its final framing");
+near(cameraScaleAt(1727), 1.025, 1e-9, "S06 holds the final close-up");
+assert.throws(() => cameraScaleAt(Number.NaN), {name: "TypeError"});
+
+console.log("Remotion storyboard parity passed: S01/S06 camera beats, S02 action arc and S03-S05 causal diagram reveal are deterministic at 24 fps.");
