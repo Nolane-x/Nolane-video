@@ -70,6 +70,12 @@ export const s06MotionAt = (globalFrame: number): S06Motion => {
   const lift = easedProgressBetween(globalFrame, 1499, 1519);
   const inspection = easedProgressBetween(globalFrame, 1534, 1540);
   const settle = easedProgressBetween(globalFrame, 1540, 1546);
+  // Before lifting, the straight prop is still in the water at a diagonal.
+  // Match the Motion Canvas clear-out: approximately 64° at rest to 14° lifted,
+  // followed by the authored +6° inspection turn. This is S06-only so S02 is unchanged.
+  const spoonRotationDeg = globalFrame >= 1464
+    ? 64 - 50 * lift + 6 * inspection - 6 * settle
+    : 0;
 
   return {
     brace,
@@ -78,7 +84,7 @@ export const s06MotionAt = (globalFrame: number): S06Motion => {
     settle,
     handOffsetX: -8 * lift,
     handLiftPx: 74 * lift,
-    spoonRotationDeg: 6 * lift + 6 * inspection - 6 * settle,
+    spoonRotationDeg,
     bodyOffsetX: 7 * lift,
     bodyOffsetY: 3 * lift,
     headOffsetX: 7 * lift - inspection + settle,
