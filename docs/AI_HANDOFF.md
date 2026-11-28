@@ -1,3 +1,56 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #185 green; S06 action timing parity updated)
+
+### Exact repo and branch
+
+- Work only in **`Nolane-x/Nolane-video`**, branch **`m1/optics-benchmark`**. Do not use `Nolane-x/video`.
+- Latest source SHA: [`0d7e2d2`](https://github.com/Nolane-x/Nolane-video/commit/0d7e2d2256c4581fafd6eff9052b021b0d326d84).
+- `main` remains unchanged at `19b53bd0bf785a8d58a91031678be717a8ae11d4`. No merge, rebase or force push.
+
+### Latest CI evidence
+
+- Candidate [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477): **all three jobs passed** — Remotion full film, Motion Canvas full film image-sequence render, Manim scientific segment. It contains the final synchronized Remotion S06 source and tests at SHA `0d7e2d2`.
+- Contract [#55](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076436): **30 Python tests passed**, benchmark validator passed, 6 shots / 1,728 frames / 24 fps / canonical ray geometry consistent.
+- Candidate #183 failed only because it ran on the intermediate source commit `ebbc73a` before the accompanying test update; the old assertion expected 3° but the new frame mapping returned 39° at the half-lift sample. Test expectations were updated in `d08616a`; final contract #55 and candidate #185 pass. Keep this historical fact distinct from final SHA results.
+- Candidate path-filter optimization remains: only benchmark shared inputs and renderer source/configuration, tests and workflow changes trigger full candidates; report/docs-only changes are excluded. #178 verified this and passed.
+
+### S06 source change
+
+- New exported `s06MotionAt(globalFrame)` in `benchmarks/optics-spoon/remotion/src/benchmark-motion.ts`.
+- Remotion-space prop angle: 64° in the submerged starting pose; eases to 14° during lift; adds a 6° inspection turn to 20°; returns to 14° before final hold. These are renderer-space angles, not a universal shared physical-angle API.
+- Frame beats: S06 begins at 1464; brace 1493–1499; lift 1499–1519; inspection 1534–1540; settle 1540–1546; final camera push continues 1546–1570 and holds through 1727.
+- Wrist/arm endpoint, hand rotation and position follow the prop; Nia's torso counterbalance, head movement and gaze are coupled. No storyboard timing or total duration changed.
+- Changes: source [`ebbc73a`](https://github.com/Nolane-x/Nolane-video/commit/ebbc73ad3ab16726111bcaf5803258171d22646b), runtime test [`d08616a`](https://github.com/Nolane-x/Nolane-video/commit/d08616a0c6d72c0499456dfd916e1d4269202b29), Python source contract [`0d7e2d2`](https://github.com/Nolane-x/Nolane-video/commit/0d7e2d2256c4581fafd6eff9052b021b0d326d84).
+
+### Candidate #185 artifacts and metadata
+
+- Remotion: artifact `15269760385`, ZIP SHA-256 `39dfe3a6945e8930bfde3d38b717812f5bf90846d22ba91f2d30d73eec4c4af7`; MP4 SHA-256 `288118afaa584bc75aca61e6375a54f6c481a17d1f87f33cf6befbfef915be87`.
+- Motion Canvas: artifact `15269635145`, ZIP SHA-256 `a6d077ca39523b548a02c1b77ddc0f04ad307900a1f8e99323bbc171b31416fb`; MP4 SHA-256 `8ec191e235ab28ca36477be47f9cef568a7175f0d26c50fef6ace0ba55c95882`.
+- Manim: artifact `15268529534`, ZIP SHA-256 `495ee1ea1c47b0d8539436d669eb7dd3357f18d84378745a25b567a0bad2426c`.
+- Both full-film MP4s: H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames. Motion Canvas report says 1,728/1,728 frames and zero browser errors; silent preview.
+- Manim: H.264 1920×1080, 24 fps, 279 frames, 11.624674 s.
+- Motion Canvas diagnostics artifact `15268684146`, ZIP digest `sha256:4c4ab73f7745e73ae2c48d43d3ba598fd7155264b9efc5c3c41723af1232aab6`; expires around 2026-12-12. Candidate artifacts expire around 2026-12-28.
+
+### Visual review scope and findings
+
+- Inspected both contact sheets and paired native-resolution frames at S06 global frames 1464, 1493, 1499, 1509, 1519, 1537, 1540, 1546, 1570 and 1727.
+- The submerged start, prop lift out of water, inspection turn and settle are visible at corresponding timing points in both full-film outputs. The wrist remains associated with the moving prop in sampled stills; no obvious crop loss in sampled S06 positions.
+- **Remaining differences:** Nia's design and the kitchen/set still differ visibly across renderers. At final sampled frame 1727, Remotion is nearly dark while Motion Canvas remains visible, despite storyboard language specifying a fade to a quiet end frame. Track this as unresolved visual parity; do not claim full cross-engine visual identity.
+- This was contact-sheet and selected-frame review only. No continuous 24-fps playback, mobile-size typography test or creative approval was completed. Both full-film renders are silent; VO/audio acceptance is open.
+
+### Next actions — continue in this order
+
+1. Align the shared Nia character design and kitchen composition between Remotion and Motion Canvas without weakening the product's visual target.
+2. Audit the final S06 transition/fade; agree and implement a shared end-frame/fade schedule, then test exact sampled frames across both engines.
+3. Watch both complete films continuously at 24 fps and log shot/frame-specific visual findings; do not substitute more stills for this gate.
+4. Inspect Vietnamese typography at reduced/mobile size and tune label/caption safe areas.
+5. After picture timing is accepted, add approved Vietnamese VO, real transcript alignment, SFX/music and audio QA; do not invent approved narration timing.
+6. Continue repeated, comparable render/preview/authoring/revision-cost measurements and H2 provenance/license audit.
+
+### Boundaries
+
+Keep M1 open until creative and audio gates are accepted. Do not begin broad Film IR/M2 implementation prematurely. Always update `docs/STATE.md` and this handoff after meaningful work. Keep `main` untouched.
+
+---
 ## Latest continuation snapshot — 2026-11-28 (CI path filters narrowed; candidate #178 queued)
 
 ### Exact repo and branch
