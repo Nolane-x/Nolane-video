@@ -1,3 +1,26 @@
+## -20. CI trigger optimization — 2026-11-28 (report-only changes no longer rerender films)
+
+This snapshot supersedes the #175 state note for repository/CI configuration. It does **not** supersede candidate #175 as the latest completed render or sampled visual review.
+
+- **Repository/branch:** `Nolane-x/Nolane-video`, `m1/optics-benchmark`; workflow change commit [`388bd19`](https://github.com/Nolane-x/Nolane-video/commit/388bd19a601edbfcd8307b94525e0c48a3c6cf1e). `main` remains unchanged at `19b53bd0bf785a8d58a91031678be717a8ae11d4`.
+- **Changed file:** `.github/workflows/m1-benchmark-candidates.yml`. Both `push` and `pull_request` path filters now watch only:
+  - `benchmarks/optics-spoon/shared/**`
+  - `benchmarks/optics-spoon/remotion/**`
+  - `benchmarks/optics-spoon/motion-canvas/**`
+  - `benchmarks/optics-spoon/manim/**`
+  - `tests/test_benchmark.py`
+  - the candidate workflow file itself.
+- **Reason:** the former `benchmarks/optics-spoon/**` glob made report/README-only updates launch all three renderer jobs. Those paths are no longer included, while all benchmark inputs, renderer source/configuration and contract-test changes remain watched. Manual `workflow_dispatch` remains available.
+- **Verification runs:** prior docs-triggered runs [#176](https://github.com/Nolane-x/Nolane-video/actions/runs/46143591843) and [#177](https://github.com/Nolane-x/Nolane-video/actions/runs/46143633335) completed successfully. Workflow self-change triggered candidate [#178](https://github.com/Nolane-x/Nolane-video/actions/runs/46158578572), run ID `46158578572`; it was **queued** when this snapshot was written and is not yet counted as passed.
+- **Scope:** no renderer source, scene timing, character rig, scientific geometry, dependencies or benchmark output was changed. The last completed film remains candidate #175 / contract #53. M1 creative and audio acceptance remain open exactly as recorded below.
+- **Next:** verify every job in #178; future changes only to reports or root documentation should not trigger a new candidate render. Keep the renderer directories and shared creative brief in the filter so actual film-impacting changes still rerender.
+
+### Still not done
+
+No continuous 24-fps review, VO integration, audio QA, mobile typography sign-off, performance/revision-cost study or H2 provenance/license audit has been completed by this workflow optimization. It is a CI efficiency fix, not a production-quality milestone.
+
+---
+
 ## -19. Latest verified state — 2026-11-28 (candidate #175 / contract #53; Remotion camera parity)
 
 This snapshot supersedes the candidate #171 technical snapshot. Candidate #175 passes all three renderer jobs and the 30-test contract. It is the latest **sampled visual review**, not approval after uninterrupted full-speed playback.
