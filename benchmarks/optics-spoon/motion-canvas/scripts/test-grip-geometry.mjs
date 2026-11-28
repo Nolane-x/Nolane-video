@@ -106,6 +106,47 @@ for (const poseName of ["rest", "brace"]) {
   near(pose.thumb[1], pose.thumbPath[2][1], 1e-9, `${poseName} thumb y`);
 }
 
+
+for (const poseName of ["rest", "brace"]) {
+  const pose = NIA_GRIP_POSES[poseName];
+  const palmBounds = {left: pose.palm[0] - 31, right: pose.palm[0] + 31, top: pose.palm[1] - 20, bottom: pose.palm[1] + 20};
+
+  for (const name of ["index", "middle", "ring", "pinky"]) {
+    const path = pose[name];
+    const crease = pose.fingerCreases[name];
+    assert.equal(crease.length, 2, `${poseName}/${name}: expected a two-point flexion crease`);
+    const tangent = [path[1][0] - path[0][0], path[1][1] - path[0][1]];
+    const creaseVector = [crease[1][0] - crease[0][0], crease[1][1] - crease[0][1]];
+    const dot = tangent[0] * creaseVector[0] + tangent[1] * creaseVector[1];
+    const creaseLength = Math.hypot(creaseVector[0], creaseVector[1]);
+    assert.ok(Math.abs(dot) <= 1e-7, `${poseName}/${name}: joint crease must be perpendicular to the finger segment`);
+    near(creaseLength, 11, 1e-7, `${poseName}/${name} crease length`);
+
+    const expectedCenter = [
+      path[0][0] + tangent[0] * 0.52,
+      path[0][1] + tangent[1] * 0.52
+    ];
+    near((crease[0][0] + crease[1][0]) / 2, expectedCenter[0], 1e-7, `${poseName}/${name} crease x`);
+    near((crease[0][1] + crease[1][1]) / 2, expectedCenter[1], 1e-7, `${poseName}/${name} crease y`);
+  }
+
+  for (const point of pose.palmCrease) {
+    assert.ok(point[0] >= palmBounds.left && point[0] <= palmBounds.right, `${poseName}: palm crease x must stay inside palm bounds`);
+    assert.ok(point[1] >= palmBounds.top && point[1] <= palmBounds.bottom, `${poseName}: palm crease y must stay inside palm bounds`);
+  }
+
+  near(pose.thumbBase[0], (pose.palm[0] + pose.thumbPath[1][0]) / 2, 1e-7, `${poseName} thumb base x`);
+  near(pose.thumbBase[1], (pose.palm[1] + pose.thumbPath[1][1]) / 2, 1e-7, `${poseName} thumb base y`);
+  assert.equal(pose.thumbBaseCrease.length, 3, `${poseName}: expected shaped thumb-base crease`);
+  assert.ok(pose.thumbBaseCrease.every(([x, y]) => Number.isFinite(x) && Number.isFinite(y)), `${poseName}: thumb-base crease must be finite`);
+}
+
+assert.notDeepEqual(
+  NIA_GRIP_POSES.rest.fingerCreases.index,
+  NIA_GRIP_POSES.brace.fingerCreases.index,
+  "finger creases must follow the changing grip pose"
+);
+
 console.log(
   "Grip geometry passed: four separated fingers cross the handle centreline, with an opposing thumb on both rest and brace poses."
 );

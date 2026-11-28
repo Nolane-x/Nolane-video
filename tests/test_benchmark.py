@@ -165,11 +165,12 @@ class BenchmarkContractTests(unittest.TestCase):
 
         self.assertIn("export const createNiaGrip", grip_source)
         for part in (
-            "palm", "thumb", "thumbOutline", "thumbFinger",
-            "indexOutline", "indexFinger",
-            "middleOutline", "middleFinger",
-            "ringOutline", "ringFinger",
-            "pinkyOutline", "pinkyFinger",
+            "palm", "palmCrease", "thumbBase", "thumbBaseCrease",
+            "thumb", "thumbOutline", "thumbFinger",
+            "indexOutline", "indexFinger", "indexCrease",
+            "middleOutline", "middleFinger", "middleCrease",
+            "ringOutline", "ringFinger", "ringCrease",
+            "pinkyOutline", "pinkyFinger", "pinkyCrease",
         ):
             with self.subTest(part=part):
                 self.assertIn(f"const {part} =", grip_source)
@@ -202,6 +203,15 @@ class BenchmarkContractTests(unittest.TestCase):
         )
         self.assertIn("const toPose =", grip_source)
         self.assertIn("return all(", grip_source)
+        self.assertIn("fingerCrease(path)", geometry_source)
+        self.assertIn("thumbBaseFrom", geometry_source)
+        self.assertIn("palmCrease(palm)", geometry_source)
+        for control in ("palmCrease", "thumbBase", "thumbBaseCrease", "indexCrease", "middleCrease", "ringCrease", "pinkyCrease"):
+            with self.subTest(detail=control):
+                self.assertIn(f"const {control} =", grip_source)
+                self.assertIn(f"spoon.grip.{control}().opacity(", scene_source)
+        self.assertIn("indexCrease().points(copyLine(pose.fingerCreases.index)", grip_source)
+        self.assertIn("thumbBaseCrease().points(copyPath(pose.thumbBaseCrease)", grip_source)
 
     def test_prop_attached_grip_renders_above_the_forearm(self):
         scene_path = (
