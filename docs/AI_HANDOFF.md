@@ -1,3 +1,37 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #146; Nia hand articulation update)
+
+This is the current starting point. A prop-local hand-detail slice has been implemented and all current contract/candidate gates are green. M1 creative acceptance remains open.
+
+### GitHub state
+- Correct repository: `Nolane-x/Nolane-video` (NEE), **not** `Nolane-x/video`.
+- Branch: `m1/optics-benchmark`.
+- Implementation commit: [`0453b9e`](https://github.com/Nolane-x/Nolane-video/commit/0453b9e218fc47046c4237b19e5ed6951df40622); latest source/test commit at this snapshot: [`511d461`](https://github.com/Nolane-x/Nolane-video/commit/511d461fa627b8b86521c25ddf267b4981102831).
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge/change main.
+- Candidate [#146](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930631): Remotion, Motion Canvas and Manim all passed.
+- Contract [#40](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930644): 26 Python tests and benchmark validator passed.
+
+### New hand controls
+- `grip-geometry.ts` generates finger flexion creases perpendicular to each finger path, palm crease and thumb-base shape/crease in the spoon's local coordinate system.
+- `nia-grip.tsx` adds the visual controls and animates them from the shared `rest`/`brace` pose generator. The hand remains inside the spoon prop node, so details inherit the same lift/inspection transforms.
+- `spoon.tsx` controls visibility for the additional hand details at S01 and S06; existing prop anchors, arm IK and shot timings are unchanged.
+- `test-grip-geometry.mjs` adds numerical checks for perpendicular creases, segment-centred 11 px marks, palm bounds, thumb-base geometry and pose differentiation. The Python source contract was updated to assert the new shared-constructor abstraction instead of brittle old object-literal syntax.
+- Candidate #146 completed all engine jobs; Motion Canvas ran both IK/grip runtime suites, built/typechecked and rendered 1,728/1,728 frames. Contract #40 passed.
+
+### Output evidence
+- Motion Canvas MP4: H.264 1920×1080 yuv420p, 24/1 fps, 72 s, 1,728 frames, zero browser errors; SHA-256 `2b327e50fde101e306642fcf73d3ce02a3af6a9b041edd81d108f1b9b88e8ff2`.
+- Remotion MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; Manim segment SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- The #146 Motion Canvas MP4 is byte-identical to #143's render. Selected native frames at 8.8/9.5/10.5/11.5 s and zoomed grip crops were visually inspected. Creases and thumb-base detail are present, but the vector palm/thumb still has overlapping masses; do not describe it as realistic anatomy or final acting.
+
+### Exact next work and guardrails
+1. Do a continuous 24 fps viewing pass of both full films; create a timestamped defect log instead of inferring motion quality from stills.
+2. Improve volume, depth ordering, palm compression, thumb webbing, wrist roll and upper-body counterbalance from concrete observed defects.
+3. Review the ray-diagram reveal's holds, camera framing and learning comprehension, then test typography at reduced/mobile size.
+4. Audio remains absent: obtain approved Vietnamese VO, align captions to speech, add SFX/music and review the mix.
+5. Run repeated comparable authoring/preview/render/revision measurements and complete the H2 provenance/license audit before reusing anything from the separate `Nolane-x/video` repo.
+6. Keep Motion Canvas provisional, Remotion baseline/reference, Manim specialist; do not build broad Film IR/M2 or claim M1 completion until acceptance gates are closed.
+
+---
+
 ## Latest continuation snapshot — 2026-11-27 (candidate #140; Nia arm articulation update)
 
 This is the current starting point for the next session. The Motion Canvas arm silhouette/joint pass is implemented, tested and rendered on the active branch. M1 creative acceptance remains open.

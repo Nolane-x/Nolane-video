@@ -1,5 +1,21 @@
 # M1 Visual QA — The Spoon That Bends
 
+**Review date:** 2026-11-28  
+**Latest reviewed candidate run:** [#146](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930631). All three engine jobs passed. Candidate artifacts were downloaded; both full-film streams were ffprobed. Motion Canvas rendered 1,728/1,728 frames with zero browser errors. Its #146 MP4 is SHA-identical to #143, and selected native frames at 8.8/9.5/10.5/11.5 s plus zoomed grip crops were inspected from that exact bitstream.  
+**Review scope:** candidate #146 contact sheets and native grip/arm frames, candidate #146 ffprobe metadata, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134, #137, #140 and #143. This is sampled prototype QA, **not** a continuous 24-fps review or final creative approval; narration and audio review remain open.
+
+## Candidate #146 — Nia prop-local hand articulation slice
+
+- Candidate workflow [#146](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930631) ran on branch HEAD `511d461fa627b8b86521c25ddf267b4981102831`; Remotion, Motion Canvas and Manim all passed. Contract [#40](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930644) passed 26 Python tests and benchmark validation.
+- The Motion Canvas grip generator now derives a crease line perpendicular to the first segment of each of the index, middle, ring and pinky paths, positioned at 52% of the segment with an 11 px length. It also derives a palm crease, thumb-base pad position and thumb-base crease from the same prop-local grip pose.
+- The `nia-grip.tsx` controls animate with the existing `rest`/`brace` poses; `spoon.tsx` wires their visibility into S01/S06. The hand remains attached to the spoon prop and therefore inherits the same lift/inspection transforms. IK anchors, spoon geometry and shot timings are unchanged.
+- Candidate #146 Motion Canvas MP4: H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `2b327e50fde101e306642fcf73d3ce02a3af6a9b041edd81d108f1b9b88e8ff2`. Actions artifact id `15252578835`; ZIP digest `sha256:6371d006058612beb0f660d0a82c65704d29cc156f84140405bd752b58aa3535`.
+- Selected native 1080p samples and enlarged grip crops show flexion marks and thumb-base mass following the prop. At enlarged scale, the thumb/palm masses still overlap and read as simplified vector geometry; volume, depth/occlusion and convincing organic anatomy are not approved.
+- Remotion #146: H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames; MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`. Manim #146: 279-frame specialist segment; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Both engine jobs passed.
+- Both full-film MP4s remain video-only; no approved narration, SFX/music or synchronized audio exists.
+
+**Assessment:** the slice adds measurable hand articulation cues and passes runtime, contract and full render gates. It does **not** close organic anatomy/acting or M1 creative acceptance; continuous 24-fps playback, wrist/body weight, diagram pacing, mobile typography and audio remain open.
+
 **Review date:** 2026-11-27  
 **Latest reviewed candidate run:** [46013464282 (#140)](https://github.com/Nolane-x/Nolane-video/actions/runs/46013464282). All three engine jobs passed. The Motion Canvas MP4 was downloaded and ffprobed; its contact sheet, 4-fps S02 strip and selected native 1920×1080 frames at 8.8/9.5/10.5/11.5 s were inspected. The Remotion MP4 was also downloaded and ffprobed.  
 **Review scope:** candidate #140 contact sheets and S02 4-fps strip, selected native 1080p Motion Canvas arm frames, Remotion ffprobe, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134 and #137. This is sampled prototype QA, **not** a continuous 24-fps review or final creative approval; narration and audio review remain open.
