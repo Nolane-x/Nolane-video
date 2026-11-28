@@ -1,3 +1,33 @@
+## -15. Latest verified state — 2026-11-28 (candidate #158; true/apparent position reveal staged)
+
+This snapshot supersedes candidate #156 below. Candidate #158 is a green technical render and selected-frame inspection; M1 creative/audio acceptance remains open.
+
+- **Repository:** `Nolane-x/Nolane-video` (NEE), not the separate `Nolane-x/video` workspace.
+- **Branch:** `m1/optics-benchmark`; latest scene/test commit [`8b230d3`](https://github.com/Nolane-x/Nolane-video/commit/8b230d37630d622bf88048c2666fe5d7cb7175cc). Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate:** [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) all three engines **success**.
+- **Contract:** [#47](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163646) **success**, 29 Python tests and benchmark validator. Motion Canvas IK/grip tests, build/typecheck, 1,728-frame render and ffprobe passed.
+
+### Candidate #158 artifacts
+- Remotion: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames; SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`; artifact `15256081226`; ZIP `sha256:c35c6755b07808d7e8ad91b745298d785b247dd305fa4739d249079c7bb7b92b`.
+- Motion Canvas: same 1920×1080/24 fps/72 s/1,728 frames; zero browser errors; SHA-256 `37cda1eb7b8f3d8c5e309c5faaebccf63a498c1cb8037f8f16a090b0cf72bd00`; artifact `15255069488`; ZIP `sha256:06a26519a846d660068ec347a3126a66a54a28a1d4f0b6179b6ed91b8261b1b3`.
+- Manim specialist segment: H.264 1920×1080, 279 frames, 11.624674 s; SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact `15255333723`; ZIP `sha256:b5dbf277be79f74a1f44f8b827a248a355273f51f7d6462fe36809044eab340c`.
+- Both full films remain video-only/silent.
+
+### S05 true/apparent reveal
+- Dashed backward extension appears first and holds alone for 1.0 s.
+- Coral `Vị trí thật` label then appears alone (0.4 s); a 0.35 s pause separates it from the apparent image.
+- Green apparent point, `Vị trí biểu kiến` label and caption `Mắt kéo dài tia khúc xạ về vị trí biểu kiến.` then appear.
+- Total: 0.8 + 1.0 + 0.4 + 0.35 + 0.6 + 13.85 = **17.0 s**. Checkpoint/shot boundary unchanged.
+- Contract #47 checks order/duration. Frames at 44.2/44.8/45.5/46.2/47.2 s were inspected: dashed ray first; ~46.2 s only true-position label; ~47.2 s apparent point/label/caption visible.
+
+### Retained work and open gates
+- S03 reveals incident then refracted ray; S04 adds normal, angle labels and Snell formula. Original 240/384-frame windows remain.
+- S02/S06 share −50° clear-out and −44° inspection; spoon bowl clears water/glass, wrist target about 802.4 px from shoulder within 815 px IK reach.
+- Still required: continuous 24-fps review of both films; narration-led judgment of 13.85 s S05 hold; natural Nia body/hand acting; mobile typography; approved Vietnamese VO, synchronized captions, SFX/music; comparable revision-cost measures; H2 provenance/license audit.
+- **Do not mark M1 complete or start broad Film IR/M2 yet.**
+
+---
+
 ## -14. Latest verified state — 2026-11-28 (candidate #156; staged virtual-ray reveal verified)
 
 This snapshot supersedes candidate #154 below. Candidate #156 is a green technical render plus selected-frame inspection; M1 creative/audio acceptance remains open.

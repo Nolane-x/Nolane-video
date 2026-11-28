@@ -1,3 +1,17 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #158; true/apparent positions staged)
+
+Latest code/render is candidate #158; all three engine jobs and contract #47 are green. M1 creative/audio acceptance remains open.
+
+- Correct repo: `Nolane-x/Nolane-video`, branch `m1/optics-benchmark`, scene/test commit [`8b230d3`](https://github.com/Nolane-x/Nolane-video/commit/8b230d37630d622bf88048c2666fe5d7cb7175cc). Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`.
+- Candidate [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) passed Remotion, Motion Canvas and Manim; contract [#47](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163646) passed 29 Python tests and benchmark validation.
+- S05 sequence: dashed backward extension solo 1.0 s → coral “Vị trí thật” label (0.4 s) → pause 0.35 s → apparent point/label and caption (0.6 s) → final hold 13.85 s. Total remains exactly 17 s.
+- Samples 44.2/44.8/45.5/46.2/47.2 s show the new cue order. This is sampled QA, not continuous full-speed playback.
+- Motion Canvas SHA-256 `37cda1eb7b8f3d8c5e309c5faaebccf63a498c1cb8037f8f16a090b0cf72bd00`; Remotion `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`; Manim `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Full-film outputs are H.264 1920×1080, 24 fps, 72 s, 1,728 frames. Both full films remain silent/video-only.
+- S03/S04 staged physical ray then angle geometry; S02/S06 share the clear-out spoon pose and coupled IK.
+- Next: continuous 24-fps review; evaluate S05 13.85 s hold against approved VO; improve Nia body/hand acting; mobile typography; approved VO/captions/SFX/music and audio QA; repeated revision-cost measurements; H2 source/license audit. Keep M1 open; do not start broad Film IR/M2.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #156; S05 virtual-ray staging verified)
 
 The latest code/render snapshot is candidate #156; three engine jobs and contract #46 are green. M1 creative/audio acceptance remains open.

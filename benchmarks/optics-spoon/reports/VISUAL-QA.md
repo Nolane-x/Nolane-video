@@ -1,4 +1,17 @@
 **Review date:** 2026-11-28  
+**Latest reviewed candidate:** [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649); all three engine jobs passed. Motion Canvas MP4 was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. Native S05 samples at 44.2/44.8/45.5/46.2/47.2 s were inspected.  
+**Scope:** candidate #158 contact sheet, S05 transition frames and render report, plus earlier sampled candidates. This is **not** continuous 24-fps review or final creative approval; audio review remains open.
+
+## Candidate #158 — true source before apparent image
+- Source commit `8b230d37630d622bf88048c2666fe5d7cb7175cc`; candidate [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) passed all three engines; contract [#47](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163646) passed 29 tests and validator.
+- S05: dashed backward extension solo 1.0 s; coral `Vị trí thật` label 0.4 s; pause 0.35 s; green apparent point/label plus caption 0.6 s; final hold 13.85 s. Total remains 17 s.
+- Samples confirm: dashed line first; “Vị trí thật” alone around 46.2 s; apparent point/label and caption visible by 47.2 s. Selected-frame review only.
+- Motion Canvas: SHA-256 `37cda1eb7b8f3d8c5e309c5faaebccf63a498c1cb8037f8f16a090b0cf72bd00`, artifact `15255069488`, ZIP `sha256:06a26519a846d660068ec347a3126a66a54a28a1d4f0b6179b6ed91b8261b1b3`.
+- Remotion: SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`, artifact `15256081226`, ZIP `sha256:c35c6755b07808d7e8ad91b745298d785b247dd305fa4739d249079c7bb7b92b`.
+- Manim: SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`, artifact `15255333723`, ZIP `sha256:b5dbf277be79f74a1f44f8b827a248a355273f51f7d6462fe36809044eab340c`.
+- The remaining 13.85 s hold needs narration-led and continuous review. M1 pacing/comprehension acceptance remains open.
+
+**Review date:** 2026-11-28  
 **Latest reviewed candidate run:** [#156](https://github.com/Nolane-x/Nolane-video/actions/runs/46125152963). All three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed; H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. Native samples at S05 44–60 s, S02 8–17 s and S06 62–71 s were inspected.  
 **Review scope:** candidate #156 contact sheet, native S05/S02/S06 samples and MC ffprobe/render report, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134, #137, #140, #143, #146, #149, #151, #153 and #154. This remains sampled prototype QA, **not** continuous 24-fps review or final creative approval; audio review remains open.
 
