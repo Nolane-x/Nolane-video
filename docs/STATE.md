@@ -1,3 +1,50 @@
+## -17. Latest verified state — 2026-11-28 (candidate #167; per-finger grip profiles refined)
+
+This snapshot supersedes candidate #165 below. Candidate #167 is a green technical render plus selected-frame/crop inspection; M1 creative/audio acceptance remains open.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Working branch:** `m1/optics-benchmark`; latest code/test commit [`f488eb4`](https://github.com/Nolane-x/Nolane-video/commit/f488eb4765273767bfb973c7c244ce2908cfdd4c). Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate:** [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) completed **success** for Remotion, Motion Canvas and Manim.
+- **Contract:** [#50](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635396) completed **success** with 30 Python tests and benchmark validator. Motion Canvas arm IK/grip runtime tests, build/typecheck, 1,728-frame render and ffprobe all passed.
+
+### Candidate #167 outputs (downloaded and checked)
+
+- **Remotion 4.0.547:** H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15259127403`; ZIP digest `sha256:dea254938ce5d49ab128a03e1bb14611c2cfe830a5d48fc2a9ac1cecfbb1920f`.
+- **Motion Canvas 3.17.2:** H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames; official editor rendered 1,728/1,728 with zero browser errors. MP4 SHA-256 `497461e2d73aebfcbe18ec11429ff2db7480d93ba00de31d17711f148c32f517`; artifact id `15259560675`; ZIP digest `sha256:200f20dcb5bbf0bf1a597b4eb6c24ec44ec08c0bec3c295886d7701f5da22751`.
+- **Manim CE specialist segment:** H.264 1920×1080 yuv420p, 24/1 fps, 279 frames, 11.624674 s; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15259770495`; ZIP digest `sha256:944114f001fb01ad5117950d849abd765dbd83e3e143c867360ff060ab83acc9`.
+- Both full-film MP4s remain video-only/silent; no audio stream has been added.
+
+### Nia grip — distinct finger curvature and brace compression
+
+- `grip-geometry.ts` changes `wrapFinger` to accept separate start, middle and end radii. Index, middle, ring and pinky now use different wrap profiles instead of identical curves translated along the handle.
+- The `brace` pose draws the four finger contacts slightly closer together (along-axis centres remain at least 14 px apart) and narrows the across-axis wrap for each finger compared with `rest`. The thumb remains on the opposite side of the handle; the physical handle axis and grip anchor are unchanged.
+- Runtime `test-grip-geometry.mjs` now asserts four unique curvature profiles in both poses, positive-side approach, centreline crossing, negative-side wrap, minimum finger spacing and a smaller brace span for each finger.
+- Python contract #50 protects the distinct profile parameters and shared prop-local geometry; candidate #167 passed the runtime grip test, arm IK test, editor build and full render.
+- Native 1080p crops around 10.55–11.2 s were compared with #165. The difference is deliberately small: the digits have slightly differentiated wrap/taper and a tighter brace, but the hand still reads as a stylized vector construction rather than realistic anatomy. Palm volume, depth/occlusion and acting remain open.
+
+### Nia torso/shoulder counterbalance retained
+
+- Rest/lift/inspect body poses still move torso and neck with the shoulder target. Lift torso `[512,188]`/2.5°, neck `[512,35]`, shoulder `[431,94]`; inspect is the smaller 1.5° pose; rest returns to neutral.
+- `toArmPose` interpolates shoulder and wrist together, re-solving the elbow every frame; bone lengths remain 200/615 px. S02 uses lift/inspect/rest; S06 lift/inspect/lifted settle.
+- This is a modest counterbalance and connection fix, not naturalistic full-body acting.
+
+### Refraction/prop choreography retained
+
+- S03 reveals incident ray/true point, then refracted ray/observer point; S04 adds normal, angle labels and Snell formula.
+- S05 reveals dashed backward extension → coral `Vị trí thật` → pause → green apparent point/`Vị trí biểu kiến` and caption. Total stays 17 s, with a 13.85 s final hold that needs narration-led review.
+- S02/S06 use the −50° clear-out spoon pose and −44° inspection angle; bowl clears water/glass while the wrist remains within two-bone IK reach.
+
+### Still incomplete
+
+- Watch both 72-second films continuously at 24 fps and record shot/timecode-specific findings.
+- Judge S05's 13.85-second hold against approved Vietnamese VO and continuous playback.
+- Improve Nia's natural palm volume, finger depth/occlusion, thumb opposition, wrist roll, gaze, weight transfer and follow-through. Current hand/body remains vector stylized.
+- Review reduced/mobile typography; obtain approved Vietnamese VO/captions, add SFX/music and complete audio QA.
+- Measure authoring/preview/render/revision costs on equivalent runners; complete H2 source/license provenance before any reuse from `Nolane-x/video`.
+- **Do not mark M1 complete or begin broad Film IR/M2 yet.** Motion Canvas stays provisional first 2D adapter; Remotion baseline/reference; Manim specialist.
+
+---
+
 ## -16. Latest verified state — 2026-11-28 (candidate #164; Nia torso/shoulder counterbalance verified)
 
 This snapshot supersedes candidate #158 below. Candidate #164 is a green technical render plus selected-frame inspection; M1 creative/audio acceptance remains open.

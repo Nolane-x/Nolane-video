@@ -1,4 +1,21 @@
 **Review date:** 2026-11-28  
+**Latest reviewed candidate:** [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408); all three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. Native hand crops at 10.55/11.2/12.4 s were inspected and compared with #165.  
+**Scope:** candidate #167 contact sheet, selected S02 hand frames and render report. This remains sampled QA, **not** continuous 24-fps review or final creative approval; audio review remains open.
+
+## Candidate #167 — distinct finger-wrap profiles
+
+- Source commit [`f488eb4`](https://github.com/Nolane-x/Nolane-video/commit/f488eb4765273767bfb973c7c244ce2908cfdd4c); candidate [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) passed Remotion, Motion Canvas and Manim. Contract [#50](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635396) passed 30 Python tests and benchmark validator.
+- `wrapFinger` now accepts independent start/middle/end radii. Index, middle, ring and pinky have separate profiles; `brace` uses tighter offsets/radii than `rest`.
+- Runtime assertions confirm four distinct contour profiles, each finger crosses the handle axis and wraps to the far side, adjacent contact centres remain at least 14 px apart, and each brace wrap span is smaller than its rest span. The thumb stays opposed.
+- The prop node, grip anchor and spoon handle axis are unchanged. Arm IK and torso/shoulder counterbalance are unchanged.
+- Enlarged native crops around 10.55–11.2 s show slightly differentiated contours and a tighter brace compared with #165. This is a small silhouette refinement; it is not a transition to realistic anatomy. The palm/thumb still read graphically and depth/occlusion remain a creative task.
+- Motion Canvas MP4 SHA-256 `497461e2d73aebfcbe18ec11429ff2db7480d93ba00de31d17711f148c32f517`; artifact id `15259560675`; ZIP digest `sha256:200f20dcb5bbf0bf1a597b4eb6c24ec44ec08c0bec3c295886d7701f5da22751`.
+- Remotion MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15259127403`; ZIP digest `sha256:dea254938ce5d49ab128a03e1bb14611c2cfe830a5d48fc2a9ac1cecfbb1920f`.
+- Manim MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15259770495`; ZIP digest `sha256:944114f001fb01ad5117950d849abd765dbd83e3e143c867360ff060ab83acc9`.
+
+**Assessment:** the hand now avoids four exactly identical finger wrap contours and has a tighter brace pose while preserving physical contact. It remains stylized, and the improvement is subtle at film scale. M1 anatomy/acting acceptance remains open.
+
+**Review date:** 2026-11-28  
 **Latest reviewed candidate:** [#164](https://github.com/Nolane-x/Nolane-video/actions/runs/46131553339); all three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. Contact sheet and selected S02/S06 native frames were inspected for the torso/shoulder pose.  
 **Scope:** candidate #164 contact sheet, native torso/arm/prop frames and render report, plus earlier sampled candidates. This is **not** continuous 24-fps review or final creative approval; audio review remains open.
 

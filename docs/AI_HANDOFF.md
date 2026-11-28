@@ -1,3 +1,43 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #167; per-finger wrap profiles differentiated)
+
+Latest implementation/render is candidate #167; all three engine jobs and contract #50 are green. M1 creative/audio acceptance remains open.
+
+### GitHub state
+- Correct repository: `Nolane-x/Nolane-video`, branch `m1/optics-benchmark`.
+- Latest code/test commit [`f488eb4`](https://github.com/Nolane-x/Nolane-video/commit/f488eb4765273767bfb973c7c244ce2908cfdd4c); main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`.
+- Candidate [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) passed Remotion, Motion Canvas and Manim.
+- Contract [#50](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635396) passed 30 Python tests and benchmark validator.
+
+### Grip refinement
+- Each digit now has its own start/middle/end radius around the spoon handle. The four curves are no longer identical translated copies.
+- The `brace` pose slightly tightens the finger spacing and wrap compared with `rest`, while preserving at least 14 px along-axis separation, handle-centreline contact and opposing thumb closure.
+- Runtime grip tests assert the four contour profiles differ, all four fingers wrap across the handle, and every brace span is smaller than its corresponding rest span.
+- Prop attachment and handle geometry are unchanged. Candidate #167 rendered 1,728 frames; selected crops at 10.55–11.2 s show a subtle—not dramatic—difference. The hand is still stylized; this does not close anatomy approval.
+
+### Retained Nia counterbalance
+- Lift/inspect body poses move torso and neck with the shoulder target. The arm solver interpolates shoulder+wrist and re-solves elbow each frame; bone lengths stay 200/615 px.
+- S02 uses lift/inspect/rest; S06 lift/inspect/lifted settle. Grip remains attached to spoon prop.
+
+### Candidate #167 output evidence
+- Motion Canvas SHA-256 `497461e2d73aebfcbe18ec11429ff2db7480d93ba00de31d17711f148c32f517`; H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors.
+- Remotion SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; Manim segment SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- All outputs downloaded and ffprobed. Both full films remain silent/video-only.
+
+### Earlier scene work retained
+- S03 physical incident/refracted rays before S04 normal/angles/Snell formula.
+- S05 dashed backward extension → “Vị trí thật” → pause → apparent point/label/caption; total 17 s, final hold 13.85 s.
+- S02/S06 shared −50° clear-out / −44° inspection spoon pose; bowl above/outside glass and wrist within IK reach.
+
+### Exact next work
+1. Complete uninterrupted 24-fps review of both films and log shot/timecode defects.
+2. Evaluate the 13.85 s S05 hold against approved Vietnamese VO.
+3. Improve palm volume, finger depth/occlusion, thumb opposition, wrist roll and whole-body follow-through from observed visual defects.
+4. Review mobile typography; obtain approved VO, synchronize captions, add SFX/music and complete audio QA.
+5. Measure repeatable authoring/preview/render/revision cost and finish H2 provenance/license audit.
+6. Keep M1 open; do not start broad Film IR/M2 or claim creative approval.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #164; Nia counterbalance/IK verified)
 
 Latest implementation/render is candidate #164; all three engine jobs and contract #49 are green. M1 creative/audio acceptance remains open.
