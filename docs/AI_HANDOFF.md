@@ -1,3 +1,53 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #171 / contract #52; S05 caption parity)
+
+### Exact repository and branch
+
+- Work in **`Nolane-x/Nolane-video`** (Nolane Explainer Engine / NEE). This is not `Nolane-x/video`.
+- Continue on **`m1/optics-benchmark`**, not `main`. Implementation remains unmerged; `main` is still foundation/docs-only at `19b53bd0bf785a8d58a91031678be717a8ae11d4`.
+- Latest code/test commit: [`e6ce4a8`](https://github.com/Nolane-x/Nolane-video/commit/e6ce4a81659fe11bac54b450533863da36b79c6b) — S05 progressive-caption synchronization between Motion Canvas and Remotion.
+- Latest docs refreshes in this handoff pass: [README status refresh](https://github.com/Nolane-x/Nolane-video/commit/55b8b61f5fdf3f2ee40c879f0e06586f49c14477) and [STATE verification snapshot](https://github.com/Nolane-x/Nolane-video/commit/fc7f5753b8e0d8dc0b9fa3161af002696b2fbff3). This handoff update follows those commits.
+- Project identity/product rules: specialist code-first engine for story-driven, narration-led 2D/2.5D educational explainers, not a general video editor or text-to-video wrapper. Read `AGENTS.md` before code edits and keep the project boundary intact.
+
+### Latest verified GitHub evidence
+
+- Candidate [#171](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144320) (run ID `46136144320`) completed success; all jobs passed:
+  - Remotion 4.0.547 full film: parity test, typecheck, render, ffprobe, artifact upload. H.264 1920×1080, 24/1 fps, 72.000 s, 1,728 frames.
+  - Motion Canvas 3.17.2 full film: IK and grip runtime tests, editor build/typecheck, official editor image-sequence render, 1,728-frame H.264 1920×1080 / 24/1 fps / 72.000 s ffprobe gate, artifact upload. Logs record 1,728 PNGs and zero browser/render errors.
+  - Manim CE 0.22.1 specialist science segment: H.264 1920×1080, 279 frames, 11.624674 s, ffprobe and artifact upload.
+- Contract [#52](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144238) (run ID `46136144238`) completed success: 30 Python tests, benchmark validator, `duration_frames=1728`.
+- New commit `e6ce4a8` synchronizes S05 caption cues. Boundaries: frame 1056 = dashed virtual-ray extension explanation; 1099 = true underwater position; 1117 = apparent image closer to surface. The scene still reveals dashed extension → true-position label → apparent point/label and holds the S05 shot at 17 seconds.
+- Relevant source paths: `benchmarks/optics-spoon/motion-canvas/src/scenes/spoon.tsx`; `benchmarks/optics-spoon/remotion/src/benchmark-motion.ts`; `benchmarks/optics-spoon/remotion/src/OpticsSpoon.tsx`; `benchmarks/optics-spoon/remotion/scripts/test-parity.mjs`; `tests/test_benchmark.py`.
+- Candidate artifacts: Remotion `15259602611`; Motion Canvas `15259288248`; Manim `15260285182`; Motion Canvas diagnostics `15259507806`. Candidate artifacts are due to expire around 2026-12-28; diagnostics around 2026-12-12. Download/preserve needed artifacts before expiry.
+
+### Critical review boundary
+
+- The newest technical run is #171, but **the newest visually reviewed candidate remains #167**. Do not claim #171 has been watched or approved; this session inspected GitHub logs/artifact metadata but did not download or visually inspect the MP4s.
+- Both full 72-second films remain silent/video-only. There is no approved Vietnamese VO, transcript-aligned subtitle/audio deliverable, SFX or music.
+- Nia remains a stylized vector rig. The hand is not yet naturalistic; palm volume, finger depth/occlusion, thumb opposition, wrist roll and body acting remain open.
+- S05 has a 13.85-second final hold. Judge it against approved VO and continuous playback before changing its timing.
+- M1 is still open. Motion Canvas is the provisional first 2D scene adapter under ADR-0001; Remotion remains baseline/reference pending product-license review; Manim remains a specialist math/diagram adapter. Film IR has not yet been implemented as a production compiler.
+
+### Next concrete actions — do these in order
+
+1. Download #171 Remotion and Motion Canvas artifacts; inspect contact sheets plus the actual MP4s. Check S05 caption cuts at frames 1055/1056, 1098/1099 and 1116/1117. Download the Manim segment if needed for science review.
+2. Watch both full films continuously at 24 fps; log shot IDs, frame/timecodes, severity and evidence. Do not rely on contact sheets or selected crops as the full creative review.
+3. Check learning clarity, ray geometry, camera/staging, caption safe areas and typography at reduced/mobile sizes. Compare Motion Canvas and Remotion with the same benchmark script.
+4. Improve Nia only against observed defects: hand anatomy/depth/occlusion, wrist and shoulder connection, gaze, weight transfer, anticipation, reaction and follow-through.
+5. Obtain approved Vietnamese narration; align captions to actual audio, add SFX/music, and run audio measurements/perceptual QA. Revisit the 13.85-second S05 hold with narration in context.
+6. Measure scene authoring, preview latency, render and revision cost with repeated runs on equivalent runner classes; do not infer performance ranking from one-off or unlike runners.
+7. Complete the source/provenance/license audit of H2 in the separate `Nolane-x/video` repo before considering any reuse. Do not alter the separate `Nolane-x/remotion` or `Nolane-x/manim` research forks as a side effect.
+8. Keep M1 open until technical, visual, story, performance, typography and audio gates are evidenced. Only then confirm/refine the runtime decision and plan M2/M3 Film IR.
+
+### Session truth / what has not happened
+
+- This handoff refresh changed documentation only. No engine source or renderer dependency was changed, no new render was launched, and no code was merged to `main`.
+- No local clone, local branch state, or uncommitted working-tree changes were available for inspection in this session.
+- Candidate #171 videos were not downloaded or watched, no new visual review was completed, and creative/audio approval was not granted.
+
+For the full verified run metadata and exact artifact retention details, start with the newest `docs/STATE.md` snapshot. Continue to obey the session-close requirement: refresh `docs/STATE.md` and `docs/AI_HANDOFF.md` with evidence and explicit remaining work after every future code or investigation session.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #167; per-finger wrap profiles differentiated)
 
 Latest implementation/render is candidate #167; all three engine jobs and contract #50 are green. M1 creative/audio acceptance remains open.
