@@ -1,3 +1,15 @@
+## Latest all-green true/apparent position staging candidate — 2026-11-28 (candidate #158)
+
+This section supersedes candidate #156 below. It confirms a further S05 cue-order refinement and all three technical render gates; it is not creative approval.
+
+- Scene/test commit: `8b230d37630d622bf88048c2666fe5d7cb7175cc`.
+- Candidate [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649): Remotion, Motion Canvas and Manim all **success**. Contract [#47](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163646): 29 Python tests and benchmark validator **success**.
+- S05 reveals the dashed backward extension, holds it alone 1.0 s, shows the coral `Vị trí thật` label alone for 0.4 s, waits 0.35 s, then reveals the green apparent point/label and caption. Final hold is 13.85 s; exact 17 s total/checkpoint remain unchanged.
+- Motion Canvas: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. MP4 SHA-256 `37cda1eb7b8f3d8c5e309c5faaebccf63a498c1cb8037f8f16a090b0cf72bd00`; artifact id `15255069488`; ZIP digest `sha256:06a26519a846d660068ec347a3126a66a54a28a1d4f0b6179b6ed91b8261b1b3`.
+- Remotion: H.264 1920×1080, 24 fps, 72 s, 1,728 frames. MP4 SHA-256 `f6b1cf4ac28d7c43c9eec3940472eb1303c65ed9ada29ecc798000b810301a67`; artifact id `15256081226`; ZIP digest `sha256:c35c6755b07808d7e8ad91b745298d785b247dd305fa4739d249079c7bb7b92b`.
+- Manim specialist segment: H.264 1920×1080, 279 frames, 11.624674 s. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15255333723`; ZIP digest `sha256:b5dbf277be79f74a1f44f8b827a248a355273f51f7d6462fe36809044eab340c`.
+- Samples at S05 44.2–47.2 s confirm the label order. The 13.85 s hold needs narration-led review. Full-film MP4s remain silent/video-only; M1 remains open.
+
 ## Latest all-green S05 staged virtual-ray candidate — 2026-11-28 (candidate #156)
 
 This section supersedes the candidate #154 snapshot below. It confirms the S05 source/test change and all three technical render gates; it is not creative approval.

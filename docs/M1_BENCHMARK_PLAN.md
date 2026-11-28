@@ -97,6 +97,16 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest true/apparent position staging — 2026-11-28 (candidate #158)
+
+- S05 now names the real underwater source before introducing the apparent image.
+- After the dashed backward extension and its 1.0 s solo hold, the coral `Vị trí thật` label fades in alone for 0.4 s; a 0.35 s pause separates it from the apparent image.
+- The green apparent point, `Vị trí biểu kiến` label and explanatory caption then appear. Final static hold is 13.85 s.
+- Total S05 remains exactly 17 s: 0.8 + 1.0 + 0.4 + 0.35 + 0.6 + 13.85. Checkpoint and shot boundary are unchanged.
+- Contract [#47](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163646) passes 29 tests and validator. Candidate [#158](https://github.com/Nolane-x/Nolane-video/actions/runs/46126163649) passes all three engines.
+- Motion Canvas: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors; MP4 SHA-256 `37cda1eb7b8f3d8c5e309c5faaebccf63a498c1cb8037f8f16a090b0cf72bd00`.
+- Native frames at 44.2/44.8/45.5/46.2/47.2 s show the true label before the apparent point/label. This remains sampled review; the 13.85 s hold must be judged with approved narration and continuous playback.
+
 ## Latest S05 backward-construction reveal — 2026-11-28
 
 - S05 previously revealed the dashed backward ray, apparent point and labels nearly together, then held the finished layout for 15.6 seconds.
