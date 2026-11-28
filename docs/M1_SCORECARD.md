@@ -1,7 +1,7 @@
 # M1 Candidate Scorecard — The Spoon That Bends
 
-**Snapshot:** 2026-11-28 — latest technical candidate #167 and contract validation #50 (30 tests).  
-**Status:** candidate technical comparison complete; creative/audio acceptance still open. No overall numeric score is assigned.  
+**Snapshot:** 2026-11-28 — latest technical candidate #175 and contract validation #53 (30 tests); selected-frame camera review completed.  
+**Status:** technical candidate parity remains green; #175 has sampled contact-sheet/native-frame review, but continuous 24-fps and creative/audio acceptance remain open. No overall numeric score is assigned.  
 **Architecture decision:** Motion Canvas is provisionally selected as the first 2D scene adapter under [ADR-0001](adr/ADR-0001-motion-canvas-first-2d-runtime.md).
 
 ## Benchmark contract
@@ -16,12 +16,12 @@
 | Dimension | Remotion 4.0.547 | Motion Canvas 3.17.2 | Manim CE fork |
 |---|---|---|---|
 | Intended role | Full-film baseline / possible adapter | First 2D/2.5D scene runtime (provisional) | Specialist diagram adapter |
-| Latest green candidate run | [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) | [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) | [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) |
-| Latest Actions artifact ZIP digest | `sha256:dea254938ce5d49ab128a03e1bb14611c2cfe830a5d48fc2a9ac1cecfbb1920f` | `sha256:200f20dcb5bbf0bf1a597b4eb6c24ec44ec08c0bec3c295886d7701f5da22751` | `sha256:944114f001fb01ad5117950d849abd765dbd83e3e143c867360ff060ab83acc9` |
-| Latest MP4 SHA-256 | `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2` | `497461e2d73aebfcbe18ec11429ff2db7480d93ba00de31d17711f148c32f517` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
+| Latest green candidate run | [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) | [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) | [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) |
+| Latest Actions artifact ZIP digest | `sha256:bcf7336cd6ee3ca89c2840b26036747c92d993d16ea40b6151a05f78842d8ce6` | `sha256:f44a2a41a1d4643d3a621851f29fa1b0de5958fccac0a06047527d9386f9f387` | `sha256:065e0fe8fc4a869d123d42004b585540fbedfa818089ebc9a71cebb58fccc1e4` |
+| Latest MP4 SHA-256 | `775152a8a1f6e5f0cd8c4745c9522db95a907e828204c158e11cad03bd074f4e` | `8ec191e235ab28ca36477be47f9cef568a7175f0d26c50fef6ace0ba55c95882` | `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7` |
 | Output metadata | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 11.624674 s, 279 frames |
 | Technical result | PASS: typecheck, full render, H.264/24 fps/1,728-frame ffprobe gate and upload | PASS: official editor build, 1,728 unique sequential frames, H.264/24 fps/1,728-frame ffprobe gate, zero browser errors and upload | PASS: pinned fork install, H.264/24 fps/279-frame gate, ffprobe and upload |
-| Visual review | Candidate #167 parity render is green; sampled stills only, not a continuous 24-fps watch | Candidate #167 MP4 downloaded/ffprobed; native hand crops at 10.55/11.2/12.4 s checked against #165. Per-finger contour differences are subtle; not a continuous 24-fps watch | Candidate #167 specialist diagram render and ffprobe passed; full creative review remains limited |
+| Visual review | #175 contact sheet and selected native frames around S01/S03/S06 checked; not a continuous 24-fps watch | #175 contact sheet and selected camera/S05 frames checked; not a continuous 24-fps watch | #175 specialist segment technically checked; no full creative review claimed |
 | Scientific geometry | PASS on reviewed diagram | PASS against shared diagram model | PASS on reviewed diagram |
 | Character acting | S02 storyboard beats render; character remains a stylized vector blockout with anatomy, weight, acting and follow-through not approved | Per-finger/palm articulation remains prop-local; clear-out transform moves the bowl above/outside the glass with the wrist following the same transform. Still vector blocking; body counterbalance, organic hand depth and final acting are not approved | Not applicable to specialist role |
 | Diagram choreography | NEEDS CREATIVE REVIEW | S03/S04 physical-ray/angle order is staged; S05 reveals backward extension, then true-position label, then apparent point/label/caption. The 13.85 s final hold needs VO-led continuous pacing/camera/comprehension review |
@@ -36,11 +36,11 @@
 | Story and learning objective | PARTIAL PASS | Six-shot sequence renders; complete 24 fps comprehension review remains |
 | Scientific correctness | PASS for reviewed geometry | Shared Snell/geometry validator and native-resolution diagrams pass |
 | Deterministic frame output | PASS | Both full-film engines: exactly 1,728 frames; Manim segment: 279 frames |
-| Technical media export | PASS | All three candidate jobs green in run [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408) |
+| Technical media export | PASS | All three candidate jobs green in run [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137); contract #53 also passed 30 tests |
 | Visual readability | PASS at reviewed native frames; reduced/mobile-size check open | Remotion caption safe area, Motion Canvas angle labels and Manim font/palette fixed |
 | Diagram choreography | NEEDS CREATIVE REVIEW | S03/S04 causal ray order and S05's dashed-extension → true-position label → apparent-point reveal are implemented and sampled; the 13.85 s S05 hold, camera framing and learning comprehension still need narration-led continuous review |
 | Acting, prop contact and continuity | PARTIAL / NOT APPROVED | S02/S06 clear-out transform remains shared with wrist IK; torso/neck counterbalance is coupled to the moving shoulder. Four fingers now use distinct wrap profiles and brace compression, but the palm/thumb/depth still read graphically. Need natural palm volume, depth/occlusion, wrist roll, weight transfer, gaze, reaction and follow-through |
-| Camera and editing | PARTIAL | Current movement/transitions are basic; use motivated framing and preserve spatial continuity |
+| Camera and editing | PARTIAL — Remotion now has deterministic 2.5% S01/S06 push-ins with S03 reset; sampled frames show no obvious crop loss, but continuous review remains open | Motion Canvas has the matching camera beat; inspect both films continuously and at mobile size |
 | Audio/narration/captions | NOT TESTED | Add approved real VO, transcript alignment, SFX and music before audio acceptance |
 | Reproducibility and revision cost | PARTIAL | Pinned versions and repeatable CI exist; controlled timing and authoring/revision measurements remain |
 | Licensing/reuse | PARTIAL | Motion Canvas/Manim core suitable under inspected MIT licenses; review Remotion distribution model; H2 provenance audit open |

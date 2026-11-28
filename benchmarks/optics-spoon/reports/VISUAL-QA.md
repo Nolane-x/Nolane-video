@@ -1,7 +1,18 @@
 **Review date:** 2026-11-28  
-**Latest technical candidate:** [#171](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144320) passed all three engine CI jobs; contract [#52](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144238) passed 30 tests and benchmark validation. Candidate #171 has not yet been visually inspected.  
-**Latest visually reviewed candidate:** [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408); all three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. Native hand crops at 10.55/11.2/12.4 s were inspected and compared with #165.  
-**Scope:** candidate #167 contact sheet, selected S02 hand frames and render report. This remains sampled QA, **not** continuous 24-fps review or final creative approval; audio review remains open.
+**Latest technical candidate:** [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) passed all three renderer jobs; contract [#53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123) passed 30 tests and benchmark validation.  
+**Latest sampled visual review:** [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137); both Remotion and Motion Canvas contact sheets and selected native-resolution frames around S01, S03, S06 and S05 were inspected.  
+**Scope:** contact sheets plus selected frames; **not** uninterrupted 24-fps playback, mobile-type sign-off, final creative approval or audio review.
+
+## Candidate #175 — Remotion camera parity (sampled review)
+
+- Source commit [`0425437`](https://github.com/Nolane-x/Nolane-video/commit/042543767e68b2003b1218ece001185203202286); candidate [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) passed Remotion, Motion Canvas and Manim. Contract [#53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123) passed 30 Python tests and benchmark validation.
+- Remotion's new `cameraScaleAt(globalFrame)` matches the existing Motion Canvas camera beats: S01 moves from baseline to 1.025 scale over frames 31–65; S03 returns to baseline over frames 432–451; S06 moves to 1.025 over frames 1546–1570 and holds through frame 1727.
+- The transform is centered on the 1920×1080 canvas and includes the caption overlay. It changes framing only; storyboard durations, optical ray geometry and S05 caption timing are unchanged.
+- Remotion MP4: H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames; SHA-256 `775152a8a1f6e5f0cd8c4745c9522db95a907e828204c158e11cad03bd074f4e`, artifact `15262995737`.
+- Motion Canvas MP4: H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames; SHA-256 `8ec191e235ab28ca36477be47f9cef568a7175f0d26c50fef6ace0ba55c95882`, artifact `15263075327`; the render log reports 1,728 PNGs and zero browser/render errors.
+- Manim specialist segment: H.264 1920×1080, 279 frames, 11.624674 s; SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`, artifact `15261894499`.
+- Inspected contact sheets and selected native frames across S01 early/push-in, S03 reset, S06 push-in/final hold, and S05 at approximately 45.5/46.5/47.0 seconds. The move is restrained; inspected samples show no obvious clipping of Nia or the bottom caption overlay. S05 samples preserve backward-ray explanation → true position → apparent image.
+- Assessment: camera framing parity is implemented and sampled output is technically sound. This is **not** a full-speed playback review; do not claim complete-film pacing, acting or camera craft has been approved. Nia remains a stylized vector rig. Both full-film outputs are silent and no audio QA has been completed.
 
 ## Candidate #167 — distinct finger-wrap profiles
 

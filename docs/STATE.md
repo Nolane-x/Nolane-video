@@ -1,3 +1,41 @@
+## -19. Latest verified state — 2026-11-28 (candidate #175 / contract #53; Remotion camera parity)
+
+This snapshot supersedes the candidate #171 technical snapshot. Candidate #175 passes all three renderer jobs and the 30-test contract. It is the latest **sampled visual review**, not approval after uninterrupted full-speed playback.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Implementation branch:** `m1/optics-benchmark`. Code commit [`0425437`](https://github.com/Nolane-x/Nolane-video/commit/042543767e68b2003b1218ece001185203202286) — `feat(m1): align Remotion camera push-ins with Motion Canvas`.
+- **Branch split:** `main` remains foundation/docs-only at `19b53bd0bf785a8d58a91031678be717a8ae11d4`. No merge to main occurred in this work.
+- **Candidate:** [workflow #175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137), run ID `46142711137`, completed **success**. All three jobs passed:
+  - **Remotion 4.0.547:** full-film render, deterministic parity check, TypeScript type-check, ffprobe and artifact upload passed. H.264 1920×1080, 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `775152a8a1f6e5f0cd8c4745c9522db95a907e828204c158e11cad03bd074f4e`; artifact ID `15262995737`; ZIP digest `sha256:bcf7336cd6ee3ca89c2840b26036747c92d993d16ea40b6151a05f78842d8ce6`.
+  - **Motion Canvas 3.17.2:** IK test, prop-attached grip test, editor build/type-check, official editor render of 1,728 PNG frames, ffprobe and artifact upload passed. Logs report zero browser/render errors. H.264 1920×1080, 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `8ec191e235ab28ca36477be47f9cef568a7175f0d26c50fef6ace0ba55c95882`; artifact ID `15263075327`; ZIP digest `sha256:f44a2a41a1d4643d3a621851f29fa1b0de5958fccac0a06047527d9386f9f387`.
+  - **Manim CE 0.22.1:** specialist scientific segment H.264 1920×1080, 279 frames, 11.624674 s; ffprobe and artifact upload passed. MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact ID `15261894499`; ZIP digest `sha256:065e0fe8fc4a869d123d42004b585540fbedfa818089ebc9a71cebb58fccc1e4`.
+- **Contract:** [workflow #53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123), run ID `46142711123`, completed **success**. Log confirms `Ran 30 tests`, `OK`, `BENCHMARK VALIDATION PASSED`, `duration_frames=1728`.
+- **Code change:** `cameraScaleAt(globalFrame)` adds Remotion camera parity with existing Motion Canvas beats. S01 moves from baseline to 1.025 scale over frames 31–65, holds through the shot and resets during the diagram cutaway over frames 432–451. S06 moves from baseline to 1.025 over frames 1546–1570 and holds through frame 1727. The easing is deterministic `easeInOutCubic`; the centered SVG group includes the scene and caption overlay. No storyboard duration or scientific geometry changed.
+- **Runtime tests:** Remotion parity tests assert camera scale at entry, midpoint, endpoint, S03 reset midpoint/end, S06 endpoint/final hold and invalid NaN input. Python source-contract tests protect the camera curve and render wiring. Contract #53 passed all 30 tests.
+- **Visual review scope:** both #175 contact sheets and selected native-resolution frames were inspected. Samples covered S01 early/push-in frames, S03 transition/reset, S06 push-in/final hold, and S05 caption stages. The 2.5% move remains restrained; no obvious loss of Nia or the caption overlay appeared in sampled frames. This is **sampled QA only**; neither complete film has yet been watched continuously at 24 fps.
+- **Audio truth:** both full-film MP4s remain silent/video-only. No approved Vietnamese voice-over, transcript-aligned audio captions, SFX or music has been integrated.
+- **Project phase:** M1 — comparable benchmark and architecture decision, still in progress. Motion Canvas remains provisional first 2D scene adapter under ADR-0001; Remotion remains baseline/reference; Manim remains specialist diagram renderer. Film IR remains renderer-independent and is not yet implemented as a production compiler.
+
+### Exact next work
+
+1. Watch both full 72-second films continuously at 24 fps; record shot IDs, frame/timecodes, severity and evidence. Contact sheets and selected stills do not close this gate.
+2. Review the camera transition in real-time, especially S01 to S03 and the S06 final hold, and check typography/safe areas at reduced/mobile size.
+3. Evaluate Nia's palm volume, finger depth/occlusion, thumb opposition, wrist roll, gaze, weight transfer, reaction and follow-through from observed defects.
+4. Judge S05's 13.85-second hold against approved Vietnamese narration before changing its duration.
+5. Obtain approved Vietnamese VO, align captions to actual speech, add SFX/music and complete technical/perceptual audio QA.
+6. Measure authoring, preview, render and revision costs under repeated, equivalent conditions.
+7. Complete H2 source/provenance/license audit before reuse from separate `Nolane-x/video`.
+8. Keep M1 open until scientific, story, visual, motion, camera, typography, audio and reproducibility gates have evidence. Do not start broad M2/M3 prematurely.
+
+### What this verification did not do
+
+- Did not watch either complete film continuously at 24 fps.
+- Did not obtain/synthesize voice-over, add audio, or approve creative quality.
+- Did not complete mobile typography or performance/revision-cost studies.
+- Did not merge implementation branch into `main`.
+
+---
+
 ## -18. Latest repository verification — 2026-11-28 (candidate #171 / contract #52)
 
 This snapshot supersedes the candidate #167 **technical** status below. Candidate #171 passed all current CI render jobs, but it has **not** yet received a new visual review. Candidate #167 remains the latest visually reviewed candidate; do not equate a green render with creative acceptance.

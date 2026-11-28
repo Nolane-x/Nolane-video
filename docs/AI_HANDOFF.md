@@ -1,3 +1,59 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #175 / contract #53; camera parity verified)
+
+### Exact repository and branch
+
+- Correct repo: **`Nolane-x/Nolane-video`**, not `Nolane-x/video`.
+- Continue on **`m1/optics-benchmark`**. `main` remains foundation/docs-only at `19b53bd0bf785a8d58a91031678be717a8ae11d4`.
+- Latest code commit: [`0425437`](https://github.com/Nolane-x/Nolane-video/commit/042543767e68b2003b1218ece001185203202286) — `feat(m1): align Remotion camera push-ins with Motion Canvas`.
+- Scope remains specialist story-driven, narration-led 2D/2.5D educational explainers. Read `AGENTS.md` before further edits.
+
+### Latest verified CI
+
+- Candidate [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) completed success; Remotion 4.0.547, Motion Canvas 3.17.2 and Manim CE 0.22.1 jobs all passed.
+- Contract [#53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123) completed success: 30 Python tests, benchmark validator and `duration_frames=1728`.
+- Remotion full film: H.264, 1920×1080, 24 fps, 72 s, 1,728 frames; MP4 SHA-256 `775152a8a1f6e5f0cd8c4745c9522db95a907e828204c158e11cad03bd074f4e`, artifact `15262995737`, ZIP digest `sha256:bcf7336cd6ee3ca89c2840b26036747c92d993d16ea40b6151a05f78842d8ce6`.
+- Motion Canvas full film: H.264, 1920×1080, 24 fps, 72 s, 1,728 frames; MP4 SHA-256 `8ec191e235ab28ca36477be47f9cef568a7175f0d26c50fef6ace0ba55c95882`, artifact `15263075327`, ZIP digest `sha256:f44a2a41a1d4643d3a621851f29fa1b0de5958fccac0a06047527d9386f9f387`. Official editor logs: 1,728 PNGs, zero browser/render errors.
+- Manim specialist segment: H.264 1920×1080, 279 frames, 11.624674 s; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`, artifact `15261894499`, ZIP digest `sha256:065e0fe8fc4a869d123d42004b585540fbedfa818089ebc9a71cebb58fccc1e4`.
+
+### Camera-parity implementation
+
+The helper `cameraScaleAt(globalFrame)` in `benchmarks/optics-spoon/remotion/src/benchmark-motion.ts` maps existing Motion Canvas camera beats into Remotion:
+
+- S01 push-in: frames 31–65, eased to scale 1.025.
+- S03 reset: frames 432–451, back to scale 1.0.
+- S06 push-in: frames 1546–1570, eased to scale 1.025 and held through frame 1727.
+
+The centered transform covers the complete Remotion composition, including captions. Shot durations, ray geometry and S05 caption cues are unchanged. Runtime parity checks and Python source-contract tests assert the curve, wiring, reset and final hold.
+
+Changed files: `remotion/src/benchmark-motion.ts`, `remotion/src/OpticsSpoon.tsx`, `remotion/scripts/test-parity.mjs`, `tests/test_benchmark.py`.
+
+### Visual-review boundary
+
+Candidate #175 is the latest **sampled visual review**. Both contact sheets and selected native frames around S01, S03 reset, S06 push-in/final hold and S05 were inspected. The 2.5% move is restrained; no obvious clipping of Nia or the caption overlay appeared in inspected frames.
+
+This is **not** continuous 24-fps playback, mobile-type sign-off, or creative approval. Both films are silent; no approved Vietnamese VO, transcript-aligned audio captions, SFX or music are present. Nia remains a stylized vector rig. S05's 13.85-second hold still needs VO-led review.
+
+### Next actions
+
+1. Watch both full 72-second films continuously at 24 fps and log frame/timecode findings, especially camera transitions and prop/character continuity.
+2. Check labels/captions at reduced mobile size and safe margins throughout the camera move.
+3. Improve Nia's hand anatomy/depth/occlusion, wrist/shoulder coupling, gaze, weight shift and follow-through only from observed defects.
+4. Obtain approved Vietnamese VO, align captions to actual speech, add SFX/music, and complete audio QA. Evaluate S05 hold with VO.
+5. Measure authoring/preview/render/revision costs on equivalent repeated runs.
+6. Complete H2 source/provenance/license audit before any reuse from `Nolane-x/video`.
+7. Keep M1 open until creative/audio/performance gates are evidenced; do not begin broad Film IR/M2 just because render CI is green.
+
+### Not done
+
+- No uninterrupted 24-fps viewing of either complete film.
+- No approved VO, audio track, transcript sync, SFX/music or audio QA.
+- No mobile typography sign-off, repeated performance study, or H2 provenance clearance.
+- No changes to `main` and no merge.
+
+Start with this snapshot and the latest `docs/STATE.md`; refresh both state and handoff after each later investigation/change.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #171 / contract #52; S05 caption parity)
 
 ### Exact repository and branch

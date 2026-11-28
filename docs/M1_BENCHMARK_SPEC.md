@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Date:** 2026-11-26  
-**Status:** Candidate #171 and contract #52 verify the current cross-renderer build and 30-test contract; the latest source update aligns progressive S05 caption cues across Motion Canvas and Remotion. The latest visually reviewed candidate remains #167; creative, anatomy, audio and performance acceptance remain open.
+**Status:** Candidate #175 and contract #53 verify the current cross-renderer build and 30-test contract. Commit [`0425437`](https://github.com/Nolane-x/Nolane-video/commit/042543767e68b2003b1218ece001185203202286) aligns Remotion's S01/S06 camera push-ins with Motion Canvas using a frame-deterministic 2.5% scale and S03 reset. Candidate #175 has sampled contact-sheet/native-frame review; uninterrupted creative, anatomy, audio and performance acceptance remain open.
 
 ## 1. Purpose
 
@@ -150,6 +150,8 @@ A technically successful render is only one gate. The film must also pass scient
 
 ## 10. Current status
 
-The latest code/test commit is [`e6ce4a8`](https://github.com/Nolane-x/Nolane-video/commit/e6ce4a81659fe11bac54b450533863da36b79c6b). Candidate workflow [#171](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144320) passes all three renderer jobs: Remotion 4.0.547 and Motion Canvas 3.17.2 each render the full 72-second / 1,728-frame film at H.264 1920×1080 / 24 fps; Manim CE 0.22.1 renders the 279-frame S04–S05 specialist segment. Contract CI [#52](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144238) passes 30 Python tests and the benchmark validator. The latest source change synchronizes the progressive S05 captions across Motion Canvas and Remotion at frames 1056, 1099 and 1117.
+The latest implementation commit is [`0425437`](https://github.com/Nolane-x/Nolane-video/commit/042543767e68b2003b1218ece001185203202286), bringing Remotion's camera choreography into parity with the existing Motion Canvas S01 push-in, S03 reset and S06 closing push-in. Candidate [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) passes Remotion 4.0.547, Motion Canvas 3.17.2 and Manim CE 0.22.1. Both full-film outputs passed H.264, 1920×1080, 24 fps, 72.000 s and 1,728-frame gates. Manim's specialist segment passed at 279 frames / 11.624674 s. Contract [#53](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711123) passed 30 Python tests and the benchmark validator.
 
-Candidate #171 is the latest technical render, but the latest visually reviewed candidate remains #167. The outputs are not a final approved film: both full-film renders remain silent/video-only, and full-speed 24-fps playback, learning comprehension, organic hand/body anatomy and acting, S05 narration-led pacing, mobile typography, approved Vietnamese voice-over, transcript/audio synchronization, SFX/music, repeated authoring/revision measurements and H2 provenance/license review remain open. No overall artistic or performance ranking is assigned until comparable evidence and those reviews are complete.
+The camera movement is a restrained 2.5% scale change with deterministic ease-in-out timing. Runtime assertions cover the S01 entry/midpoint/end, S03 reset, S06 entry/midpoint/end, final hold and invalid numeric input. Candidate #175 contact sheets and selected native frames around S01, S03, S06 and S05 were inspected; no obvious subject/caption crop loss appeared in these samples. This is sampled review, **not** a continuous 24-fps creative approval.
+
+M1 remains open for full-speed review, Nia's anatomy/acting/prop contact, S05's 13.85-second hold with approved narration, mobile typography, approved Vietnamese VO, transcript/audio synchronization, SFX/music, repeated authoring/revision-cost measurement and H2 provenance/license review. Both full-film videos are silent. No overall artistic or performance ranking is assigned.
