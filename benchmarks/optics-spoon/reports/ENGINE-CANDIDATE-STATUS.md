@@ -1,3 +1,18 @@
+## Latest technical all-green candidate — 2026-11-28 (candidate #171 / contract #52)
+
+This is the newest technical render/validation snapshot. It supersedes the previous CI status below, but it does **not** supersede candidate #167 as the latest visually reviewed output. No candidate #171 MP4 was downloaded or visually inspected when this entry was written.
+
+- Code commit: [`e6ce4a8`](https://github.com/Nolane-x/Nolane-video/commit/e6ce4a81659fe11bac54b450533863da36b79c6b), `fix(m1): synchronize progressive S05 captions across engines`.
+- Candidate [#171](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144320): Remotion 4.0.547, Motion Canvas 3.17.2 and Manim CE 0.22.1 jobs all **success**.
+- Contract [#52](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144238): **30 Python tests passed**, benchmark validator passed, `duration_frames=1728`.
+- Remotion: H.264, 1920×1080, 24/1 fps, 72.000 s, 1,728 frames; typecheck, deterministic parity, render, ffprobe and upload passed.
+- Motion Canvas: official editor build, IK/grip runtime tests, 1,728-frame render, H.264 1920×1080, 24/1 fps, 72.000 s; ffprobe and upload passed. Logs record 1,728 PNG frames and no browser/render errors.
+- Manim: H.264 1920×1080, 279 frames, 11.624674 s; ffprobe and upload passed.
+- S05 caption synchronization: frame 1056 introduces the backward-extension explanation; frame 1099 introduces the true-position explanation; frame 1117 introduces the apparent-image explanation. The reveal order and 17-second S05 duration remain unchanged.
+- Artifacts: Remotion `15259602611`; Motion Canvas `15259288248`; Manim `15260285182`; Motion Canvas diagnostics `15259507806`. Candidate artifacts expire around 2026-12-28; diagnostics around 2026-12-12.
+- No MP4 SHA-256 values are recorded here because the #171 videos were not downloaded and independently hashed in this review. Do not reuse #167 checksums as if they belonged to #171.
+- The full-film candidates remain silent/video-only. M1 creative acceptance, uninterrupted 24-fps review, Nia anatomy/acting, S05 VO-led pacing, mobile typography, audio QA, comparable performance/revision measurements and H2 provenance/license review remain open.
+
 ## Latest all-green differentiated finger-wrap candidate — 2026-11-28 (candidate #167)
 
 This section supersedes candidate #165 below. It verifies four distinct prop-local finger wrap profiles and a tighter brace pose; it is not natural anatomy approval.
