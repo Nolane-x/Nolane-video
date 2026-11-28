@@ -16,7 +16,7 @@
 | Dimension | Remotion 4.0.547 | Motion Canvas 3.17.2 | Manim CE fork |
 |---|---|---|---|
 | Intended role | Full-film baseline / possible adapter | First 2D/2.5D scene runtime (provisional) | Specialist diagram adapter |
-| Latest green candidate run | [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477) | [#175](https://github.com/Nolane-x/Nolane-video/actions/runs/46142711137) | [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477) |
+| Latest green candidate run | [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477) | [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477) | [#185](https://github.com/Nolane-x/Nolane-video/actions/runs/46160076477) |
 | Latest Actions artifact ZIP digest | `sha256:39dfe3a6945e8930bfde3d38b717812f5bf90846d22ba91f2d30d73eec4c4af7` | `sha256:a6d077ca39523b548a02c1b77ddc0f04ad307900a1f8e99323bbc171b31416fb` | `sha256:495ee1ea1c47b0d8539436d669eb7dd3357f18d84378745a25b567a0bad2426c` |
 | Latest MP4 SHA-256 | `288118afaa584bc75aca61e6375a54f6c481a17d1f87f33cf6befbfef915be87` | `8ec191e235ab28ca36477be47f9cef568a7175f0d26c50fef6ace0ba55c95882` | Not included in candidate ZIP |
 | Output metadata | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 72.000 s, 1,728 frames | H.264, 1920×1080, yuv420p, 24 fps, 11.624674 s, 279 frames |
