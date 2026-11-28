@@ -62,3 +62,17 @@ export const diagramMotionAt = (globalFrame: number): DiagramMotion => {
     apparent: progressBetween(globalFrame, 1117, 1132)
   };
 };
+
+/** Shot-level caption schedule; S05 narrates the same staged construction as Motion Canvas. */
+export const diagramCaptionAt = (frame: number): string => {
+  if (!Number.isFinite(frame)) throw new TypeError("Caption frame must be finite.");
+  if (frame < 192) return "Vì sao chiếc thìa trông như bị gãy?";
+  if (frame < 432) return "Chiếc thìa vẫn thẳng.";
+  if (frame < 672) return "Ánh sáng đi qua mặt phân cách.";
+  if (frame < 1056) return "Nước → Không khí: tia sáng lệch xa pháp tuyến.";
+  if (frame < 1099) return "Kéo dài tia khúc xạ ngược về phía dưới nước.";
+  if (frame < 1117) return "Đây là vị trí thật của thìa dưới nước.";
+  if (frame < 1464) return "Ảnh biểu kiến nằm gần mặt nước hơn vị trí thật.";
+  return "Vật không cong. Đường đi của ánh sáng đổi hướng.";
+};
+

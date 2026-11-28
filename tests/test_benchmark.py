@@ -144,7 +144,15 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertLess(comparison_pause, apparent_point)
         self.assertIn("optics.apparentLabel().opacity(1, 0.6)", s05)
         self.assertIn(
-            'optics.diagramCaption().text("Mắt kéo dài tia khúc xạ về vị trí biểu kiến.", 0.6)',
+            'optics.diagramCaption().text("Kéo dài tia khúc xạ ngược về phía dưới nước.", 0.8)',
+            s05,
+        )
+        self.assertIn(
+            'optics.diagramCaption().text("Đây là vị trí thật của thìa dưới nước.", 0.4)',
+            s05,
+        )
+        self.assertIn(
+            'optics.diagramCaption().text("Ảnh biểu kiến nằm gần mặt nước hơn vị trí thật.", 0.6)',
             s05,
         )
         self.assertIn("yield* waitFor(13.85)", s05)
@@ -795,6 +803,13 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("opacity={reveal.trueLabel}", source)
         self.assertIn("true-position label waits for the construction hold", runtime_test)
         self.assertIn("apparent point waits after the true-position label", runtime_test)
+        self.assertIn("export const diagramCaptionAt", motion_source)
+        self.assertIn("frame < 1099) return \"Kéo dài tia khúc xạ ngược về phía dưới nước.\"", motion_source)
+        self.assertIn("frame < 1117) return \"Đây là vị trí thật của thìa dưới nước.\"", motion_source)
+        self.assertIn("const text = diagramCaptionAt(frame)", source)
+        self.assertIn("diagramCaptionAt(1056)", runtime_test)
+        self.assertIn("diagramCaptionAt(1099)", runtime_test)
+        self.assertIn("diagramCaptionAt(1117)", runtime_test)
         package = json.loads((root / "package.json").read_text(encoding="utf-8"))
         workflow = (
             Path(__file__).resolve().parents[1]

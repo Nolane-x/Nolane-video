@@ -11,7 +11,7 @@ const compiled = ts.transpileModule(source, {
 const errors = (compiled.diagnostics ?? []).filter(d => d.category === ts.DiagnosticCategory.Error);
 assert.equal(errors.length, 0, "benchmark motion module must transpile without errors");
 const encoded = Buffer.from(compiled.outputText, "utf8").toString("base64");
-const {s02MotionAt, diagramMotionAt} = await import("data:text/javascript;base64," + encoded);
+const {s02MotionAt, diagramMotionAt, diagramCaptionAt} = await import("data:text/javascript;base64," + encoded);
 const near = (actual, expected, tolerance, label) => {
   assert.ok(Math.abs(actual - expected) <= tolerance, label + ": expected " + expected + ", received " + actual);
 };
@@ -53,6 +53,13 @@ near(diagramMotionAt(1098).trueLabel, 0, 1e-9, "true-position label waits for th
 near(diagramMotionAt(1109).trueLabel, 1, 1e-9, "true-position label reveal");
 near(diagramMotionAt(1116).apparent, 0, 1e-9, "apparent point waits after the true-position label");
 near(diagramMotionAt(1132).apparent, 1, 1e-9, "apparent point reveal");
+assert.equal(diagramCaptionAt(1055), "Nước → Không khí: tia sáng lệch xa pháp tuyến.");
+assert.equal(diagramCaptionAt(1056), "Kéo dài tia khúc xạ ngược về phía dưới nước.");
+assert.equal(diagramCaptionAt(1098), "Kéo dài tia khúc xạ ngược về phía dưới nước.");
+assert.equal(diagramCaptionAt(1099), "Đây là vị trí thật của thìa dưới nước.");
+assert.equal(diagramCaptionAt(1116), "Đây là vị trí thật của thìa dưới nước.");
+assert.equal(diagramCaptionAt(1117), "Ảnh biểu kiến nằm gần mặt nước hơn vị trí thật.");
+assert.throws(() => diagramCaptionAt(Number.NaN), {name: "TypeError"});
 assert.throws(() => s02MotionAt(Number.NaN), {name: "TypeError"});
 assert.throws(() => diagramMotionAt(Number.POSITIVE_INFINITY), {name: "TypeError"});
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {AbsoluteFill, useCurrentFrame} from "remotion";
 import diagramGeometry from "../../shared/diagram.json";
-import {diagramMotionAt, s02MotionAt} from "./benchmark-motion";
+import {diagramCaptionAt, diagramMotionAt, s02MotionAt} from "./benchmark-motion";
 
 const C = {
   ink: "#101B26", slate: "#203746", ivory: "#F4EDE0", brass: "#DDA85E",
@@ -16,14 +16,7 @@ const smooth = (v: number) => {
 const windowOpacity = (frame: number, start: number, end: number, fade = 12) =>
   Math.min(smooth((frame - start) / fade), smooth((end - frame) / fade));
 
-const caption = (frame: number) => {
-  if (frame < 192) return "Vì sao chiếc thìa trông như bị gãy?";
-  if (frame < 432) return "Chiếc thìa vẫn thẳng.";
-  if (frame < 672) return "Ánh sáng đi qua mặt phân cách.";
-  if (frame < 1056) return "Nước → Không khí: tia sáng lệch xa pháp tuyến.";
-  if (frame < 1464) return "Ảnh biểu kiến nằm gần mặt nước hơn vị trí thật.";
-  return "Vật không cong. Đường đi của ánh sáng đổi hướng.";
-};
+
 
 const Nia: React.FC<{frame: number}> = ({frame}) => {
   const motion = s02MotionAt(frame);
@@ -134,7 +127,7 @@ export const OpticsSpoon: React.FC = () => {
   const frame = useCurrentFrame();
   const kitchen = Math.max(windowOpacity(frame, 0, 480), windowOpacity(frame, 1452, 1728));
   const diagram = windowOpacity(frame, 420, 1480);
-  const text = caption(frame);
+  const text = diagramCaptionAt(frame);
   return (
     <AbsoluteFill style={{backgroundColor: C.ink}}>
       <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">

@@ -250,16 +250,22 @@ export default makeScene2D(function* (view) {
   checkpoint("S04-complete");
 
   // S05 — 17 seconds: show the virtual construction before naming the apparent image.
-  yield* optics.backward().opacity(1, 0.8);
+  yield* all(
+    optics.backward().opacity(1, 0.8),
+    optics.diagramCaption().text("Kéo dài tia khúc xạ ngược về phía dưới nước.", 0.8)
+  );
   // Let the dashed extension read as a geometric construction before the point appears.
   yield* waitFor(1.0);
   // Name the real underwater source position before contrasting it with the apparent image.
-  yield* optics.trueLabel().opacity(1, 0.4);
+  yield* all(
+    optics.trueLabel().opacity(1, 0.4),
+    optics.diagramCaption().text("Đây là vị trí thật của thìa dưới nước.", 0.4)
+  );
   yield* waitFor(0.35);
   yield* all(
     optics.apparentPoint().opacity(1, 0.5),
     optics.apparentLabel().opacity(1, 0.6),
-    optics.diagramCaption().text("Mắt kéo dài tia khúc xạ về vị trí biểu kiến.", 0.6)
+    optics.diagramCaption().text("Ảnh biểu kiến nằm gần mặt nước hơn vị trí thật.", 0.6)
   );
   // The staged true/apparent comparison is funded by the final hold; S05 stays exactly 17 seconds.
   yield* waitFor(13.85);
