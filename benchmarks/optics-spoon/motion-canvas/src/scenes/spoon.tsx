@@ -150,6 +150,8 @@ export default makeScene2D(function* (view) {
     spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
     spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.85),
     nia.toArmPose("lift", 0.85),
+    nia.toBodyPose("lift", 0.85),
+    nia.headRig().position([512, -125], 0.85),
     nia.eyeLeft().position([-55, 0], 0.35),
     nia.eyeRight().position([25, 0], 0.35)
   );
@@ -158,7 +160,8 @@ export default makeScene2D(function* (view) {
   yield* all(
     spoon.rig().rotation(SPOON_INSPECT_ROTATION_DEGREES, 0.25),
     nia.toArmPose("inspect", 0.25),
-    nia.headRig().position([505, -118], 0.25),
+    nia.toBodyPose("inspect", 0.25),
+    nia.headRig().position([511, -118], 0.25),
     nia.headRig().rotation(3, 0.25)
   );
   // Re-dip: the physical prop stays rigid while the underwater portion appears offset.
@@ -171,6 +174,8 @@ export default makeScene2D(function* (view) {
     spoon.rig().position([...SPOON_REST_ORIGIN], 0.85),
     spoon.rig().rotation(0, 0.85),
     nia.toArmPose("rest", 0.85),
+    nia.toBodyPose("rest", 0.85),
+    nia.headRig().position([505, -118], 0.85),
     nia.eyeLeft().position([-48, -3], 0.5),
     nia.eyeRight().position([32, -3], 0.5)
   );
@@ -335,6 +340,8 @@ export default makeScene2D(function* (view) {
     spoon.rig().position([...SPOON_LIFT_ORIGIN], 0.85),
     spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.85),
     nia.toArmPose("lift", 0.85),
+    nia.toBodyPose("lift", 0.85),
+    nia.headRig().position([512, -125], 0.85),
     nia.eyeLeft().position([-55, 0], 0.35),
     nia.eyeRight().position([25, 0], 0.35),
     nia.expression().text("!", 0.25)
@@ -344,13 +351,15 @@ export default makeScene2D(function* (view) {
   yield* all(
     spoon.rig().rotation(SPOON_INSPECT_ROTATION_DEGREES, 0.25),
     nia.toArmPose("inspect", 0.25),
-    nia.headRig().position([505, -118], 0.25),
+    nia.toBodyPose("inspect", 0.25),
+    nia.headRig().position([511, -118], 0.25),
     nia.headRig().rotation(3, 0.25)
   );
   yield* all(
     spoon.rig().rotation(SPOON_LIFT_ROTATION_DEGREES, 0.25),
     nia.toArmPose("lift", 0.25),
-    nia.headRig().position([505, -105], 0.25),
+    nia.toBodyPose("lift", 0.25),
+    nia.headRig().position([512, -105], 0.25),
     nia.headRig().rotation(0, 0.25)
   );
   // Finish with a restrained push-in while the straight spoon remains lifted.

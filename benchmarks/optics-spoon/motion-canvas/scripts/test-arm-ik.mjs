@@ -32,27 +32,30 @@ const loadTypeScriptModule = async (fileName) => {
 
 const anchors = await loadTypeScriptModule("rig-anchors.ts");
 const { solveTwoBoneIK } = await loadTypeScriptModule("arm-ik.ts");
-const shoulder = [420, 95];
 const upperLength = 200;
 const forearmLength = 615;
 
 const cases = [
   {
     name: "rest",
+    shoulder: anchors.NIA_BODY_POSES.rest.shoulder,
     target: anchors.NIA_REST_GRIP_STAGE_POINT,
     expectedElbow: [258.5673095667, -23.0656023550]
   },
   {
     name: "lift",
+    shoulder: anchors.NIA_BODY_POSES.lift.shoulder,
     target: anchors.NIA_LIFT_GRIP_STAGE_POINT,
-    expectedElbow: [246.6900142725, -4.8180787591]
+    expectedElbow: [241.97850221, 28.64808058]
   },
   {
     name: "inspect",
+    shoulder: anchors.NIA_BODY_POSES.inspect.shoulder,
     target: anchors.NIA_LIFT_TURN_GRIP_STAGE_POINT,
-    expectedElbow: [249.1065484592, -8.9010501414]
+    expectedElbow: [246.31434197, 11.39185647]
   }
 ];
+const shoulder = cases[0].shoulder;
 
 const distance = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
 
@@ -96,7 +99,7 @@ const near = (actual, expected, tolerance, label) => {
 
 for (const pose of cases) {
   const elbow = solveTwoBoneIK(
-    shoulder,
+    pose.shoulder,
     pose.target,
     upperLength,
     forearmLength,
@@ -104,7 +107,7 @@ for (const pose of cases) {
   );
   near(elbow[0], pose.expectedElbow[0], 1e-6, `${pose.name} elbow.x`);
   near(elbow[1], pose.expectedElbow[1], 1e-6, `${pose.name} elbow.y`);
-  near(distance(shoulder, elbow), upperLength, 1e-6, `${pose.name} upper length`);
+  near(distance(pose.shoulder, elbow), upperLength, 1e-6, `${pose.name} upper length`);
   near(distance(elbow, pose.target), forearmLength, 1e-6, `${pose.name} forearm length`);
 }
 
@@ -132,9 +135,10 @@ for (const [fromPose, toPose] of [
 ]) {
   for (let sample = 0; sample <= 100; sample += 1) {
     const progress = easeInOutCubic(sample / 100);
+    const shoulderPoint = interpolate(fromPose.shoulder, toPose.shoulder, progress);
     const wrist = interpolate(fromPose.target, toPose.target, progress);
-    const solvedElbow = solveTwoBoneIK(shoulder, wrist, upperLength, forearmLength, 1);
-    near(distance(shoulder, solvedElbow), upperLength, 1e-6, "intermediate upper length");
+    const solvedElbow = solveTwoBoneIK(shoulderPoint, wrist, upperLength, forearmLength, 1);
+    near(distance(shoulderPoint, solvedElbow), upperLength, 1e-6, "intermediate upper length");
     near(distance(solvedElbow, wrist), forearmLength, 1e-6, "intermediate forearm length");
   }
 }

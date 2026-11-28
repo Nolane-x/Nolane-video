@@ -1,6 +1,7 @@
 import { Circle, Line, Node, Rect, Txt } from "@motion-canvas/2d";
 import { createRef, tween } from "@motion-canvas/core";
 import {
+  NIA_BODY_POSES,
   NIA_LIFT_GRIP_STAGE_POINT,
   NIA_LIFT_TURN_GRIP_STAGE_POINT,
   NIA_REST_GRIP_STAGE_POINT
@@ -21,10 +22,8 @@ export const NIA_ARM_BONE_LENGTHS = {
   forearm: 615
 } as const;
 
-const NIA_SHOULDER: StagePoint = [420, 95];
-
-const createArmPose = (wrist: StagePoint): NiaArmPose => ({
-  shoulder: NIA_SHOULDER,
+const createArmPose = (wrist: StagePoint, shoulder: StagePoint): NiaArmPose => ({
+  shoulder,
   elbow: solveTwoBoneIK(
     NIA_SHOULDER,
     wrist,
@@ -37,9 +36,9 @@ const createArmPose = (wrist: StagePoint): NiaArmPose => ({
 
 /** Wrist targets are authored; elbow positions are solved by the two-bone rig. */
 export const NIA_ARM_POSES: Record<NiaArmPoseName, NiaArmPose> = {
-  rest: createArmPose(NIA_REST_GRIP_STAGE_POINT),
-  lift: createArmPose(NIA_LIFT_GRIP_STAGE_POINT),
-  inspect: createArmPose(NIA_LIFT_TURN_GRIP_STAGE_POINT)
+  rest: createArmPose(NIA_REST_GRIP_STAGE_POINT, NIA_BODY_POSES.rest.shoulder),
+  lift: createArmPose(NIA_LIFT_GRIP_STAGE_POINT, NIA_BODY_POSES.lift.shoulder),
+  inspect: createArmPose(NIA_LIFT_TURN_GRIP_STAGE_POINT, NIA_BODY_POSES.inspect.shoulder)
 };
 
 const copyPoint = (point: StagePoint): [number, number] => [point[0], point[1]];
@@ -85,8 +84,12 @@ export const createNiaActor = () => {
   const elbow = createRef<Circle>();
   const wristJoint = createRef<Circle>();
   const restArm = NIA_ARM_POSES.rest;
+  const restBody = NIA_BODY_POSES.rest;
   let currentShoulder = copyPoint(restArm.shoulder);
   let currentWrist = copyPoint(restArm.wrist);
+  let currentTorsoPosition = copyPoint(restBody.torsoPosition);
+  let currentTorsoRotationDegrees = restBody.torsoRotationDegrees;
+  let currentNeckPosition = copyPoint(restBody.neckPosition);
 
   const view = (
     <>
@@ -247,6 +250,31 @@ export const createNiaActor = () => {
     });
   };
 
+
+  /** Move torso/neck and the matching arm shoulder as one counterbalance pose. */
+  const toBodyPose = (name: NiaArmPoseName, duration: number) => {
+    const pose = NIA_BODY_POSES[name];
+    const fromTorsoPosition = copyPoint(currentTorsoPosition);
+    const fromTorsoRotationDegrees = currentTorsoRotationDegrees;
+    const fromNeckPosition = copyPoint(currentNeckPosition);
+
+    return tween(duration, progress => {
+      const eased = easeInOutCubic(progress);
+      const torsoPosition = lerpPoint(fromTorsoPosition, pose.torsoPosition, eased);
+      const neckPosition = lerpPoint(fromNeckPosition, pose.neckPosition, eased);
+      const torsoRotationDegrees =
+        fromTorsoRotationDegrees
+        + (pose.torsoRotationDegrees - fromTorsoRotationDegrees) * eased;
+
+      torso().position(torsoPosition);
+      torso().rotation(torsoRotationDegrees);
+      neck().position(neckPosition);
+      currentTorsoPosition = torsoPosition;
+      currentTorsoRotationDegrees = torsoRotationDegrees;
+      currentNeckPosition = neckPosition;
+    });
+  };
+
   return {
     view,
     torso,
@@ -264,6 +292,7 @@ export const createNiaActor = () => {
     shoulderJoint,
     elbow,
     wristJoint,
-    toArmPose
+    toArmPose,
+    toBodyPose
   };
 };

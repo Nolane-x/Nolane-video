@@ -249,6 +249,11 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("upperArmOutline().points([shoulder, elbowPoint])", actor_source)
         self.assertIn("forearmOutline().points([elbowPoint, wrist])", actor_source)
         self.assertIn("wristJoint().position(wrist)", actor_source)
+        self.assertIn("const toBodyPose =", actor_source)
+        self.assertIn("torso().position(torsoPosition)", actor_source)
+        self.assertIn("torso().rotation(torsoRotationDegrees)", actor_source)
+        self.assertIn("neck().position(neckPosition)", actor_source)
+        self.assertIn("NIA_BODY_POSES", actor_source)
         scene_path = (
             Path(__file__).resolve().parents[1]
             / "benchmarks" / "optics-spoon" / "motion-canvas" / "src" / "scenes" / "spoon.tsx"
@@ -258,6 +263,30 @@ class BenchmarkContractTests(unittest.TestCase):
             with self.subTest(control=control):
                 self.assertIn(f"nia.{control}().opacity(", scene_source)
         self.assertIn("mouth,", actor_source)
+
+    def test_nia_counterbalance_pose_moves_body_and_ik_shoulder_together(self):
+        root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas" / "src"
+        anchor_source = (root / "actors" / "rig-anchors.ts").read_text(encoding="utf-8")
+        actor_source = (root / "actors" / "nia.tsx").read_text(encoding="utf-8")
+        scene_source = (root / "scenes" / "spoon.tsx").read_text(encoding="utf-8")
+
+        for pose in ("rest", "lift", "inspect"):
+            with self.subTest(pose=pose):
+                self.assertIn(f"{pose}: {{", anchor_source)
+                self.assertIn(f"NIA_BODY_POSES.{pose}.shoulder", actor_source)
+        self.assertIn("currentShoulder = copyPoint(restArm.shoulder)", actor_source)
+        self.assertIn("const fromShoulder = copyPoint(currentShoulder)", actor_source)
+        self.assertIn("const shoulder = lerpPoint(fromShoulder, pose.shoulder, eased)", actor_source)
+        self.assertIn("const elbowPoint = solveTwoBoneIK(", actor_source)
+
+        for pose, shot in (("lift", "S02"), ("inspect", "S02"), ("rest", "S02"),
+                           ("lift", "S06"), ("inspect", "S06"), ("lift", "S06")):
+            with self.subTest(pose=pose, shot=shot):
+                self.assertIn(f' nia.toBodyPose("{pose}", ', scene_source)
+
+        self.assertIn("torsoRotationDegrees: 2.5", anchor_source)
+        self.assertIn("torsoPosition: [512, 188]", anchor_source)
+        self.assertIn("shoulder: [431, 94]", anchor_source)
 
     def test_nia_grip_is_prop_attached_and_has_finger_controls(self):
         root = Path(__file__).resolve().parents[1] / "benchmarks" / "optics-spoon" / "motion-canvas" / "src"
@@ -484,6 +513,8 @@ class BenchmarkContractTests(unittest.TestCase):
 
         self.assertIn('import { solveTwoBoneIK } from "./arm-ik"', actor_source)
         self.assertIn("export const NIA_ARM_BONE_LENGTHS", actor_source)
+        self.assertIn("export const NIA_BODY_POSES", (root / "src" / "actors" / "rig-anchors.ts").read_text(encoding="utf-8"))
+        self.assertIn("toBodyPose", actor_source)
         self.assertIn("elbow: solveTwoBoneIK(", actor_source)
         self.assertIn("return tween(duration, progress =>", actor_source)
         self.assertIn("const elbowPoint = solveTwoBoneIK(", actor_source)

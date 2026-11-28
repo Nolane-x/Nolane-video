@@ -1,6 +1,28 @@
 export type StagePoint = readonly [number, number];
 
 /** Canonical stage and local-space anchors for Nia's spoon interaction rig. */
+/** Small, controlled counterbalance poses keep Nia's shoulder attached to her torso. */
+export const NIA_BODY_POSES = {
+  rest: {
+    torsoPosition: [505, 185] as StagePoint,
+    torsoRotationDegrees: 0,
+    neckPosition: [505, 32] as StagePoint,
+    shoulder: [420, 95] as StagePoint
+  },
+  lift: {
+    torsoPosition: [512, 188] as StagePoint,
+    torsoRotationDegrees: 2.5,
+    neckPosition: [512, 35] as StagePoint,
+    shoulder: [431, 94] as StagePoint
+  },
+  inspect: {
+    torsoPosition: [511, 187] as StagePoint,
+    torsoRotationDegrees: 1.5,
+    neckPosition: [511, 34] as StagePoint,
+    shoulder: [428, 95] as StagePoint
+  }
+} as const;
+
 export const SPOON_REST_ORIGIN: StagePoint = [-320, 80];
 /** A clear-out position that puts the full bowl above the waterline and right of the glass. */
 export const SPOON_LIFT_ORIGIN: StagePoint = [-280, -50];
