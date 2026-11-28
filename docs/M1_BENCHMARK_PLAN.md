@@ -97,6 +97,15 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest Nia hand articulation update — 2026-11-28
+
+- `motion-canvas/src/actors/grip-geometry.ts` derives one 11 px crease per finger, perpendicular to its first path segment and centred at 52%; it also derives a palm crease, thumb-base pad position and thumb-base crease from the active grip pose.
+- `nia-grip.tsx` animates the new refs with the same `rest`/`brace` pose generator. The visuals remain inside the spoon prop node. The scene wires their visibility at the kitchen-scene entrances.
+- Runtime test coverage checks crease perpendicularity/length/centre, palm-crease bounds, finite thumb-base geometry and distinct poses. Python contract tests now verify the shared constructor and generated controls rather than stale literal pose syntax.
+- Candidate [#146](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930631) passed all three engine jobs; contract [#40](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930644) passed 26 tests and benchmark validation.
+- Downloaded Motion Canvas candidate #146: H.264, 1920×1080 yuv420p, 24 fps, 72.000 s, exactly 1,728 frames, zero browser errors. MP4 SHA-256 `2b327e50fde101e306642fcf73d3ce02a3af6a9b041edd81d108f1b9b88e8ff2`.
+- Selected native frames at 8.8/9.5/10.5/11.5 s and grip-detail crops were inspected on the same byte-identical MP4 bitstream from #143/#146. The hand remains a simple vector construction with palm/thumb overlap; creative anatomy approval and continuous 24-fps viewing remain open.
+
 ## Latest Motion Canvas arm articulation update — 2026-11-27
 
 - `motion-canvas/src/actors/nia.tsx` now draws dark contour strokes behind the upper arm and forearm plus shoulder, elbow and wrist joint circles.
