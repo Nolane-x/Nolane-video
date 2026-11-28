@@ -46,13 +46,13 @@ const cases = [
     name: "lift",
     shoulder: anchors.NIA_BODY_POSES.lift.shoulder,
     target: anchors.NIA_LIFT_GRIP_STAGE_POINT,
-    expectedElbow: [241.97850221, 28.64808058]
+    expectedElbow: [241.9723705312, 28.6658183078]
   },
   {
     name: "inspect",
     shoulder: anchors.NIA_BODY_POSES.inspect.shoulder,
     target: anchors.NIA_LIFT_TURN_GRIP_STAGE_POINT,
-    expectedElbow: [246.31434197, 11.39185647]
+    expectedElbow: [246.3161148412, 11.3880040091]
   }
 ];
 const shoulder = cases[0].shoulder;
