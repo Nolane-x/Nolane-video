@@ -254,6 +254,9 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("torso().rotation(torsoRotationDegrees)", actor_source)
         self.assertIn("neck().position(neckPosition)", actor_source)
         self.assertIn("NIA_BODY_POSES", actor_source)
+        self.assertNotIn("NIA_SHOULDER", actor_source)
+        self.assertIn("elbow: solveTwoBoneIK(\n    shoulder,", actor_source)
+        self.assertIn("let currentTorsoRotationDegrees: number", actor_source)
         scene_path = (
             Path(__file__).resolve().parents[1]
             / "benchmarks" / "optics-spoon" / "motion-canvas" / "src" / "scenes" / "spoon.tsx"
