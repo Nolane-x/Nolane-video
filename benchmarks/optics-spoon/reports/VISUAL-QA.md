@@ -1,5 +1,6 @@
 **Review date:** 2026-11-28  
-**Latest reviewed candidate:** [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408); all three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. Native hand crops at 10.55/11.2/12.4 s were inspected and compared with #165.  
+**Latest technical candidate:** [#171](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144320) passed all three engine CI jobs; contract [#52](https://github.com/Nolane-x/Nolane-video/actions/runs/46136144238) passed 30 tests and benchmark validation. Candidate #171 has not yet been visually inspected.  
+**Latest visually reviewed candidate:** [#167](https://github.com/Nolane-x/Nolane-video/actions/runs/46134635408); all three engine jobs passed. Motion Canvas artifact was downloaded and ffprobed: H.264 1920×1080 yuv420p, 24 fps, 72 s, 1,728 frames, zero browser errors. Native hand crops at 10.55/11.2/12.4 s were inspected and compared with #165.  
 **Scope:** candidate #167 contact sheet, selected S02 hand frames and render report. This remains sampled QA, **not** continuous 24-fps review or final creative approval; audio review remains open.
 
 ## Candidate #167 — distinct finger-wrap profiles
