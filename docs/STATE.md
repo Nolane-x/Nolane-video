@@ -1,3 +1,37 @@
+## -12. Latest verified state — 2026-11-28 (candidate #149; thumb-base silhouette refinement verified)
+
+This snapshot supersedes candidate #146 below. M1 remains in progress; candidate #149 is a green technical render plus selected-frame/crop inspection, not final creative approval.
+
+- **Repository:** `Nolane-x/Nolane-video` (Nolane Explainer Engine / NEE), not the separate `Nolane-x/video` workspace.
+- **Working branch:** `m1/optics-benchmark`; first hand-detail implementation commit [`0453b9e`](https://github.com/Nolane-x/Nolane-video/commit/0453b9e218fc47046c4237b19e5ed6951df40622), then thumb-base blend fix [`dabab59`](https://github.com/Nolane-x/Nolane-video/commit/dabab598c18fdfb95bd1093f6141336de1684e67). **Main** remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; no merge to main.
+- **Candidate workflow:** [#149](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630293) completed **success** for Remotion, Motion Canvas and Manim.
+- **Contract validation:** [#41](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630375) completed **success** with 26 Python tests and the benchmark validator. Motion Canvas IK/grip-geometry runtime tests, build/typecheck, full 1,728-frame render and ffprobe passed.
+
+### Candidate #149 outputs (downloaded and checked)
+
+- **Remotion 4.0.547:** H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`. Artifact id `15253047614`; ZIP digest `sha256:f7c665aac7b95af5b6288941fae925b7aab475adcca72fb70bcfc69a64fe95f5`.
+- **Motion Canvas 3.17.2:** official editor rendered 1,728/1,728 frames with zero browser errors; H.264, 1920×1080, yuv420p, 24/1 fps, 72.000 s. MP4 SHA-256 `e78426c403b25c06cdabaa3310f5242ddb2b9977dec637025cef329e6d827ce8`. Artifact id `15252869337`; ZIP digest `sha256:819eb82fcd7cc5935f4818f9bcfddd6f8ae5bb2927db9b555dbfdb390a9261cb`.
+- **Manim CE specialist segment:** H.264, 1920×1080, yuv420p, nominal 24 fps, 279 frames, 11.624674 s; average rate `857088/35711` (~24.00067 fps). MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`. Artifact id `15252774321`; ZIP digest `sha256:baa71ca7068ee9caa7daaf29b9db43834c7535321113537ccb8db3c4aebe1f5c`.
+- Full-film MP4s remain video-only/silent; narration, SFX and music have not been supplied.
+
+### Nia hand silhouette refinement
+
+- Previous slice: prop-local flexion creases for index/middle/ring/pinky, palm crease, and a thumb-base pad/crease generated from the active grip pose. The details remain animated with the existing `rest`/`brace` poses.
+- Follow-up commit `dabab59`: thumb-base pad retains the skin fill but uses matching skin-coloured stroke, 1 px line width and −12° rotation to blend into the palm. The thumb's own dark contour remains. The spoon-handle axis, grip points, arm IK, prop transform and shot timing are unchanged.
+- Contract #41 explicitly checks the thumb-base blending style; 26 Python tests and benchmark validator pass. Candidate #149 additionally passes the actual Motion Canvas grip runtime suite and full 72 s render.
+- Candidate #149 MP4 was downloaded and ffprobed. Contact sheet and native 1920×1080 frames at 8.8/9.5/10.5/11.5 seconds plus magnified grip crops were reviewed. Compared with #146, the thumb-base no longer creates a second black ring; the grip reads more continuously. At whole-frame scale the hand is still small and highly stylized, with limited volume/depth and no approved organic anatomy.
+
+### Still incomplete / next task
+
+- Watch both 72-second films continuously at 24 fps and create a timestamped shot/frame defect log.
+- Improve palm volume, finger layering/depth/occlusion, thumb webbing, wrist roll, shoulder/torso counterbalance, weight transfer, gaze and follow-through from the full-speed review.
+- Review ray-diagram reveal pacing/holds/camera and reduced/mobile typography.
+- Obtain approved Vietnamese VO, synchronize captions, add SFX/music and run audio QA.
+- Measure authoring/preview/render/revision cost on equivalent runners; complete H2 source/license provenance before reuse from `Nolane-x/video`.
+- **Do not mark M1 complete or begin a broad Film IR/M2 build yet.** Motion Canvas stays provisional first 2D adapter; Remotion full-film baseline/reference; Manim specialist.
+
+---
+
 ## -11. Latest verified state — 2026-11-28 (candidate #146; Nia hand articulation slice verified)
 
 This snapshot supersedes the candidate #140 handoff below. M1 remains in progress; candidate #146 is a green technical render plus selected-frame prototype inspection, not final creative approval.

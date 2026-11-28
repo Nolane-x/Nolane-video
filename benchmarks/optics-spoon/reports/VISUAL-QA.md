@@ -1,6 +1,22 @@
 # M1 Visual QA — The Spoon That Bends
 
 **Review date:** 2026-11-28  
+**Latest reviewed candidate run:** [#149](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630293). All three engine jobs passed. Candidate artifacts were downloaded; all MP4s were ffprobed. Motion Canvas rendered 1,728/1,728 frames with zero browser errors. Native frames at 8.8/9.5/10.5/11.5 s and enlarged grip crops were inspected.  
+**Review scope:** candidate #149 contact sheet, full-frame samples and thumb-base/finger crops, candidate #149 ffprobe metadata, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134, #137, #140, #143 and #146. This remains sampled prototype QA, **not** a continuous 24-fps review or final creative approval; narration and audio review remain open.
+
+## Candidate #149 — thumb-base silhouette blend
+
+- Candidate [#149](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630293), source commit `dabab598c18fdfb95bd1093f6141336de1684e67), passed Remotion, Motion Canvas and Manim. Contract [#41](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630375) passed 26 Python tests and benchmark validation.
+- The thenar/thumb-base pad still uses the same geometry and pose binding, but its fill and stroke now share the skin colour, line width is reduced to 1 px and its local rotation matches the palm at −12°. This intentionally removes the second heavy dark ring; the thumb's own dark contour remains.
+- No finger points, handle axis, prop anchor, actor IK, spoon geometry or shot timings changed. Motion Canvas passed IK/grip runtime tests, TypeScript build, official 1,728-frame render and MP4 probe.
+- Candidate #149 Motion Canvas: H.264 1920×1080 yuv420p, 24/1 fps, 72.000 s, 1,728 frames, zero browser errors. MP4 SHA-256 `e78426c403b25c06cdabaa3310f5242ddb2b9977dec637025cef329e6d827ce8`; artifact id `15252869337`; ZIP digest `sha256:819eb82fcd7cc5935f4818f9bcfddd6f8ae5bb2927db9b555dbfdb390a9261cb`.
+- Native samples and enlarged crops show the thumb-base mass blending into the palm instead of forming a second dark-outlined circle. The full-frame hand remains small and stylized; finger depth/occlusion, palm compression, organic volume and acting are not approved.
+- Remotion #149 remains H.264 1920×1080 yuv420p, 24 fps, 72.000 s, 1,728 frames; SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`. Manim specialist segment remains 279 frames/11.624674 s; SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`.
+- Both full-film candidates remain video-only/silent. No approved VO, synchronized captions, SFX or music are present.
+
+**Assessment:** the silhouette is cleaner in inspected frames, but this is a small vector-style correction. It does not pass organic hand anatomy or close M1. Continuous 24-fps playback, body weight/acting, diagram pacing, mobile text and audio remain open.
+
+**Review date:** 2026-11-28  
 **Latest reviewed candidate run:** [#146](https://github.com/Nolane-x/Nolane-video/actions/runs/46118930631). All three engine jobs passed. Candidate artifacts were downloaded; both full-film streams were ffprobed. Motion Canvas rendered 1,728/1,728 frames with zero browser errors. Its #146 MP4 is SHA-identical to #143, and selected native frames at 8.8/9.5/10.5/11.5 s plus zoomed grip crops were inspected from that exact bitstream.  
 **Review scope:** candidate #146 contact sheets and native grip/arm frames, candidate #146 ffprobe metadata, plus earlier runs #83, #89, #94, #100, #115, #116, #121, #122, #125, #126, #133, #134, #137, #140 and #143. This is sampled prototype QA, **not** a continuous 24-fps review or final creative approval; narration and audio review remain open.
 

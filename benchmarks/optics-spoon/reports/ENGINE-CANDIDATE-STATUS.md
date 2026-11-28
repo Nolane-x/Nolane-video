@@ -1,3 +1,15 @@
+## Latest all-green thumb-base silhouette candidate — 2026-11-28 (candidate #149)
+
+This section supersedes the candidate #146 technical snapshot below. It confirms the thumb-base contour fix, contract/runtime tests and technical renders; it is not creative approval.
+
+- Thumb-base style fix: commit `dabab598c18fdfb95bd1093f6141336de1684e67`; hand articulation base commit `0453b9e218fc47046c4237b19e5ed6951df40622`.
+- Candidate [#149](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630293): Remotion, Motion Canvas and Manim all **success**. Contract [#41](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630375): 26 tests and benchmark validation **success**.
+- The thumb-base pad now blends into the palm: same skin fill/stroke, 1 px contour and −12° rotation. The thumb keeps its dark boundary; grip geometry, prop anchors, two-bone IK and shot timing are unchanged.
+- Remotion: H.264, 1920×1080, 24 fps, 72.000 s, 1,728 frames. MP4 SHA-256 `5fac97a10174918d259cfe525495113e0b51c2018ad75ef27b5f62bcb9f310b2`; artifact id `15253047614`; ZIP digest `sha256:f7c665aac7b95af5b6288941fae925b7aab475adcca72fb70bcfc69a64fe95f5`.
+- Motion Canvas: official editor rendered 1,728/1,728, zero browser errors; H.264, 1920×1080, 24 fps, 72.000 s. MP4 SHA-256 `e78426c403b25c06cdabaa3310f5242ddb2b9977dec637025cef329e6d827ce8`; artifact id `15252869337`; ZIP digest `sha256:819eb82fcd7cc5935f4818f9bcfddd6f8ae5bb2927db9b555dbfdb390a9261cb`.
+- Manim specialist segment: H.264, 1920×1080, 279 frames, 11.624674 s; MP4 SHA-256 `bb2c70607f8d0e89b9bd2c09cfc9f237d4871244629c6fd541cb6015208177e7`; artifact id `15252774321`; ZIP digest `sha256:baa71ca7068ee9caa7daaf29b9db43834c7535321113537ccb8db3c4aebe1f5c`.
+- Both full-film MP4s remain video-only. Selected frame crops confirm cleaner thumb-base/palm silhouette but do not prove organic depth, anatomy or acting. M1 still needs continuous 24-fps review, full-body acting, diagram/mobile QA, approved audio, comparable revision-cost metrics and H2 provenance.
+
 ## Latest all-green hand articulation candidate — 2026-11-28 (candidate #146)
 
 This section supersedes the candidate #140 technical snapshot below. It confirms the hand-detail code, contract/runtime tests and technical renders; it is not creative approval.

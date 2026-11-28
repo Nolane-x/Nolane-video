@@ -2,7 +2,7 @@
 
 **Version:** 0.1  
 **Date:** 2026-11-26  
-**Status:** Candidate #146 and contract #40 verify technical renders and the Nia prop-local hand articulation slice; full-speed creative, anatomy, audio and performance acceptance remain open.
+**Status:** Candidate #149 and contract #41 verify the Nia thumb-base silhouette refinement and technical renders; full-speed creative, anatomy, audio and performance acceptance remain open.
 
 ## 1. Purpose
 

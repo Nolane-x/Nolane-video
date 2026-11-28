@@ -97,6 +97,14 @@
 - [ ] Obtain approved Vietnamese narration, align transcript captions to speech, add SFX/music and pass perceptual audio review, or explicitly revise the benchmark scope to visual-only.
 - [ ] Run reduced/mobile-size label review and a repeated render/revision-time study.
 
+## Latest thumb-base silhouette refinement — 2026-11-28
+
+- Visual QA of the #146 native grip crop showed a dark-outlined thumb-base pad overlapping the thumb circle, reading as two separate round masses.
+- In `nia-grip.tsx`, the thumb-base pad now uses skin colour for both fill and stroke, a 1 px line width and a −12° local rotation matching the palm. The thumb's own dark outline is retained.
+- Added contract assertions to ensure the thenar pad remains visually blended. Contract [#41](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630375) passes 26 tests and benchmark validation.
+- Candidate [#149](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630293) passes all three engines. Motion Canvas renders exactly 1,728 frames at 1920×1080/24 fps/72 seconds with zero browser errors; MP4 SHA-256 `e78426c403b25c06cdabaa3310f5242ddb2b9977dec637025cef329e6d827ce8`.
+- Contact sheet and selected native frames at 8.8/9.5/10.5/11.5 s plus enlarged crops were inspected. The extra dark ring is removed; the hand remains stylized and small in the full shot, so depth/volume and creative anatomy approval remain open.
+
 ## Latest Nia hand articulation update — 2026-11-28
 
 - `motion-canvas/src/actors/grip-geometry.ts` derives one 11 px crease per finger, perpendicular to its first path segment and centred at 52%; it also derives a palm crease, thumb-base pad position and thumb-base crease from the active grip pose.

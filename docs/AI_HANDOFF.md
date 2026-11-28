@@ -1,3 +1,36 @@
+## Latest continuation snapshot — 2026-11-28 (candidate #149; thumb-base blend fix verified)
+
+This is the current starting point. The thumb-base silhouette correction is implemented, passed contract validation and rendered through all three engines. M1 creative acceptance remains open.
+
+### GitHub state
+- Repository: `Nolane-x/Nolane-video` (NEE), **not** `Nolane-x/video`.
+- Branch: `m1/optics-benchmark`; hand-detail implementation [`0453b9e`](https://github.com/Nolane-x/Nolane-video/commit/0453b9e218fc47046c4237b19e5ed6951df40622), thumb-base blend fix [`dabab59`](https://github.com/Nolane-x/Nolane-video/commit/dabab598c18fdfb95bd1093f6141336de1684e67).
+- Main remains `19b53bd0bf785a8d58a91031678be717a8ae11d4`; do not merge/change main.
+- Candidate [#149](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630293): Remotion, Motion Canvas and Manim passed.
+- Contract [#41](https://github.com/Nolane-x/Nolane-video/actions/runs/46119630375): 26 Python tests and benchmark validator passed.
+
+### Hand silhouette changes
+- The grip still has prop-local four-finger articulation creases, palm crease and thumb-base crease/pad, animated from `rest`/`brace`.
+- The thumb-base pad now uses the skin colour for both fill and stroke, 1 px line width and −12° rotation. This removes its heavy dark circular outline so the pad blends into the palm; the thumb itself keeps its darker contour.
+- The handle-axis geometry, finger paths, grip anchor, two-bone arm IK and shot schedule were not changed.
+- Contract #41 verifies the visual styling. Candidate #149 passed grip/IK runtime tests, build/typecheck, 1,728-frame Motion Canvas render, MP4 probe, Remotion parity/render and the Manim specialist render.
+- Candidate #149 Motion Canvas MP4 SHA-256: `e78426c403b25c06cdabaa3310f5242ddb2b9977dec637025cef329e6d827ce8`; H.264 1920×1080, 24 fps, 72 s, 1,728 frames, zero browser errors.
+
+### Visual review and limitations
+- Downloaded #149 outputs and checked metadata. Contact sheet and selected native frames at 8.8/9.5/10.5/11.5 s plus zoomed grip crops were examined.
+- The new crop removes the extra ring around the thumb base and gives a cleaner continuous palm silhouette. Whole-frame hand size remains small; finger layering, depth/occlusion, palm compression and organic shape still need work.
+- No continuous 24 fps playback was done. The current MP4s remain silent.
+
+### Exact next steps
+1. Review both full films continuously at 24 fps; log timecode, shot, issue, severity and proposed fix.
+2. Use that log to improve hand depth/occlusion, palm compression, thumb webbing, wrist roll, upper-body counterbalance, weight transfer, gaze and follow-through.
+3. Assess diagram holds/camera/framing and reduced/mobile text.
+4. Obtain approved Vietnamese narration, synchronize captions, add SFX/music and run audio QA.
+5. Measure authoring/preview/render/revision time across equivalent runs and complete H2 provenance/license audit before reusing assets/code from separate `Nolane-x/video`.
+6. Keep Motion Canvas provisional, Remotion baseline/reference and Manim specialist. Do not begin broad Film IR/M2 or claim M1 complete while acceptance gates remain open.
+
+---
+
 ## Latest continuation snapshot — 2026-11-28 (candidate #146; Nia hand articulation update)
 
 This is the current starting point. A prop-local hand-detail slice has been implemented and all current contract/candidate gates are green. M1 creative acceptance remains open.
