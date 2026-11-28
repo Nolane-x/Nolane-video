@@ -120,6 +120,34 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertIn("optics.backward().opacity(1, 0.8)", scene_source)
         self.assertNotIn("<Line ref={backward}", scene_source)
 
+    def test_motion_canvas_reveals_virtual_extension_before_apparent_point(self):
+        scene_path = (
+            Path(__file__).resolve().parents[1]
+            / "benchmarks"
+            / "optics-spoon"
+            / "motion-canvas"
+            / "src"
+            / "scenes"
+            / "spoon.tsx"
+        )
+        scene_source = scene_path.read_text(encoding="utf-8")
+        s05 = scene_source.split("// S05 —", 1)[1].split("// S06 —", 1)[0]
+
+        backward = s05.index("optics.backward().opacity(1, 0.8)")
+        construction_hold = s05.index("yield* waitFor(1.0)")
+        apparent_point = s05.index("optics.apparentPoint().opacity(1, 0.5)")
+        self.assertLess(backward, construction_hold)
+        self.assertLess(construction_hold, apparent_point)
+        self.assertIn("optics.trueLabel().opacity(1, 0.6)", s05)
+        self.assertIn("optics.apparentLabel().opacity(1, 0.6)", s05)
+        self.assertIn(
+            'optics.diagramCaption().text("Mắt kéo dài tia khúc xạ về vị trí biểu kiến.", 0.6)',
+            s05,
+        )
+        self.assertIn("yield* waitFor(14.6)", s05)
+        self.assertAlmostEqual(0.8 + 1.0 + 0.6 + 14.6, 17.0, delta=1e-9)
+        self.assertIn('checkpoint("S05-complete")', s05)
+
     def test_motion_canvas_s06_lifts_and_inspects_the_straight_spoon(self):
         scene_path = (
             Path(__file__).resolve().parents[1]
